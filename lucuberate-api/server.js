@@ -16,5 +16,6 @@ app.use(cors(corsOptions));
 
 app.use("/api/v1/cubes", routes.cubes);
 app.use("/api/v1/users", routes.users);
+app.use("/api", routes.auth);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
