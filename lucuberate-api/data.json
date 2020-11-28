@@ -1,0 +1,42 @@
+{
+  "cubes": [
+    {
+      "question": "What is a closure in JavaScript?",
+      "answer": "A closure is an inner function that has access to the variables in the outer (enclosing) function’s scope chain. The closure has access to variables in three scopes; specifically: (1) variable in its own scope, (2) variables in the enclosing function’s scope, and (3) global variables.",
+      "hint": "Think of a closure as a function that carries a backpack with it.",
+      "visual_aid": "https://miro.medium.com/max/620/0*n6pke36dvxSHV7RW.png",
+      "link": "https://www.debuggr.io/js-closure-in-depth/",
+      "link_alias": "Closure in depth",
+      "notes": "When a function gets created and passed around or returned from another function, it carries a backpack with it. And in the backpack are all the variables that were in scope when the function was declared.",
+      "user": "1"
+    },
+    {
+      "question": "What is the difference between 'null' and 'undefined' in JavaScript?",
+      "answer": "From the definition, null is an intentional absence of a value. While undefined is a default value for a variable with no value assigned.Javascript defines null as an empty object, hence if you do typeof null it will show 'object'. While undefined is a primitive value. The type of undefined will be 'undefined' itself.",
+      "hint": "Both are falsey values, but have different types.",
+      "visual_aid": "https://res.cloudinary.com/practicaldev/image/fetch/s--1MftApyk--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/uq73osi7sqq8za8rbaw1.jpg",
+      "link": "https://dev.to/pandurijal/difference-between-null-and-undefined-in-javascript-with-notes-3o34",
+      "link_alias": "Differences Between Null and Undefined",
+      "notes": "",
+      "user": "1"
+    }
+  ],
+
+  "users": [
+    {
+      "username": "khermalik",
+      "email": "khermalik@gmail.com",
+      "password": "1qaz2wsx"
+    },
+    {
+      "username": "jenny",
+      "email": "jhermalik@gmail.com",
+      "password": "3edc4rfv"
+    },
+    {
+      "username": "maureen",
+      "email": "mhermalik@gmail.com",
+      "password": "6yhn7ujm"
+    }
+  ]
+}
