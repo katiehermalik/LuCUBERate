@@ -1,3 +1,4 @@
 module.exports = {
-  cubes: require("./cubes"),
+  cubes: require("./cubeRoutes"),
+  users: require("./userRoutes"),
 };
