@@ -1,7 +1,7 @@
 const User = require('../models/User');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const createJWT = require("../utils/auth");
+const bcrypt = require('bcryptjs');
+
+//------------------------------------------------- Sign Up
 
 const signup = (req, res, next) => {
   let { username, email, password, password_confirmation } = req.body;
@@ -10,25 +10,24 @@ const signup = (req, res, next) => {
       if(foundUser) {
         return res.json({ Error: 'Email already exists' });
       } else {
+        bcrypt.hash(password, 10, (err, hash) => {
+          if (err) throw err;
           const user = new User({
             username: username,
             email: email,
-            password: password,
+            password: hash,
           });
-          bcrypt.hash(password, 10, (err, hash) => {
-            if (err) throw err;
-            user.password = hash;
-            user.save()
-            .then((response) => {
-              res.json({
-                success: true,
-                result: response
-              })
+          user.save()
+          .then((response) => {
+            res.json({
+              success: true,
+              result: response
             })
-            .catch((err) => {
-              res.json({ Error: 'Could not save info' });
-            });
+          })
+          .catch((err) => {
+            res.json({ Error: 'Could not save info' });
           });
+        });
       };
     })
     .catch(err =>{
@@ -36,29 +35,23 @@ const signup = (req, res, next) => {
     });
 };
 
+// ---------------------------------------------- Login
 
 const login = (req, res) => {
-  let { email, password } = req.body;
-  User.findOne({ email: email }).then(user => {
+  User.findOne({ email: req.body.email }).then(user => {
     if (!user) {
       return res.json({ Error: 'User not found' });
     } else {
-        bcrypt.compare(password, user.password).then(isMatch => {
+        bcrypt.compare(req.body.password, user.password).then(isMatch => {
           if (!isMatch) {
             return res.json({ Error: 'Passwords do not match' });
           } else {
-            let access_token = createJWT(user.email, user._id);
-            jwt.verify(access_token, process.env.TOKEN_SECRET, (err, decoded) => {
-              if (err) {
-                res.json({ Error: err });
-              }
-              if (decoded) {
-                return res.json({
-                  success: true,
-                  token: access_token,
-                  message: user
-                });
-              }
+            req.session.isLoggedIn = true;
+            req.session.currentUser = user._id;
+            return res.json({
+              success: true,
+              user: user._id,
+              message: user
             });
           }
         }).catch(err => {
@@ -70,7 +63,21 @@ const login = (req, res) => {
     });
 }
 
+
+
+const logout = (req, res) => {
+  if (req.session.currentUser) {
+    req.session.destroy((err) => {
+      if (err) return console.log('Error destroying session');
+      console.log('SESSION DESTROYED');
+      res.redirect('/');
+    });
+  }
+}
+
+
 module.exports = {
   signup,
-  login
+  login,
+  logout
 }
