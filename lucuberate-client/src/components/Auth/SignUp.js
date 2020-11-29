@@ -39,7 +39,10 @@ class SignUp extends React.Component {
   render() {
     return(
       <>
-        
+        <div class="text-center">
+          <a href="!#" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">
+          Sign Up</a>
+        </div>
         <div 
         className="modal fade" 
         id="modalRegisterForm" 

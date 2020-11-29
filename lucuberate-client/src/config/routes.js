@@ -1,11 +1,11 @@
 import { Switch, Route } from 'react-router-dom';
 import Landing from '../pages/Landing/Landing';
-import Home from '../pages/Home/Home';
+import Dashboard from '../pages/Dashboard/Dashboard';
 
 export default (
   <Switch>
     <Route exact path='/' component={ Landing }/>
-    <Route path='/:username' component={ Home }/>
+    <Route path='/dashboard' component={ Dashboard }/>
     {/* <Route component={ 404 }/> */}
   </Switch>
 )
