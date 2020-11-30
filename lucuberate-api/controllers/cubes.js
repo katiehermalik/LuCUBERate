@@ -1,7 +1,7 @@
 const db = require("../models");
 
 const index = (req, res) => {
-  db.Cube.find({user: 1})
+  db.Cube.find({})
     .then((foundCubes) => {
       res.json({ cubes: foundCubes});
     })
