@@ -7,7 +7,13 @@ function Routes(props) {
   <Switch>
     <Route exact path='/' component={ Landing }/>
     {props.currentUser &&
-    <Route path='/dashboard' component={ Dashboard }/>
+    <>
+      <Route exact path='/dashboard' component={ Dashboard }/>
+      <Route exact path='/dashboard/new' component={ Dashboard }/>
+      <Route exact path='/dashboard/select' component={ Dashboard }/>
+      <Route path='/dashboard/:id/edit' component={ Dashboard }/>
+      <Route path='/dashboard/:id' component={ Dashboard }/>
+    </>
     }
   </Switch>
   )
