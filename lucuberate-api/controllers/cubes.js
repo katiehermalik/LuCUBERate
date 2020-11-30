@@ -22,6 +22,7 @@ const show = (req, res) => {
   });
 };
 
+// Creates New Cube and saves cube Id to current user
 const create = (req, res) => {
   db.Cube.create(req.body.cube)
   .then((savedCube) => {
