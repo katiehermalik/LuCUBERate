@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  cubes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Cube'
+  }]
 }, {timestamps: true});
 
 const User = mongoose.model('User', userSchema);

@@ -24,7 +24,7 @@ class CubeNew extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('called form submit')
+    console.log('called form submit');
     // NOTE: this.state is only properties for new cube
     // TODO - change push location
     CubeModel.create(this.state)

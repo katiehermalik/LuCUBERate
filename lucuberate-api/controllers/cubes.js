@@ -23,13 +23,28 @@ const show = (req, res) => {
 };
 
 const create = (req, res) => {
-  db.Cube.create(req.body)
+  db.Cube.create(req.body.cube)
   .then((savedCube) => {
-    res.json({ cube: savedCube });
+    db.User.findById(req.body.user.user_Id)
+    .then((foundUser) => {
+      foundUser.cubes.push(savedCube._id);
+      foundUser.save()
+      .then((savedUser) => {
+        res.json({ cube: savedCube })
+      })
+      .catch((err) => {
+        console.log('Unable to save cube to user in cubes.create:', err);
+        res.json({ Error: 'Unable to save cube to user'});
+      })
+    })
+    .catch((err) => {
+      console.log('Unable to find User in cubes.create:', err);
+      res.json({ Error: 'Unable to find User'});
+    })
   })
   .catch((err) => {
-    console.log('Error in cubes.create:', err);
-    res.json({ Error: 'Unable to get data'});
+    console.log('Unable to save cube in cubes.create:', err);
+    res.json({ Error: 'Unable to save cube'});
   });
 };
 
