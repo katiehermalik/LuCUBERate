@@ -25,12 +25,12 @@ class SignUp extends React.Component {
 
   handleSubmit = (event) => {
     console.log("form submitted");
-    event.preventDefault();
+    // event.preventDefault();
     console.log(this.state)
     if (this.state.password === this.state.password_confirmation) {
       UserModel.create(this.state)
         .then((data) => {
-          this.props.history.push('/:username');
+          this.props.history.push('/');
           console.log("data", data)
         });
     } 
@@ -40,7 +40,7 @@ class SignUp extends React.Component {
     return(
       <>
         <div class="text-center">
-          <a href="!#" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">
+          <a href="!#" class="nav-item nav-link" data-toggle="modal" data-target="#modalRegisterForm">
           Sign Up</a>
         </div>
         <div 

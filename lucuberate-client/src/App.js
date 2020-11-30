@@ -1,14 +1,37 @@
-import routes from './config/routes';
+import React from 'react'
+import Routes from './config/routes';
 import Navbar from './components/Navbar';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <Navbar />
-      { routes }
-    </div>
-  );
+class App extends React.Component {
+  state = {}
+
+  login = (data) => {
+    this.setState(data)
+  }
+  
+  logout = (data) => {
+    this.setState(data)
+  }
+
+  componentDidMount() {
+    console.log(localStorage)
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      console.log(foundUser)
+      this.setState(foundUser)
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Navbar login={this.login} logout={this.logout} user={this.state.currentUser}/>
+        <Routes user={this.state.currentUser}/>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default App ;

@@ -11,19 +11,23 @@ class Logout extends React.Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
-    UserModel.logout({user: this.state})
-      .then((data) => {
-        this.props.history.push('/');
-        console.log("data", data)
-      });
+    console.log('logout clicked')
+    localStorage.clear();
+    this.props.logout({});
+    this.props.history.push('/');
+    // TO DO - logout not working - not getting rid of cookie!!
+    // UserModel.logout({user: this.state})
+    //   .then((data) => {
+        // console.log("data", data)
+    // });
   }
+
 
   render() {
     return(
       <>     
         <form onSubmit={this.handleSubmit}>
-          <button type="submit" className="btn btn-default btn-rounded mb-4" onClick={this.handleClick}>Logout</button>
+          <button type="submit" id="logout-btn" className="nav-item nav-link">Logout</button>
         </form>
       </>
     )
