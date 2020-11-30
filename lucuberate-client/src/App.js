@@ -1,5 +1,5 @@
 import React from 'react'
-import Routes from './config/routes';
+import routes from './config/routes';
 import Navbar from './components/Navbar';
 import './App.css';
 
@@ -28,7 +28,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar login={this.login} logout={this.logout} user={this.state.currentUser}/>
-        <Routes user={this.state.currentUser}/>
+        { routes }
       </div>
     );
   }
