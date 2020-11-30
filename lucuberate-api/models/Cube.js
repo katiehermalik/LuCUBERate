@@ -23,10 +23,10 @@ const cubeSchema = new mongoose.Schema({
   },
   link_alias: {
     type: String,
-    required: [
-      () => this.link !== null,
-      'Alias is required if link is specified.'
-    ]
+    // required: [
+    //   () => this.link !== null,
+    //   'Alias is required if link is specified.'
+    // ]
   },
   notes: {
     type: String,
