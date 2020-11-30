@@ -5,10 +5,7 @@ import '../../pages/Landing/Landing.css';
 
 class Logout extends React.Component {
   
-  state = {
-    email: "",
-    password: "",
-  }
+  state = {}
 
   handleSubmit = (event) => {
     console.log('logout clicked')
@@ -16,9 +13,10 @@ class Logout extends React.Component {
     this.props.logout({});
     this.props.history.push('/');
     // TO DO - logout not working - not getting rid of cookie!!
+    // console.log(this.state)
     // UserModel.logout({user: this.state})
     //   .then((data) => {
-        // console.log("data", data)
+    //     console.log("data", data)
     // });
   }
 

@@ -6,6 +6,6 @@ const ctrl = require('../controllers');
 
 router.post('/signup', ctrl.auth.signup);
 router.post('/login', ctrl.auth.login);
-router.delete('/login', ctrl.auth.logout);
+router.delete('/logout', ctrl.auth.logout);
 
 module.exports = router;

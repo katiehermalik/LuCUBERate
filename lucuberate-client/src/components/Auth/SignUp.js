@@ -25,7 +25,7 @@ class SignUp extends React.Component {
 
   handleSubmit = (event) => {
     console.log("form submitted");
-    // event.preventDefault();
+    event.preventDefault();
     console.log(this.state)
     if (this.state.password === this.state.password_confirmation) {
       UserModel.create(this.state)

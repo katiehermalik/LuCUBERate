@@ -35,7 +35,7 @@ class UserModel {
 
   // TO DO - logout not working!!
   static logout() {
-    return fetch(loginUrl, {
+    return fetch(logoutUrl, {
       method: 'DELETE'
     })
     .then((res) => {
