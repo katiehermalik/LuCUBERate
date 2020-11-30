@@ -1,4 +1,5 @@
 import React from 'react';
+import CubeList from '../../components/CubeList';
 
 class Dashboard extends React.Component {
 
@@ -6,6 +7,7 @@ class Dashboard extends React.Component {
     return(
       <>
         <h1>Dashboard</h1>
+        <CubeList />
       </>
     )
   }

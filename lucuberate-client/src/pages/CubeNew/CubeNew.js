@@ -29,6 +29,7 @@ class CubeNew extends React.Component {
     // TODO - change push location
     CubeModel.create(this.state)
       .then((data) => {
+        console.log(data)
         this.props.history.push('/dashboard');
       });
   }

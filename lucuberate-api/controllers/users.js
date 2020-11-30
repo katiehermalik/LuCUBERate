@@ -1,26 +1,27 @@
 const db = require("../models");
 
+const show = (req, res) => {
+  db.User.findById(req.params.id)
+    .populate('cubes')
+    .then((populatedUser) => {
+      res.json({ cubes: populatedUser.cubes })
+    })
+    .catch((err) => {
+      console.log('Unable to populate cubes for user in cubes.create:', err);
+      res.json({ Error: 'Unable to populate cubes for user'});
+    })
+};
+
 const index = (req, res) => {
-  db.User.find({})
+  db.Users.find({})
     .then((foundUsers) => {
-      res.json({ users: foundUsers});
+      res.json({ cubes: foundUsers });
     })
     .catch((err) => {
       console.log('Error in users.index:', err);
       res.json({ Error: 'Unable to get data'});
     });
-};
-
-const show = (req, res) => {
-  db.User.findById(req.params.id)
-  .then((foundUser) => {
-    res.json({ user: foundUser });
-  })
-  .catch((err) => {
-    console.log('Error in users.show:', err);
-    res.json({ Error: 'Unable to get data'});
-  });
-};
+  }
 
 const create = (req, res) => {
   db.User.create(req.body)

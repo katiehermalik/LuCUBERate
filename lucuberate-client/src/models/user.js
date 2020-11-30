@@ -1,3 +1,4 @@
+const url = `http://localhost:4000/api/v1/users`
 const signupUrl = `http://localhost:4000/api/signup`
 const loginUrl = `http://localhost:4000/api/login`
 const logoutUrl = `http://localhost:4000/api/logout`
@@ -46,6 +47,18 @@ class UserModel {
       return { message: 'Error fetching data in UserModel.logout' };
     });
   }
+
+  static allCubes(id) {
+    return fetch(`${url}/${id}`)
+    .then((res) => {
+      return res.json()
+    })
+    .catch((err) => {
+      console.log('Error fetching data in UserModel.allCubes', err)
+      return { cubes: [] }; // something back as well as error
+    });
+  }
+
 }
 
 export default UserModel;

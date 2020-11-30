@@ -2,6 +2,17 @@ const url = `http://localhost:4000/api/v1/cubes`
 
 
 class CubeModel {
+  
+  static all() {
+    return fetch(url)
+    // use json, because response comes back as buffer (string) and json converts it to javscript that we can use
+      .then((res) => res.json())
+      .catch((err) => {
+        console.log('Error fetching data in CubeModel.all', err)
+        return { game: [] }; // something back as well as error
+      });
+  }
+
   static create(newCube) {
     let body = JSON.stringify({ 
       "cube": newCube,
