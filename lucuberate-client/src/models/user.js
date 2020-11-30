@@ -24,6 +24,7 @@ class UserModel {
       body: JSON.stringify(user)
     })
     .then((res) => {
+      console.log("this is the response from the server", res)
       return res.json()
     })
     .catch((err) => {
@@ -32,16 +33,17 @@ class UserModel {
     })
   }
 
+  // TO DO - logout not working!!
   static logout() {
-    return fetch(logoutUrl, {
-      method: 'POST'
+    return fetch(loginUrl, {
+      method: 'DELETE'
     })
     .then((res) => {
       res.json()
     })
     .catch((err) => {
-      console.log('Error fetching data in GameModel.delete', err)
-      return { message: 'Error fetching data in GameModel.delete' };
+      console.log('Error fetching data in UserModel.logout', err)
+      return { message: 'Error fetching data in UserModel.logout' };
     });
   }
 }

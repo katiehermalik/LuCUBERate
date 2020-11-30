@@ -7,10 +7,13 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import '../../pages/Landing/Landing.css';
 
 class Login extends React.Component {
-  
-  state = {
-    email: "",
-    password: "",
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: "",
+      password: "",
+    }
+
   }
 
   handleChange = (event) => {
@@ -21,12 +24,18 @@ class Login extends React.Component {
   }
 
   handleSubmit = (event) => {
-    console.log("login form submitted");
     event.preventDefault();
-    UserModel.login({email: this.state.email})
+    UserModel.login(this.state)
       .then((data) => {
-        this.props.history.push('/:username');
-        console.log("dataError", data)
+        this.setState(data)
+        // Passing currentUser info to parent component (App.js)
+        this.props.login(data);
+        localStorage.setItem('user', JSON.stringify(data));
+        if (this.state.currentUser) {
+        this.props.history.push('/dashboard');
+        window.location.reload();
+        }
+        console.log("This is the response from the user Model", data)
       });
   }
 
@@ -34,7 +43,7 @@ class Login extends React.Component {
     return(
       <> 
         <div class="text-center">
-          <a href="!#" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
+          <a href="!#" class="nav-item nav-link" data-toggle="modal" data-target="#modalLoginForm">
           Login</a>
         </div>    
         <div 

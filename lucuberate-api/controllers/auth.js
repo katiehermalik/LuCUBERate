@@ -39,6 +39,7 @@ const signup = (req, res, next) => {
 
 const login = (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
+    console.log(user)
     if (!user) {
       return res.json({ Error: 'User not found' });
     } else {
@@ -49,13 +50,13 @@ const login = (req, res) => {
             req.session.isLoggedIn = true;
             req.session.currentUser = user._id;
             return res.json({
-              success: true,
-              user: user._id,
-              message: user
+              isLoggedIn: req.session.isLoggedIn,
+              user_Id: req.session.currentUser,
+              currentUser: user
             });
           }
         }).catch(err => {
-          res.json({ Error: err });
+          res.json({ "Error with session": err });
         });
     }
     }).catch(err => {
@@ -64,7 +65,7 @@ const login = (req, res) => {
 }
 
 
-
+ // TO DO - logout not working!!
 const logout = (req, res) => {
   if (req.session.currentUser) {
     req.session.destroy((err) => {
