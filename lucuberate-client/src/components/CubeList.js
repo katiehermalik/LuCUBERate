@@ -17,22 +17,20 @@ class CubeList extends React.Component {
   }
 
   renderCubes() {
-    return this.state.cubes.map((cube) => {
+    return this.state.cubes.map((cube, index) => {
       return (
-        <CubeButton cube={cube} key={cube._id} />
+        <CubeButton cube={cube} key={cube._id} number={index + 1}/>
       )
     });
   }
 
   render() {
     return(
-      <div>
-            {this.state.cubes &&
-          <ul>
+      <span className="cubeListContainer">
+          <ul className="cubeList">
             {this.renderCubes()}
           </ul>
-            }
-      </div>
+      </span>
     )
   }
 }
