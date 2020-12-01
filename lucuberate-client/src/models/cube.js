@@ -41,6 +41,19 @@ class CubeModel {
     });
   }
 
+  static update(updatedCube, id) {
+    return fetch(`${url}/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedCube),
+    })
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log('Error fetching data in GameModel.update', err)
+      return { message: 'Error fetching data in GameModel.update' };
+    });
+  }
+
   static delete(id) {
     return fetch(`${url}/${id}`, {
       method: 'DELETE'
@@ -51,7 +64,7 @@ class CubeModel {
       return { message: 'Error fetching data in GameModel.delete' };
     });
   }
-  
+
 }
 
 export default CubeModel

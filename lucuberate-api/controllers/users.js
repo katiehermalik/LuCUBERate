@@ -13,7 +13,7 @@ const show = (req, res) => {
 };
 
 const index = (req, res) => {
-  db.Users.find({})
+  db.User.find({})
     .then((foundUsers) => {
       res.json({ cubes: foundUsers });
     })

@@ -16,20 +16,11 @@ class CubeShow extends React.Component {
       });
   }
 
-  componentDidUpdate() {
-    const cube_id = this.props.match.params.id;
-    CubeModel.getOne(cube_id)
-      .then((data) => {
-        this.setState({ cube: data.cube})
-      });
-  }
-  
-  handleDeleteClick() {
-
-  }
-
-  renderCube() {
-
+  componentDidUpdate(prevProps) {
+    const { match: { params: { id } } } = this.props
+    if (prevProps.match.params.id !== id){
+      this.componentDidMount();
+    }
   }
 
   render() {
@@ -40,8 +31,6 @@ class CubeShow extends React.Component {
         <>
         <p>{this.state.cube.question}</p>
         <p>{this.state.cube.answer}</p>
-        </>
-        }
         <Link 
           to={`/games/${this.state.cube._id}/edit`}>
           <input
@@ -50,6 +39,8 @@ class CubeShow extends React.Component {
         </Link>
         <span> </span>
         <DeleteCube cube_id={this.props.match.params.id}/>
+        </>
+        }
       </>
     )
   }

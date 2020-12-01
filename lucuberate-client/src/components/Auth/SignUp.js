@@ -38,12 +38,12 @@ class SignUp extends React.Component {
   render() {
     return(
       <>
-        <div class="text-center">
-          <a href="!#" class="nav-item nav-link" data-toggle="modal" data-target="#modalRegisterForm">
+        <div className="text-center">
+          <a href="!#" className="nav-item nav-link" data-toggle="modal" data-target="#modalRegisterForm">
           Sign Up</a>
         </div>
         <div 
-        className="modal fade" 
+        className="modal" 
         id="modalRegisterForm" 
         tabIndex="-1" 
         role="dialog" 
