@@ -42,8 +42,8 @@ class Login extends React.Component {
   render() {
     return(
       <> 
-        <div class="text-center">
-          <a href="!#" class="nav-item nav-link" data-toggle="modal" data-target="#modalLoginForm">
+        <div className="text-center">
+          <a href="!#" className="nav-item nav-link" data-toggle="modal" data-target="#modalLoginForm">
           Login</a>
         </div>    
         <div 

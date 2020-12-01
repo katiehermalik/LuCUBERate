@@ -8,21 +8,25 @@ class CubeList extends React.Component {
   }
 
   componentDidMount() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const user_id = user.user_Id
-    UserModel.allCubes(user_id)
-    .then((cubes) => {
-      this.setState( cubes )
-    });
+    if (window.localStorage.user) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const user_id = user.user_Id
+      UserModel.allCubes(user_id)
+      .then((cubes) => {
+        this.setState( cubes )
+      });
+    }
   }
 
   componentDidUpdate() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const user_id = user.user_Id
-    UserModel.allCubes(user_id)
-    .then((cubes) => {
-      this.setState( cubes )
-    });
+    if (window.localStorage.user) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const user_id = user.user_Id
+      UserModel.allCubes(user_id)
+      .then((cubes) => {
+        this.setState( cubes )
+      });
+    }
   }
 
   renderCubes() {

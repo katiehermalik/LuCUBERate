@@ -31,7 +31,15 @@ const create = (req, res) => {
       foundUser.cubes.push(savedCube._id);
       foundUser.save()
       .then((savedUser) => {
+        savedCube.user = req.body.user.user_Id;
+        savedCube.save()
+        .then((updatedCube) => {
         res.json({ cube: savedCube })
+        })
+        .catch((err)=> {
+          console.log('Unable to save user to cube in cubes.create:', err);
+          res.json({ Error: 'Unable to save user to cube'});
+        })
       })
       .catch((err) => {
         console.log('Unable to save cube to user in cubes.create:', err);
@@ -63,13 +71,32 @@ const update = (req, res) => {
 const destroy = (req, res) => {
   db.Cube.findByIdAndDelete(req.params.id)
   .then((deletedCube) => {
-    res.json({ cube: deletedCube });
+    db.User.findById(deletedCube.user)
+    .then((foundUser) => {
+      console.log(foundUser)
+      foundUser.cubes.remove(req.params.id);
+      foundUser.save()
+      .then((savedUser) => {
+        res.json({ cube: deletedCube })
+      })
+      .catch((err) => {
+        console.log('Unable to save updated user cubes.destroy:', err);
+        res.json({ Error: 'Unable to save updated user'});
+      })
+    })
+    .catch((err) => {
+      console.log('Unable to find User in cubes.destroy:', err);
+      res.json({ Error: 'Unable to find User'});
+    })
   })
   .catch((err) => {
-    console.log('Error in cubes.destroy:', err);
-    res.json({ Error: 'Unable to get data'});
+    console.log('Unable to find and delete cube in cubes.destroy:', err);
+    res.json({ Error: 'Unable to find and delete cube'});
   });
-};
+} 
+
+
+
 
 module.exports = {
   index,
