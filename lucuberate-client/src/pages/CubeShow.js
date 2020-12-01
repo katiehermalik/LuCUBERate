@@ -32,7 +32,7 @@ class CubeShow extends React.Component {
         <p>{this.state.cube.question}</p>
         <p>{this.state.cube.answer}</p>
         <Link 
-          to={`/games/${this.state.cube._id}/edit`}>
+          to={`/dashboard/${this.state.cube._id}/edit`}>
           <input
           type="button" 
           value="Edit Cube" />

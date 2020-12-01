@@ -4,7 +4,15 @@ import CubeModel from '../models/cube';
 class CubeEdit extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      question: '',
+      answer: '',
+      hint: '',
+      visual_aid: '',
+      link: '',
+      link_alias: '',
+      notes: '',
+    }
   }
 
   componentDidMount() {
@@ -27,7 +35,7 @@ class CubeEdit extends React.Component {
     const cubeId = this.props.match.params.id;
     CubeModel.update(this.state, cubeId)
       .then((data) => {
-        this.props.history.push(`/dasboard/${cubeId}`);
+        this.props.history.push(`/dashboard/${cubeId}`);
         console.log('this.props:', this.props)
       });
   };
