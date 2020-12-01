@@ -24,14 +24,14 @@ class Navbar extends React.Component {
             <div className="navbar-nav">
               {!this.props.user &&
               <>
-                <SignUp />
-                <Login login={this.props.login} user={this.props.user}/>
+                <SignUp auth={this.props.auth} user={this.props.user}/>
+                <Login auth={this.props.auth} user={this.props.user}/>
               </>
               }
               {this.props.user &&
               <>
                 <span className="navbar-text">Hello, {this.props.user.username}</span>
-                <Logout logout={this.props.logout}/>
+                <Logout logout={this.props.auth}/>
               </>
               }
             </div>

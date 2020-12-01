@@ -29,11 +29,11 @@ class Login extends React.Component {
       .then((data) => {
         this.setState(data)
         // Passing currentUser info to parent component (App.js)
-        this.props.login(data);
+        this.props.auth(data);
         localStorage.setItem('user', JSON.stringify(data));
         if (this.state.currentUser) {
-        this.props.history.push('/dashboard');
-        window.location.reload();
+          this.props.history.push('/dashboard');
+          window.location.reload();
         }
         console.log("This is the response from the user Model", data)
       });
