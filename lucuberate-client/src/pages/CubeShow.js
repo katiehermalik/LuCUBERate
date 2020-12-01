@@ -34,9 +34,9 @@ class CubeShow extends React.Component {
   render() {
     return(
       <>
-      <h3>Cube Show Page</h3>
       { this.state.cube &&
       <>
+      <h3>Cube Show Page</h3>
       <p>{this.state.cube.question}</p>
       <p>{this.state.cube.answer}</p>
       </>
