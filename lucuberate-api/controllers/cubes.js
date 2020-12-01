@@ -24,6 +24,7 @@ const show = (req, res) => {
 
 // Creates New Cube and saves cube Id to current user
 const create = (req, res) => {
+  console.log(req.body)
   db.Cube.create(req.body.cube)
   .then((savedCube) => {
     db.User.findById(req.body.user.user_Id)

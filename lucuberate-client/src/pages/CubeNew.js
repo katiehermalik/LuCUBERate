@@ -29,8 +29,8 @@ class CubeNew extends React.Component {
     // TODO - change push location
     CubeModel.create(this.state)
       .then((data) => {
-        console.log(data)
-        this.props.history.push('/dashboard');
+        console.log('data --------->', data)
+        this.props.history.push(`/dashboard/${data.cube._id}`);
       });
   }
 
@@ -101,7 +101,7 @@ class CubeNew extends React.Component {
                 onChange={this.handleChange} />
               </div>
               <div className="form-group col-md-3">
-              <label htmlFor="inputAlias">Link Alias</label>
+                <label htmlFor="inputAlias">Link Alias</label>
                 <input 
                 type="text" 
                 className="form-control" 
@@ -112,20 +112,23 @@ class CubeNew extends React.Component {
                 onChange={this.handleChange} />
               </div>
               <div className="form-group col-md-3">
-                <label htmlFor="customFile">Visual Aid</label>
-                <div className="custom-file">
-                  <input 
-                  type="file" 
-                  className="custom-file-input" 
-                  id="customFile"
-                  name="visual_aid" 
-                  value={this.state.visual_aid}
-                  onChange={this.handleChange} />
-                  <label className="custom-file-label" htmlFor="customFile">Choose file</label>
-                </div>
+                <label htmlFor="inputAlias">Visual Aid</label>
+                <input 
+                type="text" 
+                className="form-control" 
+                id="inputVisualAid" 
+                placeholder="Give the URL of a helpful image."
+                name="visual_aid" 
+                value={this.state.visual_aid}
+                onChange={this.handleChange} />
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">Generate New Cube</button>
+            <button 
+              type="submit" 
+              className="btn btn-primary"
+              >
+              Generate New Cube
+            </button>
           </form>
         </div>
         }
