@@ -23,14 +23,21 @@ class SignUp extends React.Component {
   }
 
   handleSubmit = (event) => {
-    console.log("form submitted");
     event.preventDefault();
     console.log(this.state)
     if (this.state.password === this.state.password_confirmation) {
       UserModel.create(this.state)
         .then((data) => {
-          this.props.history.push('/');
-          console.log("data", data)
+          this.setState(data)
+          // Passing currentUser info to parent component (App.js)
+          this.props.auth(data);
+          localStorage.setItem('user', JSON.stringify(data));
+          if (this.state.currentUser) {
+
+          this.props.history.push('/dashboard');
+            window.location.reload();
+            console.log("data", data)
+          }
         });
     } 
   }

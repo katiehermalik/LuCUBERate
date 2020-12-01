@@ -18,11 +18,14 @@ const signup = (req, res, next) => {
             password: hash,
           });
           user.save()
-          .then((response) => {
-            res.json({
-              success: true,
-              result: response
-            })
+          .then((savedUser) => {
+            req.session.isLoggedIn = true;
+            req.session.currentUser = user._id;
+            return res.json({
+              isLoggedIn: req.session.isLoggedIn,
+              user_Id: req.session.currentUser,
+              currentUser: savedUser
+            });
           })
           .catch((err) => {
             res.json({ Error: 'Could not save info' });
