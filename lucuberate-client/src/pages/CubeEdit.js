@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CubeModel from '../models/cube';
 
 class CubeEdit extends React.Component {
@@ -108,7 +109,7 @@ class CubeEdit extends React.Component {
                 onChange={this.handleChange} />
               </div>
               <div className="form-group col-md-3">
-              <label htmlFor="inputAlias">Link Alias</label>
+                <label htmlFor="inputAlias">Link Alias</label>
                 <input 
                 type="text" 
                 className="form-control" 
@@ -119,19 +120,25 @@ class CubeEdit extends React.Component {
                 onChange={this.handleChange} />
               </div>
               <div className="form-group col-md-3">
-                <label htmlFor="customFile">Visual Aid</label>
-                <div className="custom-file">
+                <label htmlFor="inputAlias">Visual Aid</label>
                   <input 
-                  type="file" 
-                  className="custom-file-input" 
-                  id="customFile"
+                  type="text" 
+                  className="form-control" 
+                  id="inputVisualAid" 
+                  placeholder="Give the URL of a helpful image."
                   name="visual_aid" 
                   value={this.state.visual_aid}
                   onChange={this.handleChange} />
-                  <label className="custom-file-label" htmlFor="customFile">Choose file</label>
-                </div>
               </div>
             </div>
+            <Link to={`/dashboard/${this.state._id}`}>
+              <button 
+                type="submit" 
+                className="btn btn-secondary"
+                >
+                Cancel
+              </button>
+            </Link>
             <button type="submit" className="btn btn-primary">Save Changes</button>
           </form>
         </div>
