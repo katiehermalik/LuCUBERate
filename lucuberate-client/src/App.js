@@ -1,7 +1,7 @@
 import React from 'react'
 import routes from './config/routes';
 import Navbar from './components/Navbar';
-import CubeListDashboard from './components/CubeListNav'
+import CubeListNav from './components/CubeListNav'
 import './App.css';
 
 class App extends React.Component {
@@ -29,7 +29,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar login={this.login} logout={this.logout} user={this.state.currentUser}/>
-        <CubeListDashboard />
+        <CubeListNav />
         { routes }
       </div>
     );
