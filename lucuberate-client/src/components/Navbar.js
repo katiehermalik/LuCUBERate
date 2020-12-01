@@ -21,19 +21,21 @@ class Navbar extends React.Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav">
-              {!this.props.user &&
-              <>
-                <SignUp auth={this.props.auth} user={this.props.user}/>
-                <Login auth={this.props.auth} user={this.props.user}/>
-              </>
-              }
-              {this.props.user &&
-              <>
-                <span className="navbar-text">Hello, {this.props.user.username}</span>
-                <Logout logout={this.props.auth}/>
-              </>
-              }
+            <div className="navlinks-container">
+              <div className="navbar-nav">
+                {!this.props.user &&
+                <>
+                  <SignUp auth={this.props.auth} user={this.props.user}/>
+                  <Login auth={this.props.auth} user={this.props.user}/>
+                </>
+                }
+                {this.props.user &&
+                <>
+                  <span className="navbar-text">Hello, {this.props.user.username}</span>
+                  <Logout logout={this.props.auth}/>
+                </>
+                }
+              </div>
             </div>
           </div>
         </nav>

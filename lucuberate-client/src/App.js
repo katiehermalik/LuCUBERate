@@ -2,6 +2,7 @@ import React from 'react'
 import AllRoutes from './config/routes';
 import Navbar from './components/Navbar';
 import CubeListNav from './components/CubeListNav'
+import Landing from './pages/Landing'
 import './App.css';
 
 
@@ -24,8 +25,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <Navbar auth={this.auth} user={this.state.currentUser}/>
+      <div id="App">
+        <Navbar 
+          id="NavBar" 
+          auth={this.auth} 
+          user={this.state.currentUser}/>
+        <Landing />
         { this.state.currentUser &&
         <CubeListNav />
         }

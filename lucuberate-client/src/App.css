@@ -1,3 +1,71 @@
+* {
+  box-sizing: border-box;
+}
+
+/* ------------------------------- Variables */
+
+.dark {
+  --background-main: rgb(40, 44, 52);
+  --background-accent: rgb(140, 158, 64);
+  --text-color: #f1f4f8;
+}
+
+.light {
+  --background-main: #f1f4f8;
+  --text-color: rgb(40, 44, 52);
+}
+
+/* ------------------------------- Parent Containers */
+
+html, 
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+  background: var(--background-main);
+}
+
+#App {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------------------------------- Landing Page */
+
+#canvas {
+  width: 100%;
+  height: 100%;
+}
+
+#title-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  overflow:visible;
+  pointer-events:none;
+  background:none !important;
+}
+
+.navbar {
+  width: 100%;
+  position: absolute;
+  z-index: 3;
+}
+
 #logout-btn {
   background: none!important;
   border: none;
