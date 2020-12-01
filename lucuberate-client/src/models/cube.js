@@ -41,6 +41,17 @@ class CubeModel {
     });
   }
 
+  static delete(id) {
+    return fetch(`${url}/${id}`, {
+      method: 'DELETE'
+    })
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log('Error fetching data in GameModel.delete', err)
+      return { message: 'Error fetching data in GameModel.delete' };
+    });
+  }
+  
 }
 
 export default CubeModel
