@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CubeModel from '../models/cube';
 
 class CubeNew extends React.Component {
@@ -24,12 +25,8 @@ class CubeNew extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('called form submit');
-    // NOTE: this.state is only properties htmlFor new cube
-    // TODO - change push location
     CubeModel.create(this.state)
       .then((data) => {
-        console.log('data --------->', data)
         this.props.history.push(`/dashboard/${data.cube._id}`);
       });
   }
@@ -123,6 +120,15 @@ class CubeNew extends React.Component {
                 onChange={this.handleChange} />
               </div>
             </div>
+            <Link to='/dashboard'>
+              <button 
+                type="submit" 
+                className="btn btn-secondary"
+                >
+                Cancel
+              </button>
+            </Link>
+            <span> </span>
             <button 
               type="submit" 
               className="btn btn-primary"
