@@ -32,6 +32,15 @@ class CubeModel {
     });
   }
 
+  static getOne(id) {
+    return fetch(`${url}/${id}`)
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log('Error fetching data in CubeModel.getOne', err)
+      return { cube: {} };
+    });
+  }
+
 }
 
 export default CubeModel

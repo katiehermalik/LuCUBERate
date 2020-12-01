@@ -1,4 +1,6 @@
 import React from 'react';
+import CubeModel from '../models/cube';
+import { Link } from 'react-router-dom';
 
 class CubeShow extends React.Component {
   state = {
@@ -6,6 +8,22 @@ class CubeShow extends React.Component {
   }
 
   componentDidMount() {
+    const cube_id = this.props.match.params.id;
+    CubeModel.getOne(cube_id)
+      .then((data) => {
+        this.setState({ cube: data.cube})
+      });
+  }
+
+  componentDidUpdate() {
+    const cube_id = this.props.match.params.id;
+    CubeModel.getOne(cube_id)
+      .then((data) => {
+        this.setState({ cube: data.cube})
+      });
+  }
+  
+  handleDeleteClick() {
 
   }
 
@@ -16,7 +34,13 @@ class CubeShow extends React.Component {
   render() {
     return(
       <>
-      <h1>Cube Show Page</h1>
+      <h3>Cube Show Page</h3>
+      { this.state.cube &&
+      <>
+      <p>{this.state.cube.question}</p>
+      <p>{this.state.cube.answer}</p>
+      </>
+      }
       </>
     )
   }

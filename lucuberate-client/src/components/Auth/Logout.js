@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import UserModel from '../../models/user';
+// import UserModel from '../../models/user';
 
 class Logout extends React.Component {
   
