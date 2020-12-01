@@ -1,5 +1,5 @@
 import React from 'react';
-import CubeList from '../../components/CubeList';
+import CubeList from '../components/CubeList';
 
 class Dashboard extends React.Component {
 

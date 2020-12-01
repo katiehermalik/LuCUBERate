@@ -1,5 +1,5 @@
 import React from 'react';
-import CubeModel from '../../models/cube';
+import CubeModel from '../models/cube';
 
 class CubeNew extends React.Component {
   constructor(props) {

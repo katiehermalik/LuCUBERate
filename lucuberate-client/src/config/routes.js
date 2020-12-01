@@ -1,8 +1,8 @@
 import { Switch, Route } from 'react-router-dom';
-import Landing from '../pages/Landing/Landing';
-import Dashboard from '../pages/Dashboard/Dashboard';
-import CubeNew from '../pages/CubeNew/CubeNew';
-import CubeEdit from '../pages/CubeEdit/CubeEdit';
+import Landing from '../pages/Landing';
+import Dashboard from '../pages/Dashboard';
+import CubeNew from '../pages/CubeNew';
+import CubeEdit from '../pages/CubeEdit';
 // import CubeShow from '../pages/CubeEdit/CubeEdit';
 
 

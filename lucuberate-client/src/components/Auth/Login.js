@@ -4,7 +4,7 @@ import UserModel from '../../models/user'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-import '../../pages/Landing/Landing.css';
+
 
 class Login extends React.Component {
   constructor(props) {
