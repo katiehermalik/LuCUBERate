@@ -21,7 +21,6 @@ class CubeEdit extends React.Component {
     CubeModel.getOne(cubeId)
     .then((data) => {
       this.setState(data.cube);
-      console.log('For edit form info:', data.cube)
       });
   }
 
@@ -37,7 +36,6 @@ class CubeEdit extends React.Component {
     CubeModel.update(this.state, cubeId)
       .then((data) => {
         this.props.history.push(`/dashboard/${cubeId}`);
-        console.log('this.props:', this.props)
       });
   };
 
