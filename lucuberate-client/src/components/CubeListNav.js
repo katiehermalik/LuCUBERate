@@ -7,7 +7,11 @@ function Dashboard() {
   return(
     <>
       <h4>Cube List Nav</h4>
-      <Link to='/dashboard/new'><button>New Cube</button></Link>
+      <Link to='/dashboard/new'>
+        <input
+        type="button"
+        value="New Cube" />
+      </Link>
       <CubeList />
     </>
   )
