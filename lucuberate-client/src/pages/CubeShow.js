@@ -31,6 +31,10 @@ class CubeShow extends React.Component {
         <>
         <p>{this.state.cube.question}</p>
         <p>{this.state.cube.answer}</p>
+        <p>{this.state.cube.hint}</p>
+        <p>{this.state.cube.notes}</p>
+        <a href={this.state.cube.link}>{this.state.cube.link_alias}</a>
+        <img src={this.state.cube.visual_aid} alt=""/>
         <Link 
           to={`/dashboard/${this.state.cube._id}/edit`}>
           <input
