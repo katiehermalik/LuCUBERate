@@ -4,7 +4,10 @@ const bcrypt = require('bcryptjs');
 //------------------------------------------------- Sign Up
 
 const signup = (req, res, next) => {
-  let { username, email, password, password_confirmation } = req.body;
+  const { 
+    username, 
+    email, 
+    password } = req.body;
   User.findOne({email: email})
     .then(foundUser => {
       if(foundUser) {
