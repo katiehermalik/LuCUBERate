@@ -1,6 +1,6 @@
 import React from 'react';
 import CubeModel from '../models/cube';
-import DeleteCube from '../components/DeleteCube';
+import DeleteCube from '../components/CubeCtrls/DeleteCube';
 import { Link } from 'react-router-dom';
 
 class CubeShow extends React.Component {
