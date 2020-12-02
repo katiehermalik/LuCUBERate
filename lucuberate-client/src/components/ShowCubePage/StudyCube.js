@@ -49,6 +49,27 @@ class StudyCube extends React.Component {
             </div>
           </div>
         </div>
+        <div>
+          <ul className="radio-group">
+            {sides.map(side => (
+                <>
+                  <li className="radio-button">
+                    <input
+                      key={side}
+                      type="radio"
+                      name="rotate-cube-side"
+                      value={side}
+                      onChange={() => this.setState({ side })}
+                    />
+                    <label
+                      for={side}>
+                        {side}
+                    </label>
+                  </li>
+                </>
+            ))}
+          </ul>
+        </div>
       </div>
     )
   }

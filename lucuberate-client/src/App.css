@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  outline: 2px solid red;
 }
 
 /* ------------------------------- Variables */
@@ -168,7 +169,11 @@ body,
   border: 1px solid rgb(70, 70, 70);
   color: #f1f4f8;
   text-align: center;
-  opacity: 0.9;
+  opacity: 0.8;
+}
+
+.face:hover {
+  opacity: 1;
 }
 
 .face-title {
@@ -182,11 +187,16 @@ body,
 }
 
 .visual-aid {
-    max-width: 200px;
-    max-height: 200px;
-    cursor: -moz-zoom-in; 
-    cursor: -webkit-zoom-in; 
-    cursor: zoom-in;
+  max-width: 30vh;
+  max-height: 40vh;
+  cursor: -moz-zoom-in; 
+  cursor: -webkit-zoom-in; 
+  cursor: zoom-in;
+  transition:transform 0.25s ease;
+}
+
+.visual-aid:hover {
+  transform:scale(3);
 }
 
 .face.Question { 
@@ -233,7 +243,15 @@ body,
   transition: filter 2s;
 }
 
+.radio-group {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
 .radio-button {
   list-style-type: none;
   margin: 0 20px;
 }
+
+
