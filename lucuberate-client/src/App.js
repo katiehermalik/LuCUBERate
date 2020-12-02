@@ -1,7 +1,7 @@
 import React from 'react'
 import AllRoutes from './config/routes';
 import Navbar from './components/Navbar';
-import CubeListNav from './components/CubeListNav'
+import Dashboard from './components/Dashboard';
 import './App.css';
 
 
@@ -30,7 +30,7 @@ class App extends React.Component {
           auth={this.auth} 
           user={this.state.currentUser}/>
         { this.state.currentUser &&
-        <CubeListNav />
+        <Dashboard />
         }
         <AllRoutes user={this.state.currentUser} />
       </div>

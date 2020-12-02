@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-function CubeButton(props) {
+function CubeSelect(props) {
   return(
     <Link to={`/dashboard/${props.cube._id}`} >
       <span className="CubeShowButton">
@@ -13,4 +13,4 @@ function CubeButton(props) {
 }
 
 
-export default CubeButton;
+export default CubeSelect;

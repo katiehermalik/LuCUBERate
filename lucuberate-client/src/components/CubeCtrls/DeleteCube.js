@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import CubeModel from '../models/cube';
+import CubeModel from '../../models/cube';
 
 
 class DeleteCube extends React.Component {

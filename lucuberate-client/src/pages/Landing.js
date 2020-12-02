@@ -1,4 +1,4 @@
-import LandingBackground from "../components/LandingBackground";
+import LandingBackground from "../components/LandingPage/LandingBackground";
 
 function Landing() {
   return(

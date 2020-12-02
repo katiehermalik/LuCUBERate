@@ -1,6 +1,6 @@
 import React from 'react';
-import UserModel from '../models/user';
-import CubeButton from '../components/CubeButton'
+import UserModel from '../../models/user';
+import CubeSelect from './CubeSelect'
 
 class CubeList extends React.Component {
   state = {
@@ -32,14 +32,14 @@ class CubeList extends React.Component {
   renderCubes() {
     return this.state.cubes.map((cube, index) => {
       return (
-        <CubeButton cube={cube} key={cube._id} number={index + 1}/>
+        <CubeSelect cube={cube} key={cube._id} number={index + 1}/>
       )
     });
   }
 
   render() {
     return(
-      <span className="cubeListContainer">
+      <span id="cube-list" className="container-column">
           <ul className="cubeList">
             {this.renderCubes()}
           </ul>

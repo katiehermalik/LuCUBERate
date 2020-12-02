@@ -15,7 +15,7 @@ function CubeMesh() {
       onPointerOver={() => setHover(true)}
       onPointerOut={() => setHover(false)}
       scale={[0.6, 0.6, 0.6]}
-      position={[0, 1.2, 0]}
+      position={[0, 1.5, 0]}
       ref={mesh}>
       <boxBufferGeometry 
         attach='geometry'/>
