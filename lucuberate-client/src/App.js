@@ -30,7 +30,6 @@ class App extends React.Component {
           id="NavBar" 
           auth={this.auth} 
           user={this.state.currentUser}/>
-        <Landing />
         { this.state.currentUser &&
         <CubeListNav />
         }

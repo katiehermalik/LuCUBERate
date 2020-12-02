@@ -46,11 +46,16 @@ body,
   height: 100%;
 }
 
+.landing-text {
+  color: var(--text-color);
+}
+
 #title-container {
   width: 100%;
   height: 100%;
   display: flex;
   position: absolute;
+  top: -15vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -58,6 +63,14 @@ body,
   overflow:visible;
   pointer-events:none;
   background:none !important;
+}
+
+#brand-name {
+  font-size: 10vw;
+}
+
+#tagline {
+  font-size: 2.3vw;
 }
 
 .navbar {

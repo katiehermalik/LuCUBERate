@@ -8,7 +8,14 @@ import {Stars, OrbitControls } from "drei";
 function LandingBackground() {
   return(
     <Canvas id='canvas'>
-      <Stars />
+      <Stars 
+        radius={150}
+        depth={50}
+        count={5000}
+        factor={3}
+        saturation={1}
+        fade
+      />
       <OrbitControls />
     </Canvas>
   )
