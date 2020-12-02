@@ -1,6 +1,6 @@
 import React from 'react';
 import CubeModel from '../models/cube';
-import Cube from '../components/ShowCubePage/Cube'
+import StudyCube from '../components/ShowCubePage/StudyCube'
 import CubeCtrls from '../components/ShowCubePage/CubeCtrls'
 
 
@@ -27,7 +27,7 @@ class CubeShow extends React.Component {
   render() {
     return(
       <div id="show-page-container" className="container-row">
-        <Cube />
+        <StudyCube />
         <CubeCtrls cube_id={this.props.match.params.id}/>
       </div>
     )

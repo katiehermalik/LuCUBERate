@@ -108,3 +108,132 @@ body,
   display: flex;
   flex-direction: column;
 }
+
+/* ----------------------------------------- Study Cube */
+
+.cube-radio-container {
+  margin-top: 20px;
+  /* outline: 2px solid red; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.cube-container {
+  /* border: 1px solid #CCC; */
+  width: 60vh;
+  height: 60vh;
+  margin: 10vh;
+  perspective: 400vh;
+}
+
+.study-cube {
+  width: 100%;
+  height: 100%;
+  /* Let the transformed child elements preserve the 3D transformations */
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+/* Position from origin, when that side is active */
+.study-cube.Question { 
+  transform: rotateY(0deg);
+}
+.study-cube.Hint { 
+  transform: rotateY( -90deg);
+}
+.study-cube.Links { 
+  transform: rotateY(-180deg);
+}
+.study-cube.Notes { 
+  transform: rotateY(90deg);
+}
+.study-cube.Visual { 
+  transform: rotateX(-90deg);
+}
+.study-cube.Answer { 
+  transform: rotateX(90deg);
+}
+
+.face {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  border: 1px solid rgb(70, 70, 70);
+  color: #f1f4f8;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.face-title {
+  margin: 15px;
+  font-size: 6vh;
+}
+
+.face-content {
+  padding: 0px 40px 15px 40px;
+  font-size: 3vh; 
+}
+
+.visual-aid {
+    max-width: 200px;
+    max-height: 200px;
+    cursor: -moz-zoom-in; 
+    cursor: -webkit-zoom-in; 
+    cursor: zoom-in;
+}
+
+.face.Question { 
+  background: #8DA7BE; 
+}
+.face.Answer { 
+  background: #87919E;
+}
+.face.Hint { 
+  background: #CDE6F5;
+  color: rgb(70, 70, 70);
+}
+.face.Links { 
+  background: #8DA7BE; 
+}
+.face.Notes { 
+  background: #CDE6F5;
+  color: rgb(70, 70, 70);
+}
+.face.Visual { 
+  background: #87919E; 
+}
+
+/* original position */
+.face.Question { transform: rotateY(0deg) translateZ(30vh);}
+.face.Hint { transform: rotateY( 90deg) translateZ(30vh);}
+.face.Links { transform: rotateY(180deg) translateZ(30vh);}
+.face.Notes { transform: rotateY(-90deg) translateZ(30vh);}
+.face.Visual { transform: rotateX( 90deg) translateZ(30vh);}
+.face.Answer { transform: rotateX(-90deg) translateZ(30vh);}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 70vh;
+  margin: 5px 0;
+  filter: grayscale(1);
+  /* outline: 2px solid red; */
+}
+
+.blur {
+  filter: blur(20px) grayscale(100%);
+  transition: filter 2s;
+}
+
+.radio-button {
+  list-style-type: none;
+  margin: 0 20px;
+}
