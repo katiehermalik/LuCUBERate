@@ -6,7 +6,7 @@ import CubeHeader from './CubeHeader'
 function CubeListCtrl() {
 
   return(
-    <div id="cube-list-ctrl" className="container-column">
+    <div className="cube-list-ctrl container-column">
       <CubeHeader />
       <CubeList />
     </div>

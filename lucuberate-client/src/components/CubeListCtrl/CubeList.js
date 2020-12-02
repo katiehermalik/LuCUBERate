@@ -39,11 +39,11 @@ class CubeList extends React.Component {
 
   render() {
     return(
-      <span id="cube-list" className="container-column">
+      <div className="cube-list container-column">
           <ul className="cubeList">
             {this.renderCubes()}
           </ul>
-      </span>
+      </div>
     )
   }
 }

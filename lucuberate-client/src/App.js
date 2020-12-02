@@ -24,9 +24,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div id="App">
+      <div className="app container-column">
         <Navbar 
-          id="NavBar" 
           auth={this.auth} 
           user={this.state.currentUser}/>
         <UnAuthRoutes />

@@ -11,18 +11,17 @@ import SelectCube from '../pages/SelectCube';
 class AllAuthenticatedRoutes extends React.Component {
   render() {
     return(
-      <Switch>
-        <Route exact path='/' component={ Landing }/>
-        {this.props.user &&
-        <Switch>
-          <Route exact path='/dashboard' component={ MakeCube }/>
-          <Route exact path='/dashboard/new' component={ CubeNew }/>
-          <Route exact path='/dashboard/index' component={ SelectCube }/>
-          <Route exact path='/dashboard/:id' component={ CubeShow }/>
-          <Route exact path='/dashboard/:id/edit' component={ CubeEdit }/>
-        </Switch>
-        }
-      </Switch>
+        <div className="pages">
+          {this.props.user &&
+          <Switch>
+            <Route exact path='/dashboard' component={ MakeCube }/>
+            <Route exact path='/dashboard/new' component={ CubeNew }/>
+            <Route exact path='/dashboard/index' component={ SelectCube }/>
+            <Route exact path='/dashboard/:id' component={ CubeShow }/>
+            <Route exact path='/dashboard/:id/edit' component={ CubeEdit }/>
+          </Switch>
+          }
+        </div>
     );
   }
 }
