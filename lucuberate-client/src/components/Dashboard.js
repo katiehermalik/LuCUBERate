@@ -1,12 +1,12 @@
 import React from 'react';
 import CubeListCtrl from './CubeListCtrl/CubeListCtrl';
-import PageContent from './PageContent';
+import AllAuthenticatedRoutes from '../config/AuthRoutes';
 
 function Dashboard(props) {
   return(
     <div id="Dashboard" className="container-row">
     <CubeListCtrl />
-    <PageContent user={props.user} />
+    <AllAuthenticatedRoutes user={props.user} />
     </div>
   )
 }

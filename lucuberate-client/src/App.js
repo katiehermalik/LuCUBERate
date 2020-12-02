@@ -1,7 +1,7 @@
 import React from 'react'
-import AllRoutes from './config/routes';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
+import UnAuthRoutes from './config/UnAuthRoutes';
 import './App.css';
 
 
@@ -29,6 +29,7 @@ class App extends React.Component {
           id="NavBar" 
           auth={this.auth} 
           user={this.state.currentUser}/>
+        <UnAuthRoutes />
         { this.state.currentUser &&
         <Dashboard user={this.state.currentUser} />
         }
