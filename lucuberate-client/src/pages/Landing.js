@@ -2,7 +2,7 @@ import LandingBackground from "../components/LandingPage/LandingBackground";
 
 function Landing() {
   return(
-    <>
+    <div className="landing">
       <div 
         id="title-container" 
         className= "">
@@ -14,7 +14,7 @@ function Landing() {
         className="landing-text">lu•cu•brate &nbsp;&nbsp;/&nbsp;&nbsp; to write or study (especially by night)</h4>
       </div>
       <LandingBackground />
-    </>
+    </div>
   )
 }
 
