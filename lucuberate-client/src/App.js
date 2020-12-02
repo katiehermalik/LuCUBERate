@@ -30,9 +30,8 @@ class App extends React.Component {
           auth={this.auth} 
           user={this.state.currentUser}/>
         { this.state.currentUser &&
-        <Dashboard />
+        <Dashboard user={this.state.currentUser} />
         }
-        <AllRoutes user={this.state.currentUser} />
       </div>
     );
   }
