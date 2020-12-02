@@ -51,8 +51,15 @@ body, html, #root, .app {
   color: var(--text-color);
   background: var(--background-main);
 }
-    .dashboard {
+    .landing {
       flex: 0 0 96%;
+      position: absolute;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .dashboard {
+      flex: 0 0 92%;
       height: 100vh;
     }
         .cube-list-ctrl {
@@ -84,7 +91,10 @@ body, html, #root, .app {
                   border-left: 2px solid var(--border-color);
                 }
     .nav-bar {
-      flex: 0 0 4%;
+      top: 30px;
+      height: 300px;
+      flex: 0 0 8%;
+      z-index: 10;
     }
 
 

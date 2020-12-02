@@ -7,7 +7,7 @@ import Lights from "./Lights";
 function LandingBackground() {
   return(
     <Canvas 
-      id='canvas'           
+      className='landing-background'           
       camera={{
       position: [-5, 5, 5], 
       fov: 30}}>
