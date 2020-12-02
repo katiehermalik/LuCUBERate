@@ -2,7 +2,6 @@ import React from 'react'
 import AllRoutes from './config/routes';
 import Navbar from './components/Navbar';
 import CubeListNav from './components/CubeListNav'
-import Landing from './pages/Landing'
 import './App.css';
 
 
@@ -14,6 +13,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // localStorage.clear();
     console.log(localStorage)
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {

@@ -85,3 +85,15 @@ body,
   padding: 8px;
   cursor: pointer;
 }
+
+.modal-backdrop {
+  z-index: 2;
+}
+
+.modal {
+  color: rgb(40, 44, 52);
+}
+
+.cube-mesh {
+  bottom: 3vh;
+}
