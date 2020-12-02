@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import CubeModel from '../../models/cube';
 
 
-class DeleteCube extends React.Component {
+class DeleteBtn extends React.Component {
 
   handleDeleteClick = () => {
     const cubeId = this.props.cube_id;
@@ -48,4 +48,4 @@ class DeleteCube extends React.Component {
   }
 }
 
-export default withRouter(DeleteCube);
+export default withRouter(DeleteBtn);
