@@ -7,7 +7,6 @@ class Logout extends React.Component {
   state = {}
 
   handleSubmit = (event) => {
-    console.log('logout clicked')
     localStorage.clear();
     this.props.auth({});
     this.props.history.push('/');
