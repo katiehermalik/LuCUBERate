@@ -18,7 +18,7 @@ class StudyCube extends React.Component {
 
   render() {
     return (
-      <div className="cube-radio-container">
+      <div className="study-cube cube-radio-container">
         <div className="cube-container">
           <div className={`study-cube ${this.state.side || sides[0]}`}>
             <div className="face Question">

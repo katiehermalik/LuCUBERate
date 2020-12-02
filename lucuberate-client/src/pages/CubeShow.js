@@ -26,7 +26,7 @@ class CubeShow extends React.Component {
 
   render() {
     return(
-      <div id="show-page-container" className="container-row">
+      <div className="show-page-container container-row">
         <StudyCube />
         <CubeCtrls cube_id={this.props.match.params.id}/>
       </div>

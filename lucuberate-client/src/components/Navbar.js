@@ -13,7 +13,7 @@ class Navbar extends React.Component {
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="nav-bar navbar-expand-lg navbar-light bg-light">
         {this.props.user &&
           <a className="navbar-brand" href="/dashboard">LuCUBERate</a>
         }

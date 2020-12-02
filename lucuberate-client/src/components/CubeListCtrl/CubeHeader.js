@@ -2,7 +2,7 @@ import NewCubeBtn from './NewCubeBtn';
 
 function CubeHeader() {
   return (
-    <div className="container-row">
+    <div className="cube-header container-row">
       <NewCubeBtn />
     </div>
   )
