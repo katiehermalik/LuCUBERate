@@ -21,7 +21,11 @@ class Logout extends React.Component {
 
   render() {
     return(
-      <>     
+      <> 
+        {window.location.pathname === '/' &&
+        <a href="/dashboard" className="nav-item nav-link">
+          Dashboard</a>
+        }
         <form onSubmit={this.handleSubmit}>
           <button type="submit" id="logout-btn" className="nav-item nav-link">Logout</button>
         </form>
