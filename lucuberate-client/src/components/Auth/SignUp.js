@@ -50,7 +50,7 @@ class SignUp extends React.Component {
           Sign Up</a>
         </div>
         <div 
-        className="modal" 
+        className="modal fade" 
         id="modalRegisterForm" 
         tabIndex="-1" 
         role="dialog" 

@@ -7,9 +7,9 @@ class Logout extends React.Component {
   state = {}
 
   handleSubmit = (event) => {
+    this.props.history.push('/');
     localStorage.clear();
     this.props.auth({});
-    this.props.history.push('/');
     // TO DO - logout not working - not getting rid of cookie!!
     // console.log(this.state)
     // UserModel.logout({user: this.state})

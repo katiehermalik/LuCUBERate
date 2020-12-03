@@ -13,6 +13,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // localStorage.clear();
     console.log(localStorage)
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
@@ -29,7 +30,7 @@ class App extends React.Component {
           auth={this.auth} 
           user={this.state.currentUser}/>
         <UnAuthRoutes />
-        { this.state.currentUser &&
+        { this.state.currentUser && window.location.pathname !== '/' &&
         <Dashboard user={this.state.currentUser} />
         }
       </div>
