@@ -63,9 +63,11 @@ body, html, #root, .app {
 
     .dashboard {
       height: 100vh;
+      background-image: url('./images/stars.png');
     }
         .cube-list-ctrl {
           flex: 0 0 15%;
+          background-color: var(--background-main);
           border-right: 2px solid var(--border-color);
         }
             .cube-header {
@@ -93,7 +95,8 @@ body, html, #root, .app {
                   flex: 0 0 20%;
                   align-items: center;
                   justify-content: center;
-                  
+                  bottom: 10vh;
+                  background-color: var(--background-main);
                   border-left: 2px solid var(--border-color);
                 }
     .nav-bar {
@@ -353,18 +356,38 @@ body, html, #root, .app {
   justify-content: space-evenly;
   height: 70vh;
   margin: 5px 0;
-  filter: grayscale(1);
-}
-
-.radio-group {
   position: absolute;
-  right: 20px;
+  right: -13vw;
   top: 20px;
 }
 
 .radio-button {
   list-style-type: none;
   margin: 0 20px;
+  /* filter: grayscale(1); */
+}
+
+.cube-select-group {
+  justify-content: flex-start;
+  outline: 2px solid red;
+}
+
+.cube-select {
+  outline: 2px solid red;
+}
+
+input[type='radio']:checked:after {
+  width: 16px;
+  height: 16px;
+  border-radius: 15px;
+  top: -3px;
+  left: -2px;
+  position: relative;
+  background-color: white;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 6px solid rgb(253, 192, 52);
 }
 
 
