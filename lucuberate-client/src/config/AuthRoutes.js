@@ -13,9 +13,8 @@ class AllAuthenticatedRoutes extends React.Component {
         <div className="pages">
           {this.props.user &&
           <Switch>
-            <Route exact path='/dashboard' component={ MakeCube }/>
+            <Route exact path='/dashboard' render= {props => this.props.user.cubes ? (<SelectCube />) : (<MakeCube />)} />
             <Route exact path='/dashboard/new' component={ CubeNew }/>
-            <Route exact path='/dashboard/index' component={ SelectCube }/>
             <Route exact path='/dashboard/:id' component={ CubeShow }/>
             <Route exact path='/dashboard/:id/edit' component={ CubeEdit }/>
           </Switch>
