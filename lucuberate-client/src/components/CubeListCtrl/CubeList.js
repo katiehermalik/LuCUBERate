@@ -39,7 +39,7 @@ class CubeList extends React.Component {
 
   render() {
     return(
-      <div className="cube-list container-column">
+      <div className="cube-list container-column cube-select-group">
         {this.renderCubes()}
       </div>
     )

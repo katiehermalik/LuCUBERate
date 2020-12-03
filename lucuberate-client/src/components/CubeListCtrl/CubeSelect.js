@@ -1,14 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter  } from 'react-router-dom';
 
 
-function CubeSelect(props) {
-  return(
-    <Link to={`/dashboard/${props.cube._id}`} >
-      <button className="button cube-select-btn">Cube {props.number}</button>
-    </Link>
-  )
+class CubeSelect extends React.Component {
+  
+  handleClick = () => {
+    this.props.history.push(`/dashboard/${this.props.cube._id}`)
+  }
+  
+  render() {
+    return(
+      <li className="radio-button">
+          <label
+            for={`Cube ${this.props.number}`}>
+          <input
+            key={this.props.key}
+            type="radio"
+            name='cube-select'
+            id={`Cube ${this.props.number}`}
+            value={`Cube ${this.props.number}`}
+            onChange={this.handleClick}
+          />
+              {`Cube ${this.props.number}`}
+          </label>
+        </li>
+    )
+  }
 }
 
 
-export default CubeSelect;
+export default withRouter(CubeSelect);
