@@ -52,7 +52,6 @@ body, html, #root, .app {
   background: var(--background-main);
 }
     .landing {
-      flex: 0 0 96%;
       position: absolute;
       height: 100vh;
       width: 100vw;
@@ -91,8 +90,8 @@ body, html, #root, .app {
                   border-left: 2px solid var(--border-color);
                 }
     .nav-bar {
+      justify-content: space-between;
       top: 30px;
-      height: 300px;
       flex: 0 0 8%;
       z-index: 10;
     }
