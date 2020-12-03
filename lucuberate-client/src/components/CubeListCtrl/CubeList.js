@@ -40,9 +40,7 @@ class CubeList extends React.Component {
   render() {
     return(
       <div className="cube-list container-column">
-          <ul className="cubeList">
-            {this.renderCubes()}
-          </ul>
+        {this.renderCubes()}
       </div>
     )
   }
