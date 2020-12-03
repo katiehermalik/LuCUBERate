@@ -44,8 +44,9 @@ class CubeEdit extends React.Component {
     return(
       <>
       {this.state &&
-        <div className="form-container">
-          <form onSubmit={this.handleFormSave} id="CubeNewForm" className="CubeForm">
+        <div className="form-container container-column">
+          <h1 className="form-title">Edit this Study Cube</h1>
+          <form onSubmit={this.handleFormSave} id="cube-edit-form" className="cube-form">
             <div className="form-row">
               <div className="form-group col-md-5">
                 <label htmlFor="inputQuestion">Question</label>
@@ -129,15 +130,20 @@ class CubeEdit extends React.Component {
                   onChange={this.handleChange} />
               </div>
             </div>
-            <Link to={`/dashboard/${this.state._id}`}>
+              <div className="form-buttons">
+              <Link to={`/dashboard/${this.state._id}`}>
+                <button 
+                  type="submit" 
+                  className="btn form-btn btn-secondary"
+                  >
+                  Cancel
+                </button>
+              </Link>
               <button 
-                type="submit" 
-                className="btn btn-secondary"
-                >
-                Cancel
-              </button>
-            </Link>
-            <button type="submit" className="btn btn-primary">Save Changes</button>
+              type="submit" 
+              className="btn form-btn btn-warning">
+              Save Changes</button>
+            </div>
           </form>
         </div>
         }
