@@ -35,8 +35,9 @@ class CubeNew extends React.Component {
     return(
       <>
         {this.state &&
-        <div className="form-container">
-          <form onSubmit={this.handleSubmit} id="CubeNewForm" className="CubeForm">
+        <div className="form-container container-column">
+          <h1 className="form-title">Create a New Study Cube</h1>
+          <form onSubmit={this.handleSubmit} id="cube-new-form" className="cube-form">
             <div className="form-row">
               <div className="form-group col-md-5">
                 <label htmlFor="inputQuestion">Question</label>
@@ -120,21 +121,21 @@ class CubeNew extends React.Component {
                 onChange={this.handleChange} />
               </div>
             </div>
-            <Link to='/dashboard'>
+            <div className="form-buttons">
+              <Link to='/dashboard'>
+                <button 
+                  type="submit" 
+                  className="btn form-btn btn-secondary"
+                  >
+                  Cancel
+                </button>
+              </Link>
+              <span> </span>
               <button 
                 type="submit" 
-                className="btn btn-secondary"
-                >
-                Cancel
-              </button>
-            </Link>
-            <span> </span>
-            <button 
-              type="submit" 
-              className="btn btn-primary"
-              >
-              Generate New Cube
-            </button>
+                className="btn form-btn btn-warning">
+                Generate New Cube</button>
+            </div>
           </form>
         </div>
         }
