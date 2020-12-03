@@ -13,9 +13,9 @@ class Navbar extends React.Component {
   render() {
     return (
       <>
-        <nav className="nav-bar navbar-light bg-light container-row">
+        <nav className="nav-bar container-row">
         {this.props.user &&
-          <a className="navbar-brand" href="/">LuCUBERate</a>
+          <a className="navbar-brand navbar-item" href="/">LuCUBERate</a>
         }
           <div className="navlinks-container container-row">
             {!this.props.user &&
