@@ -69,13 +69,14 @@ body, html, #root, .app {
           border-right: 2px solid var(--border-color);
         }
             .cube-header {
-              flex: 0 0 10%;
+              flex: 0 0 15%;
               justify-content: center;
               align-items: center;
               border-bottom: 2px solid var(--border-color);
             }
             .cube-list {
-              flex: 0 0 90%;
+              flex: 0 0 75%;
+              align-items: center;
               overflow: auto;
             }
         .pages {
@@ -173,13 +174,11 @@ body, html, #root, .app {
   bottom: 3vh;
 }
 
-/* ------------------------------------------------- Cube New Edit Delete Btns */
-
-.btn-ctrl {
+/* ----------------------------------------- Cube New Edit Delete Select Btns */
+.button {
   border-radius: 5px;
 	display:inline-block;
   color:var(--background-main);
-  background-color: rgb(253, 192, 52);
 	font-size: 16px;
 	font-weight:bold;
   padding:14px 29px;
@@ -187,7 +186,26 @@ body, html, #root, .app {
 	text-decoration:none;
   text-align:center;
   outline: none;
-  box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.81);
+  box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.5);
+}
+.cube-select-btn {
+  background-color: var(--text-color);
+  opacity: .7;
+}
+
+.cube-select-btn:hover {
+  background-color: var(--text-color);
+  opacity: 1;
+}
+
+.cube-select-btn:focus {
+  background-color: var(--text-color);
+  border: 2px solid rgb(253, 192, 52);
+  opacity: 1;
+}
+
+.btn-ctrl {
+  background-color: rgb(253, 192, 52);
 }
 
 .btn-ctrl:hover {

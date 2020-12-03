@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route} from 'react-router-dom';
-import Landing from '../pages/Landing';
 import CubeNew from '../pages/CubeNew';
 import CubeEdit from '../pages/CubeEdit';
 import CubeShow from '../pages/CubeShow';
