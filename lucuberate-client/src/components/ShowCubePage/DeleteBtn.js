@@ -16,7 +16,7 @@ class DeleteBtn extends React.Component {
   render() {
     return(
       <> 
-        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target="#deleteConfirmModal">
+        <button type="button" className="btn-ctrl" data-toggle="modal" data-target="#deleteConfirmModal">
           Delete Cube
         </button>
         <div className="modal" id="deleteConfirmModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -4,6 +4,7 @@ function NewCubeBtn() {
   return (
     <Link to='/dashboard/new'>
       <input
+      className="new-cube-btn btn-ctrl"
       type="button"
       value="New Cube" />
     </Link>

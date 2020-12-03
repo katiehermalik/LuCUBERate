@@ -27,7 +27,7 @@ class Logout extends React.Component {
           Dashboard</a>
         }
         <form onSubmit={this.handleSubmit}>
-          <button type="submit" id="logout-btn" className="nav-item nav-link">Logout</button>
+          <button type="submit" className="logout-btn navbar-item nav-link">Logout</button>
         </form>
       </>
     )

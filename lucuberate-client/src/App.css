@@ -14,6 +14,10 @@
   margin: 0;
   }
 
+  *:focus {
+    outline: 0 !important;
+  }
+
 
 /* ------------------------------- Variables */
 
@@ -21,7 +25,7 @@
   --background-main: rgb(40, 44, 52);
   --background-accent: rgb(140, 158, 64);
   --text-color: #f1f4f8;
-  --border-color: #b8c9df;
+  --border-color:rgb(210, 229, 243);
 }
 
 .light {
@@ -58,7 +62,6 @@ body, html, #root, .app {
     }
 
     .dashboard {
-      flex: 0 0 92%;
       height: 100vh;
     }
         .cube-list-ctrl {
@@ -87,13 +90,20 @@ body, html, #root, .app {
                 }
                 .cube-ctrls {
                   flex: 0 0 20%;
+                  align-items: center;
+                  justify-content: center;
+                  
                   border-left: 2px solid var(--border-color);
                 }
     .nav-bar {
+      color: var(--background-main);
+      background-color: var(--border-color);
       justify-content: space-between;
-      top: 30px;
-      flex: 0 0 8%;
+      align-items: center;
+      top: 8px;
+      height: 7vh;
       z-index: 10;
+      box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.81);
     }
 
 
@@ -131,15 +141,18 @@ body, html, #root, .app {
 #tagline {
   font-size: 2.3vw;
 }
-
-.navbar {
-  width: 100%;
-  position: relative;
-  z-index: 3;
+.navbar-item {
+  color: var(--background-main);
+  background-color: rgba(0, 0, 0, 0);
 }
 
-#logout-btn {
-  background: none!important;
+.navbar-item:hover {
+  background-color: rgba(0, 0, 0, .1);
+  color: var(--background-main);
+}
+
+.logout-btn {
+  color: var(--background-main);
   border: none;
   padding: 8px;
   cursor: pointer;
@@ -155,6 +168,31 @@ body, html, #root, .app {
 
 .cube-mesh {
   bottom: 3vh;
+}
+
+/* ------------------------------------------------- Cube New Edit Delete Btns */
+
+.btn-ctrl {
+  border-radius: 5px;
+	display:inline-block;
+  color:var(--background-main);
+  background-color: rgb(253, 192, 52);
+	font-size: 16px;
+	font-weight:bold;
+  padding:14px 29px;
+  margin: 10px;
+	text-decoration:none;
+  text-align:center;
+  outline: none;
+  box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.81);
+}
+
+.btn-ctrl:hover {
+  background-color: rgb(228, 171, 36);
+}
+
+.btn-ctrl:active {
+  box-shadow: 0px 9px 6px -7px rgba(0,0,0,0)
 }
 
 
@@ -308,6 +346,6 @@ body, html, #root, .app {
   margin: 0 20px;
 }
 
-/*  */
+
 
 
