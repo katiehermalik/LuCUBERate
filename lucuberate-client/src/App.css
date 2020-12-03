@@ -1,7 +1,6 @@
 /* ------------------------------------- CSS reset */
 
 * {
-  outline: 2px solid red;
   box-sizing: border-box;
   vertical-align: baseline;
   font-weight: inherit;
@@ -16,6 +15,14 @@
 
   *:focus {
     outline: 0 !important;
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+
+  input[type='radio']{
+    margin-right: 15px;
   }
 
 
@@ -80,6 +87,9 @@ body, html, #root, .app {
               flex: 0 0 75%;
               align-items: flex-start;
               margin-top: 30px;
+              padding: 15px 15px;
+              border: 2px solid var(--border-color);
+              border-radius: 5px;
               overflow: auto;
             }
 
@@ -99,36 +109,66 @@ body, html, #root, .app {
                   
                 }
                 .cube-form {
+                  margin-top: 5vh;
                   height: 60vh;
                   width: 70vw;
                 }
                     .form-row {
                       justify-content: space-around;
                     }
+                      
                       .form-buttons {
                         margin-top: 10vh;
                         margin-right: 3vw;
                         display: flex;
                         justify-content: flex-end;
                       }
-                          .btn {
-                            margin: 5px;
+                          .form-btn {
+                            margin-left: 10px;
+                          }
+
+                          .btn-warning {
+                            background-color: rgb(253, 192, 52);
+                            font-weight: bold;
+                          }
+
+                          .form-control {
+                            border: none;
+                            box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
+                          }
+
+                          .form-control:focus {
+                            border: none;
+                            box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
                           }
 
             .show-page-container {
                 height: 100vh;
+                align-items: center;
             }
-                .study-cube {
-                  flex: 0 0 80%;
+                .cube-container {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin-top: 10vh;
+                  /* margin-top: 120px; */
                 }
+                .cube-ctrl-group {
+                  flex: 0 0 15%;
+                  align-items: center;
+                  width: 90%;
+                }
+
                 .cube-ctrls {
-                  flex: 0 0 20%;
+                  flex: 0 0 30%;
                   align-items: center;
                   justify-content: center;
-                  bottom: 10vh;
+                  height: 100%;
+                  width: 100%;
+                  padding: 0 10px;
                   background-color: var(--background-main);
-                  border-left: 2px solid var(--border-color);
                 }
+
     .nav-bar {
       color: var(--background-main);
       background-color: var(--border-color);
@@ -212,7 +252,7 @@ body, html, #root, .app {
 .button {
   border-radius: 5px;
 	display:inline-block;
-  color:var(--background-main);
+  color: var(--background-main);
 	font-size: 16px;
 	font-weight:bold;
   padding:14px 29px;
@@ -239,6 +279,7 @@ body, html, #root, .app {
 }
 
 .btn-ctrl {
+  margin: 5px;
   background-color: rgb(253, 192, 52);
 }
 
@@ -383,29 +424,25 @@ body, html, #root, .app {
 
 .radio-face-group {
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 70vh;
-  margin: 5px 0;
-  position: absolute;
-  right: -13vw;
-  top: 20px;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+  background-color: rgb(62, 66, 74);
 }
 
 .radio-button {
   list-style-type: none;
   margin: 0 20px;
-  margin: 10px 0;
   padding: 4px 10px 1px 10px;
 }
 
 .radio-button:hover {
   border-radius: 20px;
   box-shadow: inset 3px 7px 15px -1px rgba(0,0,0,0.78);
-}
-
-input[type='radio']{
-  margin-right: 15px;
 }
 
 input[type='radio']:checked:after {
@@ -420,6 +457,11 @@ input[type='radio']:checked:after {
   display: inline-block;
   visibility: visible;
   border: 6px solid rgb(253, 192, 52);
+}
+
+.delete-modal-button {
+  display: block;
+  word-wrap: normal
 }
 
 
