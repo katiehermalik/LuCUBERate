@@ -30,6 +30,10 @@ class Navbar extends React.Component {
                 className="navbar-text">
                 Hello, {this.props.user.username}
                 &nbsp;&nbsp;</span>
+              {window.location.pathname === '/' &&
+                <a href="/dashboard" className="nav-item navbar-item nav-link">
+                  Dashboard</a>
+              }
               <Logout logout={this.props.auth}/>
             </>
             }

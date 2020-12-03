@@ -12,11 +12,11 @@ class CubeSelect extends React.Component {
     return(
       <li className="radio-button">
           <label
-            for={`Cube ${this.props.number}`}>
+            htmlFor={`Cube ${this.props.number}`}>
           <input
             key={this.props.key}
             type="radio"
-            name='cube-select'
+            name="cube-select"
             id={`Cube ${this.props.number}`}
             value={`Cube ${this.props.number}`}
             onChange={this.handleClick}

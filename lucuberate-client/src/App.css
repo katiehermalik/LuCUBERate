@@ -23,7 +23,6 @@
 
 .dark {
   --background-main: rgb(40, 44, 52);
-  --background-accent: rgb(140, 158, 64);
   --text-color: #f1f4f8;
   --border-color:rgb(210, 229, 243);
 }
@@ -38,7 +37,7 @@
   
 body, html, #root, .app {
   min-height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .container-row {
@@ -69,6 +68,7 @@ body, html, #root, .app {
           flex: 0 0 15%;
           background-color: var(--background-main);
           border-right: 2px solid var(--border-color);
+          align-items: center;
         }
             .cube-header {
               flex: 0 0 15%;
@@ -78,9 +78,11 @@ body, html, #root, .app {
             }
             .cube-list {
               flex: 0 0 75%;
-              align-items: center;
+              align-items: flex-start;
+              margin-top: 30px;
               overflow: auto;
             }
+
         .pages {
           flex: 0 0 85%;
           height: 100vh;
@@ -145,11 +147,12 @@ body, html, #root, .app {
 #tagline {
   font-size: 2.3vw;
 }
-.navbar-item {
+
+.navbar-item, .navbar-text {
   color: var(--background-main);
   background-color: rgba(0, 0, 0, 0);
   border-radius: 30px;
-  padding: 5px 15px;
+  padding: 8px 16px;
   margin: 0 10px;
 }
 
@@ -350,7 +353,7 @@ body, html, #root, .app {
 
 /* ------------------------------------------ Radio Buttons */
 
-.radio-group {
+.radio-face-group {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -364,16 +367,17 @@ body, html, #root, .app {
 .radio-button {
   list-style-type: none;
   margin: 0 20px;
-  /* filter: grayscale(1); */
+  margin: 10px 0;
+  padding: 4px 10px 1px 10px;
 }
 
-.cube-select-group {
-  justify-content: flex-start;
-  outline: 2px solid red;
+.radio-button:hover {
+  border-radius: 20px;
+  box-shadow: inset 3px 7px 15px -1px rgba(0,0,0,0.78);
 }
 
-.cube-select {
-  outline: 2px solid red;
+input[type='radio']{
+  margin-right: 15px;
 }
 
 input[type='radio']:checked:after {
