@@ -46,7 +46,7 @@ class SignUp extends React.Component {
     return(
       <>
         <div className="text-center">
-          <a href="!#" className="nav-item nav-link" data-toggle="modal" data-target="#modalRegisterForm">
+          <a href="!#" className="nav-item navbar-item nav-link" data-toggle="modal" data-target="#modalRegisterForm">
           Sign Up</a>
         </div>
         <div 
