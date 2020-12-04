@@ -14,30 +14,30 @@ class Navbar extends React.Component {
     return (
       <>
         <nav className="nav-bar container-row">
-        {this.props.user &&
-          <a className="navbar-brand navbar-item" href="/">LuCUBERate</a>
-        }
           <div className="navlinks-container container-row">
+        {this.props.user &&
+        <>
+          <a className="navbar-brand navbar-item" href="/">LuCUBERate</a>
+          <span 
+            className="navbar-text">
+            Hello, {this.props.user.username}. &nbsp; Let's study...
+            &nbsp;&nbsp;</span>
+          {window.location.pathname === '/' &&
+          <a href="/dashboard" className="nav-item navbar-item nav-link">
+            Dashboard</a>
+          }
+        </>
+        }
+          </div>
             {!this.props.user &&
-            <>
+            <div className="container-row">
               <SignUp auth={this.props.auth} user={this.props.user}/>
               <Login auth={this.props.auth} user={this.props.user}/>
-            </>
+            </div>
             }
             {this.props.user &&
-            <>
-              <span 
-                className="navbar-text">
-                Hello, {this.props.user.username}
-                &nbsp;&nbsp;</span>
-              {window.location.pathname === '/' &&
-                <a href="/dashboard" className="nav-item navbar-item nav-link">
-                  Dashboard</a>
-              }
-              <Logout logout={this.props.auth}/>
-            </>
+            <Logout logout={this.props.auth}/>
             }
-          </div>
         </nav>
       </>
     )

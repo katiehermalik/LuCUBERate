@@ -1,7 +1,6 @@
 import React from 'react';
 import CubeModel from '../models/cube';
 import StudyCube from '../components/ShowCubePage/StudyCube'
-import CubeCtrls from '../components/ShowCubePage/CubeCtrls'
 
 
 class CubeShow extends React.Component {

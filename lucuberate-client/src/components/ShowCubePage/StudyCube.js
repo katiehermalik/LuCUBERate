@@ -28,9 +28,9 @@ function StudyCube(props) {
         <ul className="radio-face-group">
             {sides.map(side => (
                 <>
-                  <li className="radio-button">
+                  <li key={`list-item-${side}`} className="radio-button">
                     <input
-                      key={side}
+                      key={`input-item-${side}`}
                       type="radio"
                       name="rotate-cube-side"
                       value={side}
@@ -38,6 +38,7 @@ function StudyCube(props) {
                       onChange={() => setSide(side)}
                     />
                     <label
+                      key={`label-item-${side}`}
                       htmlFor={side}>
                         {side}
                     </label>

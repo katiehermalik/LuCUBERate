@@ -56,7 +56,7 @@ class CubeNew extends React.Component {
                 type="text" 
                 className="form-control" 
                 id="inputAnswer" 
-                placeholder="You've got this!"
+                placeholder="The answer goes here."
                 name="answer" 
                 value={this.state.answer}
                 onChange={this.handleChange} />
@@ -80,7 +80,7 @@ class CubeNew extends React.Component {
                 type="text" 
                 className="form-control" 
                 id="inputNotes" 
-                placeholder="Anything to help with memorization."
+                placeholder="Anything to help with memorization..."
                 name="notes" 
                 value={this.state.notes}
                 onChange={this.handleChange} />
@@ -93,7 +93,7 @@ class CubeNew extends React.Component {
                 type="text" 
                 className="form-control" 
                 id="inputLink" 
-                placeholder="Add a URL to a resource."
+                placeholder="Add a link as a resource."
                 name="link" 
                 value={this.state.link}
                 onChange={this.handleChange} />
@@ -104,7 +104,7 @@ class CubeNew extends React.Component {
                 type="text" 
                 className="form-control" 
                 id="inputAlias" 
-                placeholder="Give the URL a shorter name."
+                placeholder="Semantically name the link."
                 name="link_alias" 
                 value={this.state.link_alias}
                 onChange={this.handleChange} />
@@ -115,7 +115,7 @@ class CubeNew extends React.Component {
                 type="text" 
                 className="form-control" 
                 id="inputVisualAid" 
-                placeholder="Give the URL of a helpful image."
+                placeholder="URL of a helpful visual aid."
                 name="visual_aid" 
                 value={this.state.visual_aid}
                 onChange={this.handleChange} />
