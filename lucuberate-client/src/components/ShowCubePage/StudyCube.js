@@ -17,7 +17,8 @@ function StudyCube(props) {
   const [cube, setCube] = useState({});
 
   useEffect(() => {
-    setCube(props.cube)
+    setCube(props.cube);
+    setSide('Question');
   }, [props.cube])
 
   return (
