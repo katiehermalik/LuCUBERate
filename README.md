@@ -2,7 +2,7 @@
 
 # LuCUBERate
 
-LuCUBERate leverages the convenience of a flash card into the third dimension. We allow more space and freedom for the way that you learn.
+LuCUBERate leverages the convenience of a flash card into a third dimension. We allow more space and freedom for the way that you learn.
 Our name LuCUBERate is a play on the word 'lucubrate', which means to write or study, especially by night.
 
 This project was bootstrapped with Create React App.
