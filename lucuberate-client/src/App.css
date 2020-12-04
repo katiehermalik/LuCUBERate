@@ -167,6 +167,8 @@ body, html, #root, .app {
                   width: 100%;
                   padding: 0 10px;
                   background-color: var(--background-main);
+                  white-space: nowrap;
+                  text-align: center;
                 }
 
     .nav-bar {
@@ -322,7 +324,7 @@ body, html, #root, .app {
 .study-cube.Hint { 
   transform: rotateY( -90deg);
 }
-.study-cube.Links { 
+.study-cube.Link { 
   transform: rotateY(-180deg);
 }
 .study-cube.Notes { 
@@ -382,7 +384,7 @@ body, html, #root, .app {
   background: #CDE6F5;
   color: rgb(70, 70, 70);
 }
-.face.Links { 
+.face.Link { 
   background: #8DA7BE; 
 }
 .face.Notes { 
@@ -396,7 +398,7 @@ body, html, #root, .app {
 /* original position */
 .face.Question { transform: rotateY(0deg) translateZ(30vh);}
 .face.Hint { transform: rotateY( 90deg) translateZ(30vh);}
-.face.Links { transform: rotateY(180deg) translateZ(30vh);}
+.face.Link { transform: rotateY(180deg) translateZ(30vh);}
 .face.Notes { transform: rotateY(-90deg) translateZ(30vh);}
 .face.Visual { transform: rotateX( 90deg) translateZ(30vh);}
 .face.Answer { transform: rotateX(-90deg) translateZ(30vh);}
