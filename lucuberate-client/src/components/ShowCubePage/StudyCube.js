@@ -7,7 +7,7 @@ const sides = [
   'Question',
   'Answer',
   'Visual',
-  'Links',
+  'Link',
   'Notes',
   'Hint'
 ]
@@ -55,25 +55,25 @@ function StudyCube(props) {
               className={`face-content ${side === 'Question' || side === '' ? '' : 'blur' }`}
               >{cube.question}</div>
             </div>
-            <div className="face Links">
-              <div className={`face-title ${side === 'Links' ? '' : 'blur' }`}>Links</div>
-              <div className={`face-content ${side === 'Links' ? '' : 'blur' }`}><a rel="noreferrer" target="_blank" href="https://www.w3schools.com/tags/tag_a.asp">Anchor Tag</a></div>
+            <div className="face Link">
+              <div className={`face-title ${side === 'Link' ? '' : 'blur' }`}>Link</div>
+              <div className={`face-content ${side === 'Link' ? '' : 'blur' }`}><a rel="noreferrer" target="_blank" href={cube.link}>{cube.link_alias}</a></div>
             </div>
             <div className="face Hint">
               <div className={`face-title ${side === 'Hint' ? '' : 'blur' }`}>Hint</div>
-              <div className={`face-content ${side === 'Hint' ? '' : 'blur' }`}></div>
+              <div className={`face-content ${side === 'Hint' ? '' : 'blur' }`}>{cube.hint}</div>
             </div>
             <div className="face Notes">
               <div className={`face-title ${side === 'Notes' ? '' : 'blur' }`}>Notes</div>
-              <div className={`face-content ${side === 'Notes' ? '' : 'blur' }`}></div>
+              <div className={`face-content ${side === 'Notes' ? '' : 'blur' }`}>{cube.notes}</div>
             </div>
             <div className="face Visual">
               <div className={`face-title ${side === 'Visual' ? '' : 'blur' }`}>Visual Aid</div>
-              <img src="https://picsum.photos/200/300" alt="random" className={`visual-aid ${side === 'Visual' ? '' : 'blur' }`}/>
+              <img src={cube.visual_aid} alt="random" className={`visual-aid ${side === 'Visual' ? '' : 'blur' }`}/>
             </div>
             <div className="face Answer">
               <div className={`face-title ${side === 'Answer' ? '' : 'blur' }`}>Answer</div>
-              <div className={`face-content ${side === 'Answer' ? '' : 'blur' }`}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+              <div className={`face-content ${side === 'Answer' ? '' : 'blur' }`}>{cube.answer}</div>
             </div>
           </div>
         </div>
