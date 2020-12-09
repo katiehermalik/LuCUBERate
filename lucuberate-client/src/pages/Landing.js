@@ -1,7 +1,12 @@
 import LandingBackground from "../components/LandingPage/LandingBackground";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Landing() {
   return(
+    <>
+        <i className="spin fa-2x">
+        <FontAwesomeIcon icon={ faSyncAlt } /></i>
     <div className="landing">
       <div 
         id="title-container" 
@@ -9,9 +14,15 @@ function Landing() {
         <br></br>
         <br></br>
         <br></br>
-        <h1 
+        <div className="logo">
+        <h2
         id="brand-name" 
-        className="brand-name landing-text">LuCUBERate</h1>
+        className="landing-text side-text">Lu</h2>
+        <h1 id="brand-name" 
+        className="brand-name landing-text">CUBER</h1>
+        <h3 id="brand-name" 
+        className="landing-text side-text">ate</h3>
+        </div>
         <h4 
         id="tagline" 
         className="landing-text tagline">lu•cu•brate &nbsp;&nbsp;/&nbsp;&nbsp; to write or study (especially by night)</h4>
@@ -22,6 +33,7 @@ function Landing() {
       </div>
       <LandingBackground />
     </div>
+    </>
   )
 }
 

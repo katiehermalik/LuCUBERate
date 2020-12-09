@@ -1,4 +1,5 @@
 /* ------------------------------------- CSS reset */
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
 * {
   box-sizing: border-box;
@@ -11,6 +12,7 @@
   outline: 0;
   padding: 0;
   margin: 0;
+  font-family: 'Raleway', sans-serif;
   }
 
   *:focus {
@@ -195,9 +197,21 @@ body, html, #root, .app {
   height: 100%;
   overflow: hidden;
 }
+.spin{
+  color: var(--text-color);
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  opacity: 0.5;
+}
 
 .landing-text {
   color: var(--text-color);
+  display: inline;
+}
+
+.side-text {
+  font-size: 90px;
 }
 
 .title-container {
@@ -216,15 +230,15 @@ body, html, #root, .app {
 
 .brand-name {
   font-weight: bold;
-  font-size: 10vw;
+  font-size: 110px;
 }
 
 .tagline {
-  font-size: 2.3vw;
+  font-size: 25px;
 }
 
 .description {
-  font-size: 1.5vw;
+  font-size: 18px;
 }
 
 .navbar-brand {
@@ -493,6 +507,48 @@ input[type='radio']:checked:after {
   align-items: center;
 }
 
+/* ------------------------------------------ Media Queries */
 
+@media screen and (max-width: 992px) {
+  .side-text {
+    font-size: 50px;
+  }
 
+  .brand-name {
+    font-weight: bold;
+    font-size: 70px;
+  }
+  
+  .tagline {
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .description {
+    font-size: 16px;
+    text-align: center;
+  }
+}
 
+@media screen and (max-width: 450px) {
+  .side-text {
+    font-size: 35px;
+  }
+  
+  .brand-name {
+    font-weight: bold;
+    font-size: 40px;
+  }
+  
+  .tagline {
+    font-size: 20px;
+    text-align: center;
+    padding: 0 10px;
+  }
+  
+  .description {
+    font-size: 16px;
+    text-align: center;
+    padding: 0 30px;
+  }
+}
