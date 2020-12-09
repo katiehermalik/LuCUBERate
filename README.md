@@ -7,6 +7,12 @@ Our name LuCUBERate is a play on the word 'lucubrate', which means to write or s
 
 This project was bootstrapped with Create React App.
 
+## Index
+- [User Stories](#user-stories)
+- [ERD](#erd)
+- [Wireframes](#wireframes)
+- [Technologies Used](#technologies-used)
+
 ## User Stories
 * User will land on splash page and be able to sign up or login using links on nav bar in upper right hand corner of the screen.
 * User may interact with cube in 3d background. When user hovers over cube, cube will change color slightly, giving user a hint to the interactive scene. User can click and drag to move the cube around.
@@ -24,6 +30,8 @@ This project was bootstrapped with Create React App.
 * User can navigate back to the splash page while logged in by clicking on the brand name in the upper left corner. While logged in, a 'dashboard' button will be present in the navbar on the splash page to take the user back to the dashboard.
 * User can logout with the button in the upper right corner of the page.
 
+## ERD
+![image](lucuberate-client/src/images/erd.png)
 
 ## Wireframes
 
