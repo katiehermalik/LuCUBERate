@@ -63,120 +63,126 @@ body, html, #root, .app {
   color: var(--text-color);
   background: var(--background-main);
 }
-    .landing {
-      position: absolute;
-      height: 100vh;
-      width: 100vw;
-    }
 
-    .dashboard {
-      height: 100vh;
-      background-image: url('./images/stars.png');
-    }
-        .cube-list-ctrl {
-          flex: 0 0 15%;
-          background-color: var(--background-main);
-          border-right: 2px solid var(--border-color);
-          align-items: center;
-        }
-            .cube-header {
-              flex: 0 0 15%;
-              justify-content: center;
-              align-items: center;
-              border-bottom: 2px solid var(--border-color);
-            }
-            .cube-list {
-              flex: 0 0 75%;
-              align-items: flex-start;
-              margin-top: 30px;
-              padding: 15px 5px;
-              border: 2px solid var(--border-color);
-              border-radius: 5px;
-              overflow: auto;
-            }
+.landing {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+}
 
-            .cube-select-group {
-              width: 190px;
-              padding-top: 20px 0;
-            }
+.dashboard {
+  height: 100vh;
+  background-image: url('./images/stars.png');
+}
 
-        .pages {
-          flex: 0 0 85%;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-        }
-            .form-container{
-              display: flex;
-              height: 100%;
-              justify-content: center;
-              align-items: center;
-            }
-                .form-title{
-                  
-                }
-                .cube-form {
-                  margin-top: 5vh;
-                  height: 60vh;
-                  width: 70vw;
-                }
-                    .form-row {
-                      justify-content: space-around;
-                    }
-                      
-                      .form-buttons {
-                        margin-top: 10vh;
-                        margin-right: 3vw;
-                        display: flex;
-                        justify-content: flex-end;
-                      }
-                          .form-btn {
-                            margin-left: 10px;
+.cube-list-ctrl {
+  flex: 0 0 15%;
+  background-color: var(--background-main);
+  border-right: 2px solid var(--border-color);
+  align-items: center;
+}
+
+.cube-header {
+  flex: 0 0 15%;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.cube-list {
+  flex: 0 0 75%;
+  align-items: flex-start;
+  margin-top: 30px;
+  padding: 15px 5px;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.cube-select-group {
+  width: 190px;
+  padding-top: 20px 0;
+}
+
+.pages {
+  flex: 0 0 85%;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container{
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.cube-form {
+  margin-top: 5vh;
+  height: 60vh;
+  width: 70vw;
+}
+
+.form-row {
+  justify-content: space-around;
+}
+  
+.form-buttons {
+  margin-top: 10vh;
+  margin-right: 3vw;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-btn {
+  margin-left: 10px;
+}
+
+.btn-warning {
+  background-color: rgb(253, 192, 52);
+  font-weight: bold;
+}
+
+.form-control {
+  border: none;
+  box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
+}
+
+.form-control:focus {
+  border: none;
+  box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
                           }
 
-                          .btn-warning {
-                            background-color: rgb(253, 192, 52);
-                            font-weight: bold;
-                          }
+.show-page-container {
+    height: 100vh;
+    align-items: center;
+}
 
-                          .form-control {
-                            border: none;
-                            box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
-                          }
+.cube-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+  /* margin-top: 120px; */
+}
+.cube-ctrl-group {
+  flex: 0 0 15%;
+  align-items: center;
+  width: 90%;
+}
 
-                          .form-control:focus {
-                            border: none;
-                            box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
-                          }
-
-            .show-page-container {
-                height: 100vh;
-                align-items: center;
-            }
-                .cube-container {
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  margin-top: 10vh;
-                  /* margin-top: 120px; */
-                }
-                .cube-ctrl-group {
-                  flex: 0 0 15%;
-                  align-items: center;
-                  width: 90%;
-                }
-
-                .cube-ctrls {
-                  flex: 0 0 30%;
-                  align-items: center;
-                  justify-content: center;
-                  height: 100%;
-                  width: 100%;
-                  padding: 0 10px;
-                  background-color: var(--background-main);
-                  white-space: nowrap;
-                  text-align: center;
-                }
+.cube-ctrls {
+  flex: 0 0 30%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 0 10px;
+  background-color: var(--background-main);
+  white-space: nowrap;
+  text-align: center;
+}
 
     .nav-bar {
       color: var(--background-main);
