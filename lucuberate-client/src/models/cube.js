@@ -1,4 +1,4 @@
-const url = ['http://localhost:4000/api/v1/cubes', 'https://shielded-waters-87290.herokuapp.com/api/v1/cubes']
+const url = 'https://shielded-waters-87290.herokuapp.com/api/v1/cubes'
 
 
 class CubeModel {
