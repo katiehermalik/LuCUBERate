@@ -1,8 +1,8 @@
 // http://localhost:4000/
-const url = 'https://shielded-waters-87290.herokuapp.com/api/v1/users'
-const signupUrl = 'https://shielded-waters-87290.herokuapp.com/api/signup'
-const loginUrl = 'https://shielded-waters-87290.herokuapp.com/api/login'
-const logoutUrl = 'https://shielded-waters-87290.herokuapp.com/api/logout'
+const url = 'http://shielded-waters-87290.herokuapp.com/api/v1/users'
+const signupUrl = 'http://shielded-waters-87290.herokuapp.com/api/signup'
+const loginUrl = 'http://shielded-waters-87290.herokuapp.com/api/login'
+const logoutUrl = 'http://shielded-waters-87290.herokuapp.com/api/logout'
 
 class UserModel {
   static create(newUser) {
