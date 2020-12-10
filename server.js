@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:3000'
+  origin: ['http://localhost:3000', 'https://shielded-waters-87290.herokuapp.com/']
 }
 
 app.use(session({
