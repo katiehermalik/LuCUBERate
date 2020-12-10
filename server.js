@@ -22,10 +22,15 @@ app.use(session({
 }));
 
 app.use(express.json());
+app.use(express.static(`${__dirname}/lucuberate-client/build`))
 app.use(cors(corsOptions));
 
 app.use("/api/v1/cubes", routes.cubes);
 app.use("/api/v1/users", routes.users);
 app.use("/api", routes.auth);
+
+app.get("*", (req, res) => {
+  res.sendFile(`${__dirname}/lucuberate-client/public/index.html`);
+});
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

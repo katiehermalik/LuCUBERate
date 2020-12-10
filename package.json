@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "author": "Katie Hermalik",
   "license": "ISC",
@@ -21,5 +22,8 @@
     "mongoose": "^5.10.16",
     "mongoose-type-email": "^1.1.2",
     "mongoose-type-url": "^2.1.0"
+  },
+  "engines": {
+    "node": "12.18.3"
   }
 }
