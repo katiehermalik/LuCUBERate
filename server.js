@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const routes = require("./routes");
 const session = require('express-session');
+const path = require('path');
 
 require('dotenv').config();
 const PORT = process.env.PORT || 4000;
@@ -9,7 +10,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3000'
 }
 
 app.use(session({
@@ -22,15 +23,21 @@ app.use(session({
 }));
 
 app.use(express.json());
-app.use(express.static(`${__dirname}/lucuberate-client/build`))
 app.use(cors(corsOptions));
 
+// Use Routes
 app.use("/api/v1/cubes", routes.cubes);
 app.use("/api/v1/users", routes.users);
 app.use("/api", routes.auth);
 
-app.get("*", (req, res) => {
-  res.sendFile(`${__dirname}/lucuberate-client/public/index.html`);
-});
+// Serve static assets if in production
+if(process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('lucuberate-client/build'));
+  
+  app.get("*", (req, res) => {
+    res.sendFile(__dirname, 'lucuberate-client', 'build', 'index.html');
+  });
+}
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
