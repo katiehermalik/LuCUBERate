@@ -38,7 +38,7 @@ app.use("/api", routes.auth);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static('lucuberate-client/build'));
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'lucuberate-client', 'build', 'index.html'));
   });
