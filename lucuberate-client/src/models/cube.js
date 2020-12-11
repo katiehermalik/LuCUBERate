@@ -1,4 +1,9 @@
-const url = `http://localhost:4000/api/v1/cubes`
+let url;
+if (process.env.NODE_ENV === 'development') {
+  url = 'http://localhost:4000/api/v1/cubes';
+} else if (process.env.NODE_ENV === 'production') {
+  url = `https://lucuberate.herokuapp.com/api/v1/cubes`;
+}
 
 
 class CubeModel {
