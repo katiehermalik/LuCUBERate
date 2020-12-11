@@ -22,5 +22,8 @@
     "mongoose": "^5.10.16",
     "mongoose-type-email": "^1.1.2",
     "mongoose-type-url": "^2.1.0"
+  },
+  "engines": {
+    "node": "12.18.3"
   }
 }
