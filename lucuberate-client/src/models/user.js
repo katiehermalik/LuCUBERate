@@ -1,7 +1,20 @@
-const url = `http://localhost:4000/api/v1/users`
-const signupUrl = `http://localhost:4000/api/signup`
-const loginUrl = `http://localhost:4000/api/login`
-const logoutUrl = `http://localhost:4000/api/logout`
+let url;
+let signupUrl;
+let loginUrl;
+let logoutUrl;
+
+if (process.env.NODE_ENV === 'development') {
+  url = `http://localhost:4000/api/v1/users`
+  signupUrl = `http://localhost:4000/api/signup`
+  loginUrl = `http://localhost:4000/api/login`
+  logoutUrl = `http://localhost:4000/api/logout`
+} else if (process.env.NODE_ENV === 'production') {
+  url = `https://lucuberate.herokuapp.com/api/v1/users`
+  signupUrl = `https://lucuberate.herokuapp.com/api/signup`
+  loginUrl = `https://lucuberate.herokuapp.com/api/login`
+  logoutUrl = `https://lucuberate.herokuapp.com/api/logout`
+}
+
 
 class UserModel {
   static create(newUser) {
