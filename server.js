@@ -10,11 +10,12 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 let origin;
-if (process.env.NODE_ENV === 'development') {
-  origin = 'http://localhost:3000';
-} else if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   origin = 'https://lucuberate.herokuapp.com';
+} else {
+  origin = 'http://localhost:3000';
 }
+
 const corsOptions = {
   origin: origin,
 }

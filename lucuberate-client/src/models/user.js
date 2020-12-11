@@ -3,16 +3,16 @@ let signupUrl;
 let loginUrl;
 let logoutUrl;
 
-if (process.env.NODE_ENV === 'development') {
-  url = `http://localhost:4000/api/v1/users`
-  signupUrl = `http://localhost:4000/api/signup`
-  loginUrl = `http://localhost:4000/api/login`
-  logoutUrl = `http://localhost:4000/api/logout`
-} else if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   url = `https://lucuberate.herokuapp.com/api/v1/users`
   signupUrl = `https://lucuberate.herokuapp.com/api/signup`
   loginUrl = `https://lucuberate.herokuapp.com/api/login`
   logoutUrl = `https://lucuberate.herokuapp.com/api/logout`
+} else {
+  url = `http://localhost:4000/api/v1/users`
+  signupUrl = `http://localhost:4000/api/signup`
+  loginUrl = `http://localhost:4000/api/login`
+  logoutUrl = `http://localhost:4000/api/logout`
 }
 
 
@@ -62,7 +62,9 @@ class UserModel {
   }
 
   static allCubes(id) {
-    return fetch(`${url}/${id}`)
+    return fetch(`${url}/${id}`, {
+      method: 'GET'
+    })
     .then((res) => {
       return res.json()
     })
