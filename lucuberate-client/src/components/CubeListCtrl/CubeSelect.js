@@ -10,20 +10,24 @@ class CubeSelect extends React.Component {
   
   render() {
     return(
-      <li className="radio-button">
-          <label
-            htmlFor={`Cube ${this.props.number}`}>
-          <input
-            key={this.props.key}
-            type="radio"
-            name="cube-select"
-            id={`Cube ${this.props.number}`}
-            value={`Cube ${this.props.number}`}
-            onChange={this.handleClick}
+      <li 
+        key={`list-item-${this.props.key}`}
+        className="radio-button">
+        <input
+          key={`input-item-${this.props.key}`}
+          type="radio"
+          name="cube-select"
+          value={`Cube ${this.props.number}`}
+          id={`Cube ${this.props.number}`}
+          onChange={this.handleClick}
           />
-              {`Cube ${this.props.number}`}
-          </label>
-        </li>
+        <label
+          key={`label-item-${this.props.key}`}
+          className="radio-label"
+          htmlFor={`Cube ${this.props.number}`}>
+            {`Cube ${this.props.number}`}
+        </label>
+      </li>
     )
   }
 }

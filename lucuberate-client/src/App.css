@@ -23,11 +23,6 @@
     margin-bottom: 0;
   }
 
-  input[type='radio']{
-    margin-right: 15px;
-  }
-
-
 /* ------------------------------- Variables */
 
 .dark {
@@ -101,7 +96,8 @@ body, html, #root, .app {
 
 .cube-select-group {
   width: 190px;
-  padding-top: 20px 0;
+  padding: 25px;
+  margin: 10px;
 }
 
 .pages {
@@ -166,6 +162,7 @@ body, html, #root, .app {
   margin-top: 10vh;
   /* margin-top: 120px; */
 }
+
 .cube-ctrl-group {
   flex: 0 0 15%;
   align-items: center;
@@ -184,16 +181,16 @@ body, html, #root, .app {
   text-align: center;
 }
 
-    .nav-bar {
-      color: var(--background-main);
-      background-color: var(--border-color);
-      justify-content: space-between;
-      align-items: center;
-      top: 8px;
-      height: 7vh;
-      z-index: 10;
-      box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.81);
-    }
+.nav-bar {
+  color: var(--background-main);
+  background-color: var(--border-color);
+  justify-content: space-between;
+  align-items: center;
+  top: 8px;
+  height: 7vh;
+  z-index: 10;
+  box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.81);
+}
 
 
 /* ---------------------------------- Landing Page */
@@ -295,13 +292,25 @@ body, html, #root, .app {
   color: var(--background-main);
 	font-size: 16px;
 	font-weight:bold;
-  padding:14px 29px;
   margin: 10px;
 	text-decoration:none;
   text-align:center;
   outline: none;
   box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.5);
 }
+
+.new-cube-btn {
+  padding:14px 29px;
+}
+
+.edit-btn {
+  padding: 7px 15px;
+}
+
+.delete-modal-btn {
+  padding: 7px 15px;
+}
+
 .cube-select-btn {
   background-color: var(--text-color);
   opacity: .7;
@@ -451,6 +460,7 @@ body, html, #root, .app {
 .visual-aid {
   cursor: zoom-in;
   max-height: 50%;
+  max-width: 80%;
   transition: transform 0.25s ease;
 }
 
@@ -476,36 +486,26 @@ body, html, #root, .app {
 
 .radio-button {
   list-style-type: none;
-  margin: 0 20px;
+  /* margin: 0 20px; */
   padding: 4px 10px 1px 10px;
 }
 
 .radio-button:hover {
-  border-radius: 20px;
-  box-shadow: inset 3px 7px 15px -1px rgba(0,0,0,0.78);
+  color: rgb(228, 171, 36);
 }
 
-input[type='radio']:checked:after {
-  width: 16px;
-  height: 16px;
-  border-radius: 15px;
-  top: -3px;
-  left: -2px;
-  position: relative;
-  background-color: white;
-  content: '';
-  display: inline-block;
-  visibility: visible;
-  border: 6px solid rgb(253, 192, 52);
+.radio-label {
+  padding: 10px;
 }
 
-
-
-.delete-modal-button {
-  display: block;
-  word-wrap: normal
+input[type='radio'] {
+  width: 0px;
+  height: 0px;
 }
 
+input[type="radio"]:checked + label {
+  color: rgb(255, 197, 61);  
+}
 
 .index {
   height: 80%;
