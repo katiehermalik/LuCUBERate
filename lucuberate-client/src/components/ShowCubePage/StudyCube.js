@@ -15,10 +15,12 @@ const sides = [
 function StudyCube(props) {
   const [side, setSide] = useState('');
   const [cube, setCube] = useState({});
+  const [radioCheck, setRadioCheck] = useState(true);
 
   useEffect(() => {
     setCube(props.cube);
     setSide('Question');
+    setRadioCheck(false);
   }, [props.cube])
 
   return (
@@ -38,6 +40,7 @@ function StudyCube(props) {
                   name="rotate-cube-side"
                   value={side}
                   id={side}
+                  checked={radioCheck}
                   onChange={() => setSide(side)}
                 />
                 <label
