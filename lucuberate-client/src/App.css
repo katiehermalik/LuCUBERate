@@ -1,5 +1,5 @@
 /* ------------------------------------- CSS reset */
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Madurai&display=swap');
 
 * {
   box-sizing: border-box;
@@ -12,7 +12,7 @@
   outline: 0;
   padding: 0;
   margin: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Hind Madurai', sans-serif;
   }
 
   *:focus {
@@ -20,6 +20,10 @@
   }
 
   ul {
+    margin-bottom: 0;
+  }
+
+  label {
     margin-bottom: 0;
   }
 
@@ -34,9 +38,13 @@
 }
 
 /* ------------------------------- Parent Containers */ 
-  
+
+/* * {
+  overflow: hidden;
+} */
 body, html, #root, .app {
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .container-row {
@@ -50,25 +58,49 @@ body, html, #root, .app {
 }
 
 .app {
+  align-content: center;
+  justify-content: flex-start;
   color: var(--text-color);
   background: var(--background-main);
 }
 
-.landing {
+.nav-bar {
+  z-index: 4;
+  height: 50px;
+  width: 100%;
   position: absolute;
-  height: 100vh;
-  width: 100vw;
+  color: var(--background-main);
+  background-color: var(--border-color);
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.81);
+  font-weight: bold;
 }
 
 .dashboard {
+  flex: 4;
+  position: absolute;
+  top: 30px;
   height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
   background-image: url('./images/stars.png');
 }
 
+.index {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.instructions {
+  text-align: center;
+}
+
 .cube-list-ctrl {
-  flex: 0 0 15%;
+  flex: 1;
   background-color: var(--background-main);
-  border-right: 2px solid var(--border-color);
+  border-right: 8px solid var(--border-color);
   align-items: center;
 }
 
@@ -76,6 +108,7 @@ body, html, #root, .app {
   flex: 1;
   justify-content: center;
   align-items: center;
+  margin-top: 15px;
 }
 
 .cube-list {
@@ -91,16 +124,15 @@ body, html, #root, .app {
 }
 
 .cube-select-group {
-  
   padding: 25px;
   margin: 10px;
+  margin-bottom: 80px;
 }
 
 .pages {
-  flex: 0 0 85%;
+  flex: 5;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .form-container{
@@ -147,9 +179,9 @@ body, html, #root, .app {
 }
 
 .show-page-container {
-  height: 100vh;
+  height: 100%;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .cube-container {
@@ -160,15 +192,19 @@ body, html, #root, .app {
 
 .cube-ctrl-group {
   flex: 1;
+  display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .cube-area {
-  flex: 5;
+  flex: 4;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 100px;
 }
 
 .cube-ctrls {
@@ -180,25 +216,26 @@ body, html, #root, .app {
   text-align: center;
 }
 
-.nav-bar {
-  color: var(--background-main);
-  background-color: var(--border-color);
-  justify-content: space-between;
-  align-items: center;
-  top: 8px;
-  height: 7vh;
-  z-index: 10;
-  box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.81);
-}
-
-
 /* ---------------------------------- Landing Page */
 
-#canvas {
+.landing-background {
+  position: absolute !important;
+  background-size: cover;
+}
+
+.title-container {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  pointer-events: none;
+  background: none !important;
 }
+
 .spin{
   color: var(--text-color);
   position: absolute;
@@ -214,20 +251,6 @@ body, html, #root, .app {
 
 .side-text {
   font-size: 90px;
-}
-
-.title-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  position: absolute;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-  overflow: hidden;
-  pointer-events: none;
-  background: none !important;
 }
 
 .brand-name {
@@ -258,9 +281,7 @@ body, html, #root, .app {
 }
 
 .navbar-item:hover {
-  background-color: rgba(0, 0, 0, .03);
-  color: var(--background-main);
-  box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.3);
+  color: rgb(59, 137, 196);
 }
 
 .logout-btn {
@@ -296,6 +317,8 @@ body, html, #root, .app {
 
 .new-cube-btn {
   padding:14px 29px;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 .edit-btn {
@@ -333,7 +356,6 @@ body, html, #root, .app {
 .study-cube {
   width: 100%;
   height: 100%;
-  /* Let the transformed child elements preserve the 3D transformations */
   transform-style: preserve-3d;
   transition: transform 1s;
 }
@@ -419,6 +441,7 @@ body, html, #root, .app {
   text-decoration: underline;
 }
 .face-content a:hover {
+  color: rgb(59, 137, 196);
   text-decoration: none;
 }
 /* Position of faces when moved away from origin to form cube */

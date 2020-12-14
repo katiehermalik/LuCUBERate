@@ -5,9 +5,9 @@ import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 function Landing() {
   return(
     <>
-        <i className="spin fa-2x">
-        <FontAwesomeIcon icon={ faSyncAlt } /></i>
     <div className="landing">
+      <i className="spin fa-2x">
+      <FontAwesomeIcon icon={ faSyncAlt } /></i>
       <div 
         id="title-container" 
         className= "title-container">
