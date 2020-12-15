@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CubeCtrls from './CubeCtrls';
 import '../../App.css';
 
@@ -15,12 +15,18 @@ const sides = [
 function StudyCube(props) {
   const [side, setSide] = useState('');
   const [cube, setCube] = useState({});
-  const [radioCheck, setRadioCheck] = useState(true);
 
+  const refs = useRef([React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef()])
+  
   useEffect(() => {
     setCube(props.cube);
     setSide('Question');
-    setRadioCheck(false);
+    refs.current[0].current.checked = true;
+    refs.current[1].current.checked = false;
+    refs.current[2].current.checked = false;
+    refs.current[3].current.checked = false;
+    refs.current[4].current.checked = false;
+    refs.current[5].current.checked = false;
   }, [props.cube])
 
   return (
@@ -29,7 +35,7 @@ function StudyCube(props) {
     <>
       <div className="cube-ctrl-group container-row">
         <ul className="radio-face-group">
-          {sides.map(side => (
+          {sides.map((side, i) => (
             <>
               <li 
                 key={`list-item-${side}`}
@@ -40,7 +46,8 @@ function StudyCube(props) {
                   name="rotate-cube-side"
                   value={side}
                   id={side}
-                  checked={radioCheck}
+                  ref={refs.current[i]}
+                  // checked={radioCheck}
                   onChange={() => setSide(side)}
                 />
                 <label
