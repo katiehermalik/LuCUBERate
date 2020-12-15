@@ -16,10 +16,12 @@ function StudyCube(props) {
   const [side, setSide] = useState('');
   const [cube, setCube] = useState({});
 
+  // creating refs dynamically when mapping radio buttons 
   const refs = useRef([React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef()])
   
   useEffect(() => {
     setCube(props.cube);
+    // when cube changes, side and checked radio btn changes to 'question'
     setSide('Question');
     refs.current[0].current.checked = true;
     refs.current[1].current.checked = false;
@@ -47,7 +49,6 @@ function StudyCube(props) {
                   value={side}
                   id={side}
                   ref={refs.current[i]}
-                  // checked={radioCheck}
                   onChange={() => setSide(side)}
                 />
                 <label
