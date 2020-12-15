@@ -86,8 +86,8 @@ body, html, #root, .app {
   flex: 4;
   position: absolute;
   top: 30px;
-  height: 100%;
-  width: 100%;
+  /* height: 100%; */
+  width: 100%; 
   overflow-x: hidden;
   background-image: url('./images/stars.png');
 }
@@ -95,7 +95,7 @@ body, html, #root, .app {
 .index {
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
 }
 
 .instructions {
@@ -113,7 +113,7 @@ body, html, #root, .app {
   flex: 1;
   justify-content: center;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 30px;
 }
 
 .cube-list {
@@ -135,30 +135,37 @@ body, html, #root, .app {
 }
 
 .pages {
-  flex: 5;
+  flex: 6;
   justify-content: center;
   align-items: center;
 }
+
+/* ----------------------------- Form Pages */
 
 .form-container{
   display: flex;
-  height: 100%;
   justify-content: center;
   align-items: center;
+  margin-top: 60px;
 }
 
 .cube-form {
-  margin-top: 5vh;
+  margin-top: 10px;
   height: 60vh;
   width: 70vw;
 }
 
 .form-row {
   justify-content: space-around;
+  margin-top: 20px;
+}
+
+.form-title {
+  text-align: center;
 }
   
 .form-buttons {
-  margin-top: 10vh;
+  margin-top: 20px;
   margin-right: 3vw;
   display: flex;
   justify-content: flex-end;
@@ -183,10 +190,12 @@ body, html, #root, .app {
   box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
 }
 
+/* ---------------------------------- Cube SHow Page */
+
 .show-page-container {
-  height: 100%;
   align-items: center;
   justify-content: space-between;
+  margin-top: 43px;
 }
 
 .cube-container {
@@ -199,9 +208,18 @@ body, html, #root, .app {
   flex: 1;
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  margin-bottom: 60px;
+  width: 100%;
+}
+
+.cube-ctrls {
+  flex: 1;
+  align-items: center;
   justify-content: flex-start;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  background-color: var(--background-main);
+  white-space: nowrap;
+  text-align: center;
 }
 
 .cube-area {
@@ -210,15 +228,6 @@ body, html, #root, .app {
   align-items: center;
   justify-content: center;
   margin-bottom: 100px;
-}
-
-.cube-ctrls {
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--background-main);
-  white-space: nowrap;
-  text-align: center;
 }
 
 /* ---------------------------------- Landing Page */
@@ -502,7 +511,7 @@ body, html, #root, .app {
   flex: 2;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin-right: 15px;
   margin-left: 30px;
@@ -536,7 +545,9 @@ input[type="radio"]:checked + label {
 
 /* ------------------------------------------ Media Queries */
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1050px) {
+  
+  /* ----------------------------- Landing Page */
   .side-text {
     font-size: 50px;
   }
@@ -555,6 +566,93 @@ input[type="radio"]:checked + label {
     font-size: 16px;
     text-align: center;
   }
+
+  /* ----------------------------- Dashboard */
+
+  .dashboard {
+    flex-direction: column-reverse;
+  }
+
+  .pages {
+    overflow-y: auto;
+  
+  }
+  .show-page-container {
+    overflow-x: hidden;
+  }
+/* ================================ */
+  .cube-ctrl-group {
+    justify-content: flex-start;
+  }
+
+  .radio-face-group {
+    /* justify-content: flex-start; */
+    overflow: auto;
+    margin-right: 0;
+    margin-left: 15px;
+  }
+
+  .cube-ctrls {
+    justify-content: center;
+    margin: 0 15px;
+  }
+
+  .edit-btn {
+    margin-left: 0;
+    white-space: normal;
+  }
+
+  .delete-modal-btn {
+    white-space: normal;
+  }
+/* ================================ */
+  .form-container{
+    flex: 6;
+  }
+
+  .form-buttons {
+    margin-top: 20px;
+  }
+
+  .form-btn {
+    margin-bottom: 30px;
+  }
+
+  .cube-list-ctrl {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-top: 8px solid var(--border-color);
+    border-right: none;
+  }
+
+  .cube-header {
+    margin: 0;
+  }
+
+  .new-cube-btn {
+    margin: 15px;
+  }
+
+  .cube-list {
+    flex-direction: row;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-right: 15px;
+  }
+
+  /* -------------------------- Cube Show Page */
+  .radio-face-group {
+    overflow: auto;
+  }
+  
+  .cube-area {
+    margin: 50px;
+    margin-top: 10px
+  }
+
 }
 
 @media screen and (max-width: 450px) {
