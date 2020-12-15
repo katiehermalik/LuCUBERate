@@ -14,23 +14,20 @@ class Navbar extends React.Component {
     return (
       <>
         <nav className="nav-bar container-row">
-          <div className="navlinks-container container-row">
         {this.props.user &&
         <>
           <a className="navbar-brand navbar-item" href="/">LuCUBERate</a>
           <span 
             className="navbar-text">
-            Hello, {this.props.user.username}. &nbsp; Let's study...
-            &nbsp;&nbsp;</span>
+            Hello, {this.props.user.username}</span>
           {window.location.pathname === '/' &&
           <a href="/dashboard" className="nav-item navbar-item nav-link">
             Dashboard</a>
           }
         </>
         }
-          </div>
             {!this.props.user &&
-            <div className="container-row">
+            <div className="signup-login container-row">
               <SignUp auth={this.props.auth} user={this.props.user}/>
               <Login auth={this.props.auth} user={this.props.user}/>
             </div>

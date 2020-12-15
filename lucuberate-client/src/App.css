@@ -77,12 +77,17 @@ body, html, #root, .app {
   font-weight: bold;
 }
 
+.navlinks-container {
+  align-items: center;
+  max-width: 600px;
+}
+
 .dashboard {
   flex: 4;
   position: absolute;
   top: 30px;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   overflow-x: hidden;
   background-image: url('./images/stars.png');
 }
@@ -275,8 +280,8 @@ body, html, #root, .app {
 
 .navbar-item, .navbar-text {
   color: var(--background-main);
+  text-align: center;
   background-color: rgba(0, 0, 0, 0);
-  border-radius: 30px;
   margin: 0 10px;
 }
 
@@ -296,6 +301,25 @@ body, html, #root, .app {
 
 .modal {
   color: rgb(40, 44, 52);
+  font-weight: bold;
+}
+
+.modal a {
+  color: rgb(59, 137, 196);
+}
+
+.modal-footer {
+  flex-direction: column;
+}
+
+.modal-footer .btn{
+  font-weight: bold;
+  border: 1px solid rgb(217, 222, 226);
+  border-radius: 5px;
+}
+
+.modal-footer hr {
+  color: rgb(217, 222, 226);
 }
 
 .cube-mesh {

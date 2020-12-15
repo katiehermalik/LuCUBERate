@@ -94,6 +94,8 @@ class Login extends React.Component {
                 </div>
                 <div className="modal-footer d-flex justify-content-center">
                   <button type="submit" className="btn">Login</button>
+                  <hr size="2" width="70%"/>
+                  <p>Don't yet have an account? <a href="!#" data-dismiss="modal" data-toggle="modal" data-target="#modalRegisterForm">Sign up</a></p>
                 </div>
               </form>
             </div>
