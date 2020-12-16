@@ -19,7 +19,7 @@ class DeleteBtn extends React.Component {
         <button type="button" className="button delete-modal-btn btn-ctrl" data-toggle="modal" data-target="#deleteConfirmModal">
           Delete Cube
         </button>
-        <div className="modal" id="deleteConfirmModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal delete-modal" id="deleteConfirmModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -31,7 +31,7 @@ class DeleteBtn extends React.Component {
               <div className="modal-body">
                 Are you sure you want to delete this cube?
               </div>
-              <div className="modal-footer">
+              <div className="modal-footer delete">
                 <input type="button" value="Cancel" className="btn btn-secondary" data-dismiss="modal" />
                 <input 
                   onClick={this.handleDeleteClick}

@@ -84,11 +84,9 @@ body, html, #root, .app {
 
 .dashboard {
   flex: 4;
-  position: absolute;
-  top: 30px;
-  /* height: 100%; */
+  margin-top: 30px;
+  height: 100vh;
   width: 100%; 
-  overflow-x: hidden;
   background-image: url('./images/stars.png');
 }
 
@@ -110,7 +108,6 @@ body, html, #root, .app {
 }
 
 .cube-header {
-  flex: 1;
   justify-content: center;
   align-items: center;
   margin-top: 30px;
@@ -119,8 +116,8 @@ body, html, #root, .app {
 .cube-list {
   flex: 4;
   align-items: flex-start;
-  margin-top: 30px;
-  padding: 15px 5px;
+  margin: 30px 20px;
+  padding: 25px;
   border: 2px solid var(--border-color);
   border-radius: 5px;
   overflow: auto;
@@ -128,16 +125,11 @@ body, html, #root, .app {
   background-color: var(--panel-color);
 }
 
-.cube-select-group {
-  padding: 25px;
-  margin: 10px;
-  margin-bottom: 80px;
-}
-
 .pages {
   flex: 6;
   justify-content: center;
   align-items: center;
+  padding-top: 15px;
 }
 
 /* ----------------------------- Form Pages */
@@ -194,8 +186,7 @@ body, html, #root, .app {
 
 .show-page-container {
   align-items: center;
-  justify-content: space-between;
-  margin-top: 43px;
+  height: 90vh;
 }
 
 .cube-container {
@@ -205,11 +196,10 @@ body, html, #root, .app {
 }
 
 .cube-ctrl-group {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 60px;
+  padding-top: 30px;
   width: 100%;
 }
 
@@ -223,11 +213,12 @@ body, html, #root, .app {
 }
 
 .cube-area {
-  flex: 4;
+  flex: 5;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 100px;
+  width: 100%;
+  padding-top: 30px;
 }
 
 /* ---------------------------------- Landing Page */
@@ -321,6 +312,10 @@ body, html, #root, .app {
   flex-direction: column;
 }
 
+.delete {
+  flex-direction: row;
+}
+
 .modal-footer .btn{
   font-weight: bold;
   border: 1px solid rgb(217, 222, 226);
@@ -377,13 +372,13 @@ body, html, #root, .app {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 10vh
+  padding: 10vh;
 }
 
 .cube-container {
-  width: 60vh;
-  height: 60vh;
-  perspective: 400vh;
+  width: 60vmin;
+  height: 60vmin;
+  perspective: 400vmin;
 }
 
 .study-cube {
@@ -441,13 +436,13 @@ body, html, #root, .app {
 }
 
 .face-title {
-  margin: 15px;
-  font-size: 6vh;
+  margin: 2.5vmin;
+  font-size: 6vmin;
 }
 
 .face-content {
-  padding: 0px 40px 15px 40px;
-  font-size: 3vh; 
+  padding: 0px 5vmin 3vmin 5vmin;
+  font-size: 3.1vmin; 
 }
 
 .face.Question { 
@@ -478,12 +473,12 @@ body, html, #root, .app {
   text-decoration: none;
 }
 /* Position of faces when moved away from origin to form cube */
-.face.Question { transform: rotateY(0deg) translateZ(30vh);}
-.face.Hint { transform: rotateY( 90deg) translateZ(30vh);}
-.face.Link { transform: rotateY(180deg) translateZ(30vh);}
-.face.Notes { transform: rotateY(-90deg) translateZ(30vh);}
-.face.Visual { transform: rotateX( 90deg) translateZ(30vh);}
-.face.Answer { transform: rotateX(-90deg) translateZ(30vh);}
+.face.Question { transform: rotateY(0deg) translateZ(30vmin);}
+.face.Hint { transform: rotateY( 90deg) translateZ(30vmin);}
+.face.Link { transform: rotateY(180deg) translateZ(30vmin);}
+.face.Notes { transform: rotateY(-90deg) translateZ(30vmin);}
+.face.Visual { transform: rotateX( 90deg) translateZ(30vmin);}
+.face.Answer { transform: rotateX(-90deg) translateZ(30vmin);}
 
 .blur {
   filter: blur(20px) grayscale(100%);
@@ -494,15 +489,14 @@ body, html, #root, .app {
 
 .visual-aid {
   cursor: zoom-in;
-  max-height: 50%;
-  max-width: 80%;
+  max-height: 30vmin;
+  max-width: 40vmin;
   transition: transform 0.25s ease;
 }
 
 .visual-aid:hover {
   filter: blur(0) !important;
-  transform: scale(2) !important;
-  
+  transform: scale(3) !important;
 }
 
 /* ------------------------------------------ Radio Buttons */
@@ -548,6 +542,15 @@ input[type="radio"]:checked + label {
 @media screen and (max-width: 1050px) {
   
   /* ----------------------------- Landing Page */
+
+  .title-container {
+    padding-top: 30px;
+  }
+
+  .landing-background {
+    padding-top: 30px;
+  }
+
   .side-text {
     font-size: 50px;
   }
@@ -570,19 +573,16 @@ input[type="radio"]:checked + label {
   /* ----------------------------- Dashboard */
 
   .dashboard {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 
   .pages {
-    overflow-y: auto;
-  
-  }
-  .show-page-container {
-    overflow-x: hidden;
+    padding-bottom: 15vmin;
   }
 /* ================================ */
   .cube-ctrl-group {
     justify-content: flex-start;
+    padding-top: 10px;
   }
 
   .radio-face-group {
@@ -600,14 +600,21 @@ input[type="radio"]:checked + label {
   .edit-btn {
     margin-left: 0;
     white-space: normal;
+    font-size: 3.1vmin;
   }
 
   .delete-modal-btn {
     white-space: normal;
+    font-size: 3.1vmin;
+  }
+
+  .delete-modal {
+    font-size: 4vmin;
   }
 /* ================================ */
   .form-container{
     flex: 6;
+    padding-bottom: 180vmin;
   }
 
   .form-buttons {
@@ -619,11 +626,11 @@ input[type="radio"]:checked + label {
   }
 
   .cube-list-ctrl {
-    flex: 1;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    border-top: 8px solid var(--border-color);
+    margin-top: 30px;
+    border-bottom: 8px solid var(--border-color);
     border-right: none;
   }
 
@@ -638,9 +645,7 @@ input[type="radio"]:checked + label {
   .cube-list {
     flex-direction: row;
     padding: 5px;
-    margin-bottom: 10px;
-    margin-left: 0;
-    margin-right: 15px;
+    margin: 15px;
   }
 
   /* -------------------------- Cube Show Page */
@@ -649,11 +654,23 @@ input[type="radio"]:checked + label {
   }
   
   .cube-area {
-    margin: 50px;
-    margin-top: 10px
+    flex: 10;
+    padding-top: 30px;
+    
   }
 
+  .index {
+    margin: 0 30px;
+    height: 80vh;
+  }
 }
+
+@media screen and (max-width: 900px) {
+  .visual-aid:hover {
+    transform: scale(4) !important;
+  }
+}
+
 
 @media screen and (max-width: 450px) {
   .side-text {
@@ -676,4 +693,22 @@ input[type="radio"]:checked + label {
     text-align: center;
     padding: 0 30px;
   }
+
+  .nav-bar {
+    justify-content: space-around;
+  }
+
+  .navbar-item {
+    font-size: 15px;
+    padding: 0;
+    margin: 10px;
+  }
+
+  .navbar-text {
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+    white-space: normal;
+  }
+
 }
