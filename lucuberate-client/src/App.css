@@ -600,16 +600,17 @@ input[type="radio"]:checked + label {
   .edit-btn {
     margin-left: 0;
     white-space: normal;
-    font-size: 3.1vmin;
+    font-size: 12px;
   }
 
   .delete-modal-btn {
     white-space: normal;
-    font-size: 3.1vmin;
+    font-size: 12px;
   }
 
   .delete-modal {
-    font-size: 4vmin;
+    font-size: 16px;
+    white-space: normal;
   }
 /* ================================ */
   .form-container{
