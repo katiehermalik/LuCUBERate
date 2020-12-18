@@ -48,7 +48,7 @@ class UserModel {
     })
   }
 
-  // TO DO - logout not working!!
+
   static logout() {
     return fetch(logoutUrl, {
       method: 'DELETE'

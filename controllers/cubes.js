@@ -1,4 +1,6 @@
 const db = require("../models");
+const multer = require("multer");
+const Cube = require("../models/Cube")
 
 const index = (req, res) => {
   db.Cube.find({})
@@ -23,19 +25,33 @@ const show = (req, res) => {
 };
 
 // Creates New Cube and saves cube Id to current user
-const create = (req, res) => {
-  console.log(req.body)
-  db.Cube.create(req.body.cube)
+const create = (req, res) => { 
+
+  console.log(req.body) 
+  console.log(req.file) 
+
+  const newCube = new Cube({
+    question: req.body.question,
+    answer: req.body.answer,
+    hint: req.body.hint,
+    visual_aid: req.file.originalname,
+    link: req.body.link,
+    link_alias: req.body.link_alias,
+    notes: req.body.notes,
+  })
+  console.log("newCube --------------->", newCube)
+  db.Cube.create(newCube)
   .then((savedCube) => {
-    db.User.findById(req.body.user.user_Id)
+    db.User.findById(JSON.parse(req.body.user).user_Id)
     .then((foundUser) => {
       foundUser.cubes.push(savedCube._id);
       foundUser.save()
       .then((savedUser) => {
-        savedCube.user = req.body.user.user_Id;
+        savedCube.user = JSON.parse(req.body.user).user_Id;
         savedCube.save()
         .then((updatedCube) => {
-        res.json({ cube: savedCube })
+          console.log("SavedCube --------------->", savedCube)
+          res.json({ cube: savedCube })
         })
         .catch((err)=> {
           console.log('Unable to save user to cube in cubes.create:', err);
@@ -59,7 +75,19 @@ const create = (req, res) => {
 };
 
 const update = (req, res) => {
-  db.Cube.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  console.log(req.body)
+  console.log(req.file)
+  const changedCube = new Cube({
+    question: req.body.question,
+    answer: req.body.answer,
+    hint: req.body.hint,
+    visual_aid: req.file.originalname,
+    link: req.body.link,
+    link_alias: req.body.link_alias,
+    notes: req.body.notes,
+  })
+  console.log(req.params)
+  db.Cube.findByIdAndUpdate(req.params.id, changedCube, { new: true })
   .then((updatedCube) => {
     res.json({ cube: updatedCube });
   })

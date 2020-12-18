@@ -86,7 +86,7 @@ function StudyCube(props) {
             </div>
             <div className="face Visual">
               <div className={`face-title ${side === 'Visual' ? '' : 'blur' }`}>Visual Aid</div>
-              <img src={cube.visual_aid} alt="random" className={`visual-aid ${side === 'Visual' ? '' : 'blur' }`}/>
+              <img src={`/uploads/${cube.visual_aid}`} alt="random" className={`visual-aid ${side === 'Visual' ? '' : 'blur' }`}/>
             </div>
             <div className="face Answer">
               <div className={`face-title ${side === 'Answer' ? '' : 'blur' }`}>Answer</div>

@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 4000;
 
 const app = express();
 
-
 let origin;
 if (process.env.NODE_ENV === 'production') {
   origin = 'https://lucuberate.herokuapp.com';
@@ -46,3 +45,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+

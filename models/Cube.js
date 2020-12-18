@@ -14,9 +14,7 @@ const cubeSchema = new mongoose.Schema({
     type: String,
   },
   visual_aid: {
-    type: mongoose.SchemaTypes.Url,
-    // type: Buffer,
-    // contentType: String,
+    type: String,
   },
   link: {
     type: mongoose.SchemaTypes.Url,

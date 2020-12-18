@@ -11,25 +11,17 @@ class CubeModel {
   
   static all() {
     return fetch(url)
-    // use json, because response comes back as buffer (string) and json converts it to javscript that we can use
-      .then((res) => res.json())
-      .catch((err) => {
-        console.log('Error fetching data in CubeModel.all', err)
-        return { game: [] }; // something back as well as error
-      });
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log('Error fetching data in CubeModel.all', err)
+    });
   }
 
   static create(newCube) {
-    let body = JSON.stringify({ 
-      "cube": newCube,
-      "user": JSON.parse(localStorage.getItem("user")),
-    })
-    console.log(body)
+    console.log("body ------->", newCube)
     return fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: body
-      
+      body: newCube 
     })
     .then((res) => res.json())
     .catch((err) => {
@@ -50,13 +42,12 @@ class CubeModel {
   static update(updatedCube, id) {
     return fetch(`${url}/${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedCube),
+      body: updatedCube
     })
     .then((res) => res.json())
     .catch((err) => {
-      console.log('Error fetching data in GameModel.update', err)
-      return { message: 'Error fetching data in GameModel.update' };
+      console.log('Error fetching data in CubeModel.update', err)
+      return { message: 'Error fetching data in CubeModel.update' };
     });
   }
 
@@ -66,8 +57,8 @@ class CubeModel {
     })
     .then((res) => res.json())
     .catch((err) => {
-      console.log('Error fetching data in GameModel.delete', err)
-      return { message: 'Error fetching data in GameModel.delete' };
+      console.log('Error fetching data in CubeModel.delete', err)
+      return { message: 'Error fetching data in CubeModel.delete' };
     });
   }
 
