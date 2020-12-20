@@ -34,12 +34,11 @@ const create = (req, res) => {
     question: req.body.question,
     answer: req.body.answer,
     hint: req.body.hint,
-    visual_aid: req.file.originalname,
+    visual_aid: req.file.filename,
     link: req.body.link,
     link_alias: req.body.link_alias,
     notes: req.body.notes,
   })
-  console.log("newCube --------------->", newCube)
   db.Cube.create(newCube)
   .then((savedCube) => {
     db.User.findById(JSON.parse(req.body.user).user_Id)
@@ -50,7 +49,6 @@ const create = (req, res) => {
         savedCube.user = JSON.parse(req.body.user).user_Id;
         savedCube.save()
         .then((updatedCube) => {
-          console.log("SavedCube --------------->", savedCube)
           res.json({ cube: savedCube })
         })
         .catch((err)=> {
@@ -77,17 +75,16 @@ const create = (req, res) => {
 const update = (req, res) => {
   console.log(req.body)
   console.log(req.file)
-  const changedCube = new Cube({
+  const changedCube = {
     question: req.body.question,
     answer: req.body.answer,
-    hint: req.body.hint,
-    visual_aid: req.file.originalname,
-    link: req.body.link,
-    link_alias: req.body.link_alias,
-    notes: req.body.notes,
-  })
-  console.log(req.params)
-  db.Cube.findByIdAndUpdate(req.params.id, changedCube, { new: true })
+    hint: req.body.hint || '',
+    visual_aid: req.file.filename || '',
+    link: req.body.link || '',
+    link_alias: req.body.link_alias || '',
+    notes: req.body.notes || '',
+  }
+  db.Cube.findByIdAndUpdate(req.body.cubeId, changedCube, { new: true })
   .then((updatedCube) => {
     res.json({ cube: updatedCube });
   })

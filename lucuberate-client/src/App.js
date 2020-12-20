@@ -13,12 +13,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // localStorage.clear();
-    console.log(localStorage)
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
-      console.log(foundUser)
       this.setState(foundUser)
     }
   }

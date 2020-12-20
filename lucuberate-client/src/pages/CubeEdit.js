@@ -12,10 +12,10 @@ function CubeEdit(props) {
   const[visual_aid, setVisualAid] = useState('');
 
   useEffect(() => {
+    
     const cubeId = props.match.params.id;
     CubeModel.getOne(cubeId)
     .then((data) => {
-      console.log(data)
       setQuestion(data.cube.question);
       setAnswer(data.cube.answer);
       setHint(data.cube.hint);
@@ -24,11 +24,10 @@ function CubeEdit(props) {
       setLinkAlias(data.cube.link_alias);
       setVisualAid(data.cube.visual_aid);
     });
-  }, [props.match.params.id])
+  }, [props.match.params.id, link])
 
   const handleFormSave = (event) => {
     event.preventDefault();
-
     const formData = new FormData();
     formData.append("question", question);
     formData.append("answer", answer );
@@ -37,8 +36,8 @@ function CubeEdit(props) {
     formData.append("link", link);
     formData.append("link_alias", link_alias);
     formData.append("visual_aid", visual_aid);
-
     const cubeId = props.match.params.id;
+    formData.append("cubeId", cubeId);
     CubeModel.update(formData, cubeId)
       .then((data) => {
         props.history.push(`/dashboard/${cubeId}`);
@@ -63,7 +62,7 @@ function CubeEdit(props) {
               id="inputQuestion" 
               placeholder="What would you like to study?"
               name="question" 
-              value={question}
+              value={question || ''}
               onChange={(e) => setQuestion(e.target.value)} />
             </div>
             <div className="form-group col-md-5">
@@ -74,7 +73,7 @@ function CubeEdit(props) {
               id="inputAnswer" 
               placeholder="The answer goes here."
               name="answer" 
-              value={answer}
+              value={answer || ''}
               onChange={(e) => setAnswer(e.target.value)} />
             </div>
           </div>
@@ -87,7 +86,7 @@ function CubeEdit(props) {
               id="inputHint" 
               placeholder="Give yourself a nudge in the right direction."
               name="hint" 
-              value={hint}
+              value={hint || ''}
               onChange={(e) => setHint(e.target.value)} />
             </div>
             <div className="form-group col-md-5">
@@ -98,7 +97,7 @@ function CubeEdit(props) {
               id="inputNotes" 
               placeholder="Anything to help with memorization..."
               name="notes" 
-              value={notes}
+              value={notes || ''}
               onChange={(e) => setNotes(e.target.value)} />
             </div>
           </div>
@@ -111,7 +110,7 @@ function CubeEdit(props) {
               id="inputLink" 
               placeholder="Add a link as a resource."
               name="link" 
-              value={link}
+              value={link || ''}
               onChange={(e) => setLink(e.target.value)} />
             </div>
             <div className="form-group col-md-3">
@@ -122,7 +121,7 @@ function CubeEdit(props) {
               id="inputAlias" 
               placeholder="Semantically name the link."
               name="link_alias" 
-              value={link_alias}
+              value={link_alias || ''}
               onChange={(e) => setLinkAlias(e.target.value)} />
             </div>
             <div className="form-group col-md-3">
@@ -154,7 +153,6 @@ function CubeEdit(props) {
       </div>
     </>
   )
-
 }
 
 export default CubeEdit;

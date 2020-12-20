@@ -7,8 +7,7 @@ const storage = multer.diskStorage({
     cb(null, "./lucuberate-client/public/uploads/")
   },
   filename: (req, file, cb) => {
-    const fileName = file.originalname.toLowerCase().split(' ').join('-');
-    cb(null, fileName);
+    cb(null, file.fieldname + '-' + Date.now());
   }
 })
 
