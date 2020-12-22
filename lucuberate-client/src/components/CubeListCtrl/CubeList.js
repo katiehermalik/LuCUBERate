@@ -3,6 +3,7 @@ import UserModel from '../../models/user';
 import CubeSelect from './CubeSelect';
 import { MyContext } from '../../context/ContextProvider';
 
+
 class CubeList extends React.Component {
   state = {
     cubes: []
@@ -34,4 +35,5 @@ class CubeList extends React.Component {
   }
 }
 
+CubeList.contextType = MyContext;
 export default CubeList;

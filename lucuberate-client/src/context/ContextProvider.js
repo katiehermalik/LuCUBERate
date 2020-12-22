@@ -8,16 +8,17 @@ class ContextProvider extends Component {
     cubes: []
   }
 
+
+
   componentDidMount() {
     if (window.localStorage.user) {
       const user = JSON.parse(localStorage.getItem('user'));
       const user_id = user.user_Id
       UserModel.allCubes(user_id)
       .then((cubes) => {
+        // Waiting to see when new cube has been added to the database by comparing the response object in the fetch calls with current state. Once new cube has been added and lengths differ, set state.
         if (cubes.cubes.length === this.state.cubes.length) {
-          UserModel.allCubes(user_id)
-          .then((cubers) => {
-            this.setState( cubers )}) 
+          this.componentDidMount()
         } else {
           this.setState( cubes )
         }
