@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, createRef } from 'react';
 import CubeCtrls from './CubeCtrls';
 import '../../App.css';
 
@@ -17,7 +17,9 @@ function StudyCube(props) {
   const [cube, setCube] = useState({});
 
   // creating refs dynamically when mapping radio buttons 
-  const refs = useRef([React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef()])
+  const createRef = []
+  sides.forEach(() => createRef.push(React.createRef()))
+  const refs = useRef(createRef)
   
   useEffect(() => {
     setCube(props.cube);
