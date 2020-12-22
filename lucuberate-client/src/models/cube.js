@@ -18,12 +18,10 @@ class CubeModel {
   }
 
   static create(newCube) {
-    console.log("body ------->", newCube)
     return fetch(url, {
       method: 'POST',
       body: newCube 
     })
-    
     .then((res) => res.json())
     .catch((err) => {
       console.log('Error fetching data in CubeModel.create', err)

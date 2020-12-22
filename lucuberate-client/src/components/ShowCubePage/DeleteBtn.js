@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import CubeModel from '../../models/cube';
+import { MyContext } from '../../context/ContextProvider';
 
 
 class DeleteBtn extends React.Component {
@@ -33,12 +34,19 @@ class DeleteBtn extends React.Component {
               </div>
               <div className="modal-footer delete">
                 <input type="button" value="Cancel" className="btn btn-secondary" data-dismiss="modal" />
-                <input 
-                  onClick={this.handleDeleteClick}
-                  type="button" 
-                  value="Delete" 
-                  className="btn btn-danger"
-                  data-dismiss="modal" />
+              <MyContext.Consumer>
+                {(value) => (
+                  <input 
+                    onClick={() => {
+                      this.handleDeleteClick(); 
+                      value.updateCubeList();
+                    }}
+                    type="button" 
+                    value="Delete" 
+                    className="btn btn-danger"
+                    data-dismiss="modal" />
+                )}
+            </MyContext.Consumer>    
               </div>
             </div>
           </div>

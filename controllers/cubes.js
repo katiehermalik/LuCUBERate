@@ -27,18 +27,16 @@ const show = (req, res) => {
 // Creates New Cube and saves cube Id to current user
 const create = (req, res) => { 
 
-  console.log(req.body) 
-  console.log(req.file) 
-
-  const newCube = new Cube({
+  const newCube = {
     question: req.body.question,
     answer: req.body.answer,
-    hint: req.body.hint,
-    visual_aid: req.file.filename,
-    link: req.body.link,
-    link_alias: req.body.link_alias,
-    notes: req.body.notes,
-  })
+    hint: req.body.hint || '',
+    visual_aid: req.file && req.file.filename,
+    link: req.body.link || '',
+    link_alias: req.body.link_alias || '',
+    notes: req.body.notes || '',
+  }
+
   db.Cube.create(newCube)
   .then((savedCube) => {
     db.User.findById(JSON.parse(req.body.user).user_Id)
@@ -73,17 +71,17 @@ const create = (req, res) => {
 };
 
 const update = (req, res) => {
-  console.log(req.body)
-  console.log(req.file)
+
   const changedCube = {
     question: req.body.question,
     answer: req.body.answer,
     hint: req.body.hint || '',
-    visual_aid: req.file.filename || '',
+    visual_aid: req.file && req.file.filename,
     link: req.body.link || '',
     link_alias: req.body.link_alias || '',
     notes: req.body.notes || '',
   }
+
   db.Cube.findByIdAndUpdate(req.body.cubeId, changedCube, { new: true })
   .then((updatedCube) => {
     res.json({ cube: updatedCube });
@@ -120,8 +118,6 @@ const destroy = (req, res) => {
     res.json({ Error: 'Unable to find and delete cube'});
   });
 } 
-
-
 
 
 module.exports = {

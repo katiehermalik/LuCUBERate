@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { MyContext } from '../context/ContextProvider';
 import CubeModel from '../models/cube';
 
 function CubeNew(props) {
@@ -14,6 +15,8 @@ function CubeNew(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+
+
     const formData = new FormData();
     formData.append("question", question);
     formData.append("answer", answer );
@@ -26,7 +29,6 @@ function CubeNew(props) {
 
     CubeModel.create(formData)
     .then((data) => {
-        console.log("data =================>", data)
         props.history.push(`/dashboard/${data.cube._id}`);
       });
   }
@@ -132,10 +134,15 @@ function CubeNew(props) {
               </button>
             </Link>
             <span> </span>
-            <button 
-              type="submit" 
-              className="btn form-btn btn-warning">
-              Generate New Cube</button>
+            <MyContext.Consumer>
+              {(value) => (
+                <button 
+                  onClick={value.updateCubeList}
+                  type="submit" 
+                  className="btn form-btn btn-warning">
+                  Generate New Cube</button>
+              )}
+            </MyContext.Consumer>
           </div>
         </form>
       </div>

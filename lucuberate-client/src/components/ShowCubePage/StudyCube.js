@@ -38,9 +38,8 @@ function StudyCube(props) {
       <div className="cube-ctrl-group container-row">
         <ul className="radio-face-group">
           {sides.map((side, i) => (
-            <>
               <li 
-                key={`list-item${i}`}
+                key={`list-item${side}`}
                 className="radio-button">
                 <input
                   type="radio"
@@ -56,7 +55,6 @@ function StudyCube(props) {
                     {side}
                 </label>
               </li>
-            </>
           ))}
         </ul>
         <CubeCtrls cube_id={props.cube_id} />
@@ -84,7 +82,9 @@ function StudyCube(props) {
             </div>
             <div className="face Visual">
               <div className={`face-title ${side === 'Visual' ? '' : 'blur' }`}>Visual Aid</div>
+              {cube.visual_aid &&
               <img src={`/uploads/${cube.visual_aid}`} alt="random" className={`visual-aid ${side === 'Visual' ? '' : 'blur' }`}/>
+              }
             </div>
             <div className="face Answer">
               <div className={`face-title ${side === 'Answer' ? '' : 'blur' }`}>Answer</div>
