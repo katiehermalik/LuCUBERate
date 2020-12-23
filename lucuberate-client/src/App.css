@@ -491,11 +491,10 @@ body, html, #root, .app {
   cursor: zoom-in;
   max-height: 30vmin;
   max-width: 40vmin;
-  transition: transform 0.25s ease;
+  transition: filter .75s, transform 0.25s ease;
 }
 
 .visual-aid:hover {
-  filter: blur(0) !important;
   transform: scale(3) !important;
 }
 
