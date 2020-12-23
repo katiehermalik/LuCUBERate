@@ -443,6 +443,7 @@ body, html, #root, .app {
 .face-content {
   padding: 0px 5vmin 3vmin 5vmin;
   font-size: 3.1vmin; 
+  word-break: break-word;
 }
 
 .face.Question { 
