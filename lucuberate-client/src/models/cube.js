@@ -43,7 +43,7 @@ class CubeModel {
       method: 'PUT',
       body: updatedCube
     })
-    .then((res) => console.log(res.json()))
+    .then((res) => res.json())
     .catch((err) => {
       console.log('Error fetching data in CubeModel.update', err)
       return { message: 'Error fetching data in CubeModel.update' };
