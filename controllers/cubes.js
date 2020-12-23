@@ -73,18 +73,19 @@ const create = (req, res) => {
 };
 
 const update = (req, res) => {
-
   const changedCube = {
     question: req.body.question,
     answer: req.body.answer,
     hint: req.body.hint || '',
-    visual_aid: req.file && req.file.filename,
     link: req.body.link || '',
     link_alias: req.body.link_alias || 
-      (req.body.link ? 'Resource' : ''),
+    (req.body.link ? 'Resource' : ''),
     notes: req.body.notes || '',
   }
-
+  // If no new image uploaded on edit form, visual_aid will be previous image
+  if (req.file) {
+    changedCube.visual_aid = req.file && req.file.filename
+  } 
   db.Cube.findByIdAndUpdate(req.body.cubeId, changedCube, { new: true })
   .then((updatedCube) => {
     res.json({ cube: updatedCube });
