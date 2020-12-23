@@ -48,6 +48,7 @@ function CubeNew(props) {
               className="form-control" 
               id="inputQuestion" 
               placeholder="What would you like to study?"
+              maxlength="300"
               name="question" 
               value={question}
               onChange={(e) => setQuestion(e.target.value)} />
@@ -59,6 +60,7 @@ function CubeNew(props) {
               className="form-control" 
               id="inputAnswer" 
               placeholder="The answer goes here."
+              maxlength="300"
               name="answer" 
               value={answer}
               onChange={(e) => setAnswer(e.target.value)} />
@@ -72,6 +74,7 @@ function CubeNew(props) {
               className="form-control" 
               id="inputHint" 
               placeholder="Give yourself a nudge in the right direction."
+              maxlength="300"
               name="hint" 
               value={hint}
               onChange={(e) => setHint(e.target.value)} />
@@ -83,6 +86,7 @@ function CubeNew(props) {
               className="form-control" 
               id="inputNotes" 
               placeholder="Anything to help with memorization..."
+              maxlength="300"
               name="notes" 
               value={notes}
               onChange={(e) => setNotes(e.target.value)} />
@@ -107,6 +111,7 @@ function CubeNew(props) {
               className="form-control" 
               id="inputAlias" 
               placeholder="Semantically name the link."
+              maxlength="300"
               name="link_alias" 
               value={link_alias}
               onChange={(e) => setLinkAlias(e.target.value)} />
