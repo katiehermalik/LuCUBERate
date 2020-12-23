@@ -657,7 +657,6 @@ input[type="radio"]:checked + label {
   .cube-area {
     flex: 10;
     padding-top: 30px;
-    
   }
 
   .index {
@@ -674,6 +673,15 @@ input[type="radio"]:checked + label {
 
 
 @media screen and (max-width: 450px) {
+  .cube-list-ctrl {
+    height: 20vmax;
+  }
+
+  .cube-area {
+    flex: 10;
+    padding-top: 0px;
+  }
+
   .side-text {
     font-size: 35px;
   }
