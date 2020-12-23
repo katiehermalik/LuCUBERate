@@ -15,8 +15,6 @@ function CubeNew(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-
-
     const formData = new FormData();
     formData.append("question", question);
     formData.append("answer", answer );
