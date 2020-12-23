@@ -24,7 +24,7 @@ function CubeEdit(props) {
       setLinkAlias(data.cube.link_alias);
       setVisualAid(data.cube.visual_aid);
     });
-  }, [props.match.params.id, link])
+  }, [props.match.params.id])
 
   const handleFormSave = (event) => {
     event.preventDefault();

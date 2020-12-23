@@ -1,13 +1,14 @@
 import React from 'react';
-import { withRouter  } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 class CubeSelect extends React.Component {
-  
-  handleClick = () => {
+
+  handleClick = (event) => {
     this.props.history.push(`/dashboard/${this.props.cube._id}`)
   }
-  
+
+
   render() {
     return(
       <li 
@@ -17,7 +18,7 @@ class CubeSelect extends React.Component {
           key={`input-item-${this.props.key}`}
           type="radio"
           name="cube-select"
-          value={`Cube ${this.props.number}`}
+          value={this.props.cube._id}
           id={`Cube ${this.props.number}`}
           onChange={this.handleClick}
           />

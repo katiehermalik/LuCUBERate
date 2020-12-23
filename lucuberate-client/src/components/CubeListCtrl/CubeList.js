@@ -26,7 +26,7 @@ class CubeList extends React.Component {
       <MyContext.Consumer>
         {(value) => (
           value.state.cubes.map((cube, index) => (
-          <CubeSelect cube={cube} key={cube._id} number={index + 1}/>
+          <CubeSelect cubes={value.state.cubes} cube={cube} key={cube._id} number={index + 1}/>
           ))
         )}
       </MyContext.Consumer>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, createRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CubeCtrls from './CubeCtrls';
 import '../../App.css';
 
@@ -20,17 +20,15 @@ function StudyCube(props) {
   const createRef = []
   sides.forEach(() => createRef.push(React.createRef()))
   const refs = useRef(createRef)
-  
+
   useEffect(() => {
     setCube(props.cube);
     // when cube changes, side and checked radio btn changes to 'question'
     setSide('Question');
-    refs.current[0].current.checked = true;
-    refs.current[1].current.checked = false;
-    refs.current[2].current.checked = false;
-    refs.current[3].current.checked = false;
-    refs.current[4].current.checked = false;
-    refs.current[5].current.checked = false;
+    sides.forEach((side, i) => {
+      if (i === 0) refs.current[i].current.checked = true;
+      else refs.current[i].current.checked = false;
+    })
   }, [props.cube])
 
   return (
