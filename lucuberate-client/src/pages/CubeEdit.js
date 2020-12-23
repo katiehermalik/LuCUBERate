@@ -71,16 +71,18 @@ function CubeEdit(props) {
               className="form-control" 
               id="inputQuestion" 
               placeholder="What would you like to study?"
-              maxlength="300"
+              maxLength="300"
               name="question" 
               value={question || ''}
               onChange={(e) => {
                 setQuestion(e.target.value)
                 setQuestionCount(e.target.value.length)
               }} />
-              <div className="character-count container-row" style={{float: 'right'}}>
-                <span id="current">{questionCount}</span>
-                <span id="maximum">/ 300</span>
+              <div 
+              className="character-count" 
+              style={{float: 'right'}}>
+                <span className="currentCount">{questionCount}</span>
+                <span className="maxCount">/ 300</span>
               </div>
             </div>
             <div className="form-group col-md-5">
@@ -90,16 +92,16 @@ function CubeEdit(props) {
               className="form-control" 
               id="inputAnswer" 
               placeholder="The answer goes here."
-              maxlength="300"
+              maxLength="300"
               name="answer" 
               value={answer || ''}
               onChange={(e) => {
                 setAnswer(e.target.value)
                 setAnswerCount(e.target.value.length)
               }} />
-              <div className="character-count container-row" style={{float: 'right'}}>
-                <span id="current">{answerCount}</span>
-                <span id="maximum">/ 300</span>
+              <div className="character-count" style={{float: 'right'}}>
+                <span className="currentCount">{answerCount}</span>
+                <span className="maxCount">/ 300</span>
               </div>
             </div>
           </div>
@@ -111,16 +113,16 @@ function CubeEdit(props) {
               className="form-control" 
               id="inputHint" 
               placeholder="Give yourself a nudge in the right direction."
-              maxlength="300"
+              maxLength="300"
               name="hint" 
               value={hint || ''}
               onChange={(e) => {
                 setHint(e.target.value)
                 setHintCount(e.target.value.length)
               }} />
-              <div className="character-count container-row" style={{float: 'right'}}>
-                <span id="current">{hintCount}</span>
-                <span id="maximum">/ 300</span>
+              <div className="character-count" style={{float: 'right'}}>
+                <span className="currentCount">{hintCount}</span>
+                <span className="maxCount">/ 300</span>
               </div>
             </div>
             <div className="form-group col-md-5">
@@ -130,16 +132,16 @@ function CubeEdit(props) {
               className="form-control" 
               id="inputNotes" 
               placeholder="Anything to help with memorization..."
-              maxlength="300"
+              maxLength="300"
               name="notes" 
               value={notes || ''}
               onChange={(e) => {
                 setNotes(e.target.value)
                 setNotesCount(e.target.value.length)
               }} />
-              <div className="character-count container-row" style={{float: 'right'}}>
-                <span id="current">{notesCount}</span>
-                <span id="maximum">/ 300</span>
+              <div className="character-count" style={{float: 'right'}}>
+                <span className="currentCount">{notesCount}</span>
+                <span className="maxCount">/ 300</span>
               </div>
             </div>
           </div>
@@ -162,16 +164,16 @@ function CubeEdit(props) {
               className="form-control" 
               id="inputAlias" 
               placeholder="Semantically name the link."
-              maxlength="50"
+              maxLength="50"
               name="link_alias" 
               value={link_alias || ''}
               onChange={(e) => {
                 setLinkAlias(e.target.value)
                 setLinkAliasCount(e.target.value.length)
               }} />
-              <div className="character-count container-row" style={{float: 'right'}}>
-                <span id="current">{linkAliasCount}</span>
-                <span id="maximum">/ 50</span>
+              <div className="character-count" style={{float: 'right'}}>
+                <span className="currentCount">{linkAliasCount}</span>
+                <span className="maxCount">/ 50</span>
               </div>
             </div>
             <div className="form-group col-md-3">
