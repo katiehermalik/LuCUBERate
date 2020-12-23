@@ -1,4 +1,5 @@
 const db = require("../models");
+const fs = require("fs");
 const multer = require("multer");
 const Cube = require("../models/Cube")
 
@@ -95,9 +96,9 @@ const update = (req, res) => {
 const destroy = (req, res) => {
   db.Cube.findByIdAndDelete(req.params.id)
   .then((deletedCube) => {
+    fs.unlinkSync(`./lucuberate-client/public/uploads/${deletedCube.visual_aid}`)
     db.User.findById(deletedCube.user)
     .then((foundUser) => {
-      console.log(foundUser)
       foundUser.cubes.remove(req.params.id);
       foundUser.save()
       .then((savedUser) => {
