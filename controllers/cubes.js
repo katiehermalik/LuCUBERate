@@ -34,7 +34,8 @@ const create = (req, res) => {
     hint: req.body.hint || '',
     visual_aid: req.file && req.file.filename,
     link: req.body.link || '',
-    link_alias: req.body.link_alias || '',
+    link_alias: req.body.link_alias || 
+      (req.body.link ? 'Resource' : ''),
     notes: req.body.notes || '',
   }
 
@@ -79,7 +80,8 @@ const update = (req, res) => {
     hint: req.body.hint || '',
     visual_aid: req.file && req.file.filename,
     link: req.body.link || '',
-    link_alias: req.body.link_alias || '',
+    link_alias: req.body.link_alias || 
+      (req.body.link ? 'Resource' : ''),
     notes: req.body.notes || '',
   }
 

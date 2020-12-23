@@ -17,14 +17,10 @@ const cubeSchema = new mongoose.Schema({
     type: String,
   },
   link: {
-    type: mongoose.SchemaTypes.Url,
+    type: String,
   },
   link_alias: {
     type: String,
-    // required: [
-    //   () => this.link !== null,
-    //   'Alias is required if link is specified.'
-    // ]
   },
   notes: {
     type: String,

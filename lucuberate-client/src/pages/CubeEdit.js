@@ -10,6 +10,7 @@ function CubeEdit(props) {
   const[link, setLink] = useState('');
   const[link_alias, setLinkAlias] = useState('');
   const[visual_aid, setVisualAid] = useState('');
+  const[count, setCount] = useState(0)
 
   useEffect(() => {
     
@@ -20,7 +21,7 @@ function CubeEdit(props) {
       setAnswer(data.cube.answer);
       setHint(data.cube.hint);
       setNotes(data.cube.notes);
-      setLink(data.cube.links);
+      setLink(data.cube.link);
       setLinkAlias(data.cube.link_alias);
       setVisualAid(data.cube.visual_aid);
     });
@@ -64,7 +65,15 @@ function CubeEdit(props) {
               maxlength="300"
               name="question" 
               value={question || ''}
-              onChange={(e) => setQuestion(e.target.value)} />
+              onChange={(e) => {
+                setQuestion(e.target.value)
+                setCount(e.target.value.length)
+              }} 
+              />
+              <div className="character-count container-row" style={{float: 'right'}}>
+                <span id="current">{count}</span>
+                <span id="maximum">/ 300</span>
+              </div>
             </div>
             <div className="form-group col-md-5">
               <label htmlFor="inputAnswer">Answer</label>
