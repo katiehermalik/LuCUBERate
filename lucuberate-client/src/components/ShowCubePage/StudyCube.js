@@ -25,6 +25,7 @@ function StudyCube(props) {
     setCube(props.cube);
     // when cube changes, side and checked radio btn changes to 'question'
     setSide('Question');
+    
     sides.forEach((side, i) => {
       if (i === 0) refs.current[i].current.checked = true;
       else refs.current[i].current.checked = false;
@@ -83,7 +84,7 @@ function StudyCube(props) {
             <div className="face Visual">
               <div className={`face-title ${side === 'Visual' ? '' : 'blur' }`}>Visual Aid</div>
               {cube.visual_aid &&
-              <img src={`/uploads/${cube.visual_aid}`} alt="random" className={`visual-aid ${side === 'Visual' ? '' : 'blur' }`}/>
+              <img src={cube.visual_aid} alt="random" className={`visual-aid ${side === 'Visual' ? '' : 'blur' }`}/>
               }
             </div>
             <div className="face Answer">

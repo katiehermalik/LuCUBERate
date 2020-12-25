@@ -1,27 +1,69 @@
 const router = require('express').Router();
 const ctrl = require('../controllers');
 const multer = require('multer')
+const multerS3 = require('multer-s3')
+const AWS = require('aws-sdk');
+const uuid = require('uuid').v4;
+const path = require('path');
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./lucuberate-client/public/uploads/")
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now());
-  }
-})
+// aws.config.update({
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   region: 'us-west-1'
+// })
 
-const upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/gif") {
-        cb(null, true);
-    } else {
-        cb(null, false);
-        return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
-    }
-  }
-});
+let upload;
+
+// if (process.env.NODE_ENV === 'production') {
+  const s3 = new AWS.S3({
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    region: process.env.AWS_REGION
+  });
+
+  upload = multer({
+    storage: multerS3({
+      s3: s3,
+      bucket: 'lucuberatebucket',
+      metadata: (req, file, cb) => {
+        cb(null, { fieldName: file.fieldname });
+      },
+      key: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        cb(null, `${uuid()}${ext}`);
+      }
+    }),
+    // fileFilter: (req, file, cb) => {
+    //   if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/gif") {
+    //       cb(null, true);
+    //   } else {
+    //       cb(null, false);
+    //       return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
+    //   }
+    // }
+  })
+
+// } else {
+//   const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, "./lucuberate-client/public/uploads/")
+//     },
+//     filename: (req, file, cb) => {
+//       cb(null, `${uuid()}-${(file.originalname).replace(/\s+/g,'').toLowerCase()}`);
+//     }
+//   })
+//   upload = multer({
+//     storage: storage,
+//     fileFilter: (req, file, cb) => {
+//       if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/gif") {
+//           cb(null, true);
+//       } else {
+//           cb(null, false);
+//           return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
+//       }
+//     }
+//   });
+// }
 
 // routes - /api/v1/cubes
 router.get("/", ctrl.cubes.index);
