@@ -6,22 +6,14 @@ const AWS = require('aws-sdk');
 const uuid = require('uuid').v4;
 const path = require('path');
 
-// aws.config.update({
-//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//   region: 'us-west-1'
-// })
 
-let upload;
-
-// if (process.env.NODE_ENV === 'production') {
   const s3 = new AWS.S3({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     region: process.env.AWS_REGION
   });
 
-  upload = multer({
+  const upload = multer({
     storage: multerS3({
       s3: s3,
       bucket: 'lucuberatebucket',
@@ -33,37 +25,15 @@ let upload;
         cb(null, `${uuid()}${ext}`);
       }
     }),
-    // fileFilter: (req, file, cb) => {
-    //   if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/gif") {
-    //       cb(null, true);
-    //   } else {
-    //       cb(null, false);
-    //       return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
-    //   }
-    // }
+    fileFilter: (req, file, cb) => {
+      if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/gif") {
+          cb(null, true);
+      } else {
+          cb(null, false);
+          return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
+      }
+    }
   })
-
-// } else {
-//   const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, "./lucuberate-client/public/uploads/")
-//     },
-//     filename: (req, file, cb) => {
-//       cb(null, `${uuid()}-${(file.originalname).replace(/\s+/g,'').toLowerCase()}`);
-//     }
-//   })
-//   upload = multer({
-//     storage: storage,
-//     fileFilter: (req, file, cb) => {
-//       if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/gif") {
-//           cb(null, true);
-//       } else {
-//           cb(null, false);
-//           return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
-//       }
-//     }
-//   });
-// }
 
 // routes - /api/v1/cubes
 router.get("/", ctrl.cubes.index);
