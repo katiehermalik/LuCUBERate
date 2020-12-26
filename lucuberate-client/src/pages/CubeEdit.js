@@ -70,7 +70,7 @@ function CubeEdit(props) {
               type="text" 
               className="form-control" 
               id="inputQuestion" 
-              placeholder="What would you like to study?"
+              placeholder="The quetsion goes here..."
               maxLength="300"
               name="question" 
               value={question || ''}
@@ -91,7 +91,7 @@ function CubeEdit(props) {
               type="text" 
               className="form-control" 
               id="inputAnswer" 
-              placeholder="The answer goes here."
+              placeholder="The answer goes here..."
               maxLength="300"
               name="answer" 
               value={answer || ''}
@@ -152,7 +152,7 @@ function CubeEdit(props) {
               type="text" 
               className="form-control" 
               id="inputLink" 
-              placeholder="Add a link as a resource."
+              placeholder="Link to a resource."
               name="link" 
               value={link || ''}
               onChange={(e) => setLink(e.target.value)} />
@@ -163,7 +163,7 @@ function CubeEdit(props) {
               type="text" 
               className="form-control" 
               id="inputAlias" 
-              placeholder="Semantically name the link."
+              placeholder="ex. 'Resource'"
               maxLength="50"
               name="link_alias" 
               value={link_alias || ''}
