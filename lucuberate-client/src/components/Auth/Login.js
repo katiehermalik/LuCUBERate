@@ -12,6 +12,8 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
+      userError: "",
+      matchError: ""
     }
 
   }
@@ -27,6 +29,14 @@ class Login extends React.Component {
     event.preventDefault();
     UserModel.login(this.state)
       .then((data) => {
+        if (data.userError) {
+          this.setState({userError: data.userError});
+        } else if (data.matchError) {
+          this.setState({matchError: data.matchError});
+          if (data.userError === undefined) {
+            this.setState({userError: ""})
+          }
+        } else {
         this.setState(data)
         // Passing currentUser info to parent component (App.js)
         this.props.auth(data);
@@ -36,10 +46,15 @@ class Login extends React.Component {
           window.location.reload();
         }
         console.log("This is the response from the user Model", data)
+        }
       });
   }
 
   render() {
+    const errorStyle = {
+      color: "red",
+      fontSize: "12px",
+    }
     return(
       <> 
         <div className="text-center">
@@ -66,30 +81,37 @@ class Login extends React.Component {
                   <div className="md-form mb-5">
                     <i className="prefix grey-text"><FontAwesomeIcon icon={faEnvelope} /></i>
                     <span> </span>
-                    <label data-error="wrong" data-success="right" htmlFor="signup-email">Email</label>
+                    <label data-error="wrong" data-success="right" htmlFor="login-email">Email</label>
                     <input 
                     type="email"
                     name="email"
-                    id="signup-email" 
+                    id="login-email" 
                     className="form-control validate"
                     value={this.state.email}
                     onChange={this.handleChange}
                     required
                     />
+                    {this.state.userError &&
+                    <p style={errorStyle}>{this.state.userError}</p>
+                    }
                   </div>
                   <div className="md-form mb-4">
                     <i className="prefix grey-text"><FontAwesomeIcon icon={faLock} /></i>
                     <span> </span>
-                    <label data-error="wrong" data-success="right" htmlFor="signup-pass">Password</label>
+                    <label data-error="wrong" data-success="right" htmlFor="login-pass">Password</label>
                     <input 
                     type="password"
                     name="password" 
-                    id="signup-pass" 
+                    id="login-pass" 
                     className="form-control validate" 
                     value={this.state.password}
                     onChange={this.handleChange}
                     required
+                    autoComplete="off"
                     />
+                    {this.state.matchError &&
+                    <p style={errorStyle}>{this.state.matchError}</p>
+                    }
                   </div>
                 </div>
                 <div className="modal-footer d-flex justify-content-center">
