@@ -10,29 +10,30 @@ function CubeEdit(props) {
   const[link, setLink] = useState('');
   const[link_alias, setLinkAlias] = useState('');
   const[visual_aid, setVisualAid] = useState('');
-  const[questionCount, setQuestionCount] = useState(0)
-  const[answerCount, setAnswerCount] = useState(0)
-  const[hintCount, setHintCount] = useState(0)
-  const[notesCount, setNotesCount] = useState(0)
-  const[linkAliasCount, setLinkAliasCount] = useState(0)
+  const[questionCount, setQuestionCount] = useState(0);
+  const[answerCount, setAnswerCount] = useState(0);
+  const[hintCount, setHintCount] = useState(0);
+  const[notesCount, setNotesCount] = useState(0);
+  const[linkAliasCount, setLinkAliasCount] = useState(0);
+  const[questionError, setQuestionError] = useState('');
+  const[answerError, setAnswerError] = useState('');
 
-  useEffect(() => {
-    
+  useEffect(() => {  
     const cubeId = props.match.params.id;
     CubeModel.getOne(cubeId)
     .then((data) => {
-      setQuestion(data.cube.question);
-      setAnswer(data.cube.answer);
-      setHint(data.cube.hint);
-      setNotes(data.cube.notes);
-      setLink(data.cube.link);
-      setLinkAlias(data.cube.link_alias);
-      setVisualAid(data.cube.visual_aid);
-      setQuestionCount(data.cube.question.length)
-      setAnswerCount(data.cube.answer.length)
-      setHintCount(data.cube.hint.length)
-      setNotesCount(data.cube.notes.length)
-      setLinkAliasCount(data.cube.link_alias.length)
+        setQuestion(data.cube.question);
+        setAnswer(data.cube.answer);
+        setHint(data.cube.hint);
+        setNotes(data.cube.notes);
+        setLink(data.cube.link);
+        setLinkAlias(data.cube.link_alias);
+        setVisualAid(data.cube.visual_aid);
+        setQuestionCount(data.cube.question.length)
+        setAnswerCount(data.cube.answer.length)
+        setHintCount(data.cube.hint.length)
+        setNotesCount(data.cube.notes.length)
+        setLinkAliasCount(data.cube.link_alias.length)
     });
   }, [props.match.params.id])
 
@@ -50,14 +51,33 @@ function CubeEdit(props) {
     formData.append("cubeId", cubeId);
     CubeModel.update(formData, cubeId)
       .then((data) => {
+        if (data.cubeError) {
+          if (data.question === "" && data.answer === "") {
+            setQuestionError('A question is required')
+            setAnswerError('An answer is required')
+          } else if (data.question === "") {
+            setQuestionError('A question is required')
+            setAnswerError('')
+          } else if (data.answer === "") {
+            setAnswerError('An answer is required')
+            setQuestionError('')
+          }
+        } else {
         props.history.push(`/dashboard/${cubeId}`);
+        }
       });
   };
+
+  const errorStyle = {
+    color: "red",
+    fontSize: "12px",
+  }
 
   return(
     <>
       <div className="form-container container-column">
         <h1 className="form-title">Edit this Study Cube</h1>
+        <p style={{fontSize: "14px"}}>( Fields marked with a * are required )</p>
         <form 
         onSubmit={handleFormSave}
         encType="multipart/form-data" 
@@ -65,7 +85,10 @@ function CubeEdit(props) {
         className="cube-form">
           <div className="form-row">
             <div className="form-group col-md-5">
-              <label htmlFor="inputQuestion">Question</label>
+              <label htmlFor="inputQuestion">Question *
+              {questionError &&
+              <span style={errorStyle}>{` ${questionError}`}</span>
+              }</label>
               <textarea 
               type="text" 
               className="form-control" 
@@ -86,7 +109,10 @@ function CubeEdit(props) {
               </div>
             </div>
             <div className="form-group col-md-5">
-              <label htmlFor="inputAnswer">Answer</label>
+              <label htmlFor="inputAnswer">Answer *
+              {answerError &&
+              <span style={errorStyle}>{` ${answerError}`}</span>
+              }</label>
               <textarea 
               type="text" 
               className="form-control" 

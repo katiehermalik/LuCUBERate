@@ -63,12 +63,16 @@ const create = (req, res) => {
     })
     .catch((err) => {
       console.log('Unable to find User in cubes.create:', err);
-      res.json({ Error: 'Unable to find User'});
+      res.json({Error: 'Unable to find User'});
     })
   })
   .catch((err) => {
     console.log('Unable to save cube in cubes.create:', err);
-    res.json({ Error: 'Unable to save cube'});
+    res.json({ 
+      cubeError: 'Unable to save cube', 
+      question: req.body.question, 
+      answer: req.body.answer
+    });
   });
 };
 
@@ -86,15 +90,22 @@ const update = (req, res) => {
   if (req.file) {
     changedCube.visual_aid = req.file && req.file.location
   } 
-  console.log(changedCube)
-  db.Cube.findByIdAndUpdate(req.body.cubeId, changedCube, { new: true })
-  .then((updatedCube) => {
-    res.json({ cube: updatedCube });
-  })
-  .catch((err) => {
-    console.log('Error in cubes.update:', err);
-    res.json({ Error: 'Unable to get data'});
-  });
+  if (changedCube.question && changedCube.answer) {
+    db.Cube.findByIdAndUpdate(req.body.cubeId, changedCube, { new: true })
+    .then((updatedCube) => {
+      res.json({ cube: updatedCube });
+    })
+    .catch((err) => {
+      console.log('Error in cubes.update:', err);
+      res.json({ Error: 'Unable to get data'});
+    });
+  } else {
+    res.json({ 
+      cubeError: 'Unable to save cube', 
+      question: req.body.question, 
+      answer: req.body.answer
+    });
+  }
 };
 
 const destroy = (req, res) => {

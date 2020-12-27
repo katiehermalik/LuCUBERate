@@ -11,15 +11,16 @@ function CubeNew(props) {
   const[link, setLink] = useState('');
   const[link_alias, setLinkAlias] = useState('');
   const[visual_aid, setVisualAid] = useState('');
-  const[questionCount, setQuestionCount] = useState(0)
-  const[answerCount, setAnswerCount] = useState(0)
-  const[hintCount, setHintCount] = useState(0)
-  const[notesCount, setNotesCount] = useState(0)
-  const[linkAliasCount, setLinkAliasCount] = useState(0)
+  const[questionCount, setQuestionCount] = useState(0);
+  const[answerCount, setAnswerCount] = useState(0);
+  const[hintCount, setHintCount] = useState(0);
+  const[notesCount, setNotesCount] = useState(0);
+  const[linkAliasCount, setLinkAliasCount] = useState(0);
+  const[questionError, setQuestionError] = useState('');
+  const[answerError, setAnswerError] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const formData = new FormData();
     formData.append("question", question);
     formData.append("answer", answer );
@@ -29,17 +30,35 @@ function CubeNew(props) {
     formData.append("link_alias", link_alias);
     formData.append("visual_aid", visual_aid);
     formData.append("user", localStorage.getItem("user"));
-
     CubeModel.create(formData)
     .then((data) => {
+      if (data.cubeError) {
+        if (data.question === "" && data.answer === "") {
+          setQuestionError('A question is required')
+          setAnswerError('An answer is required')
+        } else if (data.question === "") {
+          setQuestionError('A question is required')
+          setAnswerError('')
+        } else if (data.answer === "") {
+          setAnswerError('An answer is required')
+          setQuestionError('')
+        }
+      } else {
         props.history.push(`/dashboard/${data.cube._id}`);
-      });
+      }
+    });
+  }
+
+  const errorStyle = {
+    color: "red",
+    fontSize: "12px",
   }
 
   return(
     <>
       <div className="form-container container-column">
         <h1 className="form-title">Create a New Study Cube</h1>
+        <p style={{fontSize: "14px"}}>( Fields marked with a * are required )</p>
         <form 
         onSubmit={handleSubmit}
         encType="multipart/form-data" 
@@ -47,7 +66,10 @@ function CubeNew(props) {
         className="cube-form">
           <div className="form-row">
             <div className="form-group col-md-5">
-              <label htmlFor="inputQuestion">Question</label>
+              <label htmlFor="inputQuestion">Question *              
+              {questionError &&
+              <span style={errorStyle}>{` ${questionError}`}</span>
+              }</label>
               <textarea 
               type="text" 
               className="form-control" 
@@ -59,7 +81,7 @@ function CubeNew(props) {
               onChange={(e) => {
                 setQuestion(e.target.value)
                 setQuestionCount(e.target.value.length)
-              }} />
+              }} />                    
               <div 
               className="character-count" 
               style={{float: 'right'}}>
@@ -68,7 +90,10 @@ function CubeNew(props) {
               </div>
             </div>
             <div className="form-group col-md-5">
-              <label htmlFor="inputAnswer">Answer</label>
+              <label htmlFor="inputAnswer">Answer *               
+              {answerError &&
+              <span style={errorStyle}>{` ${answerError}`}</span>
+              }</label>
               <textarea 
               type="text" 
               className="form-control" 
