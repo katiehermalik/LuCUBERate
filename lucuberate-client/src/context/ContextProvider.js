@@ -17,10 +17,12 @@ class ContextProvider extends Component {
       UserModel.allCubes(user_id)
       .then((cubes) => {
         // Waiting to see when new cube has been added to the database by comparing the response object in the fetch calls with current state. Once new cube has been added and lengths differ, set state.
-        if (cubes.cubes.length === this.state.cubes.length) {
-          this.componentDidMount()
-        } else {
-          this.setState( cubes )
+        if (cubes.cubes) {
+          if (cubes.cubes.length === this.state.cubes.length) {
+            this.componentDidMount()
+          } else {
+            this.setState( cubes )
+          }
         }
       }); 
     }

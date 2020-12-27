@@ -30,7 +30,7 @@ const create = (req, res) => {
   })
   .catch((err) => {
     console.log('Error in users.create:', err);
-    res.json({ Error: 'Unable to get data'});
+    res.json({ Error: 'Unable to create user'});
   });
 };
 

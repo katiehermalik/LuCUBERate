@@ -11,7 +11,7 @@ const signup = (req, res, next) => {
   User.findOne({email: email})
     .then(foundUser => {
       if(foundUser) {
-        return res.json({ Error: 'Email already exists' });
+        return res.json({ emailError: 'Email already exists' });
       } else {
         bcrypt.hash(password, 10, (err, hash) => {
           if (err) throw err;
@@ -71,7 +71,6 @@ const login = (req, res) => {
 }
 
 
- // TO DO - logout not working!!
 const logout = (req, res) => {
   if (req.session.currentUser) {
     req.session.destroy((err) => {

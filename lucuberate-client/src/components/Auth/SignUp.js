@@ -12,7 +12,16 @@ class SignUp extends React.Component {
     username: "",
     email: "",
     password: "",
-    password_confirmation: ""
+    password_confirmation: "",
+    emailError: "",
+    passwordError: "",
+    usernameError: ""
+  }
+
+  validateUsername() {
+    if (this.state.username?.length < 3) {
+      this.setState({usernameError: 'Username must be 3 or more characters long'})
+    }
   }
 
   handleChange = (event) => {
@@ -24,25 +33,40 @@ class SignUp extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state)
     if (this.state.password === this.state.password_confirmation) {
       UserModel.create(this.state)
         .then((data) => {
-          this.setState(data)
-          // Passing currentUser info to parent component (App.js)
-          this.props.auth(data);
-          localStorage.setItem('user', JSON.stringify(data));
-          if (this.state.currentUser) {
-
-          this.props.history.push('/dashboard');
-            window.location.reload();
-            console.log("data", data)
+          if (data.emailError) {
+            this.setState({emailError: data.emailError});
+            this.validateUsername();
+          } else {
+            if (this.state.username?.length < 3) {
+              this.validateUsername();
+            } else {
+              this.setState(data);
+              // Passing currentUser info to parent component (App.js)
+              this.props.auth(data);
+              localStorage.setItem('user', JSON.stringify(data));
+              if (this.state.currentUser) {
+              this.props.history.push('/dashboard');
+                window.location.reload();
+              }
+            }
           }
-        });
-    } 
+        }
+      );
+    } else {
+      this.setState({passwordError: 'Passwords do not match'});
+      this.validateUsername();
+    }
   }
 
+
   render() {
+    const errorStyle = {
+      color: "red",
+      fontSize: "12px",
+    }
     return(
       <>
         <div className="text-center">
@@ -79,6 +103,9 @@ class SignUp extends React.Component {
                     onChange={this.handleChange}
                     required
                     />
+                    {this.state.usernameError &&
+                    <p style={errorStyle}>{this.state.usernameError}</p>
+                    }
                   </div>
                   <div className="md-form mb-5">
                     <i className="prefix grey-text"><FontAwesomeIcon icon={faEnvelope} /></i>
@@ -93,6 +120,9 @@ class SignUp extends React.Component {
                     onChange={this.handleChange}
                     required
                     />
+                    {this.state.emailError &&
+                    <p style={errorStyle}>{this.state.emailError}</p>
+                    }
                   </div>
                   <div className="md-form mb-4">
                     <i className="prefix grey-text"><FontAwesomeIcon icon={faLock} /></i>
@@ -121,6 +151,9 @@ class SignUp extends React.Component {
                     onChange={this.handleChange}
                     required
                     />
+                    {this.state.passwordError &&
+                    <p style={errorStyle}>{this.state.passwordError}</p>
+                    }
                   </div>
                 </div>
                 <div className="modal-footer d-flex justify-content-center">
