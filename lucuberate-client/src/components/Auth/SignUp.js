@@ -136,6 +136,7 @@ class SignUp extends React.Component {
                     value={this.state.password}
                     onChange={this.handleChange}
                     required
+                    autoComplete="off"
                     />
                   </div>
                   <div className="md-form mb-4">
@@ -150,6 +151,7 @@ class SignUp extends React.Component {
                     value={this.state.password_confirmation}
                     onChange={this.handleChange}
                     required
+                    autoComplete="off"
                     />
                     {this.state.passwordError &&
                     <p style={errorStyle}>{this.state.passwordError}</p>
