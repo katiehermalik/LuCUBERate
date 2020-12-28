@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import SignUp from './Auth/SignUp';
 import Login from './Auth/Login';
 import Logout from './Auth/Logout';
@@ -6,10 +7,9 @@ import Logout from './Auth/Logout';
 class Navbar extends React.Component {
   constructor(props) {
     super(props)
-    this.state ={
-
-    }
+    this.state ={}
   }
+  
   render() {
     return (
       <>
@@ -18,34 +18,40 @@ class Navbar extends React.Component {
         <>
           {window.location.pathname !== '/' &&
           <>
-            <a className="navbar-brand navbar-item" href="/">LuCUBERate</a>
+            <Link 
+            className="navbar-brand navbar-item" 
+            to="/">LuCUBERate
+            </Link>
             <span 
               className="navbar-text">
-              Hello, {this.props.user.username}</span>
+              Hello, {this.props.user.username}
+            </span>
           </>
           }
           {window.location.pathname === '/' &&
-          <a href="/dashboard" className="nav-item navbar-item nav-link">
-            Dashboard</a>
+          <Link 
+          className="nav-item navbar-item nav-link"
+          to="/dashboard">Dashboard
+          </Link>
           }
         </>
         }
-            {!this.props.user &&
-            <>
-              <div></div>
-              <div className="signup-login container-row">
-                <SignUp auth={this.props.auth} user={this.props.user}/>
-                <Login auth={this.props.auth} user={this.props.user}/>
-              </div>
-            </>
-            }
-            {this.props.user &&
-            <Logout logout={this.props.auth}/>
-            }
+        {!this.props.user &&
+        <>
+          <div></div>
+          <div className="signup-login container-row">
+            <SignUp auth={this.props.auth} user={this.props.user}/>
+            <Login auth={this.props.auth} user={this.props.user}/>
+          </div>
+        </>
+        }
+        {this.props.user &&
+        <Logout logout={this.props.auth}/>
+        }
         </nav>
       </>
     )
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
