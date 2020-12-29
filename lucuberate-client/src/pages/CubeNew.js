@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { MyContext } from '../context/ContextProvider';
 import CubeModel from '../models/cube';
 
+let formData;
+
 function CubeNew(props) {
   const[question, setQuestion] = useState('');
   const[answer, setAnswer] = useState('');
@@ -18,18 +20,9 @@ function CubeNew(props) {
   const[linkAliasCount, setLinkAliasCount] = useState(0);
   const[questionError, setQuestionError] = useState('');
   const[answerError, setAnswerError] = useState('');
+  const[visualAidError, setVisualAidError] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("question", question);
-    formData.append("answer", answer );
-    formData.append("hint", hint);
-    formData.append("notes", notes);
-    formData.append("link", link);
-    formData.append("link_alias", link_alias);
-    formData.append("visual_aid", visual_aid);
-    formData.append("user", localStorage.getItem("user"));
+  const createCube = () => {
     CubeModel.create(formData)
     .then((data) => {
       if (data.cubeError) {
@@ -49,16 +42,44 @@ function CubeNew(props) {
     });
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setQuestionError('')
+    setAnswerError('')
+    formData = new FormData();
+    formData.append("question", question);
+    formData.append("answer", answer );
+    formData.append("hint", hint);
+    formData.append("notes", notes);
+    formData.append("link", link);
+    formData.append("link_alias", link_alias);
+    formData.append("visual_aid", visual_aid);
+    formData.append("user", localStorage.getItem("user"));
+    if (visual_aid) {
+      let ext = (visual_aid.name).substr((visual_aid.name).lastIndexOf('.'))
+      console.log(ext)
+      if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.gif') {
+        setVisualAidError('')
+        createCube()
+      } else {
+        setVisualAidError('Only .jpg, .jpeg, .png, and .gif allowed')
+      }
+    } else {
+      createCube()
+    }
+  }
+
   const errorStyle = {
     color: "red",
     fontSize: "12px",
+    whiteSpace: "nowrap"
   }
 
   return(
     <>
       <div className="form-container container-column">
         <h1 className="form-title">Create a New Study Cube</h1>
-        <p style={{fontSize: "14px"}}>( Fields marked with a * are required )</p>
+        <p className="required-warning">( Fields marked with a * are required )</p>
         <form 
         onSubmit={handleSubmit}
         encType="multipart/form-data" 
@@ -192,6 +213,9 @@ function CubeNew(props) {
               placeholder="Choose file"
               name="visual_aid" 
               onChange={(e) => setVisualAid(e.target.files[0])} />
+              {visualAidError &&
+              <span style={errorStyle}>{`${visualAidError}`}</span>
+              }
             </div>
           </div>
           <div className="form-buttons">

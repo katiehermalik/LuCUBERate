@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CubeModel from '../models/cube';
 
+let formData;
+
+
 function CubeEdit(props) {
   const[question, setQuestion] = useState('');
   const[answer, setAnswer] = useState('');
@@ -10,6 +13,7 @@ function CubeEdit(props) {
   const[link, setLink] = useState('');
   const[link_alias, setLinkAlias] = useState('');
   const[visual_aid, setVisualAid] = useState('');
+  const[new_visual_aid, setNewVisualAid] = useState('');
   const[questionCount, setQuestionCount] = useState(0);
   const[answerCount, setAnswerCount] = useState(0);
   const[hintCount, setHintCount] = useState(0);
@@ -17,6 +21,29 @@ function CubeEdit(props) {
   const[linkAliasCount, setLinkAliasCount] = useState(0);
   const[questionError, setQuestionError] = useState('');
   const[answerError, setAnswerError] = useState('');
+  const[visualAidError, setVisualAidError] = useState('');
+
+  let cubeId = props.match.params.id;
+
+  const updateCube = () => {
+    CubeModel.update(formData, cubeId)
+    .then((data) => {
+      if (data.cubeError) {
+        if (data.question === "" && data.answer === "") {
+          setQuestionError('A question is required')
+          setAnswerError('An answer is required')
+        } else if (data.question === "") {
+          setQuestionError('A question is required')
+          setAnswerError('')
+        } else if (data.answer === "") {
+          setAnswerError('An answer is required')
+          setQuestionError('')
+        }
+      } else {
+      props.history.push(`/dashboard/${cubeId}`);
+      }
+    });
+  }
 
   useEffect(() => {  
     const cubeId = props.match.params.id;
@@ -39,45 +66,39 @@ function CubeEdit(props) {
 
   const handleFormSave = (event) => {
     event.preventDefault();
-    const formData = new FormData();
+    formData = new FormData();
     formData.append("question", question);
     formData.append("answer", answer );
     formData.append("hint", hint);
     formData.append("notes", notes);
     formData.append("link", link);
     formData.append("link_alias", link_alias);
-    formData.append("visual_aid", visual_aid);
-    const cubeId = props.match.params.id;
+    formData.append("visual_aid", new_visual_aid);
     formData.append("cubeId", cubeId);
-    CubeModel.update(formData, cubeId)
-      .then((data) => {
-        if (data.cubeError) {
-          if (data.question === "" && data.answer === "") {
-            setQuestionError('A question is required')
-            setAnswerError('An answer is required')
-          } else if (data.question === "") {
-            setQuestionError('A question is required')
-            setAnswerError('')
-          } else if (data.answer === "") {
-            setAnswerError('An answer is required')
-            setQuestionError('')
-          }
-        } else {
-        props.history.push(`/dashboard/${cubeId}`);
-        }
-      });
+    if (new_visual_aid) {
+      let ext = (new_visual_aid.name).substr((new_visual_aid.name).lastIndexOf('.'))
+      if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.gif') {
+        setVisualAidError('')
+        updateCube()
+      } else {
+        setVisualAidError('Only .jpg, .jpeg, .png, and .gif allowed')
+      }
+    } else {
+      updateCube()
+    }
   };
 
   const errorStyle = {
     color: "red",
     fontSize: "12px",
+    whiteSpace: "nowrap"
   }
 
   return(
     <>
       <div className="form-container container-column">
         <h1 className="form-title">Edit this Study Cube</h1>
-        <p style={{fontSize: "14px"}}>( Fields marked with a * are required )</p>
+        <p className="required-warning">( Fields marked with a * are required )</p>
         <form 
         onSubmit={handleFormSave}
         encType="multipart/form-data" 
@@ -210,7 +231,10 @@ function CubeEdit(props) {
               id="inputVisual" 
               placeholder="Choose file"
               name="visual_aid" 
-              onChange={(e) => setVisualAid(e.target.files[0])} />
+              onChange={(e) => setNewVisualAid(e.target.files[0])} />
+              {visualAidError &&
+              <span style={errorStyle}>{`${visualAidError}`}</span>
+              }
             </div>
           </div>
             <div className="form-buttons">
