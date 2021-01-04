@@ -137,9 +137,10 @@ body, html, #root, .app {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-          display: flex;
-          bottom: 0;
-          max-height: 100vh;
+  display: flex;
+  bottom: 0;
+  max-height: 100vh;
+  padding: 0 20px;
 }
 
 .cube-header {
@@ -165,6 +166,8 @@ body, html, #root, .app {
   white-space: nowrap;
   background-color: var(--panel-color);
   height: 100%;
+  min-width: 120px;
+  min-height: 50px;
 }
 
 .pages {
@@ -801,7 +804,7 @@ input[type="radio"]:checked + label {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
       justify-content: center;
-    padding-bottom: 0;
+    padding: 0;
     border-bottom: 8px solid var(--border-color);
     border-right: none;
     height: 100%;
@@ -826,6 +829,7 @@ input[type="radio"]:checked + label {
     padding: 5px;
     margin: 20px;
     height: 60%;
+    min-width: 0;
   }
 
   /* -------------------------- Cube Show Page */
