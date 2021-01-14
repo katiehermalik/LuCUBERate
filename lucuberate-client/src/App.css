@@ -85,6 +85,8 @@ body, html, #root, .app {
 
 }
 
+/* ------------------------------- Nav Bar */ 
+
 .nav-bar {
   width: 100%;
   color: var(--background-main);
@@ -106,6 +108,8 @@ body, html, #root, .app {
           align-items: center;
   max-width: 600px;
 }
+
+/* ------------------------------- Dashboard */ 
 
 .dashboard {
   -webkit-box-flex: 4;
@@ -130,6 +134,22 @@ body, html, #root, .app {
 .instructions {
   text-align: center;
 }
+
+.pages {
+  -webkit-box-flex: 6;
+      -ms-flex: 6;
+          flex: 6;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 20px;
+  height: auto;
+}
+
+/* ------------------------------- Cube List */ 
 
 .cube-list-ctrl {
   background-color: var(--background-main);
@@ -168,20 +188,6 @@ body, html, #root, .app {
   height: 100%;
   min-width: 120px;
   min-height: 50px;
-}
-
-.pages {
-  -webkit-box-flex: 6;
-      -ms-flex: 6;
-          flex: 6;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding-top: 20px;
-  height: auto;
 }
 
 /* ----------------------------- Form Pages */
@@ -238,12 +244,12 @@ body, html, #root, .app {
 }
 
 .form-control:focus {
-  border: none;
+  border: 3px solid rgb(253, 192, 52);
   -webkit-box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
           box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
 }
 
-/* ---------------------------------- Cube SHow Page */
+/* ---------------------------------- Cube Show Page */
 
 .show-page-container {
   -webkit-box-align: center;
@@ -697,11 +703,11 @@ input[type="radio"]:checked + label {
   color: var(--accent-color);  
 }
 
-/* ------------------------------------------ Media Queries */
+/* ================================================================ Media Queries */
 
 @media screen and (max-width: 1050px) {
   
-  /* ----------------------------- Landing Page */
+  /* ================================ Landing Page */
 
   .title-container {
     padding-top: 30px;
@@ -730,7 +736,7 @@ input[type="radio"]:checked + label {
     text-align: center;
   }
 
-  /* ----------------------------- Dashboard */
+ /* ================================ Dashboard */
 
   .dashboard {
     -webkit-box-orient: vertical;
@@ -742,7 +748,9 @@ input[type="radio"]:checked + label {
   .pages {
     padding-bottom: 15vmin;
   }
-/* ================================ */
+
+  /* ================================ Cube Ctrls */
+
   .cube-ctrl-group {
     -webkit-box-pack: start;
         -ms-flex-pack: start;
@@ -778,7 +786,9 @@ input[type="radio"]:checked + label {
     font-size: 16px;
     white-space: normal;
   }
-/* ================================ */
+
+  /* ================================ Forms */
+
   .form-container{
     -webkit-box-flex: 6;
             -ms-flex: 6;
@@ -792,6 +802,8 @@ input[type="radio"]:checked + label {
   .form-btn {
     margin-bottom: 30px;
   }
+
+  /* ================================ Cube List */
 
   .cube-list-ctrl {
     -webkit-box-orient: horizontal;
@@ -832,7 +844,8 @@ input[type="radio"]:checked + label {
     min-width: 0;
   }
 
-  /* -------------------------- Cube Show Page */
+  /* ================================ Cube Show Page */
+
   .radio-face-group {
     overflow: auto;
   }
@@ -844,11 +857,15 @@ input[type="radio"]:checked + label {
     padding-top: 30px;
   }
 
+  /* ================================ Index */
+
   .index {
     margin: 0 30px;
     height: 80vh;
   }
 }
+
+/* ================================ */
 
 @media screen and (max-width: 900px) {
   .visual-aid:hover {
@@ -858,8 +875,11 @@ input[type="radio"]:checked + label {
   }
 }
 
+/* ================================ */
 
 @media screen and (max-width: 450px) {
+
+  /* ================================ Cube Show Page */
 
   .cube-area {
     -webkit-box-flex: 10;
@@ -871,6 +891,8 @@ input[type="radio"]:checked + label {
   .side-text {
     font-size: 35px;
   }
+
+  /* ================================ Landing Page */
   
   .brand-name {
     font-weight: bold;
