@@ -1,41 +1,37 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import UnAuthRoutes from './config/UnAuthRoutes';
 import './App.css';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
+const App = () => {
+  const [ data , setData ] = useState(null);
+  const [ currentUser , setCurrentUser ] = useState(null);
+  
+  const auth = (data) => {
+    setData(data)
   }
   
-  auth = (data) => {
-    this.setState(data)
-  }
-  
-  componentDidMount() {
+  useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
-      this.setState(foundUser)
+      setCurrentUser(foundUser);
     }
-  }
+  },[])
 
-  render() {
     return (
       <div className="app container-column">
         <Navbar 
-          auth={this.auth} 
-          user={this.state.currentUser}/>
+          auth={auth} 
+          user={currentUser}/>
         <UnAuthRoutes />
         {window.location.pathname !== '/' &&
-        <Dashboard user={this.state.currentUser} />
+        <Dashboard user={currentUser} />
         } 
       </div>
     );
-  }
 }
 
 export default withRouter(App);

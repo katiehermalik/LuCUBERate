@@ -1,39 +1,24 @@
-import React from 'react';
-import UserModel from '../../models/user';
+import { useContext }from 'react';
 import CubeSelect from './CubeSelect';
-import { MyContext } from '../../context/ContextProvider';
+import CubeContext from '../../context/ContextProvider';
 
+  function CubeList () {
+    const { cubeList } = useContext(CubeContext)
+    // const [updatedCubeList, setUpdatedCubeList] = useState([])
+    // setUpdatedCubeList(cubeList)
 
-class CubeList extends React.Component {
-  state = {
-    cubes: []
-  }
-
-  componentDidMount() {
-    if (window.localStorage.user) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const user_id = user.user_Id
-      UserModel.allCubes(user_id)
-      .then((cubes) => {
-        this.setState( cubes )
-      });
-    }
-  }
-
-  render() {
-    return(
+  return(
+    <>
+      {console.log('CubeList is rendering', cubeList)}
       <div className="cube-list container-column cube-select-group">
-      <MyContext.Consumer>
-        {(value) => (
-          value.state.cubes.map((cube, index) => (
-          <CubeSelect cubes={value.state.cubes} cube={cube} key={cube._id} number={index + 1}/>
+        {cubeList.cubes?.map((cube, index) => (
+          <CubeSelect cubes={cubeList.cubes} cube={cube} key={cube._id} number={index + 1}/>
           ))
-        )}
-      </MyContext.Consumer>
+        }
       </div>
-    )
-  }
+    </>
+  )
 }
 
-CubeList.contextType = MyContext;
+
 export default CubeList;

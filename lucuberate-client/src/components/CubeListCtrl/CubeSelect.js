@@ -1,37 +1,51 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
 
+import { withRouter, useParams } from 'react-router-dom';
+// import { useRef } from "react";
+// import { useEffect } from 'react';
 
-class CubeSelect extends React.Component {
+const CubeSelect = (props) => {
+  // const inputElement = useRef(null);
+  // const { id } = useParams();
 
-  handleClick = (event) => {
-    this.props.history.push(`/dashboard/${this.props.cube._id}`)
+  const today = new Date();
+  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  console.log(props.number, time) 
+
+  const handleClick = (event) => {
+    props.history.push(`/dashboard/${props.cube._id}`)
+    // console.log("clicked")
+    // inputElement.current.checked = false;
+    // console.log(inputElement)
   }
 
-
-  render() {
-    return(
-      <li 
-        key={`list-item-${this.props.key}`}
-        className="radio-button">
-        <input
-          key={`input-item-${this.props.key}`}
-          type="radio"
-          name="cube-select"
-          value={this.props.cube._id}
-          id={`Cube ${this.props.number}`}
-          onChange={this.handleClick}
-          />
-        <label
-          key={`label-item-${this.props.key}`}
-          className="radio-label"
-          htmlFor={`Cube ${this.props.number}`}>
-            {`Cube ${this.props.number}`}
-        </label>
-      </li>
-    )
-  }
+  return(
+    <>
+    {console.log('CubeSelect is rendering!')}
+    <li 
+      key={`list-item-${props.key}`}
+      className="radio-button"
+      >
+      <input
+        key={`input-item-${props.key}`}
+        type="radio"
+        name="cube-select"
+        value={props.cube._id}
+        id={`Cube ${props.number}`}
+        onChange={handleClick}
+        // ref={inputElement}
+        />
+      <label
+        key={`label-item-${props.key}`}
+        className="radio-label"
+        htmlFor={`Cube ${props.number}`}>
+          {`Cube ${props.number}`}
+      </label>
+    </li>
+    </>
+      
+  )
 }
+
 
 
 export default withRouter(CubeSelect);
