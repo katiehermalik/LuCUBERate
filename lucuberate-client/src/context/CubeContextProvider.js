@@ -1,13 +1,10 @@
 import { createContext, useState, useEffect } from 'react';
 import UserModel from '../models/user';
 
-const CubeContext = createContext({cubes: [], updatedCubeList: []});
+const CubeContext = createContext(null);
 
 export const CubeProvider = ({ children }) => {
   const [ cubeList, setCubeList ] = useState([]);
-  
-  console.log('cube list updated!');
-  console.log(cubeList);
 
   useEffect(() => {
     if (window.localStorage.user) {
@@ -16,7 +13,6 @@ export const CubeProvider = ({ children }) => {
       UserModel.allCubes(user_id)
       .then((cubes) => {
         setCubeList(cubes);
-        console.log('cubes from context --->',cubes);
       }); 
     }
   },[])

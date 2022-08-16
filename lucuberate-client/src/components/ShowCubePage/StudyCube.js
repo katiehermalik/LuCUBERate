@@ -17,9 +17,9 @@ function StudyCube(props) {
   const [cube, setCube] = useState({});
 
   // creating refs dynamically when mapping radio buttons 
-  const createRef = []
-  sides.forEach(() => createRef.push(React.createRef()))
-  const refs = useRef(createRef)
+  const createdRefs = []
+  sides.forEach(() => createdRefs.push(React.createRef()))
+  const refs = useRef(createdRefs);
 
   useEffect(() => {
     setCube(props.cube);

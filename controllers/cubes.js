@@ -111,7 +111,9 @@ const update = (req, res) => {
 const destroy = (req, res) => {
   db.Cube.findByIdAndDelete(req.params.id)
   .then((deletedCube) => {
-    fs.unlinkSync(`./lucuberate-client/public/uploads/${deletedCube.visual_aid}`)
+    if (deletedCube.visual_aid) {
+      fs.unlinkSync(`${deletedCube.visual_aid}`)
+    }
     db.User.findById(deletedCube.user)
     .then((foundUser) => {
       foundUser.cubes.remove(req.params.id);
@@ -134,6 +136,9 @@ const destroy = (req, res) => {
     res.json({ Error: 'Unable to find and delete cube'});
   });
 } 
+
+// ./lucuberate-client/public/uploads/
+
 
 
 module.exports = {

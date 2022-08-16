@@ -1,17 +1,18 @@
 import { useContext }from 'react';
 import { withRouter } from 'react-router-dom';
 import CubeModel from '../../models/cube';
-import CubeContext from '../../context/ContextProvider';
+import CubeContext from '../../context/CubeContextProvider';
 
 
 const DeleteBtn = (props) => {
-  const { setCubeList } = useContext(CubeContext);
+  const { cubeList, setCubeList } = useContext(CubeContext);
 
   const handleDeleteClick = () => {
     const cubeId = props.cube_id;
     CubeModel.delete(cubeId)
     .then((data) => {
-      setCubeList(data);
+      cubeList.cubes.splice(cubeList.cubes.indexOf(data.cube._id), 1);
+      setCubeList(cubeList);
       props.history.push('/dashboard');
     });
   }

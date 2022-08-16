@@ -1,35 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CubeModel from '../models/cube';
 import StudyCube from '../components/ShowCubePage/StudyCube'
+import { useEffect } from 'react';
 
 
-class CubeShow extends React.Component {
-  state = {
-    cube: {}
-  }
+function CubeShow(props) {
+  const [ cube, setCube ] = useState({});
 
-  componentDidMount() {
-    const cube_id = this.props.match.params.id;
+  useEffect(() => {
+    const cube_id = props.match.params.id;
     CubeModel.getOne(cube_id)
       .then((data) => {
-        this.setState({ cube: data.cube})
+        setCube(data.cube)
       });
-  }
+  },[props.match.params.id])
 
-  componentDidUpdate(prevProps) {
-    const { match: { params: { id } } } = this.props
-    if (prevProps.match.params.id !== id){
-      this.componentDidMount();
-    }
-  }
-
-  render() {
-    return(
-      <div className="show-page-container container-column">
-        <StudyCube cube={this.state.cube} cube_id={this.props.match.params.id}/>  
-      </div>
-    )
-  }
+  return(
+    <div className="show-page-container container-column">
+      <StudyCube cube={cube} cube_id={props.match.params.id}/>  
+    </div>
+  )
 }
 
 export default CubeShow;

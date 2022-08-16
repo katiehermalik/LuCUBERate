@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import CubeContext from '../context/ContextProvider';
+import CubeContext from '../context/CubeContextProvider';
 import CubeModel from '../models/cube';
 
 
@@ -40,10 +40,9 @@ function CubeNew(props) {
           setQuestionError('')
         }
       } else {
-        const updatedCubeList = [...cubeList.cubes, data.cube]
+        const updatedCubeList = { cubes: [...cubeList.cubes, data.cube] }
         setCubeList(updatedCubeList);
         props.history.push(`/dashboard/${data.cube._id}`);
-        console.log('updatedCubeList in CubeNew', updatedCubeList)
       }
     });
   }
@@ -231,16 +230,13 @@ function CubeNew(props) {
               Cancel
             </button>
           </Link>
-          <span> </span>
-          <CubeContext.Consumer>
-            {(value) => (
-              <button 
-                onClick={value.updateCubeList}
-                type="submit" 
-                className="btn form-btn btn-warning">
-                Generate New Cube</button>
-            )}
-          </CubeContext.Consumer>
+          <button 
+            onClick={handleSubmit}
+            type="submit" 
+            className="btn form-btn btn-warning"
+            >
+            Generate New Cube
+          </button>
         </div>
       </form>
     </div>

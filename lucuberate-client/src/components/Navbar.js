@@ -24,7 +24,7 @@ class Navbar extends React.Component {
             </Link>
             <span 
               className="navbar-text">
-              Hello, {this.props.user.username}
+              Hello, {this.props.user.currentUser.username}
             </span>
           </>
           }

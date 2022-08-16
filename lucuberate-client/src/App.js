@@ -8,9 +8,11 @@ import './App.css';
 const App = () => {
   const [ data , setData ] = useState(null);
   const [ currentUser , setCurrentUser ] = useState(null);
-  
+  // console.log('currentUser', currentUser);
+
   const auth = (data) => {
-    setData(data)
+    setData(data);
+    // console.log('data------>', data);
   }
   
   useEffect(() => {
