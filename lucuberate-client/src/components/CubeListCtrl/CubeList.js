@@ -7,11 +7,14 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   const cubeInputRefs = useRef([]);
 
   useEffect(() => {
-    if (cubeInputRefs.current.length !== 0 ) {
+    if (cubeInputRefs.current.length !== 0) {
       if (pathname.match(/\b[\w=.]+$/g)[0] === 'new') {
         cubeInputRefs.current.forEach(ref => ref.checked = false);
         const newestCubeListElement = cubeInputRefs.current[cubeInputRefs.current.length - 1];
         newestCubeListElement.scrollIntoView({ behavior: 'smooth', block: 'center'});
+      } else if (pathname.match(/\b[\w=.]+$/g)[0] === 'edit') {
+        const editElement = cubeInputRefs.current.find(element => element.checked === true);
+        editElement.scrollIntoView({behavior: 'smooth', block: 'center'});
       } else {
         const currentCubeId = pathname.match(/\b[\w=.]+$/g);
         const foundElement = cubeInputRefs.current.find(element => element.defaultValue === currentCubeId[0]);
