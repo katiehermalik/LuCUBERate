@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { withRouter } from 'react-router-dom';
-import { UserContext, CubeContext, CategoryContext } from '../context/ContextProvider';
+import { UserContext, CubeContext } from '../context/ContextProvider';
 import CubeModel from '../models/cube';
 import CategoryModel from '../models/category';
 import UserModel from '../models/user';
@@ -10,13 +10,13 @@ const DeleteModal = ({
   showModal, 
   setShowModal, 
   type, 
+  categoryId,
   categoryTitle,
   history 
 }) => {
 
   const { userContent, setUserContent } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
-  const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
 
   const closeModal = (e) => {
     e.stopPropagation();
@@ -25,7 +25,7 @@ const DeleteModal = ({
 
   const handleDeleteCategory = (e) => {
     e.stopPropagation()
-    CategoryModel.delete(currentCategory)
+    CategoryModel.delete(categoryId)
     .then((data) => {
       console.log('DATA---->', data);
       UserModel.allCubesAndCategories(userContent.user_id)

@@ -1,10 +1,10 @@
-import { useState }from 'react';
+import { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import DeleteModal from '../DeleteModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import DeleteModal from '../DeleteModal';
 
-const DeleteBtn = ({ cubeId }) => {
+const DeleteBtn = ({ cubeId, categoryTitle, categoryId }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = (e) => {
@@ -14,7 +14,7 @@ const DeleteBtn = ({ cubeId }) => {
 
   return <> 
     <button 
-    className="button cube-action-btn btn-ctrl"
+    className={cubeId ? "button delete cube-action-btn btn-ctrl" : "button delete category-action-btn btn-ctrl"}
     type="button"
     onClick={handleOpenModal}>
       <i className="prefix grey-text"><FontAwesomeIcon icon={faTrash} /></i>
@@ -23,7 +23,9 @@ const DeleteBtn = ({ cubeId }) => {
       showModal={showModal} 
       setShowModal={setShowModal}
       cubeId={cubeId}
-      type='cube' />
+      categoryId={categoryId} 
+      categoryTitle={categoryTitle} 
+      type={cubeId ? "cube" : "category"} />
   </>
 }
 

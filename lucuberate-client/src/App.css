@@ -578,6 +578,18 @@ button.cube-action-btn {
   text-decoration: none;
 }
 
+.button.delete:hover {
+  color: var(--background-main);
+  background-color: #dc3545;
+  text-decoration: none;
+}
+
+.button.active {
+  color: var(--background-main);
+  background-color: rgb(228, 171, 36);
+  text-decoration: none;
+}
+
 .new-cube-btn {
   padding:14px 29px;
   margin: 15px 0;

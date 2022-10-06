@@ -4,7 +4,7 @@ import { UserContext, CategoryContext, CubeContext } from '../../context/Context
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import PlaceHolderCube from './PlaceHolderCube';
-import CategoryDelete from './CategoryDelete';
+import DeleteBtn from '../ShowCubePage/DeleteBtn';
 import CategoryShuffle from './CategoryShuffle';
 import CubeCtrls from '../ShowCubePage/CubeCtrls';
 
@@ -154,7 +154,6 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
             closeAllCategories();
             openCategoryCubeList();
             break;
-
           case 'new':
             currCategoryCubeRefs.forEach(cube => cube.ref.checked = false);
             scrollToCube(false);
@@ -221,7 +220,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
           <div>
             <span className="category-action-grp">
               <CategoryShuffle />
-              <CategoryDelete categoryTitle={category.title} />
+              <DeleteBtn categoryId={category._id} categoryTitle={category.title} />
             </span>
             <i className="icon-chevron"><FontAwesomeIcon icon={faChevronDown} /></i>
           </div>
@@ -272,8 +271,6 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
     </footer>
   </div>
 }
-
-
 
 export default withRouter(CubeList);
 
