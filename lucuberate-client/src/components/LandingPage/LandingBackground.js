@@ -1,5 +1,5 @@
 import { Canvas } from "react-three-fiber";
-import {Stars, OrbitControls } from "drei";
+import { Stars, OrbitControls } from "drei";
 import CubeMesh from "./CubeMesh";
 import Lights from "./Lights";
 
@@ -14,11 +14,11 @@ function LandingBackground() {
       <CubeMesh />
       <Lights />
       <Stars 
-        radius={50}
+        radius={25}
         depth={50}
-        count={3000}
+        count={4000}
         factor={3}
-        saturation={1}
+        saturation={2}
         fade />
       <OrbitControls 
         enableZoom={false} />

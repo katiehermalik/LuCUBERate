@@ -3,15 +3,11 @@ import EditBtn from './EditBtn';
 import DeleteBtn from './DeleteBtn'
 
 
-class CubeCtrls extends React.Component {
-  render() {
-    return(
-      <div className="cube-ctrls container-row">
-      <EditBtn cube_id={this.props.cube_id} />
-      <DeleteBtn cube_id={this.props.cube_id} />
-      </div>
-    )
-  }
+const CubeCtrls = ({ cubeId }) => {
+  return <div className="cube-ctrls container-row">
+    <EditBtn cubeId={cubeId} />
+    <DeleteBtn cubeId={cubeId} />
+  </div>
 }
 
 export default CubeCtrls;

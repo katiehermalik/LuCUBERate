@@ -21,9 +21,30 @@ const userSchema = new mongoose.Schema({
   cubes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Cube'
+  }],
+  categories: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
   }]
 }, {timestamps: true});
 
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
+
+// categories: [{
+//   id: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Category',
+//     required: true,
+//     },
+//   title: {
+//       type: String,
+//       required: true,
+//     }
+// }]
+
+// categories: [{
+//   type: mongoose.Schema.Types.ObjectId,
+//   ref: 'Category'
+// }]

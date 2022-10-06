@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import CubeCtrls from './CubeCtrls';
 import '../../App.css';
 
 
@@ -12,7 +11,7 @@ const sides = [
   'Hint'
 ]
 
-function StudyCube(props) {
+const StudyCube = (props) => {
   const [side, setSide] = useState('');
   const [cube, setCube] = useState({});
 
@@ -32,8 +31,7 @@ function StudyCube(props) {
     })
   }, [props.cube])
 
-  return (
-    <>
+  return <>
     { cube &&
     <>
       <div className="cube-ctrl-group container-row">
@@ -58,7 +56,6 @@ function StudyCube(props) {
               </li>
           ))}
         </ul>
-        <CubeCtrls cube_id={props.cube_id} />
       </div>
       <div className="cube-area">
         <div className="cube-container">
@@ -96,8 +93,7 @@ function StudyCube(props) {
       </div>
     </>
     }
-    </>
-  )
+  </>
 }
 
 

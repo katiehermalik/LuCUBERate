@@ -8,8 +8,8 @@ function CubeShow(props) {
   const [ cube, setCube ] = useState({});
 
   useEffect(() => {
-    const cube_id = props.match.params.id;
-    CubeModel.getOne(cube_id)
+    const cubeId = props.match.params.id;
+    CubeModel.getOne(cubeId)
       .then((data) => {
         setCube(data.cube)
       });
@@ -17,7 +17,7 @@ function CubeShow(props) {
 
   return(
     <div className="show-page-container container-column">
-      <StudyCube cube={cube} cube_id={props.match.params.id}/>  
+      <StudyCube cube={cube} cubeId={props.match.params.id}/>  
     </div>
   )
 }

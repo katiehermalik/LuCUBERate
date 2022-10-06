@@ -2,9 +2,12 @@ const db = require("../models");
 
 const show = (req, res) => {
   db.User.findById(req.params.id)
-    .populate('cubes')
+    .populate('categories')
     .then((populatedUser) => {
-      res.json({ cubes: populatedUser.cubes })
+      res.json({ 
+        // cubes: populatedUser.cubes, 
+        categories: populatedUser.categories
+      })
     })
     .catch((err) => {
       console.log('Unable to populate cubes for user in cubes.create:', err);
@@ -13,6 +16,7 @@ const show = (req, res) => {
 };
 
 const index = (req, res) => {
+  
   db.User.find({})
     .then((foundUsers) => {
       res.json({ cubes: foundUsers });

@@ -3,15 +3,18 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import { CubeProvider } from './context/CubeContextProvider';
+import ContextProvider from './context/ContextProvider';
+
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <CubeProvider>
+    <ContextProvider>
       <Router>
         <App />
       </Router>
-    </CubeProvider>
+    </ContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

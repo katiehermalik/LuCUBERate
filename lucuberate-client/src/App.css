@@ -49,7 +49,7 @@
 /* ------------------------------- Parent Containers */ 
 
 body, html, #root, .app {
-  min-height: calc(100vh + 40px);
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -88,6 +88,7 @@ body, html, #root, .app {
 /* ------------------------------- Nav Bar */ 
 
 .nav-bar {
+  height: 50px;
   width: 100%;
   color: var(--background-main);
   background-color: var(--border-color);
@@ -112,10 +113,6 @@ body, html, #root, .app {
 /* ------------------------------- Dashboard */ 
 
 .dashboard {
-  -webkit-box-flex: 4;
-      -ms-flex: 4;
-          flex: 4;
-  height: 100%;
   width: 100%; 
   align-items: stretch;
   background-image: url('./images/stars.png');
@@ -128,7 +125,8 @@ body, html, #root, .app {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 100%;
+  height: 82px;
+  background-color: var(--panel-color);
 }
 
 .instructions {
@@ -145,11 +143,129 @@ body, html, #root, .app {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-top: 20px;
   height: auto;
 }
 
+
+/* ------------------------------- Modal */ 
+
+@media (min-width: 576px) {
+  .delete-modal-dialog {
+      max-width: 500px;
+      margin: 1.75rem auto;
+  }
+}
+
+.delete-modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 0.5rem;
+    pointer-events: none;
+}
+
+.delete-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+    color: rgb(40, 44, 52);
+    font-weight: bold;
+}
+.delete-modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 0.3rem;
+    outline: 0;
+}
+.delete-modal-header {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+}
+.delete-modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+.delete-modal-header .close {
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
+.modal-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+.delete-modal-footer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+    flex-direction: row;
+}
+.delete-modal-footer>:not(:last-child) {
+    margin-right: 0.25rem;
+}
 /* ------------------------------- Cube List */ 
+.category-btn {
+  background-color: var(--border-color);
+  width: 100%;
+  padding: 6px;
+  color: var(--background-main);
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.icon-chevron {
+  margin-left: 10px;
+}
+
+.category-btn.active {
+  background-color: #67a4d9;
+  box-shadow: 0px 4px 8px -8px rgb(0 0 0 / 50%);
+}
+.category-btn:hover {
+  background-color: #67a4d9;
+}
+button.category-action-btn {
+  padding: 1px 6px;
+  margin-left: 5px;
+  box-shadow: none;
+  background-color: var(--border-color);
+}
+button.cube-action-btn {
+  padding: 1px 6px;
+  margin-left: 5px;
+  box-shadow: none;
+  background-color: #ababac;
+}
 
 .cube-list-ctrl {
   background-color: var(--background-main);
@@ -159,8 +275,7 @@ body, html, #root, .app {
           align-items: center;
   display: flex;
   bottom: 0;
-  max-height: 100vh;
-  padding: 0 20px;
+
 }
 
 .cube-header {
@@ -170,24 +285,38 @@ body, html, #root, .app {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 30px;
+          position: sticky;
+          top: 0;
+          width: 100%;
+          background-color: var(--background-main);
+}
+.cube-list-grp {
+  height: calc(100vh - 134px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.cube-list-grp .radio-button {
+  display: flex;
+}
+
+.cube-list-grp::-webkit-scrollbar {
+  display : none;
 }
 
 .cube-list {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  margin: 30px 20px;
-  padding: 25px;
-  border: 2px solid var(--border-color);
-  border-radius: 5px;
-  -webkit-overflow: auto;
-          overflow: auto;
-  white-space: nowrap;
+  border-bottom: 1px solid #97c1e5;
   background-color: var(--panel-color);
-  height: 100%;
-  min-width: 120px;
-  min-height: 50px;
+}
+
+.list-footer {
+  background-color: var(--border-color);
+  color: var(--background-main);
+  flex-grow: 1;
+  font-size: 14px;
 }
 
 /* ----------------------------- Form Pages */
@@ -239,14 +368,19 @@ body, html, #root, .app {
 
 .form-control {
   border: none;
-  -webkit-box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
-          box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
+  -webkit-box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.4);
+          box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.4);
+  transition: border-color .35s ease-in-out,box-shadow .35s ease-in-out;
 }
 
 .form-control:focus {
   border: 3px solid rgb(253, 192, 52);
-  -webkit-box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
-          box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.78);
+  -webkit-box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.4);
+          box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.4);
+}
+
+.form-control-file {
+  height: calc(1.5em + .75rem + 2px);
 }
 
 /* ---------------------------------- Cube Show Page */
@@ -255,7 +389,6 @@ body, html, #root, .app {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 90vh;
 }
 
 .cube-container {
@@ -279,8 +412,8 @@ body, html, #root, .app {
           align-items: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  padding-top: 23px;
   width: 100%;
+  background-color: var(--panel-color);
 }
 
 .cube-ctrls {
@@ -290,18 +423,14 @@ body, html, #root, .app {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
+  -webkit-box-pack: flex-start;
+      -ms-flex-pack: flex-start;
           justify-content: flex-start;
-  background-color: var(--background-main);
   white-space: nowrap;
   text-align: center;
 }
 
 .cube-area {
-  -webkit-box-flex: 5;
-      -ms-flex: 5;
-          flex: 5;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -312,19 +441,22 @@ body, html, #root, .app {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
-  padding-top: 30px;
+  margin: 10vmin 0;
+  /* max-height: calc(100vh - (124px + (2 * 10vh))); */
+  max-height: fit-content;
 }
 
 /* ---------------------------------- Landing Page */
 
 .landing-background {
+  height: calc(100vh - 50px) !important;
   position: absolute !important;
   background-size: cover;
 }
 
 .title-container {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 50px);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -374,28 +506,17 @@ body, html, #root, .app {
   font-size: 18px;
 }
 
-.navbar-brand {
-  color: var(--background-main);
-  font-weight: bold;
-  padding: 0 6px;
-  padding: 4px 16px;
-}
-
 .navbar-item, .navbar-text {
   color: var(--background-main);
   text-align: center;
   background-color: rgba(0, 0, 0, 0);
   margin: 0 10px;
-}
-
-.navbar-item:hover {
-  color: rgb(59, 137, 196);
+  padding: 4px 16px;
 }
 
 .logout-btn {
   color: var(--background-main);
   border: none;
-  cursor: pointer;
 }
 
 .modal-backdrop {
@@ -448,15 +569,19 @@ body, html, #root, .app {
 	font-weight: bold;
 	text-decoration: none;
   text-align: center;
-  outline: none;
-  -webkit-box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.5);
-          box-shadow: 0px 9px 6px -7px rgba(0,0,0,0.5);
+  border: 1px solid var(--background-main);
+}
+
+.button:hover {
+  color: var(--background-main);
+  background-color: rgb(228, 171, 36);
+  text-decoration: none;
 }
 
 .new-cube-btn {
   padding:14px 29px;
-  margin-top: 15px;
-  margin-bottom: 10px;
+  margin: 15px 0;
+  background-color: var(--accent-color);
 }
 
 .edit-btn {
@@ -466,14 +591,6 @@ body, html, #root, .app {
 
 .delete-modal-btn {
   padding: 7px 15px;
-}
-
-.btn-ctrl {
-  background-color: var(--accent-color);
-}
-
-.btn-ctrl:hover {
-  background-color: rgb(228, 171, 36);
 }
 
 /* ----------------------------------------- Study Cube */
@@ -557,7 +674,6 @@ body, html, #root, .app {
   width: 100%;
   height: 100%;
   font-weight: bold;
-  border: 1px solid var(--background-main);
   color: var(--background-main);
   text-align: center;
   opacity: 0.8;
@@ -640,17 +756,18 @@ body, html, #root, .app {
   cursor: zoom-in;
   max-height: 30vmin;
   max-width: 40vmin;
-  -webkit-transition: -webkit-filter .75s, -webkit-transform 0.25s ease;
-  transition: -webkit-filter .75s, -webkit-transform 0.25s ease;
-  -o-transition: filter .75s, transform 0.25s ease;
-  transition: filter .75s, transform 0.25s ease;
-  transition: filter .75s, transform 0.25s ease, -webkit-filter .75s, -webkit-transform 0.25s ease;
+  -webkit-transition: -webkit-filter .75s, -webkit-transform 0.5s ease;
+  transition: -webkit-filter .75s, -webkit-transform 0.5s ease;
+  -o-transition: filter .75s, transform 0.5s ease;
+  transition: filter .75s, transform 0.5s ease;
+  transition: filter .75s, transform 0.5s ease, -webkit-filter .75s, -webkit-transform 0.5s ease;
 }
 
 .visual-aid:hover {
-  -webkit-transform: scale(3) !important;
-      -ms-transform: scale(3) !important;
-          transform: scale(3) !important;
+  -webkit-transform: scale(2) !important;
+      -ms-transform: scale(2) !important;
+          transform: scale(2) !important;
+  z-index: 10;
 }
 
 /* ------------------------------------------ Radio Buttons */
@@ -673,10 +790,7 @@ body, html, #root, .app {
       -ms-flex-align: center;
           align-items: center;
   margin-right: 15px;
-  margin-left: 30px;
-  border: 2px solid var(--border-color);
-  border-radius: 5px;
-  background-color: var(--panel-color);
+  height: 84px;
 }
 
 .radio-button {
@@ -691,12 +805,14 @@ body, html, #root, .app {
 .radio-label {
   padding: 10px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 input[type='radio'] {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
+  scroll-margin-top: 60px;
 }
 
 input[type="radio"]:checked + label {
@@ -738,7 +854,7 @@ input[type="radio"]:checked + label {
 
  /* ================================ Dashboard */
 
-  .dashboard {
+  /* .dashboard {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -747,11 +863,11 @@ input[type="radio"]:checked + label {
 
   .pages {
     padding-bottom: 15vmin;
-  }
+  } */
 
   /* ================================ Cube Ctrls */
 
-  .cube-ctrl-group {
+  /* .cube-ctrl-group {
     -webkit-box-pack: start;
         -ms-flex-pack: start;
             justify-content: flex-start;
@@ -785,11 +901,11 @@ input[type="radio"]:checked + label {
   .delete-modal {
     font-size: 16px;
     white-space: normal;
-  }
+  } */
 
   /* ================================ Forms */
 
-  .form-container{
+  /* .form-container{
     -webkit-box-flex: 6;
             -ms-flex: 6;
                 flex: 6;
@@ -801,11 +917,11 @@ input[type="radio"]:checked + label {
 
   .form-btn {
     margin-bottom: 30px;
-  }
+  } */
 
   /* ================================ Cube List */
 
-  .cube-list-ctrl {
+  /* .cube-list-ctrl {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
@@ -842,11 +958,11 @@ input[type="radio"]:checked + label {
     margin: 20px;
     height: 60%;
     min-width: 0;
-  }
+  } */
 
   /* ================================ Cube Show Page */
 
-  .radio-face-group {
+  /* .radio-face-group {
     overflow: auto;
   }
   
@@ -855,14 +971,14 @@ input[type="radio"]:checked + label {
             -ms-flex: 10;
                 flex: 10;
     padding-top: 30px;
-  }
+  } */
 
   /* ================================ Index */
 
-  .index {
+  /* .index {
     margin: 0 30px;
     height: 80vh;
-  }
+  } */
 }
 
 /* ================================ */

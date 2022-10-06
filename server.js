@@ -34,6 +34,7 @@ app.use(cors(corsOptions));
 
 app.use("/api/v1/cubes", routes.cubes);
 app.use("/api/v1/users", routes.users);
+app.use("/api/v1/categories", routes.categories);
 app.use("/api", routes.auth);
 
 // Serve static assets if in production

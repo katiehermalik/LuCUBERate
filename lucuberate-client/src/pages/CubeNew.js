@@ -1,13 +1,34 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import CubeContext from '../context/CubeContextProvider';
+import { UserContext, CategoryContext, CubeContext } from '../context/ContextProvider';
 import CubeModel from '../models/cube';
+import CategoryModel from '../models/category';
 
+const CubeNew = ({ history }) => {
+  let formData;
+  const { userContent, setUserContent } = useContext(UserContext);
+  const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
+  const { currentCubeId, setCurrentCubeId } = useContext(CubeContext);
 
-let formData;
-
-function CubeNew(props) {
-  const { cubeList, setCubeList } = useContext(CubeContext);
+  // const [ cubeData, setCubeData ] = useState({
+  //   question: '',
+  //   answer: '',
+  //   hint: '',
+  //   notes: '',
+  //   link: '',
+  //   link_alias: '',
+  //   visual_aid: '',
+  //   questionCount: 0,
+  //   answerCount: 0,
+  //   hintCount: 0,
+  //   notesCount: 0,
+  //   linkAliasCount: 0,
+  //   questionError: '',
+  //   answerError: '',
+  //   visualAidError: '',
+  //   category: '',
+  //   categoryCount: 0
+  // });
 
   const[question, setQuestion] = useState('');
   const[answer, setAnswer] = useState('');
@@ -25,52 +46,110 @@ function CubeNew(props) {
   const[answerError, setAnswerError] = useState('');
   const[visualAidError, setVisualAidError] = useState('');
 
+  const[newCategory, setNewCategory] = useState('');
+  const[newCategoryCount, setNewCategoryCount] = useState(0);
+  const[categoryIsNew, setCategoryIsNew] = useState(false);
+
+  useEffect(() => {
+    if (currentCubeId) {
+      setCurrentCubeId('');
+    }
+    if (currentCategory === null) {
+      setCategoryIsNew(true);
+    } else {
+      setCategoryIsNew(false);
+      // let currCubeCategory = cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCategory)
+    }
+  }, [currentCubeId, setCurrentCubeId, currentCategory])
+
   const createCube = () => {
     CubeModel.create(formData)
     .then((data) => {
       if (data.cubeError) {
-        if (data.question === "" && data.answer === "") {
-          setQuestionError('A question is required')
-          setAnswerError('An answer is required')
-        } else if (data.question === "") {
-          setQuestionError('A question is required')
-          setAnswerError('')
-        } else if (data.answer === "") {
-          setAnswerError('An answer is required')
-          setQuestionError('')
+        switch (true) {
+          case data.question === '' && data.answer === '':
+            setQuestionError('A question is required')
+            setAnswerError('An answer is required');
+            break;
+          case data.question === '':
+            setQuestionError('A question is required');
+            setAnswerError('');
+            break;
+          case data.answer === '':
+            setAnswerError('An answer is required');
+            setQuestionError('')
+            break;
+          default:
+            break;
         }
       } else {
-        const updatedCubeList = { cubes: [...cubeList.cubes, data.cube] }
-        setCubeList(updatedCubeList);
-        props.history.push(`/dashboard/${data.cube._id}`);
+        // const updatedCubeList = [...userContent.cubes, data.cube]
+        let updatedCategoryList;
+        if (categoryIsNew) {
+          updatedCategoryList = [
+            ...userContent.categories, 
+            {_id: data.category._id, title: data.category.title, cubes: [data.cube._id]}
+          ]
+        } else {
+          const foundCategory = userContent.categories.find(category => category._id === data.category._id);
+          foundCategory.cubes.push(data.cube._id);
+        }
+        setUserContent(prevState => ({ 
+          ...prevState, 
+          // cubes: updatedCubeList, 
+          categories: categoryIsNew ? updatedCategoryList : prevState.categories
+        }));
+        setCurrentCubeId(data.cube._id);
+        // setCurrentCategory(data.category._id);
+        history.push(`/dashboard/${data.cube._id}`);
       }
     });
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setQuestionError('')
-    setAnswerError('')
-    formData = new FormData();
-    formData.append("question", question);
-    formData.append("answer", answer );
-    formData.append("hint", hint);
-    formData.append("notes", notes);
-    formData.append("link", link);
-    formData.append("link_alias", link_alias);
-    formData.append("visual_aid", visual_aid);
-    formData.append("user", localStorage.getItem("user"));
+  const collectCubeFormData = (categoryId) => {
+    setQuestionError('');
+    setAnswerError('');
+    formData = new FormData(document.getElementById('cube-new-form'));
+    formData.append('user', userContent.user_id);
+    formData.append('category', categoryId);
     if (visual_aid) {
       let ext = (visual_aid.name).substr((visual_aid.name).lastIndexOf('.'));
       if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.gif') {
-        setVisualAidError('')
-        createCube()
+        setVisualAidError('');
+        createCube();
       } else {
-        setVisualAidError('Only .jpg, .jpeg, .png, and .gif allowed')
+        setVisualAidError('Only .jpg, .jpeg, .png, and .gif allowed');
       }
     } else {
-      createCube()
+      createCube();
     }
+  }
+
+  const createNewCategory = () => {
+    const newCategoryData = {};
+    newCategoryData.title = newCategory;
+    newCategoryData.user = userContent.user_id;
+    CategoryModel.create(newCategoryData)
+    .then((data) => {
+        const { _id : newCategoryId } = data;
+        collectCubeFormData(newCategoryId);
+      }
+    );
+  }
+
+  const handleCategoryChange = (e) => {
+    if (e.target.value === 'New Category') {
+      setCategoryIsNew(true);
+      setCurrentCategory(null);
+    } else {
+      setCategoryIsNew(false);
+      setCurrentCategory(e.target.value);
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    categoryIsNew ? createNewCategory() : collectCubeFormData(currentCategory);
   }
 
   const errorStyle = {
@@ -79,7 +158,7 @@ function CubeNew(props) {
     whiteSpace: "nowrap"
   }
 
-  return(
+  return <>
     <div className="form-container container-column">
       <h1 className="form-title">Create a New Study Cube</h1>
       <p className="required-warning">( Fields marked with a * are required )</p>
@@ -88,6 +167,46 @@ function CubeNew(props) {
       encType="multipart/form-data" 
       id="cube-new-form" 
       className="cube-form">
+        <div className="form-row">
+          <div className="form-group col-md-3">
+            <label htmlFor="inputCategory">Category *</label>
+            <select 
+              id="category-dropdown"
+              onChange={handleCategoryChange}
+              value={
+                currentCategory ? currentCategory : 
+                categoryIsNew ? 'New Category' : ''}>
+                <option value="" disabled> -- select an option -- </option>
+                <option value="New Category">New Category</option>
+              {userContent?.categories?.map(category => (
+                <option key={`${category._id}`} value={`${category._id}`}>{`${category.title}`}</option>
+              ))
+              }
+            </select>
+          </div>
+
+          { categoryIsNew &&
+          <div className="form-group col-md-3">
+            <label htmlFor="inputCategory">New Category *</label>
+            <input 
+              type="text" 
+              className="form-control" 
+              id="inputCategory" 
+              placeholder="Create a new category"
+              maxLength="25"
+              value={newCategory}
+              onChange={(e) => {
+                setNewCategory(e.target.value)
+                setNewCategoryCount(e.target.value.length)
+              }} />
+            <div className="character-count" style={{float: 'right'}}>
+              <span className="currentCount">{newCategoryCount}</span>
+              <span className="maxCount">/ 25</span>
+            </div>
+          </div>
+          }
+        </div>
+
         <div className="form-row">
           <div className="form-group col-md-5">
             <label htmlFor="inputQuestion">Question *              
@@ -240,7 +359,8 @@ function CubeNew(props) {
         </div>
       </form>
     </div>
-  )
+  </>
 }
+
 
 export default CubeNew;

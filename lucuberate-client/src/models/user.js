@@ -62,12 +62,12 @@ class UserModel {
     });
   }
 
-  static allCubes(id) {
+  static allCubesAndCategories(id) {
     return fetch(`${url}/${id}`, {
       method: 'GET'
     })
     .then((res) => {
-      return res.json()
+      return res.json();
     })
     .catch((err) => {
       console.log('Error fetching data in UserModel.allCubes', err)

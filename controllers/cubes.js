@@ -27,7 +27,7 @@ const show = (req, res) => {
 
 // Creates New Cube and saves cube Id to current user
 const create = (req, res) => { 
-
+  console.log('new cube from req.body', req.body);
   const newCube = {
     question: req.body.question,
     answer: req.body.answer,
@@ -37,39 +37,39 @@ const create = (req, res) => {
     link_alias: req.body.link_alias || 
       (req.body.link ? 'Resource' : ''),
     notes: req.body.notes || '',
+    user: req.body.user,
+    category: req.body.category
   }
 
   db.Cube.create(newCube)
-  .then((savedCube) => {
-    db.User.findById(JSON.parse(req.body.user).user_Id)
+  .then((createdCube) => {
+    console.log('User ID',newCube.user);
+    db.User.findById(newCube.user)
     .then((foundUser) => {
-      foundUser.cubes.push(savedCube._id);
+      console.log('foundUser------->', foundUser);
+      foundUser.cubes.push(createdCube._id);
       foundUser.save()
-      .then((savedUser) => {
-        savedCube.user = JSON.parse(req.body.user).user_Id;
-        savedCube.save()
-        .then((updatedCube) => {
-          res.json({ cube: savedCube })
-        })
-        .catch((err)=> {
-          console.log('Unable to save user to cube in cubes.create:', err);
-          res.json({ Error: 'Unable to save user to cube'});
+      .then((savedUser) => {    
+        db.Category.findById(req.body.category)
+        .then((foundCategory) => {
+          console.log('foundCategory------->', foundCategory);
+          foundCategory.cubes.push(createdCube._id);
+          foundCategory.save()
+          .then((savedCategory) => {
+            console.log('createdCube', createdCube);
+            res.json({ 
+              cube: createdCube,
+              category: foundCategory 
+            })
+          })
         })
       })
-      .catch((err) => {
-        console.log('Unable to save cube to user in cubes.create:', err);
-        res.json({ Error: 'Unable to save cube to user'});
-      })
-    })
-    .catch((err) => {
-      console.log('Unable to find User in cubes.create:', err);
-      res.json({Error: 'Unable to find User'});
-    })
+    })          
   })
   .catch((err) => {
-    console.log('Unable to save cube in cubes.create:', err);
+    console.log('Unable to create cube in cubes.create:', err);
     res.json({ 
-      cubeError: 'Unable to save cube', 
+      cubeError: 'Unable to create cube', 
       question: req.body.question, 
       answer: req.body.answer
     });
@@ -77,6 +77,7 @@ const create = (req, res) => {
 };
 
 const update = (req, res) => {
+  console.log("req.body",req.body);
   const changedCube = {
     question: req.body.question,
     answer: req.body.answer,
@@ -85,26 +86,92 @@ const update = (req, res) => {
     link_alias: req.body.link_alias || 
     (req.body.link ? 'Resource' : ''),
     notes: req.body.notes || '',
+    user: req.body.user,
+    category: req.body.category
   }
   // If no new image uploaded on edit form, visual_aid will be previous image
   if (req.file) {
     changedCube.visual_aid = req.file && req.file.location
   } 
   if (changedCube.question && changedCube.answer) {
-    db.Cube.findByIdAndUpdate(req.body.cubeId, changedCube, { new: true })
-    .then((updatedCube) => {
-      res.json({ cube: updatedCube });
+
+
+    // .then((savedUser) => {    
+    //   db.Category.findById(req.body.category)
+    //   .then((foundCategory) => {
+    //     console.log('foundCategory------->', foundCategory);
+    //     foundCategory.cubes.push(createdCube._id);
+    //     foundCategory.save()
+    //     .then((savedCategory) => {
+    //       console.log('createdCube', createdCube);
+    //       res.json({ 
+    //         cube: createdCube,
+    //         category: foundCategory 
+    //       })
+    //     })
+    //   })
+    // })
+    db.Cube.findById(req.params.id)
+    .then((foundCube) => {
+      if (foundCube.category != req.body.category) {
+        console.log('foundCube.category',foundCube.category)
+        console.log('req.body.category',req.body.category)
+        
+        db.Category.findById(foundCube.category)
+        .then((foundOldCategory) => {
+          const cubeIndex = foundOldCategory.cubes.indexOf(foundCube._id);
+          foundOldCategory.cubes.splice(cubeIndex, 1);
+          foundOldCategory.save()
+          console.log('foundOldCategory------->', foundOldCategory);
+        }).then(() => {
+          db.Category.findById(req.body.category)
+          .then((foundNewCategory) => {
+            foundNewCategory.cubes.push(foundCube._id);
+            foundNewCategory.save()
+            console.log('foundNewCategory------->', foundNewCategory);
+            return foundNewCategory;
+          })
+          .then((newCategory) => {
+            db.Cube.findByIdAndUpdate(req.params.id, changedCube, { new: true })
+            .then((updatedCube) => {
+              console.log('Category Changed!!!!!');
+              console.log('updateCube', updatedCube);
+              console.log('foundNewCategory', newCategory);
+              res.json({ 
+                cube: updatedCube,
+                category: newCategory
+              })
+            })
+          })
+        })
+      } else {
+        db.Cube.findByIdAndUpdate(req.params.id, changedCube, { new: true })
+        .then((updatedCube) => {
+          db.Category.findById(req.body.category)
+          .then((foundCategory) => {
+            console.log('Category Stayed the Same!!!!');
+            console.log('updateCube', updatedCube);
+            console.log('foundCategory', foundCategory);
+            res.json({ 
+              cube: updatedCube,
+              category: foundCategory
+            })
+          })
+        })
+      }
     })
-    .catch((err) => {
-      console.log('Error in cubes.update:', err);
-      res.json({ Error: 'Unable to get data'});
-    });
-  } else {
-    res.json({ 
-      cubeError: 'Unable to save cube', 
-      question: req.body.question, 
-      answer: req.body.answer
-    });
+
+
+    // .catch((err) => {
+    //   console.log('Error in cubes.update:', err);
+    //   res.json({ Error: 'Unable to get data'});
+    // });
+
+    // res.json({ 
+    //   cubeError: 'Unable to save cube', 
+    //   question: req.body.question, 
+    //   answer: req.body.answer
+    // });
   }
 };
 
@@ -118,23 +185,17 @@ const destroy = (req, res) => {
     .then((foundUser) => {
       foundUser.cubes.remove(req.params.id);
       foundUser.save()
-      .then((savedUser) => {
+    })
+    db.Category.findById(deletedCube.category)
+    .then((foundCategory) => {
+      console.log('found Category in delete!!', foundCategory);
+      foundCategory.cubes.remove(req.params.id);
+      foundCategory.save()
+      .then((savedCategory) => {
         res.json({ cube: deletedCube })
       })
-      .catch((err) => {
-        console.log('Unable to save updated user cubes.destroy:', err);
-        res.json({ Error: 'Unable to save updated user'});
-      })
-    })
-    .catch((err) => {
-      console.log('Unable to find User in cubes.destroy:', err);
-      res.json({ Error: 'Unable to find User'});
     })
   })
-  .catch((err) => {
-    console.log('Unable to find and delete cube in cubes.destroy:', err);
-    res.json({ Error: 'Unable to find and delete cube'});
-  });
 } 
 
 // ./lucuberate-client/public/uploads/

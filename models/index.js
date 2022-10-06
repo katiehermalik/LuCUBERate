@@ -16,5 +16,6 @@ mongoose
 
 module.exports = {
   User: require('./User'),
-  Cube: require('./Cube')
+  Cube: require('./Cube'),
+  Category: require('./Category'),
 };

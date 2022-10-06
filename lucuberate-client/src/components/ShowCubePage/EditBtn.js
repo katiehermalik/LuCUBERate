@@ -1,15 +1,21 @@
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
-function EditBtn(props) {
-  return(
-  <Link 
-    to={`/dashboard/${props.cube_id}/edit`}>
-    <input
-    className="button edit-btn btn-ctrl"
-    type="button" 
-    value="Edit Cube" />
-  </Link>
-  )
+const EditBtn = ({ history, cubeId }) => {
+  const handleClick = (e) => {
+    e.stopPropagation()
+    history.push(`/dashboard/${cubeId}/edit`);
+  }
+
+  return <> 
+    <button 
+    className="button cube-action-btn btn-ctrl"
+    type="button"
+    onClick={handleClick}>
+      <i className="prefix grey-text"><FontAwesomeIcon icon={faEdit} /></i>
+    </button>
+  </>
 }
 
-export default EditBtn;
+export default withRouter(EditBtn);
