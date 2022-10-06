@@ -17,7 +17,7 @@ function currentPathReducer(prevState, action) {
     case 'dashboard':
       return prevState[0] !== action.type ? [action.type, null] : prevState
     default:
-      return (prevState[0] !== 'show' && prevState[1] !== action.pathname.match(/\b[\w]+$/g)[0]) ? ['show', action.pathname.match(/\b[\w]+$/g)[0]] : prevState
+      return (prevState[1] !== action.pathname.match(/\b[\w]+$/g)[0]) ? ['show', action.pathname.match(/\b[\w]+$/g)[0]] : prevState
   }
 }
 
@@ -81,51 +81,54 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   },[currentCubeId, closeAllCategories, currCategoryCubeRefs, openCategoryCubeList, currentPath])
 
   const findCurrentCubeId = useCallback(() => {
-    console.log('findCurrentCubeId - FINDING CURRENT CUBE ID');
     setCurrentCubeId(currentPath[1]);
   }, [currentPath, setCurrentCubeId])
 
+  const findCurrentPath = useCallback(() => {
+    setCurrentPath({type: pathname.match(/\b[\w]+$/g)[0], pathname});
+  }, [pathname])
+
   const resetCubeId = useCallback(() => {
-    console.log('resetCubeId - FINDING CURRENT CUBE ID');
     setCurrentCubeId('');
     setCurrentCubeCategory('');
   }, [setCurrentCubeId])
 
+  const findCurrentCubeCategory = useCallback((currentCubeCatId) => {
+    setCurrentCubeCategory(currentCubeCatId)
+    setCurrentCategory(currentCubeCatId)
+    setCurrentCategoryRef(categoryRefs.find(ref => ref.id === currentCubeCatId))
+    setCurrCategoryCubeRefs(cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCubeCatId))
+  },[categoryRefs, cubeRefs, setCurrentCategory])
+  
+  // In case of browser refresh
   const findCurrentCategoryInfo = useCallback(() => {
-    console.log('FINDING CURRENT CATEGORY INFO');
     setCurrentCategoryRef(categoryRefs.find(ref => ref.id === currentCategory));
     setCurrCategoryCubeRefs(cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCategory));
   }, [categoryRefs, cubeRefs, currentCategory])
 
-  const findCurrentCubeCategory = useCallback(() => {
-    console.log('FINDING CURRENT CUBE CATEGORY');
-      const currentCubeCat = categories.find(category => category.cubes.includes(currentCubeId));
-      setCurrentCubeCategory(currentCubeCat._id)
-      setCurrentCategory(currentCubeCat._id)
-      setCurrentCategoryRef(categoryRefs.find(ref => ref.id === currentCubeCat._id))
-      setCurrCategoryCubeRefs(cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCubeCat._id))
-  },[categoryRefs, cubeRefs, categories, setCurrentCategory, currentCubeId])
-
 //====================================================================================//
 
   useEffect(() => {
-    console.log('IN USE EFFECT');
     currentCategory ?? closeAllCategories();
-    setCurrentPath({type: pathname.match(/\b[\w]+$/g)[0], pathname});
+    findCurrentPath();
 
     if (cubeRefs.length !== 0 && categoryRefs.length !== 0) {
       if ((currentCategory && !currentCategoryRef) || (currentCategory && currentCategory !== currentCategoryRef.id)) {
         findCurrentCategoryInfo();
       } 
 
-      // Upon browser refresh - gathers needed info differently depending on the path
+      // Gathering needed cube and category info differently depending on the path
       if ((currentPath[0] === 'edit' || currentPath[0] === 'show')) {
         if(!currentCubeId) {
           findCurrentCubeId();
         } else if (currentCubeId && currentCubeCategory && !currentCategoryRef) {
+          // In case of browser refresh
           findCurrentCategoryInfo();
-        } else if (currentCubeId && !currentCubeCategory) { 
-          findCurrentCubeCategory();
+        } else if (currentCubeId) { 
+          const currentCubeCat = categories.find(category => category.cubes.includes(currentCubeId));
+          if (currentCubeCat._id !== currentCubeCategory) {
+            findCurrentCubeCategory(currentCubeCat._id);
+          }
         } 
       } else if ((currentPath[0] === 'dashboard' || currentPath[0] === 'new') && (currentCubeId || currentCubeCategory)) {
         resetCubeId();
@@ -163,7 +166,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
         }
       }
     }
-  }, [categories, pathname, cubeRefs.length, categoryRefs.length, currentCategory, currentCategoryRef, currentCubeId, currentCubeCategory, currentPath, closeAllCategories, openCategoryCubeList, findCurrentCategoryInfo, findCurrentCubeCategory, findCurrentCubeId, resetCubeId, currCategoryCubeRefs, scrollToCube])
+  }, [categories, pathname, findCurrentPath, cubeRefs.length, categoryRefs.length, currentCategory, currentCategoryRef, currentCubeId, currentCubeCategory, currentPath, closeAllCategories, openCategoryCubeList, findCurrentCategoryInfo, findCurrentCubeCategory, findCurrentCubeId, resetCubeId, currCategoryCubeRefs, scrollToCube])
 
   //====================================================================================//
 
@@ -186,9 +189,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   }
 
   const handleCubeClick = (e) => {
-    const currentCubeCat = categories.find(category => category.cubes.includes(e.target.value));
     setCurrentCubeId(e.target.value);
-    setCurrentCubeCategory(currentCubeCat._id);
     history.push(`/dashboard/${e.target.value}`);
     e.target.scrollIntoView({ behavior: 'smooth', block: 'center'});
   }
@@ -203,7 +204,8 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   }
   
   return <div className="cube-list-grp container-column">
-    {categories?.map((category, i) => <div className="cube-list" key={category._id}>
+    {categories?.map((category, i) => 
+      <div className="cube-list" key={category._id}>
         <div
           onClick={handleCategoryClick} 
           type="button" 
@@ -231,32 +233,32 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
         <div 
         style= {cubeListStyles} 
         className="content container-column cube-select-group">
-          {category.cubes?.map((cube, j) => (
-          <li 
-            key={cube}
-            className="radio-button">
-            <input
-              type="radio"
-              name="cube-select"
-              value={cube}
-              id={cube}
-              category={category._id}
-              onClick={handleCubeClick}
-              ref={element => {
-                if (element) {
-                  cubeRefs[i][j] = {category_id: category._id, ref: element};
-                }
-              }}/>
-            <label
-              className="radio-label"
-              htmlFor={cube}>
-                {`Cube ${j + 1}`}
-            </label>
-            {currentCubeId === cube && 
-            <CubeCtrls cubeId={cube} />
-            }
-          </li>
-          ))}  
+          {category.cubes?.map((cube, j) => 
+            <li 
+              key={cube}
+              className="radio-button">
+              <input
+                type="radio"
+                name="cube-select"
+                value={cube}
+                id={cube}
+                category={category._id}
+                onClick={handleCubeClick}
+                ref={element => {
+                  if (element) {
+                    cubeRefs[i][j] = {category_id: category._id, ref: element};
+                  }
+                }}/>
+              <label
+                className="radio-label"
+                htmlFor={cube}>
+                  {`Cube ${j + 1}`}
+              </label>
+              {currentCubeId === cube && 
+              <CubeCtrls cubeId={cube} />
+              }
+            </li>
+          )}  
           {((currentPath[0] === 'edit' && currentCategory !== currentCubeCategory && currentCubeCategory !== category._id) || 
             currentPath[0] === 'new') &&
             <PlaceHolderCube 
