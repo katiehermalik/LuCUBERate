@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CubeContext, CategoryContext } from '../../context/ContextProvider';
+import { CubeContext } from '../../context/ContextProvider';
 
 const NewCubeBtn = () => {
-  const { currentCubeId, setCurrentCubeId } = useContext(CubeContext);
-  const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
+  const { setCurrentCubeId } = useContext(CubeContext);
   
   const handleClick = () => {
     setCurrentCubeId('');
-    // setCurrentCategory(null);
   }
 
   return <Link to='/dashboard/new'>

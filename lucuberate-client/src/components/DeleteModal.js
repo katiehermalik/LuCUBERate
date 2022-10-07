@@ -17,7 +17,7 @@ const DeleteModal = ({
 
   const { userContent, setUserContent } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
-  const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
+  const { setCurrentCategory } = useContext(CategoryContext);
 
   const closeModal = (e) => {
     e.stopPropagation();
