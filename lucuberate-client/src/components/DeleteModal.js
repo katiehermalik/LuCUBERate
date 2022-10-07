@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { withRouter } from 'react-router-dom';
-import { UserContext, CubeContext } from '../context/ContextProvider';
+import { UserContext, CubeContext, CategoryContext } from '../context/ContextProvider';
 import CubeModel from '../models/cube';
 import CategoryModel from '../models/category';
 import UserModel from '../models/user';
@@ -17,6 +17,7 @@ const DeleteModal = ({
 
   const { userContent, setUserContent } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
+  const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
 
   const closeModal = (e) => {
     e.stopPropagation();
@@ -31,6 +32,7 @@ const DeleteModal = ({
       UserModel.allCubesAndCategories(userContent.user_id)
       .then((categoriesWithCubes) => {
         setCurrentCubeId('');
+        setCurrentCategory('');
         setUserContent({...categoriesWithCubes, user_id: userContent.user_id });
       }); 
       history.push('/dashboard');
@@ -43,6 +45,7 @@ const DeleteModal = ({
         UserModel.allCubesAndCategories(userContent.user_id)
         .then((categoriesWithCubes) => {
           setCurrentCubeId('');
+          setCurrentCategory('');
           setUserContent({...categoriesWithCubes, user_id: userContent.user_id });
         }); 
         history.push('/dashboard');

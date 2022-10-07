@@ -188,11 +188,17 @@ const destroy = (req, res) => {
     })
     db.Category.findById(deletedCube.category)
     .then((foundCategory) => {
-      console.log('found Category in delete!!', foundCategory);
       foundCategory.cubes.remove(req.params.id);
       foundCategory.save()
       .then((savedCategory) => {
-        res.json({ cube: deletedCube })
+        if (savedCategory.cubes.length === 0) {
+          db.Category.findByIdAndDelete(savedCategory._id)
+          .then((deletedCategory)=> {
+            res.json({ cube: deletedCube, category: deletedCategory })
+          })
+        } else {
+          res.json({ cube: deletedCube })
+        }
       })
     })
   })

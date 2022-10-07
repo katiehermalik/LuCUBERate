@@ -13,7 +13,6 @@ function currentPathReducer(prevState, action) {
     case 'edit':
       return prevState[0] !== action.type ? [action.type, action.pathname.split('/')[2]] : prevState
     case 'new':
-      return prevState[0] !== action.type ? [action.type, null] : prevState
     case 'dashboard':
       return prevState[0] !== action.type ? [action.type, null] : prevState
     default:
@@ -36,15 +35,15 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   const [ currentCubeCategory, setCurrentCubeCategory ] = useState('');
   
   // console.log('============================================================================================================================================');
-  // console.log('cubeRefs ------->', cubeRefs);
-  // console.log('categoryRefs ------->', categoryRefs);
-  // console.log('categories ------->', categories);
-  // console.log('currentPath ------->', currentPath);
-  // console.log('currentCubeId ------->', currentCubeId);
-  // console.log('currentCubeCategory ------->', currentCubeCategory);
-  // console.log('currentCategory ------->', currentCategory);
-  // console.log('currentCategoryRef ------->', currentCategoryRef);
-  // console.log('currCategoryCubeRefs ------->', currCategoryCubeRefs);
+  console.log('cubeRefs ------->', cubeRefs);
+  console.log('categoryRefs ------->', categoryRefs);
+  console.log('categories ------->', categories);
+  console.log('currentPath ------->', currentPath);
+  console.log('currentCubeId ------->', currentCubeId);
+  console.log('currentCubeCategory ------->', currentCubeCategory);
+  console.log('currentCategory ------->', currentCategory);
+  console.log('currentCategoryRef ------->', currentCategoryRef);
+  console.log('currCategoryCubeRefs ------->', currCategoryCubeRefs);
   // console.log('============================================================================================================================================');
 
 //====================================================================================//
@@ -52,7 +51,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   const closeAllCategories = useCallback(() => {
     categoryRefs.forEach(ref => {
       ref.classList.remove("active");
-      ref.nextElementSibling.style.maxHeight = "0px"
+      ref.nextElementSibling.style.maxHeight = "0px";
     })
   }, [categoryRefs])
 
@@ -71,7 +70,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
         foundCubeRef && (foundCubeRef.ref.checked = true); 
         break;
       case (currentPath[0] ==='edit'|| currentPath[0] ==='new') :
-        const indexOfNewestCubeRef = currCategoryCubeRefs.length - 1
+        const indexOfNewestCubeRef = currCategoryCubeRefs.length - 1;
         foundCubeRef = currCategoryCubeRefs[indexOfNewestCubeRef];
         break;
       default:
@@ -94,10 +93,11 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   }, [setCurrentCubeId])
 
   const findCurrentCubeCategory = useCallback((currentCubeCatId) => {
-    setCurrentCubeCategory(currentCubeCatId)
-    setCurrentCategory(currentCubeCatId)
-    setCurrentCategoryRef(categoryRefs.find(ref => ref.id === currentCubeCatId))
-    setCurrCategoryCubeRefs(cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCubeCatId))
+    console.log("FINDING CURRENT CUBE CATEGORY");
+    setCurrentCubeCategory(currentCubeCatId);
+    setCurrentCategory(currentCubeCatId);
+    setCurrentCategoryRef(categoryRefs.find(ref => ref.id === currentCubeCatId));
+    setCurrCategoryCubeRefs(cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCubeCatId));
   },[categoryRefs, cubeRefs, setCurrentCategory])
   
   // In case of browser refresh
@@ -113,57 +113,33 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
     findCurrentPath();
 
     if (cubeRefs.length !== 0 && categoryRefs.length !== 0) {
-      if ((currentCategory && !currentCategoryRef) || (currentCategory && currentCategory !== currentCategoryRef.id)) {
+      if (currentCategory && currentCategory !== currentCategoryRef?.id) {
         findCurrentCategoryInfo();
       } 
-
       // Gathering needed cube and category info differently depending on the path
-      if ((currentPath[0] === 'edit' || currentPath[0] === 'show')) {
-        if(!currentCubeId) {
-          findCurrentCubeId();
-        } else if (currentCubeId && currentCubeCategory && !currentCategoryRef) {
-          // In case of browser refresh
-          findCurrentCategoryInfo();
-        } else if (currentCubeId) { 
+      switch (currentPath[0]) {
+        case 'edit':
+        case 'show':
           const currentCubeCat = categories.find(category => category.cubes.includes(currentCubeId));
-          if (currentCubeCat._id !== currentCubeCategory) {
-            findCurrentCubeCategory(currentCubeCat._id);
+          currentCubeId 
+            ? currentCubeCat._id !== currentCubeCategory && findCurrentCubeCategory(currentCubeCat._id)
+            : findCurrentCubeId();
+          if (currentCategory && currentCategoryRef && currCategoryCubeRefs?.length !== 0) {
+            (currentCategory === currentCubeCategory)
+              ? scrollToCube(true) 
+              : scrollToCube(false);
           }
-        } 
-      } else if ((currentPath[0] === 'dashboard' || currentPath[0] === 'new') && (currentCubeId || currentCubeCategory)) {
-        resetCubeId();
-      } 
-
-      // Handles opening and closing of categories differently, depending on the path
-      if (currentCategory && currentCategoryRef && currCategoryCubeRefs.length !== 0) {
-        switch (currentPath[0]) {
-          case 'edit':
-            if (currentCategory === currentCubeCategory) {
-              scrollToCube(true);
-            } else {
-              scrollToCube(false);
-            }
-            break;
-          case 'show':
-            if (currentCategory === currentCubeCategory) {
-              scrollToCube(true);
-            } else {
-              closeAllCategories();
-              openCategoryCubeList();
-            }
-            break;
-          case 'dashboard':
-            currCategoryCubeRefs.forEach(cube => cube.ref.checked = false)
-            closeAllCategories();
-            openCategoryCubeList();
-            break;
-          case 'new':
+          break;
+        case 'dashboard':
+        case 'new':
+          resetCubeId();
+          if (currentCategory && currentCategoryRef && currCategoryCubeRefs?.length !== 0) {
             currCategoryCubeRefs.forEach(cube => cube.ref.checked = false);
             scrollToCube(false);
-            break;
-          default:
-            break;
-        }
+          }
+          break;
+        default:
+          break;
       }
     }
   }, [categories, pathname, findCurrentPath, cubeRefs.length, categoryRefs.length, currentCategory, currentCategoryRef, currentCubeId, currentCubeCategory, currentPath, closeAllCategories, openCategoryCubeList, findCurrentCategoryInfo, findCurrentCubeCategory, findCurrentCubeId, resetCubeId, currCategoryCubeRefs, scrollToCube])
