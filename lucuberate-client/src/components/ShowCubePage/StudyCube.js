@@ -5,7 +5,7 @@ import '../../App.css';
 const sides = [
   'Question',
   'Answer',
-  'Visual',
+  'Visual Aid',
   'Link',
   'Notes',
   'Hint'
@@ -50,7 +50,8 @@ const StudyCube = (props) => {
                 />
                 <label
                   className="radio-label"
-                  htmlFor={side}>
+                  htmlFor={side}
+                  title={side}>
                     {side}
                 </label>
               </li>
@@ -79,9 +80,9 @@ const StudyCube = (props) => {
               <div className={`face-content ${side === 'Notes' ? '' : 'blur' }`}>{cube.notes}</div>
             </div>
             <div className="face Visual">
-              <div className={`face-title ${side === 'Visual' ? '' : 'blur' }`}>Visual Aid</div>
+              <div className={`face-title ${side === 'Visual Aid' ? '' : 'blur' }`}>Visual Aid</div>
               {cube.visual_aid &&
-              <img src={cube.visual_aid} alt="visual aid" className={`visual-aid ${side === 'Visual' ? '' : 'blur' }`}/>
+              <img src={cube.visual_aid} alt="visual aid" className={`visual-aid ${side === 'Visual Aid' ? '' : 'blur' }`}/>
               }
             </div>
             <div className="face Answer">

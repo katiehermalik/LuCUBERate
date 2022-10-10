@@ -15,11 +15,9 @@ function CubeShow(props) {
       });
   },[props.match.params.id])
 
-  return(
-    <div className="show-page-container container-column">
+  return <div className="show-page-container container-column">
       <StudyCube cube={cube} cubeId={props.match.params.id}/>  
     </div>
-  )
 }
 
 export default CubeShow;

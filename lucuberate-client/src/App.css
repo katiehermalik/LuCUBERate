@@ -294,6 +294,7 @@ button.cube-action-btn {
   height: calc(100vh - 134px);
   overflow-y: scroll;
   overflow-x: hidden;
+  width: 100%;
 }
 
 .cube-list-grp .radio-button {
@@ -367,20 +368,42 @@ button.cube-action-btn {
 }
 
 .form-control {
-  border: none;
-  -webkit-box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.4);
-          box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.4);
+  border-radius: 0.35rem;
+  border: 3px solid rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.1);
+          box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.1);
   transition: border-color .35s ease-in-out,box-shadow .35s ease-in-out;
 }
 
 .form-control:focus {
   border: 3px solid rgb(253, 192, 52);
-  -webkit-box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.4);
-          box-shadow: inset 1px 2px 5px -1px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.1);
+          box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
 .form-control-file {
   height: calc(1.5em + .75rem + 2px);
+}
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100%;
+}
+.visual-aid-preview {
+  display: flex;
+  justify-content: end;
+  margin-top: 5px;
+  float: right;
+}
+img.visual-aid-preview {
+  width: 30px;
+  border-radius: 3px;
 }
 
 /* ---------------------------------- Cube Show Page */
@@ -592,7 +615,7 @@ button.cube-action-btn {
 
 .new-cube-btn {
   padding:14px 29px;
-  margin: 15px 0;
+  margin: 15px 15px;
   background-color: var(--accent-color);
 }
 
@@ -830,6 +853,7 @@ input[type='radio'] {
 input[type="radio"]:checked + label {
   color: var(--accent-color);  
 }
+
 
 /* ================================================================ Media Queries */
 

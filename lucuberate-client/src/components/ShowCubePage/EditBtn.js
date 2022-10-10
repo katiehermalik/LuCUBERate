@@ -8,14 +8,14 @@ const EditBtn = ({ history, cubeId, history:{location:{pathname}} }) => {
     history.push(`/dashboard/${cubeId}/edit`);
   }
 
-  return <> 
-    <button 
+  return <button 
     className={ pathname.match(/\b[\w=.]+$/g)[0] === 'edit'? "button active cube-action-btn btn-ctrl" : "button cube-action-btn btn-ctrl" }
     type="button"
-    onClick={handleClick}>
+    onClick={handleClick}
+    title="Edit Cube"
+    aria-label="Edit Cube">
       <i className="prefix grey-text"><FontAwesomeIcon icon={faEdit} /></i>
     </button>
-  </>
 }
 
 export default withRouter(EditBtn);

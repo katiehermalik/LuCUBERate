@@ -22,15 +22,13 @@ const ContextProvider = ({ children }) => {
     }
   },[])
   
-  return (
-    <UserContext.Provider value={ {userContent, setUserContent} }> 
+  return <UserContext.Provider value={ {userContent, setUserContent} }> 
       <CategoryContext.Provider value={ {currentCategory, setCurrentCategory} }> 
         <CubeContext.Provider value={ {currentCubeId, setCurrentCubeId} }> 
       { children }
         </CubeContext.Provider>
       </CategoryContext.Provider>
     </UserContext.Provider>
-  )
 }
 
 

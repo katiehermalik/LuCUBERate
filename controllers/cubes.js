@@ -1,7 +1,7 @@
 const db = require("../models");
 const fs = require("fs");
 const multer = require("multer");
-const Cube = require("../models/Cube")
+const Cube = require("../models/Cube");
 
 const index = (req, res) => {
   db.Cube.find({})
@@ -94,23 +94,6 @@ const update = (req, res) => {
     changedCube.visual_aid = req.file && req.file.location
   } 
   if (changedCube.question && changedCube.answer) {
-
-
-    // .then((savedUser) => {    
-    //   db.Category.findById(req.body.category)
-    //   .then((foundCategory) => {
-    //     console.log('foundCategory------->', foundCategory);
-    //     foundCategory.cubes.push(createdCube._id);
-    //     foundCategory.save()
-    //     .then((savedCategory) => {
-    //       console.log('createdCube', createdCube);
-    //       res.json({ 
-    //         cube: createdCube,
-    //         category: foundCategory 
-    //       })
-    //     })
-    //   })
-    // })
     db.Cube.findById(req.params.id)
     .then((foundCube) => {
       if (foundCube.category != req.body.category) {
@@ -160,18 +143,6 @@ const update = (req, res) => {
         })
       }
     })
-
-
-    // .catch((err) => {
-    //   console.log('Error in cubes.update:', err);
-    //   res.json({ Error: 'Unable to get data'});
-    // });
-
-    // res.json({ 
-    //   cubeError: 'Unable to save cube', 
-    //   question: req.body.question, 
-    //   answer: req.body.answer
-    // });
   }
 };
 
@@ -179,7 +150,9 @@ const destroy = (req, res) => {
   db.Cube.findByIdAndDelete(req.params.id)
   .then((deletedCube) => {
     if (deletedCube.visual_aid) {
+      console.log('VISUAL AID',deletedCube.visual_aid);
       fs.unlinkSync(`${deletedCube.visual_aid}`)
+      // fs.unlinkSync(`./lucuberate-client/public/uploads/${deletedCube.visual_aid}`)
     }
     db.User.findById(deletedCube.user)
     .then((foundUser) => {

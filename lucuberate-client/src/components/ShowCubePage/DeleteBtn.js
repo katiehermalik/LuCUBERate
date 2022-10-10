@@ -16,7 +16,9 @@ const DeleteBtn = ({ cubeId, categoryTitle, categoryId }) => {
     <button 
     className={cubeId ? "button delete cube-action-btn btn-ctrl" : "button delete category-action-btn btn-ctrl"}
     type="button"
-    onClick={handleOpenModal}>
+    onClick={handleOpenModal}
+    title={cubeId ? "Delete Cube" : "Delete Category"}
+    aria-label={cubeId ? "Delete Cube" : "Delete Category"} >
       <i className="prefix grey-text"><FontAwesomeIcon icon={faTrash} /></i>
     </button>
     <DeleteModal 

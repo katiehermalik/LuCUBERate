@@ -14,7 +14,9 @@ const NewCubeBtn = () => {
       onClick={handleClick} 
       className="button new-cube-btn btn-ctrl"
       type="button"
-      value="New Cube" />
+      value="Create New Cube"
+      aria-label="Create New Cube"
+      />
     </Link>
 }
 

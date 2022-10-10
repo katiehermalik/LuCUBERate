@@ -11,6 +11,7 @@ const CubeNew = ({ history }) => {
   const { currentCubeId, setCurrentCubeId } = useContext(CubeContext);
 
   // const [ cubeData, setCubeData ] = useState({
+  //   category: '',
   //   question: '',
   //   answer: '',
   //   hint: '',
@@ -18,6 +19,7 @@ const CubeNew = ({ history }) => {
   //   link: '',
   //   link_alias: '',
   //   visual_aid: '',
+  //   categoryCount: 0,
   //   questionCount: 0,
   //   answerCount: 0,
   //   hintCount: 0,
@@ -26,10 +28,9 @@ const CubeNew = ({ history }) => {
   //   questionError: '',
   //   answerError: '',
   //   visualAidError: '',
-  //   category: '',
-  //   categoryCount: 0
   // });
 
+  const[newCategory, setNewCategory] = useState('');
   const[question, setQuestion] = useState('');
   const[answer, setAnswer] = useState('');
   const[hint, setHint] = useState('');
@@ -37,17 +38,17 @@ const CubeNew = ({ history }) => {
   const[link, setLink] = useState('');
   const[link_alias, setLinkAlias] = useState('');
   const[visual_aid, setVisualAid] = useState('');
+  const[newCategoryCount, setNewCategoryCount] = useState(0);
   const[questionCount, setQuestionCount] = useState(0);
   const[answerCount, setAnswerCount] = useState(0);
   const[hintCount, setHintCount] = useState(0);
   const[notesCount, setNotesCount] = useState(0);
   const[linkAliasCount, setLinkAliasCount] = useState(0);
+  
   const[questionError, setQuestionError] = useState('');
   const[answerError, setAnswerError] = useState('');
   const[visualAidError, setVisualAidError] = useState('');
 
-  const[newCategory, setNewCategory] = useState('');
-  const[newCategoryCount, setNewCategoryCount] = useState(0);
   const[categoryIsNew, setCategoryIsNew] = useState(false);
 
   useEffect(() => {
@@ -58,7 +59,6 @@ const CubeNew = ({ history }) => {
       setCategoryIsNew(true);
     } else {
       setCategoryIsNew(false);
-      // let currCubeCategory = cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCategory)
     }
   }, [currentCubeId, setCurrentCubeId, currentCategory])
 
@@ -83,7 +83,6 @@ const CubeNew = ({ history }) => {
             break;
         }
       } else {
-        // const updatedCubeList = [...userContent.cubes, data.cube]
         let updatedCategoryList;
         if (categoryIsNew) {
           updatedCategoryList = [
@@ -96,11 +95,9 @@ const CubeNew = ({ history }) => {
         }
         setUserContent(prevState => ({ 
           ...prevState, 
-          // cubes: updatedCubeList, 
           categories: categoryIsNew ? updatedCategoryList : prevState.categories
         }));
         setCurrentCubeId(data.cube._id);
-        // setCurrentCategory(data.category._id);
         history.push(`/dashboard/${data.cube._id}`);
       }
     });
@@ -157,20 +154,23 @@ const CubeNew = ({ history }) => {
     fontSize: "12px",
     whiteSpace: "nowrap"
   }
+  const required = {
+    color: "#ffc107"
+  }
 
-  return <>
-    <div className="form-container container-column">
+  return <div className="form-container container-column">
       <h1 className="form-title">Create a New Study Cube</h1>
-      <p className="required-warning">( Fields marked with a * are required )</p>
+      <p className="required-warning">( Fields marked with a <span style={required}>*</span> are required )</p>
       <form 
       onSubmit={handleSubmit}
       encType="multipart/form-data" 
       id="cube-new-form" 
       className="cube-form">
         <div className="form-row">
-          <div className="form-group col-md-3">
-            <label htmlFor="inputCategory">Category *</label>
-            <select 
+          <div className={`form-group ${categoryIsNew ? "col-md-5" : "col-md-11"}`}>
+            <label htmlFor="inputCategory">Category <span style={required}>*</span></label>
+            <select
+              className="form-control" 
               id="category-dropdown"
               onChange={handleCategoryChange}
               value={
@@ -186,8 +186,8 @@ const CubeNew = ({ history }) => {
           </div>
 
           { categoryIsNew &&
-          <div className="form-group col-md-3">
-            <label htmlFor="inputCategory">New Category *</label>
+          <div className="form-group col-md-5">
+            <label htmlFor="inputCategory">New Category <span style={required}>*</span></label>
             <input 
               type="text" 
               className="form-control" 
@@ -209,7 +209,7 @@ const CubeNew = ({ history }) => {
 
         <div className="form-row">
           <div className="form-group col-md-5">
-            <label htmlFor="inputQuestion">Question *              
+            <label htmlFor="inputQuestion">Question <span style={required}>*</span>              
             {questionError &&
             <span style={errorStyle}>{` ${questionError}`}</span>
             }</label>
@@ -233,7 +233,7 @@ const CubeNew = ({ history }) => {
             </div>
           </div>
           <div className="form-group col-md-5">
-            <label htmlFor="inputAnswer">Answer *               
+            <label htmlFor="inputAnswer">Answer <span style={required}>*</span>              
             {answerError &&
             <span style={errorStyle}>{` ${answerError}`}</span>
             }</label>
@@ -328,16 +328,23 @@ const CubeNew = ({ history }) => {
           </div>
           <div className="form-group col-md-3">
             <label htmlFor="inputVisual">Visual Aid</label>
+            <label className= "btn btn-secondary custom-file-upload" htmlFor="inputVisual">Upload</label>
             <input 
             type="file" 
             className="form-control-file" 
             id="inputVisual" 
             placeholder="Choose file"
             name="visual_aid" 
-            onChange={(e) => setVisualAid(e.target.files[0])} />
+            onChange={(e) => {
+              setVisualAidError('');
+              setVisualAid(e.target.files[0]);
+            }} />
             {visualAidError &&
             <span style={errorStyle}>{`${visualAidError}`}</span>
             }
+            {visual_aid && visual_aid.name.length > 15
+            ? <span className="visual-aid-file-name">{visual_aid.name.slice(0, 6)}&hellip;{visual_aid.name.slice(-7)}</span> 
+            : <span className="visual-aid-file-name">{visual_aid.name}</span>}
           </div>
         </div>
         <div className="form-buttons">
@@ -359,7 +366,6 @@ const CubeNew = ({ history }) => {
         </div>
       </form>
     </div>
-  </>
 }
 
 

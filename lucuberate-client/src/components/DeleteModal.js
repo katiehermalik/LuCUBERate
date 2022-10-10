@@ -32,7 +32,7 @@ const DeleteModal = ({
       UserModel.allCubesAndCategories(userContent.user_id)
       .then((categoriesWithCubes) => {
         setCurrentCubeId('');
-        setCurrentCategory('');
+        setCurrentCategory(null);
         setUserContent({...categoriesWithCubes, user_id: userContent.user_id });
       }); 
       history.push('/dashboard');
@@ -45,7 +45,6 @@ const DeleteModal = ({
         UserModel.allCubesAndCategories(userContent.user_id)
         .then((categoriesWithCubes) => {
           setCurrentCubeId('');
-          setCurrentCategory('');
           setUserContent({...categoriesWithCubes, user_id: userContent.user_id });
         }); 
         history.push('/dashboard');

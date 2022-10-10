@@ -16,7 +16,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
   const[notes, setNotes] = useState('');
   const[link, setLink] = useState('');
   const[link_alias, setLinkAlias] = useState('');
-  const[, setVisualAid] = useState('');
+  const[visual_aid, setVisualAid] = useState('');
   const[new_visual_aid, setNewVisualAid] = useState('');
   const[questionCount, setQuestionCount] = useState(0);
   const[answerCount, setAnswerCount] = useState(0);
@@ -106,8 +106,8 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
         setHintCount(data.cube.hint.length)
         setNotesCount(data.cube.notes.length)
         setLinkAliasCount(data.cube.link_alias.length)
+        console.log('data.cube.visual_aid',data.cube.visual_aid);
     });
-
     if (currentCategory === null) {
       setCategoryIsNew(true);
     } else {
@@ -169,10 +169,14 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
     whiteSpace: "nowrap"
   }
 
+  const required = {
+    color: "#ffc107"
+  }
+
   return <>
     <div className="form-container container-column">
       <h1 className="form-title">Edit this Study Cube</h1>  
-      <p className="required-warning">( Fields marked with a * are required )</p>
+      <p className="required-warning">( Fields marked with a <span style={required}>*</span> are required )</p>
       <form 
       onSubmit={handleSubmit}
       encType="multipart/form-data" 
@@ -180,9 +184,10 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
       className="cube-form">
 
         <div className="form-row">
-          <div className="form-group col-md-3">
-            <label htmlFor="inputCategory">Category *</label>
+          <div className={`form-group ${categoryIsNew ? "col-md-5" : "col-md-11"}`}>
+            <label htmlFor="inputCategory">Category <span style={required}>*</span></label>
             <select 
+              className="form-control" 
               id="category-dropdown"
               onChange={handleCategoryChange}
               value={
@@ -198,8 +203,8 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
           </div>
 
           { categoryIsNew &&
-          <div className="form-group col-md-3">
-            <label htmlFor="inputCategory">New Category *</label>
+          <div className="form-group col-md-5">
+            <label htmlFor="inputCategory">New Category <span style={required}>*</span></label>
             <input 
               type="text" 
               className="form-control" 
@@ -221,7 +226,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
 
         <div className="form-row">
           <div className="form-group col-md-5">
-            <label htmlFor="inputQuestion">Question *
+            <label htmlFor="inputQuestion">Question <span style={required}>*</span>
             {questionError &&
             <span style={errorStyle}>{` ${questionError}`}</span>
             }</label>
@@ -245,7 +250,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             </div>
           </div>
           <div className="form-group col-md-5">
-            <label htmlFor="inputAnswer">Answer *
+            <label htmlFor="inputAnswer">Answer <span style={required}>*</span>
             {answerError &&
             <span style={errorStyle}>{` ${answerError}`}</span>
             }</label>
@@ -340,24 +345,32 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
           </div>
           <div className="form-group col-md-3">
             <label htmlFor="inputVisual">Visual Aid</label>
+            <label className="btn btn-secondary custom-file-upload" htmlFor="inputVisual">{visual_aid ? 'Upload New': 'Upload'}</label>
             <input 
             type="file" 
             className="form-control-file" 
             id="inputVisual" 
             placeholder="Choose file"
-            name="visual_aid" 
-            onChange={(e) => setNewVisualAid(e.target.files[0])} />
+            name="visual_aid"
+            onChange={(e) => {
+              setVisualAidError('');
+              setNewVisualAid(e.target.files[0]);
+            }} />
             {visualAidError &&
             <span style={errorStyle}>{`${visualAidError}`}</span>
             }
+            { new_visual_aid 
+            ? new_visual_aid && new_visual_aid.name.length > 15 
+              ? <span className="visual-aid-preview">{new_visual_aid.name.slice(0, 6)}&hellip;{new_visual_aid.name.slice(-7)}</span> 
+              : <span className="visual-aid-preview">{new_visual_aid.name}</span>
+            : <img src={visual_aid} alt="visual aid" className="visual-aid-preview"/> }
           </div>
         </div>
           <div className="form-buttons">
           <Link to={`/dashboard/${cubeId}`}>
             <button 
               type="submit" 
-              className="btn form-btn btn-secondary"
-              >
+              className="btn form-btn btn-secondary">
               Cancel
             </button>
           </Link>

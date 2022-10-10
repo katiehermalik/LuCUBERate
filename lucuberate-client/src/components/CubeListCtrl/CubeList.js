@@ -49,6 +49,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
 //====================================================================================//
 
   const closeAllCategories = useCallback(() => {
+    console.log('this hit');
     categoryRefs.forEach(ref => {
       ref.classList.remove("active");
       ref.nextElementSibling.style.maxHeight = "0px";
@@ -56,6 +57,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   }, [categoryRefs])
 
   const openCategoryCubeList = useCallback(() => {
+    console.log('that hit');
     currentCategoryRef.classList.add("active");
     currentCategoryRef.nextElementSibling.style.maxHeight = "200px";
   }, [currentCategoryRef])
@@ -65,6 +67,9 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
     openCategoryCubeList();
     let foundCubeRef;
     switch (true) {
+      case ((currentPath[0] ==='dashboard'|| currentPath[0] ==='show') && !isCurrentCubeCategory) :
+        currCategoryCubeRefs[0].ref.scrollIntoView({behavior: 'smooth', block: 'center'});
+        break;
       case ((currentPath[0] ==='edit'|| currentPath[0] ==='show') && isCurrentCubeCategory) :
         foundCubeRef = currCategoryCubeRefs.find(cube => cube.ref.value === currentCubeId);
         foundCubeRef && (foundCubeRef.ref.checked = true); 
@@ -93,7 +98,6 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   }, [setCurrentCubeId])
 
   const findCurrentCubeCategory = useCallback((currentCubeCatId) => {
-    console.log("FINDING CURRENT CUBE CATEGORY");
     setCurrentCubeCategory(currentCubeCatId);
     setCurrentCategory(currentCubeCatId);
     setCurrentCategoryRef(categoryRefs.find(ref => ref.id === currentCubeCatId));
@@ -106,6 +110,12 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
     setCurrCategoryCubeRefs(cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCategory));
   }, [categoryRefs, cubeRefs, currentCategory])
 
+  const changeCubeListOpacity = useCallback(() =>{
+    currentCategoryRef.nextElementSibling.style.opacity = "0";
+    setTimeout(() => {
+      currentCategoryRef.nextElementSibling.style.opacity = "1";
+    }, 1000);
+  },[currentCategoryRef])
 //====================================================================================//
 
   useEffect(() => {
@@ -175,7 +185,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   const cubeListStyles = {
     overflow: "auto",
     maxHeight: "0px",
-    transition: "max-height 0.4s ease-out 0s",
+    transition: "all 0.4s ease-out 0s",
     position: "relative",
   }
   
@@ -195,9 +205,11 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
           }}>
           {category.title}
           {currentCategory === category._id ?
-          <div>
-            <span className="category-action-grp">
-              <CategoryShuffle />
+          <div className="container-row">
+            <span className="container-row">
+            {currentCubeId && currentPath[0] === 'show' && currentCubeCategory === currentCategory && currCategoryCubeRefs.length > 1 &&
+              <CategoryShuffle changeCubeListOpacity={changeCubeListOpacity} currCategoryCubeRefs={currCategoryCubeRefs} /> 
+            }
               <DeleteBtn categoryId={category._id} categoryTitle={category.title} />
             </span>
             <i className="icon-chevron"><FontAwesomeIcon icon={faChevronDown} /></i>
@@ -235,7 +247,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
               }
             </li>
           )}  
-          {((currentPath[0] === 'edit' && currentCategory !== currentCubeCategory && currentCubeCategory !== category._id) || 
+          {((currentPath[0] === 'edit' && category._id !== currentCubeCategory) || 
             currentPath[0] === 'new') &&
             <PlaceHolderCube 
               currentPath={currentPath} 
