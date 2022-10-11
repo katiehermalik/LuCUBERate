@@ -410,7 +410,7 @@ input[type="file"] {
 }
 .visual-aid-preview {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-top: 5px;
   float: right;
 }

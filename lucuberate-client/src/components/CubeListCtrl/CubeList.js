@@ -41,15 +41,15 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   const [ currentCubeCategory, setCurrentCubeCategory ] = useState('');
   
   // console.log('============================================================================================================================================');
-  console.log('cubeRefs ------->', cubeRefs);
-  console.log('categoryRefs ------->', categoryRefs);
-  console.log('categories ------->', categories);
-  console.log('currentPath ------->', currentPath);
-  console.log('currentCubeId ------->', currentCubeId);
-  console.log('currentCubeCategory ------->', currentCubeCategory);
-  console.log('currentCategory ------->', currentCategory);
-  console.log('currentCategoryRef ------->', currentCategoryRef);
-  console.log('currCategoryCubeRefs ------->', currCategoryCubeRefs);
+  // console.log('cubeRefs ------->', cubeRefs);
+  // console.log('categoryRefs ------->', categoryRefs);
+  // console.log('categories ------->', categories);
+  // console.log('currentPath ------->', currentPath);
+  // console.log('currentCubeId ------->', currentCubeId);
+  // console.log('currentCubeCategory ------->', currentCubeCategory);
+  // console.log('currentCategory ------->', currentCategory);
+  // console.log('currentCategoryRef ------->', currentCategoryRef);
+  // console.log('currCategoryCubeRefs ------->', currCategoryCubeRefs);
   // console.log('============================================================================================================================================');
 
 //====================================================================================//
