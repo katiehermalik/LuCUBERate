@@ -11,15 +11,13 @@ const Logout = ({ history, auth }) => {
     auth({});
   }
 
-  return <> 
-    <form onSubmit={handleSubmit}>
+  return <form onSubmit={handleSubmit}>
       <button 
       className="button category-action-btn btn-ctrl navbar-item"
       type="submit">
         <i className="prefix grey-text"><FontAwesomeIcon icon={faSignOutAlt} /></i>
       </button>
     </form>
-  </>
 }
 
 export default withRouter(Logout);

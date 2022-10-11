@@ -97,34 +97,52 @@ const update = (req, res) => {
     db.Cube.findById(req.params.id)
     .then((foundCube) => {
       if (foundCube.category != req.body.category) {
-        console.log('foundCube.category',foundCube.category)
-        console.log('req.body.category',req.body.category)
-        
+        let deletedOldCategory;
         db.Category.findById(foundCube.category)
         .then((foundOldCategory) => {
           const cubeIndex = foundOldCategory.cubes.indexOf(foundCube._id);
           foundOldCategory.cubes.splice(cubeIndex, 1);
-          foundOldCategory.save()
-          console.log('foundOldCategory------->', foundOldCategory);
-        }).then(() => {
-          db.Category.findById(req.body.category)
-          .then((foundNewCategory) => {
-            foundNewCategory.cubes.push(foundCube._id);
-            foundNewCategory.save()
-            console.log('foundNewCategory------->', foundNewCategory);
-            return foundNewCategory;
-          })
-          .then((newCategory) => {
-            db.Cube.findByIdAndUpdate(req.params.id, changedCube, { new: true })
-            .then((updatedCube) => {
-              console.log('Category Changed!!!!!');
-              console.log('updateCube', updatedCube);
-              console.log('foundNewCategory', newCategory);
-              res.json({ 
-                cube: updatedCube,
-                category: newCategory
+          foundOldCategory.save()      
+          .then((savedCategory) => {
+            if (savedCategory.cubes.length === 0) {
+              db.Category.findByIdAndDelete(savedCategory._id)
+              .then((deletedCategory)=> {
+                deletedOldCategory = deletedCategory;
+              }).then(() => {
+                db.Category.findById(req.body.category)
+                .then((foundNewCategory) => {
+                  foundNewCategory.cubes.push(foundCube._id);
+                  foundNewCategory.save()
+                  return foundNewCategory;
+                })
+                .then((newCategory) => {
+                  db.Cube.findByIdAndUpdate(req.params.id, changedCube, { new: true })
+                  .then((updatedCube) => {
+                    res.json({ 
+                      cube: updatedCube,
+                      category: newCategory,
+                      oldCategory: deletedOldCategory
+                    })
+                  })
+                })
               })
-            })
+            } else {
+              db.Category.findById(req.body.category)
+              .then((foundNewCategory) => {
+                foundNewCategory.cubes.push(foundCube._id);
+                foundNewCategory.save()
+                return foundNewCategory;
+              })
+              .then((newCategory) => {
+                db.Cube.findByIdAndUpdate(req.params.id, changedCube, { new: true })
+                .then((updatedCube) => {
+                  res.json({ 
+                    cube: updatedCube,
+                    category: newCategory
+                  })
+                })
+              })
+            }
           })
         })
       } else {

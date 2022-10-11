@@ -56,7 +56,7 @@ class CubeModel {
     return fetch(`${url}/${id}`, {
       method: 'DELETE'
     })
-    .then((res) => console.log(res.json()))
+    .then((res) => res.json())
     .catch((err) => {
       console.log('Error fetching data in CubeModel.delete', err)
       return { message: 'Error fetching data in CubeModel.delete' };

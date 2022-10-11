@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import CubeModel from '../models/cube';
+import UserModel from '../models/user';
 import CategoryModel from '../models/category';
-import { UserContext, CategoryContext } from '../context/ContextProvider';
+import { UserContext, CategoryContext, CubeContext } from '../context/ContextProvider';
 
 
 function CubeEdit({history, match:{params:{id:cubeId}}}) {
   let formData;
-  const { userContent, setUserContent } = useContext(UserContext);
+  const { userContent, setUserContent, userContent: { categories } } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
+  const { currentCubeId } = useContext(CubeContext);
 
   const[question, setQuestion] = useState('');
   const[answer, setAnswer] = useState('');
@@ -52,40 +54,10 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             break;
         }
       } else {
-        let updatedCategoryList = [...userContent.categories];
-        
-        let indexOfPreviousCategory;
-        for (let i = 0; i < updatedCategoryList.length; i++) {
-          if (updatedCategoryList[i].cubes.includes(data.cube._id)) {
-            indexOfPreviousCategory = i;
-          }
-        }
-        let indexOfChangedCategory;
-        for (let i = 0; i < updatedCategoryList.length; i++) {
-          if (updatedCategoryList[i]._id === data.category._id) {
-            indexOfChangedCategory = i;
-          }
-        }
-        // if category has changed, 
-        // remove cube from from previous category 'cubes' array 
-        if (indexOfPreviousCategory !== indexOfChangedCategory) {
-          let indexOfCubeInPreviousCategory = updatedCategoryList[indexOfPreviousCategory].cubes.indexOf(data.cube._id);
-          updatedCategoryList[indexOfPreviousCategory].cubes.splice(indexOfCubeInPreviousCategory, 1);
-          // if category changed to a new category, 
-          // add new category to category list (already contains new cube)
-          if (categoryIsNew) {
-            updatedCategoryList = [...updatedCategoryList, data.category]
-          } else {
-            // else if category changed to a different existing category, 
-            // add cube to that categories' 'cubes' array
-            updatedCategoryList[indexOfChangedCategory].cubes.push(data.cube._id);          
-          }
-        }
-
-        setUserContent(prevState => ({ 
-          ...prevState, 
-          categories: updatedCategoryList
-        }));
+        UserModel.allCubesAndCategories(userContent.user_id)
+        .then((categoriesWithCubes) => {
+          setUserContent({...categoriesWithCubes, user_id: userContent.user_id });
+        }); 
         history.push(`/dashboard/${cubeId}`);
       }
     });
@@ -106,15 +78,12 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
         setHintCount(data.cube.hint.length)
         setNotesCount(data.cube.notes.length)
         setLinkAliasCount(data.cube.link_alias.length)
-        console.log('data.cube.visual_aid',data.cube.visual_aid);
     });
     if (currentCategory === null) {
       setCategoryIsNew(true);
     } else {
       setCategoryIsNew(false);
     }
-    // const foundCategory = userContent.categories.find(item => item.cubes.includes(cubeId))
-    // if (foundCategory._id !== currentCategory) setCurrentCategory(foundCategory._id)
   }, [cubeId, currentCategory])
 
   const collectCubeFormData = (categoryId) => {
@@ -160,6 +129,11 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     categoryIsNew ? createNewCategory() : collectCubeFormData(currentCategory);
+  }
+
+  const handleCancelClick = (e) => {
+    const currentCubeCat = categories.find(category => category.cubes.includes(currentCubeId)); 
+    setCurrentCategory(currentCubeCat._id);
   }
 
 
@@ -345,7 +319,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
           </div>
           <div className="form-group col-md-3">
             <label htmlFor="inputVisual">Visual Aid</label>
-            <label className="btn btn-secondary custom-file-upload" htmlFor="inputVisual">{visual_aid ? 'Upload New': 'Upload'}</label>
+            <label className="btn custom-file-upload" htmlFor="inputVisual">{visual_aid ? 'Upload New': 'Upload'}</label>
             <input 
             type="file" 
             className="form-control-file" 
@@ -363,21 +337,28 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             ? new_visual_aid && new_visual_aid.name.length > 15 
               ? <span className="visual-aid-preview">{new_visual_aid.name.slice(0, 6)}&hellip;{new_visual_aid.name.slice(-7)}</span> 
               : <span className="visual-aid-preview">{new_visual_aid.name}</span>
-            : <img src={visual_aid} alt="visual aid" className="visual-aid-preview"/> }
+            : visual_aid 
+              ? <img src={visual_aid} alt="visual aid" className="visual-aid-preview"/> 
+              : null}
           </div>
         </div>
-          <div className="form-buttons">
-          <Link to={`/dashboard/${cubeId}`}>
+        <div className="form-buttons form-row">
+          <div className="form-group col-md-5">
+          </div>
+          <div className="form-group col-md-5">
+            <Link to={`/dashboard/${cubeId}`}>
+              <button 
+                type="submit" 
+                className="btn form-btn btn-secondary"
+                onClick={handleCancelClick}>
+                Cancel
+              </button>
+            </Link>
             <button 
-              type="submit" 
-              className="btn form-btn btn-secondary">
-              Cancel
-            </button>
-          </Link>
-          <button 
-          type="submit" 
-          className="btn form-btn btn-warning">
-          Save Changes</button>
+            type="submit" 
+            className="btn form-btn btn-warning">
+            Save Changes</button>
+          </div>
         </div>
       </form>
     </div>

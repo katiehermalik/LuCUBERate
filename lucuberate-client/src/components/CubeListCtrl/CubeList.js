@@ -11,12 +11,18 @@ import CubeCtrls from '../ShowCubePage/CubeCtrls';
 function currentPathReducer(prevState, action) {
   switch (action.type) {
     case 'edit':
-      return prevState[0] !== action.type ? [action.type, action.pathname.split('/')[2]] : prevState
+      return prevState[0] !== action.type 
+        ? [action.type, action.pathname.split('/')[2]] 
+        : prevState
     case 'new':
     case 'dashboard':
-      return prevState[0] !== action.type ? [action.type, null] : prevState
+      return prevState[0] !== action.type 
+        ? [action.type, null] 
+        : prevState
     default:
-      return (prevState[1] !== action.pathname.match(/\b[\w]+$/g)[0]) ? ['show', action.pathname.match(/\b[\w]+$/g)[0]] : prevState
+      return (prevState[1] !== action.pathname.match(/\b[\w]+$/g)[0] || prevState[0] !== 'show') 
+        ? ['show', action.pathname.match(/\b[\w]+$/g)[0]]
+        : prevState
   }
 }
 
@@ -49,7 +55,6 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
 //====================================================================================//
 
   const closeAllCategories = useCallback(() => {
-    console.log('this hit');
     categoryRefs.forEach(ref => {
       ref.classList.remove("active");
       ref.nextElementSibling.style.maxHeight = "0px";
@@ -57,7 +62,6 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   }, [categoryRefs])
 
   const openCategoryCubeList = useCallback(() => {
-    console.log('that hit');
     currentCategoryRef.classList.add("active");
     currentCategoryRef.nextElementSibling.style.maxHeight = "200px";
   }, [currentCategoryRef])
@@ -121,11 +125,11 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   useEffect(() => {
     currentCategory ?? closeAllCategories();
     findCurrentPath();
-
     if (cubeRefs.length !== 0 && categoryRefs.length !== 0) {
       if (currentCategory && currentCategory !== currentCategoryRef?.id) {
         findCurrentCategoryInfo();
       } 
+
       // Gathering needed cube and category info differently depending on the path
       switch (currentPath[0]) {
         case 'edit':
