@@ -1,5 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import CubeModel from '../models/cube';
 import UserModel from '../models/user';
 import CategoryModel from '../models/category';
@@ -12,6 +14,8 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
 
+  const visualAidInputRef = useRef(null);
+
   const[question, setQuestion] = useState('');
   const[answer, setAnswer] = useState('');
   const[hint, setHint] = useState('');
@@ -20,11 +24,15 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
   const[link_alias, setLinkAlias] = useState('');
   const[visual_aid, setVisualAid] = useState('');
   const[new_visual_aid, setNewVisualAid] = useState('');
+  const[removingVisualAid, setRemovingVisualAid] = useState(false);
+
   const[questionCount, setQuestionCount] = useState(0);
   const[answerCount, setAnswerCount] = useState(0);
   const[hintCount, setHintCount] = useState(0);
   const[notesCount, setNotesCount] = useState(0);
   const[linkAliasCount, setLinkAliasCount] = useState(0);
+  
+  const[categoryError, setCategoryError] = useState('');
   const[questionError, setQuestionError] = useState('');
   const[answerError, setAnswerError] = useState('');
   const[visualAidError, setVisualAidError] = useState('');
@@ -33,87 +41,88 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
   const[newCategoryCount, setNewCategoryCount] = useState(0);
   const[categoryIsNew, setCategoryIsNew] = useState(false);
 
-  const updateCube = () => {
-    CubeModel.update(formData, cubeId)
-    .then((data) => {
-      if (data.cubeError) {
-        switch (true) {
-          case data.question === '' && data.answer === '':
-            setQuestionError('A question is required')
-            setAnswerError('An answer is required');
-            break;
-          case data.question === '':
-            setQuestionError('A question is required');
-            setAnswerError('');
-            break;
-          case data.answer === '':
-            setAnswerError('An answer is required');
-            setQuestionError('')
-            break;
-          default:
-            break;
-        }
-      } else {
-        UserModel.allCubesAndCategories(userContent.user_id)
-        .then((categoriesWithCubes) => {
-          setUserContent({...categoriesWithCubes, user_id: userContent.user_id });
-        }); 
-        history.push(`/dashboard/${cubeId}`);
-      }
-    });
+  const updateCube = async () => {
+    const data = await CubeModel.update(formData, cubeId)
+    await history.push(`/dashboard/${cubeId}`);
+    if (data.cubeError) {
+      data.question === '' && setQuestionError('Required');
+      data.answer === '' && setAnswerError('Required');
+      data.category === 'undefined' && setCategoryError('Required');
+    } else {
+      const categoriesAndCubes = await UserModel.allCubesAndCategories(userContent.user_id)
+      setUserContent({...categoriesAndCubes, user_id: userContent.user_id });
+    }
   }
 
+
   useEffect(() => {  
-    CubeModel.getOne(cubeId)
-    .then((data) => {
-        setQuestion(data.cube.question);
-        setAnswer(data.cube.answer);
-        setHint(data.cube.hint);
-        setNotes(data.cube.notes);
-        setLink(data.cube.link);
-        setLinkAlias(data.cube.link_alias);
-        setVisualAid(data.cube.visual_aid);
-        setQuestionCount(data.cube.question.length)
-        setAnswerCount(data.cube.answer.length)
-        setHintCount(data.cube.hint.length)
-        setNotesCount(data.cube.notes.length)
-        setLinkAliasCount(data.cube.link_alias.length)
-    });
+    (async function() {
+      const data = await CubeModel.getOne(cubeId)
+      setQuestion(data.cube.question);
+      setAnswer(data.cube.answer);
+      setHint(data.cube.hint);
+      setNotes(data.cube.notes);
+      setLink(data.cube.link);
+      setLinkAlias(data.cube.link_alias);
+      setVisualAid(data.cube.visual_aid);
+      setQuestionCount(data.cube.question.length)
+      setAnswerCount(data.cube.answer.length)
+      setHintCount(data.cube.hint.length)
+      setNotesCount(data.cube.notes.length)
+      setLinkAliasCount(data.cube.link_alias.length)
+    })();
     if (currentCategory === null) {
       setCategoryIsNew(true);
     } else {
       setCategoryIsNew(false);
     }
-  }, [cubeId, currentCategory])
+  }, [cubeId, currentCategory, new_visual_aid])
 
   const collectCubeFormData = (categoryId) => {
     formData = new FormData(document.getElementById('cube-edit-form'));
     formData.append('user', userContent.user_id);
     formData.append('category', categoryId);
-    if (new_visual_aid) {
-      let ext = (new_visual_aid.name).substr((new_visual_aid.name).lastIndexOf('.'))
-      if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.gif') {
-        setVisualAidError('')
-        updateCube()
-      } else {
-        setVisualAidError('Only .jpg, .jpeg, .png, and .gif allowed')
-      }
-    } else {
-      updateCube()
-    }
+    formData.append('removingVisualAid', removingVisualAid);
+    !visualAidError && updateCube();
   };
 
+  const checkFileExtention = (e) => {
+    let ext = (e.target.files[0].name).substr((e.target.files[0].name).lastIndexOf('.'));
+    if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.gif') {
+      setNewVisualAid(e.target.files[0]);
+      setVisualAidError('');
+    } else {
+      setNewVisualAid(e.target.files[0]);
+      setVisualAidError('Only .jpg, .jpeg, .png, and .gif allowed');
+    }
+  }
 
-  const createNewCategory = () => {
-    const newCategoryData = {};
-    newCategoryData.title = newCategory;
-    newCategoryData.user = userContent.user_id;
-    CategoryModel.create(newCategoryData)
-    .then((data) => {
-        const { _id : newCategoryId } = data;
-        collectCubeFormData(newCategoryId);
-      }
-    );
+  const removeVisualAid = (e) => {
+    e.preventDefault();
+    visualAidInputRef.current.value = '';
+    setNewVisualAid('');
+    setVisualAidError('');
+    setRemovingVisualAid(false);
+  }
+
+  const removeSavedVisualAid = (e) => {
+    e.preventDefault();
+    visualAidInputRef.current.value = null;
+    setNewVisualAid('');
+    setVisualAid('');
+    setVisualAidError('');
+    setRemovingVisualAid(true);
+  }
+
+
+  const createNewCategory = async () => {
+    const newCategoryData = {
+      title: newCategory,
+      user: userContent.user_id
+    };
+    const data = await CategoryModel.create(newCategoryData)
+    const { _id : newCategoryId } = data;
+    collectCubeFormData(newCategoryId);
   }
 
   const handleCategoryChange = (e) => {
@@ -140,7 +149,6 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
   const errorStyle = {
     color: "red",
     fontSize: "12px",
-    whiteSpace: "nowrap"
   }
 
   const required = {
@@ -159,7 +167,10 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
 
         <div className="form-row">
           <div className={`form-group ${categoryIsNew ? "col-md-5" : "col-md-11"}`}>
-            <label htmlFor="inputCategory">Category <span style={required}>*</span></label>
+            <label htmlFor="inputCategory">Category <span style={required}>*</span>            
+            {categoryError && !categoryIsNew && !currentCategory &&
+            <span style={errorStyle}>{` ${categoryError}`}</span>
+            }</label>
             <select 
               className="form-control" 
               id="category-dropdown"
@@ -176,9 +187,12 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             </select>
           </div>
 
-          { categoryIsNew &&
+          {categoryIsNew &&
           <div className="form-group col-md-5">
-            <label htmlFor="inputCategory">New Category <span style={required}>*</span></label>
+            <label htmlFor="inputCategory">New Category <span style={required}>*</span>
+            {categoryError && !newCategory &&
+            <span style={errorStyle}>{` ${categoryError}`}</span>
+            }</label>
             <input 
               type="text" 
               className="form-control" 
@@ -201,7 +215,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
         <div className="form-row">
           <div className="form-group col-md-5">
             <label htmlFor="inputQuestion">Question <span style={required}>*</span>
-            {questionError &&
+            {questionError && !question &&
             <span style={errorStyle}>{` ${questionError}`}</span>
             }</label>
             <textarea 
@@ -225,7 +239,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
           </div>
           <div className="form-group col-md-5">
             <label htmlFor="inputAnswer">Answer <span style={required}>*</span>
-            {answerError &&
+            {answerError && !answer &&
             <span style={errorStyle}>{` ${answerError}`}</span>
             }</label>
             <textarea 
@@ -321,25 +335,45 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             <label htmlFor="inputVisual">Visual Aid</label>
             <label className="btn custom-file-upload" htmlFor="inputVisual">{visual_aid ? 'Upload New': 'Upload'}</label>
             <input 
-            type="file" 
-            className="form-control-file" 
-            id="inputVisual" 
-            placeholder="Choose file"
-            name="visual_aid"
-            onChange={(e) => {
-              setVisualAidError('');
-              setNewVisualAid(e.target.files[0]);
-            }} />
-            {visualAidError &&
-            <span style={errorStyle}>{`${visualAidError}`}</span>
+              ref={visualAidInputRef}
+              type="file" 
+              className="form-control-file" 
+              id="inputVisual" 
+              placeholder="Choose file"
+              name="visual_aid"
+              onChange={checkFileExtention} />
+            {new_visual_aid && visualAidError &&
+            <div style={errorStyle}>{`${visualAidError}`}</div>
             }
-            { new_visual_aid 
-            ? new_visual_aid && new_visual_aid.name.length > 15 
-              ? <span className="visual-aid-preview">{new_visual_aid.name.slice(0, 6)}&hellip;{new_visual_aid.name.slice(-7)}</span> 
-              : <span className="visual-aid-preview">{new_visual_aid.name}</span>
-            : visual_aid 
-              ? <img src={visual_aid} alt="visual aid" className="visual-aid-preview"/> 
-              : null}
+            {new_visual_aid 
+              ? <>
+                  {new_visual_aid.name.length > 15 
+                    ? <span className="visual-aid-file-name">{new_visual_aid.name.slice(0, 6)}&hellip;{new_visual_aid.name.slice(-7)} </span> 
+                    : <span className="visual-aid-file-name">{new_visual_aid.name} </span>
+                  }
+                  <span 
+                    className=""
+                    type="button"
+                    onClick={removeVisualAid}
+                    title= "Delete Visual Aid"
+                    aria-label="Delete Visual Aid">
+                      <i className="prefix grey-text"><FontAwesomeIcon icon={faTimesCircle} /> </i>
+                  </span>
+                </>
+              : visual_aid 
+                  ? <div className="visual-aid-preview-container">
+                      <img src={visual_aid} alt="visual aid" className="visual-aid-preview"/>                   
+                      <span 
+                        className="delete-visual-aid"
+                        type="button"
+                        onClick={removeSavedVisualAid}
+                        title= "Delete Visual Aid"
+                        aria-label="Delete Visual Aid">
+                          <i className="prefix grey-text"><FontAwesomeIcon icon={faTimesCircle} /> </i>
+                      </span>
+                    </div>
+                  : null
+            }
           </div>
         </div>
         <div className="form-buttons form-row">

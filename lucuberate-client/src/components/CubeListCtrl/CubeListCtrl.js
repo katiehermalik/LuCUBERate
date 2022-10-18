@@ -5,12 +5,10 @@ import CubeHeader from './CubeHeader'
 
 function CubeListCtrl() {
 
-  return(
-    <div className="cube-list-ctrl container-column">
+  return <div className="cube-list-ctrl container-column">
       <CubeHeader />
       <CubeList />
     </div>
-  )
 }
 
 export default CubeListCtrl;

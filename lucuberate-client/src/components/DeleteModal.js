@@ -28,27 +28,22 @@ const DeleteModal = ({
     e.stopPropagation()
     CategoryModel.delete(categoryId)
     .then((data) => {
-      console.log('DATA---->', data);
       UserModel.allCubesAndCategories(userContent.user_id)
-      .then((categoriesWithCubes) => {
+      .then((categoriesAndCubes) => {
         setCurrentCubeId('');
         setCurrentCategory(null);
-        setUserContent({...categoriesWithCubes, user_id: userContent.user_id });
+        setUserContent({...categoriesAndCubes, user_id: userContent.user_id });
       }); 
       history.push('/dashboard');
     });
   }
-  const handleDeleteCube = (e) => {
-    e.stopPropagation()
-    CubeModel.delete(cubeId)
-    .then(() => {
-        UserModel.allCubesAndCategories(userContent.user_id)
-        .then((categoriesWithCubes) => {
-          setCurrentCubeId('');
-          setUserContent({...categoriesWithCubes, user_id: userContent.user_id });
-        }); 
-        history.push('/dashboard');
-    });
+  const handleDeleteCube = async (e) => {
+    e.stopPropagation();
+    await history.push('/dashboard');
+    setCurrentCubeId('');
+    await CubeModel.delete(cubeId);
+    const categoriesAndCubes = await UserModel.allCubesAndCategories(userContent.user_id);
+    setUserContent({...categoriesAndCubes, user_id: userContent.user_id });
   }
 
   return <>

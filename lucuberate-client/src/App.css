@@ -58,6 +58,7 @@ body, html, #root, .app {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  align-items: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -131,6 +132,7 @@ body, html, #root, .app {
 
 .instructions {
   text-align: center;
+  margin-bottom: 0;
 }
 
 .pages {
@@ -159,7 +161,8 @@ body, html, #root, .app {
 .delete-modal-dialog {
     position: relative;
     width: auto;
-    margin: 0.5rem;
+    top: 20%;
+    margin: 0 auto;
     pointer-events: none;
 }
 
@@ -175,6 +178,7 @@ body, html, #root, .app {
     outline: 0;
     color: rgb(40, 44, 52);
     font-weight: bold;
+    background-color: rgba(0,0,0,0.6);
 }
 .delete-modal-content {
     position: relative;
@@ -202,6 +206,12 @@ body, html, #root, .app {
     border-top-left-radius: 0.3rem;
     border-top-right-radius: 0.3rem;
 }
+
+.delete-modal-body {
+  padding: 1rem;
+  text-align: center;
+}
+
 .delete-modal-title {
     margin-bottom: 0;
     line-height: 1.5;
@@ -241,6 +251,7 @@ body, html, #root, .app {
   display: flex;
   justify-content: space-between;
   font-weight: bold;
+  align-items: center;
 }
 
 .icon-chevron {
@@ -318,6 +329,16 @@ button.cube-action-btn {
   color: var(--background-main);
   flex-grow: 1;
   font-size: 14px;
+}
+
+.fa-cubes-closed {
+  margin-left: 5px;
+}
+.fa-cubes-opened {
+  margin: 0 5px 0 5px;
+}
+.fa-cubes-number {
+  margin-left: 10px;
 }
 
 /* ----------------------------- Form Pages */
@@ -412,11 +433,23 @@ input[type="file"] {
   display: flex;
   justify-content: flex-end;
   margin-top: 5px;
-  float: right;
 }
 img.visual-aid-preview {
   width: 60px;
   border-radius: 3px;
+}
+.visual-aid-preview-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-right: 18px;
+}
+.delete-visual-aid {
+  font-size: 30px;
+  position: absolute;
+  right: -15px;
+  top: -15px;
 }
 
 /* ---------------------------------- Cube Show Page */
@@ -626,8 +659,10 @@ img.visual-aid-preview {
   text-decoration: none;
 }
 
-.new-cube-btn {
-  padding:14px 29px;
+.header-btns {
+  height: 54px;
+  padding: 5px 10px 20px;
+  font-size: 14px;
   margin: 15px 15px;
   background-color: var(--accent-color);
 }
@@ -725,6 +760,7 @@ img.visual-aid-preview {
   color: var(--background-main);
   text-align: center;
   opacity: 0.8;
+  transition: opacity .2s linear, filter 2s;
 }
 
 .face:hover {
@@ -750,6 +786,18 @@ img.visual-aid-preview {
   padding: 0px 5vmin 3vmin 5vmin;
   font-size: 3.1vmin; 
   word-break: break-word;
+  overflow-y: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.face-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge add Firefox */
+.face-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
 }
 
 .face.Question { 
@@ -854,6 +902,8 @@ img.visual-aid-preview {
   padding: 10px;
   font-weight: bold;
   cursor: pointer;
+  max-width: 200px;
+  overflow-wrap: break-word;
 }
 
 input[type='radio'] {
@@ -1034,9 +1084,9 @@ input[type="radio"]:checked + label {
 
 @media screen and (max-width: 900px) {
   .visual-aid:hover {
-    -webkit-transform: scale(4) !important;
-        -ms-transform: scale(4) !important;
-            transform: scale(4) !important;
+    -webkit-transform: scale(2) !important;
+        -ms-transform: scale(2) !important;
+            transform: scale(2) !important;
   }
 }
 

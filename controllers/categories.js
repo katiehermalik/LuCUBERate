@@ -1,6 +1,13 @@
 const db = require("../models");
+const AWS = require('aws-sdk');
 const multer = require("multer");
 const Cube = require("../models/Cube")
+
+const s3 = new AWS.S3({
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region: process.env.AWS_REGION
+});
 
 const index = (req, res) => {
   db.Category.find({})
@@ -66,7 +73,11 @@ const destroy = (req, res) => {
       .then((deletedCube) => {
         console.log('deleted cube------->',deletedCube);
         if (deletedCube.visual_aid) {
-          fs.unlinkSync(`${deletedCube.visual_aid}`)
+          s3.deleteObject({ Bucket: 'lucuberatebucket',
+          Key: deletedCube.visual_aid }, (err, data) => {
+          console.error('err',err);
+          console.log('data',data);
+          });
         }
         db.User.findById(deletedCube.user)
         .then((foundUser) => {

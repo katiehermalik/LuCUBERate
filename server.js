@@ -32,7 +32,7 @@ app.use(session({
 app.use(express.json());
 app.use(cors(corsOptions));
 
-app.use("/api/v1/cubes", routes.cubes);
+app.use("/api/v1/cubes", routes.cubes.router);
 app.use("/api/v1/users", routes.users);
 app.use("/api/v1/categories", routes.categories);
 app.use("/api", routes.auth);

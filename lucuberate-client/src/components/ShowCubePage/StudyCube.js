@@ -61,23 +61,33 @@ const StudyCube = (props) => {
       <div className="cube-area">
         <div className="cube-container">
           <div className={`study-cube ${side || sides[0]}`}>
+
+
             <div className="face Question">
               <div className={`face-title ${side === 'Question' || side === '' ? '' : 'blur' }`}>Question</div>
-              <div 
-              className={`face-content ${side === 'Question' || side === '' ? '' : 'blur' }`}
-              >{cube.question}</div>
+              {cube.question &&
+              <div className={`face-content ${side === 'Question' || side === '' ? '' : 'blur' }`}>{cube.question}</div>
+              }
             </div>
             <div className="face Link">
               <div className={`face-title ${side === 'Link' ? '' : 'blur' }`}>Link</div>
-              <div className={`face-content ${side === 'Link' ? '' : 'blur' }`}><a rel="noreferrer" target="_blank" href={cube.link}>{cube.link_alias}</a></div>
+              {cube.link &&
+              <div className={`face-content ${side === 'Link' ? '' : 'blur' }`}>
+                  <a rel="noreferrer" target="_blank" href={cube.link}>{cube.link_alias}</a>
+              </div>
+              }
             </div>
             <div className="face Hint">
               <div className={`face-title ${side === 'Hint' ? '' : 'blur' }`}>Hint</div>
+              {cube.hint &&
               <div className={`face-content ${side === 'Hint' ? '' : 'blur' }`}>{cube.hint}</div>
+              }
             </div>
             <div className="face Notes">
               <div className={`face-title ${side === 'Notes' ? '' : 'blur' }`}>Notes</div>
+              {cube.notes &&
               <div className={`face-content ${side === 'Notes' ? '' : 'blur' }`}>{cube.notes}</div>
+              }
             </div>
             <div className="face Visual">
               <div className={`face-title ${side === 'Visual Aid' ? '' : 'blur' }`}>Visual Aid</div>
@@ -87,7 +97,9 @@ const StudyCube = (props) => {
             </div>
             <div className="face Answer">
               <div className={`face-title ${side === 'Answer' ? '' : 'blur' }`}>Answer</div>
-              <div className={`face-content ${side === 'Answer' ? '' : 'blur' }`}>{cube.answer}</div>
+              {cube.answer &&
+                <div className={`face-content ${side === 'Answer' ? '' : 'blur' }`}>{cube.answer}</div>
+              }
             </div>
           </div>
         </div>

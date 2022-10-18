@@ -1,7 +1,14 @@
 const db = require("../models");
 const fs = require("fs");
+const AWS = require('aws-sdk');
 const multer = require("multer");
 const Cube = require("../models/Cube");
+
+const s3 = new AWS.S3({
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region: process.env.AWS_REGION
+});
 
 const index = (req, res) => {
   db.Cube.find({})
@@ -71,7 +78,8 @@ const create = (req, res) => {
     res.json({ 
       cubeError: 'Unable to create cube', 
       question: req.body.question, 
-      answer: req.body.answer
+      answer: req.body.answer,
+      category: req.body.category
     });
   });
 };
@@ -87,15 +95,29 @@ const update = (req, res) => {
     (req.body.link ? 'Resource' : ''),
     notes: req.body.notes || '',
     user: req.body.user,
-    category: req.body.category
+    category: req.body.category,
+    removingVisualAid: req.body.removingVisualAid
   }
   // If no new image uploaded on edit form, visual_aid will be previous image
   if (req.file) {
     changedCube.visual_aid = req.file && req.file.location
   } 
-  if (changedCube.question && changedCube.answer) {
+  if (changedCube.question && changedCube.answer && changedCube.category) {
     db.Cube.findById(req.params.id)
     .then((foundCube) => {
+      console.log(req.file) 
+      console.log(foundCube.visual_aid) 
+      console.log(changedCube.visual_aid) 
+      console.log(changedCube.removingVisualAid) 
+      if (!req.file && changedCube.removingVisualAid === 'true') {
+        changedCube.visual_aid = '';
+        s3.deleteObject({ Bucket: 'lucuberatebucket',
+          Key: foundCube.visual_aid }, (err, data) => {
+          console.error('err',err);
+          console.log('data',data);
+          });
+      }
+      // req.file ?? fs.unlinkSync(foundCube.visual_aid);
       if (foundCube.category != req.body.category) {
         let deletedOldCategory;
         db.Category.findById(foundCube.category)
@@ -118,7 +140,7 @@ const update = (req, res) => {
                 .then((newCategory) => {
                   db.Cube.findByIdAndUpdate(req.params.id, changedCube, { new: true })
                   .then((updatedCube) => {
-                    res.json({ 
+                    return res.json({ 
                       cube: updatedCube,
                       category: newCategory,
                       oldCategory: deletedOldCategory
@@ -161,6 +183,14 @@ const update = (req, res) => {
         })
       }
     })
+  } else {
+    console.log('Unable to update cube in cubes.update:');
+    res.json({ 
+      cubeError: 'Unable to update cube', 
+      question: req.body.question, 
+      answer: req.body.answer,
+      category: req.body.category
+    });
   }
 };
 
@@ -169,8 +199,14 @@ const destroy = (req, res) => {
   .then((deletedCube) => {
     if (deletedCube.visual_aid) {
       console.log('VISUAL AID',deletedCube.visual_aid);
-      fs.unlinkSync(`${deletedCube.visual_aid}`)
+      s3.deleteObject({ Bucket: 'lucuberatebucket', Key: deletedCube.visual_aid }, (err, data) => {
+      console.error(err);
+      console.log(data);
+      });
+      // fs.unlinkSync(deletedCube.visual_aid)
+      // `${deletedCube.visual_aid}`
       // fs.unlinkSync(`./lucuberate-client/public/uploads/${deletedCube.visual_aid}`)
+      // 16ab58d2-d1f8-4e3d-aa44-d7330c4d0022
     }
     db.User.findById(deletedCube.user)
     .then((foundUser) => {

@@ -13,6 +13,11 @@ const path = require('path');
     region: process.env.AWS_REGION
   });
 
+//   s3.deleteObject({ Bucket: 'bucket-name', Key: 'image.jpg' }, (err, data) => {
+//     console.error(err);
+//     console.log(data);
+// });
+
   const upload = multer({
     storage: multerS3({
       s3: s3,
@@ -36,10 +41,16 @@ const path = require('path');
   })
 
 // routes - /api/v1/cubes
+
 router.get("/", ctrl.cubes.index);
 router.get("/:id", ctrl.cubes.show);
 router.post("/", upload.single('visual_aid'), ctrl.cubes.create);
 router.put("/:id", upload.single('visual_aid'), ctrl.cubes.update);
 router.delete("/:id", ctrl.cubes.destroy);
 
-module.exports = router;
+
+module.exports = {
+  router,
+  s3
+}
+

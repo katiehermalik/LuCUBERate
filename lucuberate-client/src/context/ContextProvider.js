@@ -4,11 +4,13 @@ import UserModel from '../models/user';
 export const UserContext = createContext(null);
 export const CategoryContext = createContext(null);
 export const CubeContext = createContext(null);
+export const QuestionsContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
   const [ userContent, setUserContent ] = useState({});
   const [ currentCategory, setCurrentCategory ] = useState('');
   const [ currentCubeId, setCurrentCubeId ] = useState('');
+  const [ questionsAreVisible, setQuestionsAreVisible ] = useState(false);
   
 
   useEffect(() => {
@@ -16,8 +18,8 @@ const ContextProvider = ({ children }) => {
       const user = JSON.parse(localStorage.getItem('user'));
       const user_id = user.user_Id;
       UserModel.allCubesAndCategories(user_id)
-      .then((categoriesWithCubes) => {
-        setUserContent({...categoriesWithCubes, user_id: user_id });
+      .then((categoriesAndCubes) => {
+        setUserContent({...categoriesAndCubes, user_id: user_id });
       }); 
     }
   },[])
@@ -25,7 +27,9 @@ const ContextProvider = ({ children }) => {
   return <UserContext.Provider value={ {userContent, setUserContent} }> 
       <CategoryContext.Provider value={ {currentCategory, setCurrentCategory} }> 
         <CubeContext.Provider value={ {currentCubeId, setCurrentCubeId} }> 
-      { children }
+          <QuestionsContext.Provider value={ {questionsAreVisible, setQuestionsAreVisible} }> 
+            { children }
+          </QuestionsContext.Provider>
         </CubeContext.Provider>
       </CategoryContext.Provider>
     </UserContext.Provider>
