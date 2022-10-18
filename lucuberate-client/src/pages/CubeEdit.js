@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faSquare } from '@fortawesome/free-solid-svg-icons';
 import CubeModel from '../models/cube';
 import UserModel from '../models/user';
 import CategoryModel from '../models/category';
@@ -40,17 +40,20 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
   const[newCategory, setNewCategory] = useState('');
   const[newCategoryCount, setNewCategoryCount] = useState(0);
   const[categoryIsNew, setCategoryIsNew] = useState(false);
+  const[isLoading , setIsLoading ] = useState(false);
 
   const updateCube = async () => {
     const data = await CubeModel.update(formData, cubeId)
-    await history.push(`/dashboard/${cubeId}`);
     if (data.cubeError) {
+      setIsLoading(false);
       data.question === '' && setQuestionError('Required');
       data.answer === '' && setAnswerError('Required');
       data.category === 'undefined' && setCategoryError('Required');
     } else {
       const categoriesAndCubes = await UserModel.allCubesAndCategories(userContent.user_id)
       setUserContent({...categoriesAndCubes, user_id: userContent.user_id });
+      setIsLoading(false);
+      history.push(`/dashboard/${cubeId}`);
     }
   }
 
@@ -137,6 +140,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     categoryIsNew ? createNewCategory() : collectCubeFormData(currentCategory);
   }
 
@@ -389,9 +393,14 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
               </button>
             </Link>
             <button 
+            disabled={isLoading ? true : false}
             type="submit" 
             className="btn form-btn btn-warning">
-            Save Changes</button>
+              {isLoading 
+                ? <i className="fa-cubes-opened"> <FontAwesomeIcon icon={faSquare} spin size={'3x'} /> </i>
+                : 'Save Changes'
+              }  
+            </button>
           </div>
         </div>
       </form>

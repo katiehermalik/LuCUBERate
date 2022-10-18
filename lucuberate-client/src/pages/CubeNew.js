@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faSquare } from '@fortawesome/free-solid-svg-icons';
 import { UserContext, CategoryContext, CubeContext } from '../context/ContextProvider';
 import CubeModel from '../models/cube';
 import UserModel from '../models/user';
@@ -56,6 +56,7 @@ const CubeNew = ({ history }) => {
   const[visualAidError, setVisualAidError] = useState('');
 
   const[categoryIsNew, setCategoryIsNew] = useState(false);
+  const[isLoading , setIsLoading ] = useState(false);
 
   useEffect(() => {
     if (currentCategory === null) {
@@ -68,6 +69,7 @@ const CubeNew = ({ history }) => {
   const createCube = async () => {
     const data = await CubeModel.create(formData)
     if (data.cubeError) {
+      setIsLoading(false);
       data.question === '' && setQuestionError('Required');
       data.answer === '' && setAnswerError('Required');
       (data.category === '' || data.category === 'undefined') 
@@ -75,9 +77,10 @@ const CubeNew = ({ history }) => {
     } else {
       const categoriesAndCubes = await UserModel.allCubesAndCategories(userContent.user_id)
       setUserContent({ ...categoriesAndCubes, user_id: userContent.user_id });
+      setIsLoading(false);
+      setCurrentCubeId(data.cube._id);
+      history.push(`/dashboard/${data.cube._id}`);
     }
-    history.push(`/dashboard/${data.cube._id}`);
-    setCurrentCubeId(data.cube._id);
   }
 
   const collectCubeFormData = (categoryId) => {
@@ -127,6 +130,7 @@ const CubeNew = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     categoryIsNew ? createNewCategory() : collectCubeFormData(currentCategory);
   }
 
@@ -357,11 +361,13 @@ const CubeNew = ({ history }) => {
                 Cancel
               </button>
             </Link>
-            <button 
-              onClick={handleSubmit}
+            <button disabled={isLoading ? true : false}
               type="submit" 
               className="btn form-btn btn-warning">
-                Generate New Cube
+              {isLoading 
+                ? <i className="fa-cubes-opened"> <FontAwesomeIcon icon={faSquare} spin size={'3x'} /> </i>
+                : 'Generate New Cube'
+              }  
             </button>
           </div>
         </div>
