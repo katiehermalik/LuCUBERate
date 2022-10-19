@@ -893,6 +893,10 @@ img.visual-aid-preview {
   height: 84px;
 }
 
+.radio-face-group .radio-label {
+  white-space: nowrap;
+}
+
 .radio-button {
   list-style-type: none;
   padding: 4px 10px 1px 10px;
