@@ -387,6 +387,10 @@ button.cube-action-btn {
   margin-left: 10px;
 }
 
+.form-btn:disabled {
+  padding: 1rem;
+}
+
 .btn-warning {
   background-color: var(--accent-color);
   font-weight: bold;

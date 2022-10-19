@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faSquareFull } from '@fortawesome/free-solid-svg-icons';
 import CubeModel from '../models/cube';
 import UserModel from '../models/user';
 import CategoryModel from '../models/category';
@@ -397,7 +397,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             type="submit" 
             className="btn form-btn btn-warning">
               {isLoading 
-                ? <i className="fa-cubes-opened"> <FontAwesomeIcon icon={faSquare} spin size={'3x'} /> </i>
+                ? <i className="fa-cubes-opened"> <FontAwesomeIcon icon={faSquareFull} spin size={'3x'} /> </i>
                 : 'Save Changes'
               }  
             </button>
