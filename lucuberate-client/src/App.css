@@ -915,13 +915,11 @@ img.visual-aid-preview {
 }
 
 input[type='radio'] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
+  display: none;
   scroll-margin-top: 60px;
 }
 
-input[type="radio"]:checked + label {
+input[type='radio']:checked + label {
   color: var(--accent-color);  
 }
 
