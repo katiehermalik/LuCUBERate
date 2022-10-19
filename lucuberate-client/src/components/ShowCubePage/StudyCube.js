@@ -51,7 +51,7 @@ const StudyCube = (props) => {
                 <label
                   className="radio-label"
                   htmlFor={side}
-                  title={side}>
+                  title={`View ${side} side of cube`}>
                     {side}
                 </label>
               </li>

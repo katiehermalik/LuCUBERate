@@ -30,7 +30,7 @@ const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
     className="button category-action-btn btn-ctrl"
     type="button"
     onClick={handleShuffleCubes}
-    title= "Shuffle Cubes"
+    title="Shuffle Cubes"
     aria-label="Shuffle Cubes">
       <i className="prefix grey-text"><FontAwesomeIcon icon={faRandom} /></i>
     </button>

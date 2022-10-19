@@ -248,6 +248,8 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   }
   
   return <div className="cube-list-grp container-column">
+    <fieldset>
+      <legend hidden>Choose a Category</legend>
     {categories?.map((category, i) => 
       <div className="cube-list" key={category._id}>
         <div
@@ -264,7 +266,8 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
           {currentCategory === category._id 
           ?
             <div className="container-row" style={pointerDisable}>
-              <span className="fa-cubes-number">
+              <span className="fa-cubes-number" title={`${category.cubes.length} ${category.cubes.length > 1 ? 'cubes' : 'cube'}`}
+              aria-label={`${category.cubes.length} ${category.cubes.length > 1 ? 'cubes' : 'cube'}`}>
               {`${category.cubes.length} `}
               </span>
               <i className="fa-cubes-opened"> <FontAwesomeIcon icon={faCubes} /> </i>
@@ -278,7 +281,8 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
             </div>
           : 
             <div className="container-row" style={pointerDisable}>
-              <span className="fa-cubes-number">
+              <span className="fa-cubes-number" title={`${category.cubes.length} ${category.cubes.length > 1 ? 'cubes' : 'cube'}`}
+              aria-label={`${category.cubes.length} ${category.cubes.length > 1 ? 'cubes' : 'cube'}`}>
               {`${category.cubes.length} `} 
               </span>
               <i className="fa-cubes-closed"> <FontAwesomeIcon icon={faCubes} /> </i>
@@ -286,9 +290,10 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
             </div>
           }
         </div>
-        <div 
+        <fieldset 
         style= {cubeListStyles} 
         className="content container-column cube-select-group">
+        <legend hidden>Choose a Cube</legend>
           {category.cubes?.map((cube, j) => <li key={cube} className="radio-button">
               <input
                 type="radio"
@@ -322,9 +327,10 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
               currentPath={currentPath} 
               currentCubeCategory={currentCubeCategory} />
           }
-        </div>
+        </fieldset>
       </div>
     )}
+    </fieldset>
     <footer className="list-footer container-column">
       <p>{`Copyright \u00A9 ${new Date().getFullYear()} LuCUBERate`}</p>
     </footer>

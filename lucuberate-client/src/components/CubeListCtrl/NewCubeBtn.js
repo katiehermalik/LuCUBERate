@@ -17,7 +17,6 @@ const NewCubeBtn = () => {
       className="button header-btns btn-ctrl"
       type="button"
       value="Create New Cube"
-      title="Create New Cube"
       aria-label="Create New Cube"
       >
       <i className="prefix grey-text"><FontAwesomeIcon icon={faPlus} /></i>

@@ -18,7 +18,6 @@ const ToggleQuestionsBtn = () => {
       className="button header-btns btn-ctrl"
       type="button"
       onClick={toggleQuestions}
-      title={questionsAreVisible ? "Hide Questions" : "Show Questions"}
       aria-label={questionsAreVisible ? "Hide Questions" : "Show Questions"} >
         <i className="prefix grey-text"><FontAwesomeIcon icon={questionsAreVisible ? faEyeSlash : faEye} /></i>
     <br/>{questionsAreVisible ? "Hide Questions" : "Show Questions"}</button>

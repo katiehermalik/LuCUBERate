@@ -7,8 +7,7 @@ import Login from './Auth/Login';
 import Logout from './Auth/Logout';
 
 const Navbar = ({ user, auth }) => {
-  return <>
-    <nav className="nav-bar container-row">
+  return <nav className="nav-bar container-row">
     {user &&
     <>
       {window.location.pathname !== '/' &&
@@ -45,7 +44,6 @@ const Navbar = ({ user, auth }) => {
     <Logout logout={auth}/>
     }
     </nav>
-  </>
 }
 
 export default withRouter(Navbar);
