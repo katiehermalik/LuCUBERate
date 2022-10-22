@@ -4,7 +4,7 @@ import AllAuthenticatedRoutes from '../config/AuthRoutes';
 
 function Dashboard(props) {
   return(
-    <div className="dashboard container-row">
+    <div className="dashboard container-row theme-transition">
     <CubeListCtrl />
     <AllAuthenticatedRoutes user={props.user} />
     </div>

@@ -14,7 +14,7 @@ const DeleteBtn = ({ cubeId, categoryTitle, categoryId }) => {
 
   return <> 
     <button 
-    className={cubeId ? "button delete cube-action-btn btn-ctrl" : "button delete category-action-btn btn-ctrl"}
+    className={cubeId ? "button delete cube-action-btn btn-ctrl theme-transition" : "button delete category-action-btn btn-ctrl theme-transition"}
     type="button"
     onClick={handleOpenModal}
     title={cubeId ? "Delete Cube" : "Delete Category"}

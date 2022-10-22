@@ -13,10 +13,9 @@ const Logout = ({ history, auth }) => {
 
   return <form onSubmit={handleSubmit}>
       <button 
-      className="button category-action-btn btn-ctrl navbar-item"
+      className="button btn-ctrl navbar-item theme-transition"
       type="submit"
-      title="log out">
-        <i className="prefix grey-text"><FontAwesomeIcon icon={faSignOutAlt} /></i>
+      title="log out">Log Out&ensp;<i className="prefix grey-text"><FontAwesomeIcon icon={faSignOutAlt} /> </i>
       </button>
     </form>
 }

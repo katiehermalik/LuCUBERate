@@ -5,12 +5,15 @@ export const UserContext = createContext(null);
 export const CategoryContext = createContext(null);
 export const CubeContext = createContext(null);
 export const QuestionsContext = createContext(null);
+export const ThemeContext = createContext(null);
+
 
 const ContextProvider = ({ children }) => {
   const [ userContent, setUserContent ] = useState({});
   const [ currentCategory, setCurrentCategory ] = useState('');
   const [ currentCubeId, setCurrentCubeId ] = useState('');
   const [ questionsAreVisible, setQuestionsAreVisible ] = useState(false);
+  const [ darkMode, setDarkMode ] = useState(true);
   
 
   useEffect(() => {
@@ -24,7 +27,8 @@ const ContextProvider = ({ children }) => {
     }
   },[])
   
-  return <UserContext.Provider value={ {userContent, setUserContent} }> 
+  return  <ThemeContext.Provider value={ {darkMode, setDarkMode} }> 
+    <UserContext.Provider value={ {userContent, setUserContent} }> 
       <CategoryContext.Provider value={ {currentCategory, setCurrentCategory} }> 
         <CubeContext.Provider value={ {currentCubeId, setCurrentCubeId} }> 
           <QuestionsContext.Provider value={ {questionsAreVisible, setQuestionsAreVisible} }> 
@@ -33,6 +37,7 @@ const ContextProvider = ({ children }) => {
         </CubeContext.Provider>
       </CategoryContext.Provider>
     </UserContext.Provider>
+  </ThemeContext.Provider>
 }
 
 

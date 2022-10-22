@@ -5,43 +5,46 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import SignUp from './Auth/SignUp';
 import Login from './Auth/Login';
 import Logout from './Auth/Logout';
+import ThemeSwitch from './ThemeSwitch';
+
 
 const Navbar = ({ user, auth }) => {
-  return <nav className="nav-bar container-row">
+  
+  return <nav className="nav-bar container-row theme-transition">
     {user &&
-    <>
-      {window.location.pathname !== '/' &&
-      <>
+      <div className="container-row">
+        {window.location.pathname !== '/' &&
+        <>
+          <Link 
+          className="button navbar-item theme-transition" 
+          to="/">About LuCUBERate
+          </Link>
+        </>
+        }
+        {window.location.pathname === '/' &&
         <Link 
-        className="button navbar-item" 
-        to="/">About LuCUBERate
+        className="button navbar-item theme-transition"
+        to="/dashboard">Back to dashboard
+        <i className="icon-chevron"><FontAwesomeIcon icon={faChevronRight} /></i>
         </Link>
-        {/* <span 
-          className="navbar-text">
-          Hello, {user.currentUser.username}
-        </span> */}
-      </>
-      }
-      {window.location.pathname === '/' &&
-      <Link 
-      className="button navbar-item"
-      to="/dashboard">Back to dashboard
-      <i className="icon-chevron"><FontAwesomeIcon icon={faChevronRight} /></i>
-      </Link>
-      }
-    </>
+        }
+        <ThemeSwitch />
+      </div>
     }
     {!user &&
-    <>
-      <div></div>
       <div className="signup-login container-row">
         <SignUp auth={auth} user={user}/>
         <Login auth={auth} user={user}/>
       </div>
-    </>
     }
     {user &&
-    <Logout logout={auth}/>
+      <div className="container-row">
+        <div 
+            className="navbar-item theme-transition">
+            {user.currentUser.username}
+        </div>
+        <Logout logout={auth}/>
+      </div>
     }
     </nav>
 }

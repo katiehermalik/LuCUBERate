@@ -251,11 +251,11 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
     <fieldset>
       <legend hidden>Choose a Category</legend>
     {categories?.map((category, i) => 
-      <div className="cube-list" key={category._id}>
+      <div className="cube-list theme-transition" key={category._id}>
         <div
           onClick={handleCategoryClick} 
           type="button" 
-          className="category-btn"
+          className="category-btn theme-transition"
           id={category._id}
           ref= {element => { 
             if (element) {
@@ -331,7 +331,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
       </div>
     )}
     </fieldset>
-    <footer className="list-footer container-column">
+    <footer className="list-footer container-column theme-transition">
       <p>{`Copyright \u00A9 ${new Date().getFullYear()} LuCUBERate`}</p>
     </footer>
   </div>

@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { withRouter } from 'react-router-dom';
+import { ThemeContext } from './context/ContextProvider';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import UnAuthRoutes from './config/UnAuthRoutes';
 import './App.css';
 
 const App = () => {
-  const [ data , setData ] = useState(null);
+  const { darkMode } = useContext(ThemeContext);
+
+  const [ setData ] = useState(null);
   const [ currentUser , setCurrentUser ] = useState(null);
   // console.log('currentUser', currentUser);
 
@@ -24,7 +27,7 @@ const App = () => {
   },[])
 
     return (
-      <div className="app container-column">
+      <div className={`app theme-transition container-column ${ darkMode ? 'dark' : 'light'}`}>
         <Navbar 
           auth={auth} 
           user={currentUser}/>

@@ -171,12 +171,12 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
 
         <div className="form-row">
           <div className={`form-group ${categoryIsNew ? "col-md-5" : "col-md-11"}`}>
-            <label htmlFor="inputCategory">Category <span style={required}>*</span>            
+            <label htmlFor="category-dropdown">Category <span style={required}>*</span>            
             {categoryError && !categoryIsNew && !currentCategory &&
             <span style={errorStyle}>{` ${categoryError}`}</span>
             }</label>
             <select 
-              className="form-control" 
+              className="form-control theme-transition" 
               id="category-dropdown"
               onChange={handleCategoryChange}
               value={
@@ -199,7 +199,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             }</label>
             <input 
               type="text" 
-              className="form-control" 
+              className="form-control theme-transition" 
               id="inputCategory" 
               placeholder="Create a new category"
               maxLength="20"
@@ -224,7 +224,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             }</label>
             <textarea 
             type="text" 
-            className="form-control" 
+            className="form-control theme-transition" 
             id="inputQuestion" 
             placeholder="The quetsion goes here..."
             maxLength="300"
@@ -248,7 +248,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             }</label>
             <textarea 
             type="text" 
-            className="form-control" 
+            className="form-control theme-transition" 
             id="inputAnswer" 
             placeholder="The answer goes here..."
             maxLength="300"
@@ -269,7 +269,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             <label htmlFor="inputHint">Hint</label>
             <textarea 
             type="text" 
-            className="form-control" 
+            className="form-control theme-transition" 
             id="inputHint" 
             placeholder="Give yourself a nudge in the right direction."
             maxLength="300"
@@ -288,7 +288,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             <label htmlFor="inputNotes">Notes</label>
             <textarea 
             type="text" 
-            className="form-control" 
+            className="form-control theme-transition" 
             id="inputNotes" 
             placeholder="Anything to help with memorization..."
             maxLength="300"
@@ -309,7 +309,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             <label htmlFor="inputLink">Link</label>
             <input 
             type="text" 
-            className="form-control" 
+            className="form-control theme-transition" 
             id="inputLink" 
             placeholder="Link to a resource."
             name="link" 
@@ -320,7 +320,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             <label htmlFor="inputAlias">Link Alias</label>
             <input 
             type="text" 
-            className="form-control" 
+            className="form-control theme-transition" 
             id="inputAlias" 
             placeholder="ex. 'Resource'"
             maxLength="50"
@@ -336,8 +336,8 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
             </div>
           </div>
           <div className="form-group col-md-3">
-            <label htmlFor="inputVisual">Visual Aid</label>
-            <label className="btn custom-file-upload" htmlFor="inputVisual">{visual_aid ? 'Upload New': 'Upload'}</label>
+            <div htmlFor="inputVisual">Visual Aid</div>
+            <label className="btn custom-file-upload theme-transition" htmlFor="inputVisual">{visual_aid ? 'Upload New': 'Upload'}</label>
             <input 
               ref={visualAidInputRef}
               type="file" 

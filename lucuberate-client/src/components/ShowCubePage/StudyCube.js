@@ -34,8 +34,9 @@ const StudyCube = (props) => {
   return <>
     { cube &&
     <>
-      <div className="cube-ctrl-group container-row">
-        <ul className="radio-face-group">
+      <div className="cube-ctrl-group container-row theme-transition">
+        <fieldset className="radio-face-group">
+        <legend hidden>Select wich side of the cube you would like to view</legend>
           {sides.map((side, i) => (
               <li 
                 key={`list-item${side}`}
@@ -56,20 +57,20 @@ const StudyCube = (props) => {
                 </label>
               </li>
           ))}
-        </ul>
+        </fieldset>
       </div>
       <div className="cube-area">
         <div className="cube-container">
           <div className={`study-cube ${side || sides[0]}`}>
 
 
-            <div className="face Question">
+            <div className="face Question theme-transition">
               <div className={`face-title ${side === 'Question' || side === '' ? '' : 'blur' }`}>Question</div>
               {cube.question &&
               <div className={`face-content ${side === 'Question' || side === '' ? '' : 'blur' }`}>{cube.question}</div>
               }
             </div>
-            <div className="face Link">
+            <div className="face Link theme-transition">
               <div className={`face-title ${side === 'Link' ? '' : 'blur' }`}>Link</div>
               {cube.link &&
               <div className={`face-content ${side === 'Link' ? '' : 'blur' }`}>
@@ -77,25 +78,25 @@ const StudyCube = (props) => {
               </div>
               }
             </div>
-            <div className="face Hint">
+            <div className="face Hint theme-transition">
               <div className={`face-title ${side === 'Hint' ? '' : 'blur' }`}>Hint</div>
               {cube.hint &&
               <div className={`face-content ${side === 'Hint' ? '' : 'blur' }`}>{cube.hint}</div>
               }
             </div>
-            <div className="face Notes">
+            <div className="face Notes theme-transition">
               <div className={`face-title ${side === 'Notes' ? '' : 'blur' }`}>Notes</div>
               {cube.notes &&
               <div className={`face-content ${side === 'Notes' ? '' : 'blur' }`}>{cube.notes}</div>
               }
             </div>
-            <div className="face Visual">
+            <div className="face Visual theme-transition">
               <div className={`face-title ${side === 'Visual Aid' ? '' : 'blur' }`}>Visual Aid</div>
               {cube.visual_aid &&
               <img src={cube.visual_aid} alt="visual aid" className={`visual-aid ${side === 'Visual Aid' ? '' : 'blur' }`}/>
               }
             </div>
-            <div className="face Answer">
+            <div className="face Answer theme-transition">
               <div className={`face-title ${side === 'Answer' ? '' : 'blur' }`}>Answer</div>
               {cube.answer &&
                 <div className={`face-content ${side === 'Answer' ? '' : 'blur' }`}>{cube.answer}</div>

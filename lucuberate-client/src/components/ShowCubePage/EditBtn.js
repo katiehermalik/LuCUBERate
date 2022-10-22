@@ -9,7 +9,7 @@ const EditBtn = ({ history, cubeId, history:{location:{pathname}} }) => {
   }
 
   return <button 
-    className={ pathname.match(/\b[\w=.]+$/g)[0] === 'edit'? "button active cube-action-btn btn-ctrl" : "button cube-action-btn btn-ctrl" }
+    className={ pathname.match(/\b[\w=.]+$/g)[0] === 'edit'? "button active cube-action-btn btn-ctrl" : "button cube-action-btn btn-ctrl theme-transition" }
     type="button"
     onClick={handleClick}
     title="Edit Cube"
