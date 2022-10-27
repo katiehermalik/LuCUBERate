@@ -14,16 +14,17 @@ function LandingBackground() {
           camera={{ position: [5, 5, -5], fov: 30}}>
       <CubeMesh darkMode={darkMode} />
       <Lights />
-          <Stars 
-          // className="landing-dark theme-transition"
-          radius={25}
-          depth={50}
-          count={4000}
-          factor={3}
-          saturation={2}
-          fade />
+			<Stars 
+				radius={25}
+				depth={50}
+				count={4000}
+				factor={3}
+				saturation={2}
+				fade />
       <OrbitControls 
-        enableZoom={false} />
+        enableZoom={false}
+				autoRotate={true}
+				autoRotateSpeed={0.3} />
     </Canvas>
 }
 
