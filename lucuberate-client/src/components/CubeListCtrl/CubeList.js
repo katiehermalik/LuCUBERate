@@ -135,7 +135,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   const openCategoryCubeList = useCallback(() => {
     if (!currentCategoryRef.className.split(' ').includes("active")) {
     currentCategoryRef.classList.add("active");
-    currentCategoryRef.nextElementSibling.style.maxHeight = "200px";
+    currentCategoryRef.nextElementSibling.style.maxHeight = currentCategoryRef.nextElementSibling.children.length - 1 > 4 ? "200px" : `${(currentCategoryRef.nextElementSibling.children.length - 1) * 50}px`;
     }
   }, [currentCategoryRef])
 
@@ -240,13 +240,6 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   }
 
   //====================================================================================//
-
-  const cubeListStyles = {
-    overflow: "auto",
-    maxHeight: "0px",
-    transition: "all 0.4s ease-out 0s",
-    position: "relative",
-  }
   
   return <div className="cube-list-grp container-column">
     <fieldset>
@@ -296,7 +289,12 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
           }
         </div>
         <fieldset 
-        style= {cubeListStyles} 
+          style= {{
+            overflow: "auto",
+            maxHeight: "0px",
+            transition: `all 0.${categoryCubes.length >= 4 ? 4 : categoryCubes.length}s ease-out 0s`,
+            position: "relative"
+          }} 
         className="content container-column cube-select-group">
         <legend hidden>Choose a Cube</legend>
           {categoryCubes?.map((cube, j) => 

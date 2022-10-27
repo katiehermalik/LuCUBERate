@@ -93,7 +93,9 @@ const StudyCube = (props) => {
             <div className="face Visual theme-transition">
               <div className={`face-title ${side === 'Visual Aid' ? '' : 'blur' }`}>Visual Aid</div>
               {cube.visual_aid &&
-              <img src={cube.visual_aid} alt="visual aid" className={`visual-aid ${side === 'Visual Aid' ? '' : 'blur' }`}/>
+                <a download={cube.visual_aid} href={cube.visual_aid} title="Download image">
+                <img src={cube.visual_aid} alt="visual aid" className={`visual-aid ${side === 'Visual Aid' ? '' : 'blur' }`}/>
+              </a>
               }
             </div>
             <div className="face Answer theme-transition">
