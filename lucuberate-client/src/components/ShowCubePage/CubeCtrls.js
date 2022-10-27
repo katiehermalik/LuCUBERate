@@ -1,6 +1,6 @@
 import React from 'react';
-import EditBtn from './EditBtn';
-import DeleteBtn from './DeleteBtn';
+import EditBtn from '../CubeListCtrl/EditBtn';
+import DeleteBtn from '../CubeListCtrl/DeleteBtn';
 
 
 const CubeCtrls = ({ cubeId }) => {

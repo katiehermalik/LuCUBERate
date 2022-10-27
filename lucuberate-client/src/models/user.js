@@ -32,7 +32,7 @@ class UserModel {
   }
 
   static login(user) {
-    console.log(user)
+    console.log('USER------>',user)
     return fetch(loginUrl, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

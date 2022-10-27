@@ -69,6 +69,8 @@
   --color-btn-shadow-one: #383743;
   --color-btn-shadow-two: #2f2e39;
   --cubeFace-border-color: rgba(255,255,255,0.4);
+  --modal-background-color: var(--panel-color);
+  --modal-text-color: var(--text-color-light);
 }
 
 .light {
@@ -84,7 +86,7 @@
   --btn-primary-hover-color: #d39e00;
   --warning-color: #dc3545;
   --overlay-color: rgba(0,0,0,0.6);
-  --hr-color: var(--panel-color);
+  --hr-color: rgba(139, 139, 139, 0.567);
   --boxShadow-color: rgba(0,0,0,0.81);
   --form-boxShadow-color: rgba(0,0,0,0.03);
   --cubeFace-color-1: #81acd1;
@@ -102,6 +104,8 @@
   --color-btn-shadow-one: #f1f1f1;
   --color-btn-shadow-two: #cecdcd;
   --cubeFace-border-color: rgba(0,0,0,0.4);
+  --modal-background-color: var(--border-color);
+  --modal-text-color: var(--text-color-dark);
 }
 
 /* ------------------------------- Parent Containers */ 
@@ -194,6 +198,14 @@ body, html, #root, .app {
                 background-image .45s ease-in-out,
   }
 
+/* ------------------------------- Pointer Events */ 
+
+  .pointer-disabled {
+    pointer-events: "none"
+  }
+  .pointer-auto {
+      pointer-events: "auto"
+  }
 
 /* ------------------------------- Nav Bar */ 
 
@@ -257,6 +269,11 @@ body, html, #root, .app {
           align-items: center;
   height: auto;
 }
+/* ----------------------------------------- Footer */
+
+footer {
+  padding: 15px;
+}
 
 /* ----------------------------------------- Cube New Edit Delete Btns */
 .button {
@@ -304,21 +321,20 @@ body, html, #root, .app {
   margin: 0px 15px;
 }
 
-.delete-modal-btn {
-  padding: 7px 15px;
-}
-
-
 /* ------------------------------- Modal */ 
 
+.modal-backdrop {
+  z-index: 2;
+}
+
 @media (min-width: 576px) {
-  .delete-modal-dialog {
+  .modal-dialog {
       max-width: 500px;
       margin: 1.75rem auto;
   }
 }
 
-.delete-modal-dialog {
+.modal-dialog {
     position: relative;
     width: auto;
     top: 20%;
@@ -326,7 +342,7 @@ body, html, #root, .app {
     pointer-events: none;
 }
 
-.delete-modal {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -336,11 +352,11 @@ body, html, #root, .app {
     height: 100%;
     overflow: hidden;
     outline: 0;
-    color: var(--text-color-light);
+    color: var(--modal-text-color);
     font-weight: bold;
     background-color: var(--overlay-color);
 }
-.delete-modal-content {
+.modal-content {
     position: relative;
     display: -ms-flexbox;
     display: flex;
@@ -348,13 +364,14 @@ body, html, #root, .app {
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: var(--background-main);
+    background-color: var(--modal-background-color);
     background-clip: padding-box;
     border: 1px solid var(--hr-color);
     border-radius: 0.3rem;
     outline: 0;
+    color: var(--modal-text-color);
 }
-.delete-modal-header {
+.modal-header {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: start;
@@ -365,53 +382,78 @@ body, html, #root, .app {
     border-bottom: 1px solid var(--hr-color);
     border-top-left-radius: 0.3rem;
     border-top-right-radius: 0.3rem;
+    font-weight: 700;
 }
 
-.delete-modal-body {
+.modal-body {
   padding: 1rem;
   text-align: center;
+  position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1rem;
+  font-weight: 500;
 }
 
-.delete-modal-title {
+.modal-body .md-form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.modal-body .md-form label {
+  margin-left: 3px;
+}
+
+.modal-title {
     margin-bottom: 0;
     line-height: 1.5;
 }
-.delete-modal-header .close {
+.modal-header .close {
     padding: 1rem 1rem;
     margin: -1rem -1rem -1rem auto;
-    color: var(--text-color-light);
+    color: var(--category-text-color);
     text-shadow: none;
     opacity: 0.6;
 }
 
-.modal-body {
-    position: relative;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 1rem;
-}
-.delete-modal-footer {
+.modal-footer {
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-align: center;
+    flex-direction: column;
     align-items: center;
-    -ms-flex-pack: end;
     justify-content: flex-end;
     padding: 1rem;
     border-top: 1px solid var(--hr-color);
     border-bottom-right-radius: 0.3rem;
     border-bottom-left-radius: 0.3rem;
-    flex-direction: row;
 }
-.delete-modal-footer>:not(:last-child) {
+
+.modal-footer.delete {
+  flex-direction: row;
+}
+
+.modal-footer .btn{
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.modal-footer>:not(:last-child) {
     margin-right: 0.25rem;
+}
+
+.modal a {
+  color: var(--accent-color);
+}
+
+.modal-footer hr {
+  color: var(--hr-color);
 }
 
 /* ------------------------------- Cube List */ 
 .category-btn {
   background-color: var(--border-color);
   width: 100%;
-  padding: 6px;
+  padding: 15px;
   color: var(--category-text-color);
   display: flex;
   justify-content: space-between;
@@ -466,6 +508,7 @@ button.cube-action-btn {
           width: 100%;
           background-color: var(--cube-ctrl-list-color);
 }
+
 .cube-list-grp {
   height: calc(100vh - 134px);
   overflow-y: scroll;
@@ -473,8 +516,10 @@ button.cube-action-btn {
   width: 100%;
 }
 
+
 .cube-list-grp .radio-button {
   display: flex;
+  padding-left: 20px;
 }
 
 .cube-list-grp::-webkit-scrollbar {
@@ -777,47 +822,6 @@ img.visual-aid-preview {
   border: none;
 }
 
-.modal-backdrop {
-  z-index: 2;
-}
-
-.modal {
-  color: rgb(40, 44, 52);
-  font-weight: bold;
-}
-
-.modal a {
-  color: rgb(59, 137, 196);
-}
-
-.modal-footer {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.delete {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.modal-footer .btn{
-  font-weight: bold;
-  border: 1px solid rgb(217, 222, 226);
-  border-radius: 5px;
-}
-
-.modal-footer hr {
-  color: rgb(217, 222, 226);
-}
-
-.cube-mesh {
-  bottom: 3vh;
-}
-
 /* ----------------------------------------- Study Cube */
 
 .cube-radio-container {
@@ -877,6 +881,10 @@ img.visual-aid-preview {
 .study-cube.Answer { 
   -webkit-transform: rotateX(90deg); 
           transform: rotateX(90deg);
+}
+
+.cube-mesh {
+  bottom: 3vh;
 }
 
 /* ----------------------------------------------- Cube Faces */

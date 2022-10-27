@@ -9,7 +9,7 @@ export const ThemeContext = createContext(null);
 
 
 const ContextProvider = ({ children }) => {
-  const [ userContent, setUserContent ] = useState({});
+  const [ currentUserInfo, setCurrentUserInfo ] = useState({});
   const [ currentCategory, setCurrentCategory ] = useState('');
   const [ currentCubeId, setCurrentCubeId ] = useState('');
   const [ questionsAreVisible, setQuestionsAreVisible ] = useState(false);
@@ -22,13 +22,13 @@ const ContextProvider = ({ children }) => {
       const user_id = user.user_Id;
       UserModel.allCubesAndCategories(user_id)
       .then((categoriesAndCubes) => {
-        setUserContent({...categoriesAndCubes, user_id: user_id });
+        setCurrentUserInfo({...categoriesAndCubes, user_id: user_id });
       }); 
     }
   },[])
   
   return  <ThemeContext.Provider value={ {darkMode, setDarkMode} }> 
-    <UserContext.Provider value={ {userContent, setUserContent} }> 
+    <UserContext.Provider value={ {currentUserInfo, setCurrentUserInfo} }> 
       <CategoryContext.Provider value={ {currentCategory, setCurrentCategory} }> 
         <CubeContext.Provider value={ {currentCubeId, setCurrentCubeId} }> 
           <QuestionsContext.Provider value={ {questionsAreVisible, setQuestionsAreVisible} }> 

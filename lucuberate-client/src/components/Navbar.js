@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import SignUp from './Auth/SignUp';
-import Login from './Auth/Login';
+import SignUpBtn from './Auth/SignUpBtn';
+import LoginBtn from './Auth/LoginBtn';
 import Logout from './Auth/Logout';
 import ThemeSwitch from './ThemeSwitch';
 
 
 const Navbar = ({ user, auth }) => {
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   
   return <nav className="nav-bar container-row theme-transition">
     {user &&
@@ -33,8 +35,18 @@ const Navbar = ({ user, auth }) => {
     }
     {!user &&
       <div className="signup-login container-row">
-        <SignUp auth={auth} user={user}/>
-        <Login auth={auth} user={user}/>
+        <SignUpBtn 
+        auth={auth} 
+        showSignUpModal={showSignUpModal}
+        setShowSignUpModal={setShowSignUpModal}
+        setShowLoginModal={setShowLoginModal}
+        />
+        <LoginBtn 
+        auth={auth} 
+        showLoginModal={showLoginModal}
+        setShowLoginModal={setShowLoginModal}
+        setShowSignUpModal={setShowSignUpModal}
+        />
       </div>
     }
     {user &&

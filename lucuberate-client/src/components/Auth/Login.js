@@ -1,131 +1,164 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import UserModel from '../../models/user'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: "",
-      password: "",
-      userError: "",
-      matchError: ""
-    }
+const Login = ({
+  history,
+  auth, 
+  showLoginModal, 
+  setShowLoginModal,
+  setShowSignUpModal
+}) => {
+  
+  const [ userInput, setUserInput ] = useState({
+    email: '',
+    password: '',
+    userError: '',
+    matchError: ''
+  })
 
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
+  const closeModal = (e) => {
+    e.stopPropagation();
+    setUserInput({
+      email: '',
+      password: '',
+      userError: '',
+      matchError: ''
     });
-    console.log('handle change', event);
+    setShowLoginModal(false);
+    e.target.name === 'SignUp' && setShowSignUpModal(true);
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    UserModel.login(this.state)
+  const handleChange = (e) => {
+    setUserInput(prevState => ({
+      ...prevState, 
+      [e.target.name]: e.target.value
+    }));
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(userInput);
+    UserModel.login(userInput)
       .then((data) => {
+        console.log('DATA', data);
         if (data.userError) {
-          this.setState({userError: data.userError});
+          setUserInput(prevState => ({
+            ...prevState, 
+            userError: data.userError
+          }));
         } else if (data.matchError) {
-          this.setState({matchError: data.matchError});
+          setUserInput(prevState => ({
+            ...prevState, 
+            matchError: data.matchError
+          }));
           if (data.userError === undefined) {
-            this.setState({userError: ""})
+            setUserInput(prevState => ({
+              ...prevState, 
+              userError: ''
+            }))
           }
         } else {
-        this.setState(data)
-        // Passing currentUser info to parent component (App.js)
-        this.props.auth(data);
-        localStorage.setItem('user', JSON.stringify(data));
-        if (this.state.currentUser) {
-          this.props.history.push('/dashboard');
-          window.location.reload();
-        }
-        console.log("This is the response from the user Model", data)
+          setUserInput(data)
+          // Passing currentUser info to parent component (App.js)
+          auth(data);
+          localStorage.setItem('user', JSON.stringify(data));
+          if (data.currentUser) {
+            history.push('/dashboard');
+            window.location.reload();
+          }
+          console.log("This is the response from the user Model", data)
         }
       });
   }
 
-  render() {
-    const errorStyle = {
-      color: "red",
-      fontSize: "12px",
-    }
-    return(
-      <> 
-        <div className="text-center">
-          <a href="!#" className="nav-item navbar-item nav-link" data-toggle="modal" data-target="#modalLoginForm">
-          Login</a>
-        </div>    
-        <div 
-        className="modal fade" 
-        id="modalLoginForm" 
-        tabIndex="-1" 
-        role="dialog" 
-        aria-labelledby="myModalLabel"
-        aria-hidden="true">
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header text-center">
-                <h4 className="modal-title w-100 font-weight-bold">Login</h4>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <form onSubmit={this.handleSubmit}>
-                <div className="modal-body mx-3">
-                  <div className="md-form mb-5">
-                    <i className="prefix grey-text"><FontAwesomeIcon icon={faEnvelope} /></i>
-                    <span> </span>
-                    <label data-error="wrong" data-success="right" htmlFor="login-email">Email</label>
-                    <input 
-                    type="email"
-                    name="email"
-                    id="login-email" 
-                    className="form-control validate"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required
-                    />
-                    {this.state.userError &&
-                    <p style={errorStyle}>{this.state.userError}</p>
-                    }
-                  </div>
-                  <div className="md-form mb-4">
-                    <i className="prefix grey-text"><FontAwesomeIcon icon={faLock} /></i>
-                    <span> </span>
-                    <label data-error="wrong" data-success="right" htmlFor="login-pass">Password</label>
-                    <input 
-                    type="password"
-                    name="password" 
-                    id="login-pass" 
-                    className="form-control validate" 
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    required
-                    autoComplete="off"
-                    />
-                    {this.state.matchError &&
-                    <p style={errorStyle}>{this.state.matchError}</p>
-                    }
-                  </div>
-                </div>
-                <div className="modal-footer d-flex justify-content-center">
-                  <button type="submit" className="btn">Login</button>
-                  <hr size="2" width="70%"/>
-                  <p>Don't yet have an account? <a href="!#" data-dismiss="modal" data-toggle="modal" data-target="#modalRegisterForm">Sign up</a></p>
-                </div>
-              </form>
+
+  const errorStyle = {
+    color: "red",
+    fontSize: "12px",
+  }
+
+  return <> 
+    {showLoginModal &&
+      <div 
+      className="modal" 
+      id="modalLoginForm" 
+      tabIndex="-1" 
+      role="dialog" 
+      aria-labelledby="myModalLabel"
+      aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header text-center">
+              <h4 className="modal-title w-100 font-weight-bold">Login</h4>
+              <button 
+              type="button" 
+              onClick={closeModal} 
+              className="close" 
+              data-dismiss="modal" 
+              aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
+            <form onSubmit={handleSubmit}>
+              <div className="modal-body mx-3">
+                <div className="md-form mb-5">
+                  <label data-error="wrong" data-success="right" htmlFor="login-email">             <i className="prefix grey-text">
+                  <FontAwesomeIcon icon={faEnvelope} />
+                  </i> Email</label>
+                  <input 
+                  type="email"
+                  name="email"
+                  id="login-email" 
+                  className="form-control validate"
+                  value={userInput.email}
+                  onChange={handleChange}
+                  required
+                  />
+                  {userInput.userError &&
+                  <p style={errorStyle}>{userInput.userError}</p>
+                  }
+                </div>
+                <div className="md-form mb-4">
+                  <label data-error="wrong" data-success="right" htmlFor="login-pass">              <i className="prefix grey-text">
+                    <FontAwesomeIcon icon={faLock} />
+                  </i> Password</label>
+                  <input 
+                  type="password"
+                  name="password" 
+                  id="login-pass" 
+                  className="form-control validate" 
+                  value={userInput.password}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                  />
+                  {userInput.matchError &&
+                  <p style={errorStyle}>{userInput.matchError}</p>
+                  }
+                </div>
+              </div>
+              <div className="modal-footer d-flex justify-content-center">
+                <button 
+                type="submit" 
+                className="btn btn-secondary">Login</button>
+                <hr size="2" width="70%"/>
+                <p>Don't yet have an account? <Link 
+                name="SignUp"
+                onClick={closeModal}
+                data-dismiss="modal" data-toggle="modal" data-target="#modalRegisterForm">Sign up</Link>
+                </p>
+              </div>
+            </form>
           </div>
         </div>
-      </>
-    )
-  }
+      </div>
+    }
+  </>
 }
 
 export default withRouter(Login);

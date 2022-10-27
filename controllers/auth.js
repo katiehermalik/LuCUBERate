@@ -45,13 +45,12 @@ const signup = (req, res, next) => {
 
 const login = (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
-    console.log(user)
     if (!user) {
       return res.json({ userError: 'User email not found' });
     } else {
         bcrypt.compare(req.body.password, user.password).then(isMatch => {
           if (!isMatch) {
-            return res.json({ matchError: 'Password does not match user email' });
+            return res.json({ matchError: 'Incorrect password' });
           } else {
             req.session.isLoggedIn = true;
             req.session.currentUser = user._id;

@@ -7,7 +7,7 @@ import CategoryModel from '../../models/category';
 
 const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
     const { currentCategory } = useContext(CategoryContext);
-    const { userContent, setUserContent } = useContext(UserContext);
+    const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
 
     const handleShuffleCubes = (e) => {
       e.stopPropagation();
@@ -16,9 +16,9 @@ const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
       .then((data) => {
         console.log('DATA---->', data);
         setTimeout(() => {
-          const indexOfCategory = userContent.categories.findIndex(category => category._id === data._id);
-          userContent.categories[indexOfCategory] = data;
-          setUserContent(userContent);
+          const indexOfCategory = currentUserInfo.categories.findIndex(category => category._id === data._id);
+          currentUserInfo.categories[indexOfCategory] = data;
+          setCurrentUserInfo(currentUserInfo);
           setCategoryWasShuffled(true);
           console.log('Im off to re-render');
         }, 400);

@@ -6,7 +6,7 @@ import { UserContext, CategoryContext, CubeContext } from '../../context/Context
 const PlaceHolderCube = ({currentCubeCategory, currentPath, history:{location:{pathname}}}) => {
     const { currentCategory } = useContext(CategoryContext);
     const { currentCubeId } = useContext(CubeContext);
-    const { userContent: { categories } } = useContext(UserContext);
+    const { currentUserInfo: { categories } } = useContext(UserContext);
     const [ renderPlaceHolder, setRenderPlaceHolder ] = useState(false);
     const [ currentCategoryData, setCurrentCategoryData ] = useState({});
     // Renders a + placeholder cube in a category cube list when considering that category for a new cube or for editing and moving an existing cube to.

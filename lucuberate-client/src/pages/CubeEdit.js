@@ -10,7 +10,7 @@ import { UserContext, CategoryContext, CubeContext } from '../context/ContextPro
 
 function CubeEdit({history, match:{params:{id:cubeId}}}) {
   let formData;
-  const { userContent, setUserContent, userContent: { categories } } = useContext(UserContext);
+  const { currentUserInfo, setCurrentUserInfo, currentUserInfo: { categories } } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
 
@@ -50,8 +50,8 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
       data.answer === '' && setAnswerError('Required');
       data.category === 'undefined' && setCategoryError('Required');
     } else {
-      const categoriesAndCubes = await UserModel.allCubesAndCategories(userContent.user_id)
-      setUserContent({...categoriesAndCubes, user_id: userContent.user_id });
+      const categoriesAndCubes = await UserModel.allCubesAndCategories(currentUserInfo.user_id)
+      setCurrentUserInfo({...categoriesAndCubes, user_id: currentUserInfo.user_id });
       setIsLoading(false);
       history.push(`/dashboard/${cubeId}`);
     }
@@ -83,7 +83,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
 
   const collectCubeFormData = (categoryId) => {
     formData = new FormData(document.getElementById('cube-edit-form'));
-    formData.append('user', userContent.user_id);
+    formData.append('user', currentUserInfo.user_id);
     formData.append('category', categoryId);
     formData.append('removingVisualAid', removingVisualAid);
     !visualAidError && updateCube();
@@ -121,7 +121,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
   const createNewCategory = async () => {
     const newCategoryData = {
       title: newCategory,
-      user: userContent.user_id
+      user: currentUserInfo.user_id
     };
     const data = await CategoryModel.create(newCategoryData)
     const { _id : newCategoryId } = data;
@@ -184,7 +184,7 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
                 categoryIsNew ? 'New Category' : ''}>
                 <option value="" disabled> -- select an option -- </option>
                 <option value="New Category">New Category</option>
-              {userContent?.categories?.map(category => (
+              {currentUserInfo?.categories?.map(category => (
                 <option key={`${category._id}`} value={`${category._id}`}>{`${category.title}`}</option>
               ))
               }

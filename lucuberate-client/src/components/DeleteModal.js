@@ -15,7 +15,7 @@ const DeleteModal = ({
   history 
 }) => {
 
-  const { userContent, setUserContent } = useContext(UserContext);
+  const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
   const { setCurrentCategory } = useContext(CategoryContext);
 
@@ -28,11 +28,11 @@ const DeleteModal = ({
     e.stopPropagation()
     CategoryModel.delete(categoryId)
     .then((data) => {
-      UserModel.allCubesAndCategories(userContent.user_id)
+      UserModel.allCubesAndCategories(currentUserInfo.user_id)
       .then((categoriesAndCubes) => {
         setCurrentCubeId('');
         setCurrentCategory(null);
-        setUserContent({...categoriesAndCubes, user_id: userContent.user_id });
+        setCurrentUserInfo({...categoriesAndCubes, user_id: currentUserInfo.user_id });
       }); 
       history.push('/dashboard');
     });
@@ -42,25 +42,30 @@ const DeleteModal = ({
     await history.push('/dashboard');
     setCurrentCubeId('');
     await CubeModel.delete(cubeId);
-    const categoriesAndCubes = await UserModel.allCubesAndCategories(userContent.user_id);
-    setUserContent({...categoriesAndCubes, user_id: userContent.user_id });
+    const categoriesAndCubes = await UserModel.allCubesAndCategories(currentUserInfo.user_id);
+    setCurrentUserInfo({...categoriesAndCubes, user_id: currentUserInfo.user_id });
   }
 
   return <>
     {showModal &&
-    <div className="delete-modal" id="deleteConfirmModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div className="delete-modal-dialog" role="document">
-        <div className="delete-modal-content">
-          <div className="delete-modal-header">
-            <h5 className="delete-modal-title" id="exampleModalLabel">{type === 'category' ? `Delete '${categoryTitle}' Category` : 'Delete Cube'}</h5>
-            <button type="button" onClick={closeModal} className="close" data-dismiss="delete-modal" aria-label="Close">
+    <div className="modal" id="deleteConfirmModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLabel">{type === 'category' ? `Delete '${categoryTitle}' Category` : 'Delete Cube'}</h5>
+            <button 
+            type="button" 
+            onClick={closeModal} 
+            className="close" 
+            data-dismiss="modal" 
+            aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="delete-modal-body">
+          <div className="modal-body">
           {type === 'category' ? 'Are you sure you want to delete this category? All the cubes within this category will be deleted as well.' : 'Are you sure you want to delete this cube?'}
           </div>
-          <div className="delete-modal-footer delete">
+          <div className="modal-footer delete">
             <input type="button" value="Cancel" onClick={closeModal} className="btn btn-secondary" />
               <input 
                 onClick={type === 'category' ? handleDeleteCategory : handleDeleteCube }

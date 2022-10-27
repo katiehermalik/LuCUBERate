@@ -9,7 +9,7 @@ import CategoryModel from '../models/category';
 
 const CubeNew = ({ history }) => {
   let formData;
-  const { userContent, setUserContent } = useContext(UserContext);
+  const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { setCurrentCubeId } = useContext(CubeContext);
 
@@ -75,8 +75,8 @@ const CubeNew = ({ history }) => {
       (data.category === '' || data.category === 'undefined') 
       && setCategoryError('Required');
     } else {
-      const categoriesAndCubes = await UserModel.allCubesAndCategories(userContent.user_id)
-      setUserContent({ ...categoriesAndCubes, user_id: userContent.user_id });
+      const categoriesAndCubes = await UserModel.allCubesAndCategories(currentUserInfo.user_id)
+      setCurrentUserInfo({ ...categoriesAndCubes, user_id: currentUserInfo.user_id });
       setIsLoading(false);
       setCurrentCubeId(data.cube._id);
       history.push(`/dashboard/${data.cube._id}`);
@@ -85,7 +85,7 @@ const CubeNew = ({ history }) => {
 
   const collectCubeFormData = (categoryId) => {
     formData = new FormData(document.getElementById('cube-new-form'));
-    formData.append('user', userContent.user_id);
+    formData.append('user', currentUserInfo.user_id);
     formData.append('category', categoryId);
     !visualAidError && createCube();
   }
@@ -111,7 +111,7 @@ const CubeNew = ({ history }) => {
   const createNewCategory =  async () => {
     const newCategoryData = {
       title: newCategory,
-      user: userContent.user_id
+      user: currentUserInfo.user_id
     };
     const data = await CategoryModel.create(newCategoryData)
     const { _id : newCategoryId } = data;
@@ -167,7 +167,7 @@ const CubeNew = ({ history }) => {
                 categoryIsNew ? 'New Category' : ''}>
                 <option value="" disabled> -- select an option -- </option>
                 <option value="New Category">New Category</option>
-              {userContent?.categories?.map(category => (
+              {currentUserInfo?.categories?.map(category => (
                 <option key={`${category._id}`} value={`${category._id}`}>{`${category.title}`}</option>
               ))
               }

@@ -9,13 +9,13 @@ import './App.css';
 const App = () => {
   const { darkMode } = useContext(ThemeContext);
 
-  const [ setData ] = useState(null);
+  const [ data, setData ] = useState(null);
   const [ currentUser , setCurrentUser ] = useState(null);
   // console.log('currentUser', currentUser);
 
   const auth = (data) => {
     setData(data);
-    // console.log('data------>', data);
+    console.log('data------>', data);
   }
   
   useEffect(() => {
