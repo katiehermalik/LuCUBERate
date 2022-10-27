@@ -337,7 +337,7 @@ footer {
 .modal-dialog {
     position: relative;
     width: auto;
-    top: 20%;
+    top: 10%;
     margin: 0 auto;
     pointer-events: none;
 }
@@ -524,6 +524,20 @@ button.cube-action-btn {
 
 .cube-list-grp::-webkit-scrollbar {
   display : none;
+}
+
+.cube-list-grp {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.cube-select-group::-webkit-scrollbar {
+  display: none;
+}
+
+.cube-select-group {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .cube-list {
@@ -775,18 +789,31 @@ img.visual-aid-preview {
   pointer-events: none;
 }
 
-.spin {
+.logo {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+section.about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* .spin {
   color: var(--text-color-light);
   position: absolute;
   top: 60px;
   left: 20px;
   opacity: 0.5;
   z-index: 10;
-}
+} */
 
 .landing-text {
   color: var(--text-color-light);
   display: inline;
+  text-align:  center;
 }
 
 .side-text {
@@ -798,12 +825,8 @@ img.visual-aid-preview {
   font-size: 110px;
 }
 
-.tagline {
-  font-size: 25px;
-}
-
 .description {
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .navbar-item, .navbar-text {
@@ -998,8 +1021,7 @@ img.visual-aid-preview {
 /* ---------------------------------------------- Visual Aid Face */
 
 .visual-aid {
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in;
+  cursor: pointer;
   max-height: 30vmin;
   max-width: 40vmin;
   -webkit-transition: -webkit-filter .75s, -webkit-transform 0.5s ease;
@@ -1009,12 +1031,12 @@ img.visual-aid-preview {
   transition: filter .75s, transform 0.5s ease, -webkit-filter .75s, -webkit-transform 0.5s ease;
 }
 
-.visual-aid:hover {
+/* .visual-aid:hover {
   -webkit-transform: scale(2) !important;
       -ms-transform: scale(2) !important;
           transform: scale(2) !important;
   z-index: 10;
-}
+} */
 
 /* ------------------------------------------ Radio Buttons */
 
@@ -1045,7 +1067,7 @@ img.visual-aid-preview {
 
 .radio-button {
   list-style-type: none;
-  padding: 4px 10px 1px 10px;
+  padding: 4px 10px 2px 10px;
 }
 
 .radio-button:hover {
