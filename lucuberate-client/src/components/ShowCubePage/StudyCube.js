@@ -37,6 +37,7 @@ const StudyCube = (props) => {
       <div className="cube-ctrl-group container-row theme-transition">
         <fieldset className="radio-face-group">
         <legend hidden>Select wich side of the cube you would like to view</legend>
+        <ul className="cube-face-list">
           {sides.map((side, i) => (
               <li 
                 key={`list-item${side}`}
@@ -57,6 +58,7 @@ const StudyCube = (props) => {
                 </label>
               </li>
           ))}
+        </ul>
         </fieldset>
       </div>
       <div className="cube-area">

@@ -318,7 +318,11 @@ const CubeNew = ({ history }) => {
           </div>
           <div className="form-group col-md-3">
             <div htmlFor="inputVisual">Visual Aid</div>
-            <label className= "btn custom-file-upload theme-transition" htmlFor="inputVisual">Upload</label>
+            <label 
+            tabIndex="0"
+            className= "btn custom-file-upload theme-transition" 
+            htmlFor="inputVisual">Upload
+            </label>
             <input 
               ref={visualAidInputRef}
               type="file" 
@@ -353,7 +357,9 @@ const CubeNew = ({ history }) => {
           <div className="form-group col-md-5">
           </div>
           <div className="form-group col-md-5">
-            <Link to='/dashboard'>
+            <Link 
+            tabIndex="-1"
+            to='/dashboard'>
               <button 
                 type="submit" 
                 className="btn form-btn btn-secondary"
@@ -361,7 +367,8 @@ const CubeNew = ({ history }) => {
                 Cancel
               </button>
             </Link>
-            <button disabled={isLoading ? true : false}
+            <button 
+              disabled={isLoading ? true : false}
               type="submit" 
               className="btn form-btn btn-warning">
               {isLoading 

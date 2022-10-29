@@ -1,7 +1,5 @@
 import { useContext } from 'react';
 import { QuestionsContext } from '../../context/ContextProvider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const ToggleQuestionsBtn = () => {
   const { questionsAreVisible, setQuestionsAreVisible } = useContext(QuestionsContext);
@@ -15,12 +13,11 @@ const ToggleQuestionsBtn = () => {
   }
 
   return <button 
-      className="button header-btns btn-ctrl"
-      type="button"
-      onClick={toggleQuestions}
-      aria-label={questionsAreVisible ? "Hide Questions" : "Show Questions"} >
-        <i className="prefix grey-text"><FontAwesomeIcon icon={questionsAreVisible ? faEyeSlash : faEye} /></i>
-    <br/>{questionsAreVisible ? "Hide Questions" : "Show Questions"}</button>
+    className="button header-btns btn-ctrl"
+    type="button"
+    onClick={toggleQuestions}
+    aria-label={questionsAreVisible ? "Hide Questions" : "Show Questions"}>
+    {questionsAreVisible ? "Hide Questions" : "Show Questions"}</button>
 }
 
 export default ToggleQuestionsBtn;

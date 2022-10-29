@@ -337,7 +337,11 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
           </div>
           <div className="form-group col-md-3">
             <div htmlFor="inputVisual">Visual Aid</div>
-            <label className="btn custom-file-upload theme-transition" htmlFor="inputVisual">{visual_aid ? 'Upload New': 'Upload'}</label>
+            <label 
+            tabIndex="0" 
+            className="btn custom-file-upload theme-transition" 
+            htmlFor="inputVisual">{visual_aid ? 'Upload New': 'Upload'}
+            </label>
             <input 
               ref={visualAidInputRef}
               type="file" 
@@ -356,10 +360,12 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
                     : <span className="visual-aid-file-name">{new_visual_aid.name} </span>
                   }
                   <span 
+                    tabIndex="0" 
+                    role="button"
                     className=""
                     type="button"
                     onClick={removeVisualAid}
-                    title= "Delete Visual Aid"
+                    title="Delete Visual Aid"
                     aria-label="Delete Visual Aid">
                       <i className="prefix grey-text"><FontAwesomeIcon icon={faTimesCircle} /> </i>
                   </span>
@@ -368,10 +374,12 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
                   ? <div className="visual-aid-preview-container">
                       <img src={visual_aid} alt="visual aid" className="visual-aid-preview"/>                   
                       <span 
+                        tabIndex="0" 
+                        role="button"
                         className="delete-visual-aid"
                         type="button"
                         onClick={removeSavedVisualAid}
-                        title= "Delete Visual Aid"
+                        title="Delete Visual Aid"
                         aria-label="Delete Visual Aid">
                           <i className="prefix grey-text"><FontAwesomeIcon icon={faTimesCircle} /> </i>
                       </span>
@@ -384,8 +392,10 @@ function CubeEdit({history, match:{params:{id:cubeId}}}) {
           <div className="form-group col-md-5">
           </div>
           <div className="form-group col-md-5">
-            <Link to={`/dashboard/${cubeId}`}>
-              <button 
+            <Link 
+            tabIndex="-1"
+            to={`/dashboard/${cubeId}`}>
+              <button
                 type="submit" 
                 className="btn form-btn btn-secondary"
                 onClick={handleCancelClick}>

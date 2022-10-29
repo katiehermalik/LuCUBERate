@@ -135,7 +135,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
   const openCategoryCubeList = useCallback(() => {
     if (!currentCategoryRef.className.split(' ').includes("active")) {
     currentCategoryRef.classList.add("active");
-    currentCategoryRef.nextElementSibling.style.maxHeight = currentCategoryRef.nextElementSibling.children.length - 1 > 4 ? "200px" : `${(currentCategoryRef.nextElementSibling.children.length - 1) * 50}px`;
+    currentCategoryRef.nextElementSibling.style.maxHeight = currentCategoryRef.nextElementSibling.lastChild.children.length > 4 ? "200px" : `${(currentCategoryRef.nextElementSibling.lastChild.children.length) * 50}px`;
     }
   }, [currentCategoryRef])
 
@@ -251,7 +251,8 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
         cubes: { length : cubeListLength }
       }, i) => 
       <div className="cube-list theme-transition" key={categoryId}>
-        <div
+        <button
+          tabIndex="0"
           onClick={handleCategoryClick} 
           type="button" 
           className="category-btn theme-transition"
@@ -287,7 +288,7 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
               </i>
             </div>
           }
-        </div>
+        </button>
         <fieldset 
           style= {{
             overflow: "auto",
@@ -297,9 +298,11 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
           }} 
         className="content container-column cube-select-group">
         <legend hidden>Choose a Cube</legend>
+        <ul>
           {categoryCubes?.map((cube, j) => 
             <li key={cube} className="radio-button">
               <input
+                tabIndex="0"
                 type="radio"
                 name="cube-select"
                 value={cube}
@@ -324,7 +327,8 @@ const CubeList = ({ history, history:{location:{pathname}}}) => {
               <CubeCtrls cubeId={cube} />
               }
             </li>
-          )}  
+          )}
+        </ul>
           {((currentPath[0] === 'edit' && categoryId !== currentCubeCategory) || 
             currentPath[0] === 'new') &&
             <PlaceHolderCube 
