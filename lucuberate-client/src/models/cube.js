@@ -1,68 +1,64 @@
-
 let url;
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   url = `https://lucuberate.herokuapp.com/api/v1/cubes`;
 } else {
-  url = 'http://localhost:4000/api/v1/cubes';
+  url = "http://localhost:4000/api/v1/cubes";
 }
 
-
 class CubeModel {
-  
   static all() {
     return fetch(url)
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CubeModel.all', err)
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CubeModel.all", err);
+      });
   }
 
   static create(newCube) {
-    console.log('newCube in cube.js being passed as body in fetch', ...newCube);
+    console.log("newCube in cube.js being passed as body in fetch", ...newCube);
     return fetch(url, {
-      method: 'POST',
-      body: newCube 
+      method: "POST",
+      body: newCube,
     })
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CubeModel.create', err)
-      return { message: 'Error fetching data in CubeModel.create' };
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CubeModel.create", err);
+        return { message: "Error fetching data in CubeModel.create" };
+      });
   }
 
   static getOne(id) {
     return fetch(`${url}/${id}`)
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CubeModel.getOne', err)
-      return { cube: {} };
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CubeModel.getOne", err);
+        return { cube: {} };
+      });
   }
 
   static update(updatedCube, id) {
-    console.log('updatedCube being sent to backend----->', ...updatedCube);
+    console.log("updatedCube being sent to backend----->", ...updatedCube);
     return fetch(`${url}/${id}`, {
-      method: 'PUT',
-      body: updatedCube
+      method: "PUT",
+      body: updatedCube,
     })
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CubeModel.update', err)
-      return { message: 'Error fetching data in CubeModel.update' };
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CubeModel.update", err);
+        return { message: "Error fetching data in CubeModel.update" };
+      });
   }
 
   static delete(id) {
     return fetch(`${url}/${id}`, {
-      method: 'DELETE'
+      method: "DELETE",
     })
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CubeModel.delete', err)
-      return { message: 'Error fetching data in CubeModel.delete' };
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CubeModel.delete", err);
+        return { message: "Error fetching data in CubeModel.delete" };
+      });
   }
-
 }
 
-export default CubeModel
+export default CubeModel;

@@ -1,81 +1,77 @@
-
 let url;
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   url = `https://lucuberate.herokuapp.com/api/v1/categories`;
 } else {
-  url = 'http://localhost:4000/api/v1/categories';
+  url = "http://localhost:4000/api/v1/categories";
 }
 
-
 class CategoryModel {
-  
   static all() {
     return fetch(url)
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CategoryModel.all', err)
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CategoryModel.all", err);
+      });
   }
 
   static create(newCategory) {
-    console.log('newCategory REQ.body before fetch call---->', newCategory);
+    console.log("newCategory REQ.body before fetch call---->", newCategory);
     return fetch(url, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(newCategory)
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newCategory),
     })
-    .then((res) => {
-      return res.json();
-    })
-    .catch((err) => {
-      console.log('Error fetching data in CategoryModel.create', err)
-      return { message: 'Error fetching data in CategoryModel.create' };
-    });
+      .then(res => {
+        return res.json();
+      })
+      .catch(err => {
+        console.log("Error fetching data in CategoryModel.create", err);
+        return { message: "Error fetching data in CategoryModel.create" };
+      });
   }
 
   static getOne(id) {
     return fetch(`${url}/${id}`)
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CategoryModel.getOne', err)
-      return { category: {} };
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CategoryModel.getOne", err);
+        return { category: {} };
+      });
   }
 
   static update(updatedCategory, id) {
     return fetch(`${url}/${id}`, {
-      method: 'PUT',
-      body: updatedCategory
+      method: "PUT",
+      body: updatedCategory,
     })
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CategoryModel.update', err)
-      return { message: 'Error fetching data in CategoryModel.update' };
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CategoryModel.update", err);
+        return { message: "Error fetching data in CategoryModel.update" };
+      });
   }
 
   static delete(id) {
     return fetch(`${url}/${id}`, {
-      method: 'DELETE'
+      method: "DELETE",
     })
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CategoryModel.delete', err)
-      return { message: 'Error fetching data in CategoryModel.delete' };
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CategoryModel.delete", err);
+        return { message: "Error fetching data in CategoryModel.delete" };
+      });
   }
 
   static shuffle(id) {
     return fetch(`${url}/${id}`, {
-      method: 'PUT'
+      method: "PUT",
     })
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log('Error fetching data in CategoryModel.delete', err)
-      return { message: 'Error fetching data in CategoryModel.delete' };
-    });
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in CategoryModel.delete", err);
+        return { message: "Error fetching data in CategoryModel.delete" };
+      });
   }
-
 }
 
-export default CategoryModel
+export default CategoryModel;
