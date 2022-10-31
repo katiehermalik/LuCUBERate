@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { PersonIcon, MailIcon, LockIcon } from "@primer/octicons-react";
 
 const SignUp = ({
   history,
@@ -110,14 +107,12 @@ const SignUp = ({
               </div>
               <form onSubmit={handleSubmit}>
                 <div className="modal-body mx-3">
-                  <div className="md-form mb-5">
+                  <div className="md-form mb-2">
                     <label
                       data-error="wrong"
                       data-success="right"
                       htmlFor="signup-username">
-                      <i className="prefix grey-text">
-                        <FontAwesomeIcon icon={faUser} />
-                      </i>{" "}
+                      <PersonIcon size={16} className="label-icon" />
                       Username
                     </label>
                     <input
@@ -133,14 +128,12 @@ const SignUp = ({
                       <p style={errorStyle}>{newUserInfo.usernameError}</p>
                     )}
                   </div>
-                  <div className="md-form mb-5">
+                  <div className="md-form mb-2">
                     <label
                       data-error="wrong"
                       data-success="right"
                       htmlFor="signup-email">
-                      <i className="prefix grey-text">
-                        <FontAwesomeIcon icon={faEnvelope} />
-                      </i>{" "}
+                      <MailIcon size={16} className="label-icon" />
                       Email
                     </label>
                     <input
@@ -156,14 +149,12 @@ const SignUp = ({
                       <p style={errorStyle}>{newUserInfo.emailError}</p>
                     )}
                   </div>
-                  <div className="md-form mb-4">
+                  <div className="md-form mb-2">
                     <label
                       data-error="wrong"
                       data-success="right"
                       htmlFor="signup-pass">
-                      <i className="prefix grey-text">
-                        <FontAwesomeIcon icon={faLock} />
-                      </i>{" "}
+                      <LockIcon size={16} className="label-icon" />
                       Password
                     </label>
                     <input
@@ -177,14 +168,12 @@ const SignUp = ({
                       autoComplete="off"
                     />
                   </div>
-                  <div className="md-form mb-4">
+                  <div className="md-form">
                     <label
                       data-error="wrong"
                       data-success="right"
                       htmlFor="signup-pass-confirm">
-                      <i className="prefix grey-text">
-                        <FontAwesomeIcon icon={faLock} />
-                      </i>{" "}
+                      <LockIcon size={16} className="label-icon" />
                       Password Confirmation
                     </label>
                     <input

@@ -1,6 +1,5 @@
 import { withRouter } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { PencilIcon } from "@primer/octicons-react";
 
 const EditBtn = ({
   history,
@@ -25,9 +24,7 @@ const EditBtn = ({
       onClick={handleClick}
       title="Edit Cube"
       aria-label="Edit Cube">
-      <i className="prefix grey-text">
-        <FontAwesomeIcon icon={faEdit} />
-      </i>
+      <PencilIcon size={16} />
     </button>
   );
 };

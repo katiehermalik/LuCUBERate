@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { SignOutIcon } from "@primer/octicons-react";
 
 const Logout = ({ history, auth }) => {
   const handleSubmit = event => {
@@ -17,9 +16,7 @@ const Logout = ({ history, auth }) => {
         type="submit"
         title="log out">
         Log Out&ensp;
-        <i className="prefix grey-text">
-          <FontAwesomeIcon icon={faSignOutAlt} />{" "}
-        </i>
+        <SignOutIcon size={16} />
       </button>
     </form>
   );

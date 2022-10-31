@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { ChevronRightIcon } from "@primer/octicons-react";
+
 import SignUpBtn from "./Auth/SignUpBtn";
 import LoginBtn from "./Auth/LoginBtn";
 import Logout from "./Auth/Logout";
@@ -27,9 +27,7 @@ const Navbar = ({ user, auth }) => {
               className="button navbar-item theme-transition"
               to="/dashboard">
               Back to dashboard
-              <i className="icon-chevron">
-                <FontAwesomeIcon icon={faChevronRight} />
-              </i>
+              <ChevronRightIcon size={16} />
             </Link>
           )}
           <ThemeSwitch />

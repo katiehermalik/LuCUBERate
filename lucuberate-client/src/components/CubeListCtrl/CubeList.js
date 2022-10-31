@@ -13,11 +13,8 @@ import {
   CubeContext,
   QuestionsContext,
 } from "../../context/ContextProvider";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronRight,
-  faChevronDown,
-} from "@fortawesome/free-solid-svg-icons";
+
+import { ChevronRightIcon, ChevronDownIcon } from "@primer/octicons-react";
 import PlaceHolderCube from "./PlaceHolderCube";
 import DeleteBtn from "./DeleteBtn";
 import CategoryShuffle from "./CategoryShuffle";
@@ -170,13 +167,11 @@ const CubeList = ({
   const openCategoryCubeList = useCallback(() => {
     if (!currentCategoryRef.className.split(" ").includes("active")) {
       currentCategoryRef.classList.add("active");
+
       currentCategoryRef.nextElementSibling.style.maxHeight =
-        currentCategoryRef.nextElementSibling.lastChild.children.length > 4
+        currentCategoryRef.nextElementSibling.elements.length > 4
           ? "200px"
-          : `${
-              currentCategoryRef.nextElementSibling.lastChild.children.length *
-              50
-            }px`;
+          : `${currentCategoryRef.nextElementSibling.elements.length * 50}px`;
     }
   }, [currentCategoryRef]);
 
@@ -207,11 +202,9 @@ const CubeList = ({
         default:
           break;
       }
-      foundCubeRef &&
-        foundCubeRef.ref.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
+      foundCubeRef?.ref.scrollIntoView({
+        block: "nearest",
+      });
     },
     [
       currentCubeId,
@@ -389,9 +382,7 @@ const CubeList = ({
                         categoryTitle={categoryTitle}
                       />
                     </span>
-                    <i className="icon-chevron pointer-disabled">
-                      <FontAwesomeIcon icon={faChevronDown} />
-                    </i>
+                    <ChevronDownIcon size={16} className="pointer-disabled" />
                   </div>
                 ) : (
                   <div className="container-row pointer-disabled">
@@ -399,9 +390,7 @@ const CubeList = ({
                       categoryCubeLength={cubeListLength}
                       cubeListOpened={false}
                     />
-                    <i className="icon-chevron pointer-disabled">
-                      <FontAwesomeIcon icon={faChevronRight} />
-                    </i>
+                    <ChevronRightIcon size={16} className="pointer-disabled" />
                   </div>
                 )}
               </button>

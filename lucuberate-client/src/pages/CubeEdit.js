@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle, faSquareFull } from "@fortawesome/free-solid-svg-icons";
+import { XCircleFillIcon, PackageIcon } from "@primer/octicons-react";
+
 import CubeModel from "../models/cube";
 import UserModel from "../models/user";
 import CategoryModel from "../models/category";
@@ -414,14 +414,12 @@ function CubeEdit({
                   <span
                     tabIndex="0"
                     role="button"
-                    className=""
+                    className="delete-visual-aid"
                     type="button"
                     onClick={removeVisualAid}
                     title="Delete Visual Aid"
                     aria-label="Delete Visual Aid">
-                    <i className="prefix grey-text">
-                      <FontAwesomeIcon icon={faTimesCircle} />{" "}
-                    </i>
+                    <XCircleFillIcon size={16} />
                   </span>
                 </>
               ) : visual_aid ? (
@@ -434,14 +432,12 @@ function CubeEdit({
                   <span
                     tabIndex="0"
                     role="button"
-                    className="delete-visual-aid"
+                    className="delete-saved-visual-aid"
                     type="button"
                     onClick={removeSavedVisualAid}
                     title="Delete Visual Aid"
                     aria-label="Delete Visual Aid">
-                    <i className="prefix grey-text">
-                      <FontAwesomeIcon icon={faTimesCircle} />{" "}
-                    </i>
+                    <XCircleFillIcon size={24} />
                   </span>
                 </div>
               ) : null}
@@ -463,14 +459,7 @@ function CubeEdit({
                 type="submit"
                 className="btn form-btn btn-warning">
                 {isLoading ? (
-                  <i className="fa-cubes-opened">
-                    {" "}
-                    <FontAwesomeIcon
-                      icon={faSquareFull}
-                      spin
-                      size={"3x"}
-                    />{" "}
-                  </i>
+                  <PackageIcon size={24} className="loading-icon" />
                 ) : (
                   "Save Changes"
                 )}

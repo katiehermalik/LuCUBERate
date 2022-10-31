@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle, faSquareFull } from "@fortawesome/free-solid-svg-icons";
+import { XCircleFillIcon, PackageIcon } from "@primer/octicons-react";
+
 import {
   UserContext,
   CategoryContext,
@@ -187,8 +187,7 @@ const CubeNew = ({ history }) => {
                   : ""
               }>
               <option value="" disabled>
-                {" "}
-                -- select an option --{" "}
+                -- select an option --
               </option>
               <option value="New Category">New Category</option>
               {currentUserInfo?.categories?.map(category => (
@@ -387,14 +386,12 @@ const CubeNew = ({ history }) => {
                   </span>
                 )}
                 <span
-                  className=""
+                  className="delete-visual-aid"
                   type="button"
                   onClick={removeVisualAid}
                   title="Delete Visual Aid"
                   aria-label="Delete Visual Aid">
-                  <i className="prefix grey-text">
-                    <FontAwesomeIcon icon={faTimesCircle} />{" "}
-                  </i>
+                  <XCircleFillIcon size={16} />
                 </span>
               </>
             ) : null}
@@ -413,10 +410,7 @@ const CubeNew = ({ history }) => {
               type="submit"
               className="btn form-btn btn-warning">
               {isLoading ? (
-                <i className="fa-cubes-opened">
-                  {" "}
-                  <FontAwesomeIcon icon={faSquareFull} spin size={"3x"} />{" "}
-                </i>
+                <PackageIcon size={24} className="loading-icon" />
               ) : (
                 "Generate New Cube"
               )}

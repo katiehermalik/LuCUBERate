@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCubes } from "@fortawesome/free-solid-svg-icons";
+import { PackageIcon } from "@primer/octicons-react";
 
 const CubeCount = ({ categoryCubeLength, cubeListOpened }) => {
   return (
@@ -14,9 +13,7 @@ const CubeCount = ({ categoryCubeLength, cubeListOpened }) => {
         }`}>
         {categoryCubeLength}
       </span>
-      <i className={cubeListOpened ? "fa-cubes-opened" : "fa-cubes-closed"}>
-        <FontAwesomeIcon icon={faCubes} />
-      </i>
+      <PackageIcon size={16} className="cube-icon" />
     </>
   );
 };

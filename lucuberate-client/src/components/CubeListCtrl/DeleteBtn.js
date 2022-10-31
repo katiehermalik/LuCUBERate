@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { TrashIcon } from "@primer/octicons-react";
 import DeleteModal from "../DeleteModal";
 
 const DeleteBtn = ({ cubeId, categoryTitle, categoryId }) => {
@@ -24,9 +23,7 @@ const DeleteBtn = ({ cubeId, categoryTitle, categoryId }) => {
         onClick={handleOpenModal}
         title={cubeId ? "Delete Cube" : "Delete Category"}
         aria-label={cubeId ? "Delete Cube" : "Delete Category"}>
-        <i className="prefix grey-text">
-          <FontAwesomeIcon icon={faTrash} />
-        </i>
+        <TrashIcon size={16} />
       </button>
       <DeleteModal
         showModal={showModal}

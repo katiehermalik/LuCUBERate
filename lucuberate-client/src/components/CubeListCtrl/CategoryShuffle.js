@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { withRouter } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRandom } from "@fortawesome/free-solid-svg-icons";
+import { ArrowSwitchIcon } from "@primer/octicons-react";
 import { UserContext, CategoryContext } from "../../context/ContextProvider";
 import CategoryModel from "../../models/category";
 
@@ -13,7 +12,6 @@ const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
     e.stopPropagation();
     changeCubeListOpacity();
     CategoryModel.shuffle(currentCategory).then(data => {
-      console.log("DATA---->", data);
       setTimeout(() => {
         const indexOfCategory = currentUserInfo.categories.findIndex(
           category => category._id === data._id
@@ -21,7 +19,6 @@ const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
         currentUserInfo.categories[indexOfCategory] = data;
         setCurrentUserInfo(currentUserInfo);
         setCategoryWasShuffled(true);
-        console.log("Im off to re-render");
       }, 400);
     });
   };
@@ -34,9 +31,7 @@ const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
         onClick={handleShuffleCubes}
         title="Shuffle Cubes"
         aria-label="Shuffle Cubes">
-        <i className="prefix grey-text">
-          <FontAwesomeIcon icon={faRandom} />
-        </i>
+        <ArrowSwitchIcon size={16} />
       </button>
     </>
   );

@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { MailIcon, LockIcon } from "@primer/octicons-react";
 
 const Login = ({
   history,
@@ -103,15 +101,12 @@ const Login = ({
               </div>
               <form onSubmit={handleSubmit}>
                 <div className="modal-body mx-3">
-                  <div className="md-form mb-5">
+                  <div className="md-form mb-2">
                     <label
                       data-error="wrong"
                       data-success="right"
                       htmlFor="login-email">
-                      {" "}
-                      <i className="prefix grey-text">
-                        <FontAwesomeIcon icon={faEnvelope} />
-                      </i>{" "}
+                      <MailIcon size={16} className="label-icon" />
                       Email
                     </label>
                     <input
@@ -132,10 +127,7 @@ const Login = ({
                       data-error="wrong"
                       data-success="right"
                       htmlFor="login-pass">
-                      {" "}
-                      <i className="prefix grey-text">
-                        <FontAwesomeIcon icon={faLock} />
-                      </i>{" "}
+                      <LockIcon size={16} className="label-icon" />
                       Password
                     </label>
                     <input
