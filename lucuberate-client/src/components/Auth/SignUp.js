@@ -94,8 +94,8 @@ const SignUp = ({
           aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
-              <div className="modal-header text-center">
-                <h4 className="modal-title w-100 font-weight-bold">Sign up</h4>
+              <div className="modal-header">
+                <h4 className="modal-title">Sign up</h4>
                 <button
                   type="button"
                   onClick={closeModal}
@@ -106,8 +106,8 @@ const SignUp = ({
                 </button>
               </div>
               <form onSubmit={handleSubmit}>
-                <div className="modal-body mx-3">
-                  <div className="md-form mb-2">
+                <div className="modal-body">
+                  <div className="md-form">
                     <label
                       data-error="wrong"
                       data-success="right"
@@ -128,7 +128,7 @@ const SignUp = ({
                       <p style={errorStyle}>{newUserInfo.usernameError}</p>
                     )}
                   </div>
-                  <div className="md-form mb-2">
+                  <div className="md-form">
                     <label
                       data-error="wrong"
                       data-success="right"
@@ -149,7 +149,7 @@ const SignUp = ({
                       <p style={errorStyle}>{newUserInfo.emailError}</p>
                     )}
                   </div>
-                  <div className="md-form mb-2">
+                  <div className="md-form">
                     <label
                       data-error="wrong"
                       data-success="right"
@@ -191,8 +191,8 @@ const SignUp = ({
                     )}
                   </div>
                 </div>
-                <div className="modal-footer d-flex justify-content-center">
-                  <button type="submit" className="btn btn-secondary">
+                <div className="modal-footer">
+                  <button type="submit" className="form-btn btn-secondary">
                     Sign up
                   </button>
                   <hr size="2" width="70%" />

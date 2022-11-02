@@ -17,8 +17,8 @@ const EditBtn = ({
     <button
       className={
         pathname.match(/\b[\w=.]+$/g)[0] === "edit"
-          ? "button active cube-action-btn btn-ctrl"
-          : "button cube-action-btn btn-ctrl theme-transition"
+          ? "btn edit-btn active select-action-btn cube-action-btn"
+          : "btn edit-btn select-action-btn cube-action-btn theme-transition"
       }
       type="button"
       onClick={handleClick}

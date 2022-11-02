@@ -12,19 +12,19 @@ const Navbar = ({ user, auth }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
-    <nav className="nav-bar container-row theme-transition">
+    <nav className="navbar container-row theme-transition">
       {user && (
         <div className="container-row">
           {window.location.pathname !== "/" && (
             <>
-              <Link className="button navbar-item theme-transition" to="/">
+              <Link className="btn navbar-item theme-transition" to="/">
                 About LuCUBERate
               </Link>
             </>
           )}
           {window.location.pathname === "/" && (
             <Link
-              className="button navbar-item theme-transition"
+              className="btn navbar-item theme-transition"
               to="/dashboard">
               Back to dashboard
               <ChevronRightIcon size={16} />
@@ -51,7 +51,7 @@ const Navbar = ({ user, auth }) => {
       )}
       {user && (
         <div className="container-row">
-          <div className="navbar-item theme-transition">
+          <div className="navbar-item username theme-transition">
             {user.currentUser.username}
           </div>
           <Logout logout={auth} />

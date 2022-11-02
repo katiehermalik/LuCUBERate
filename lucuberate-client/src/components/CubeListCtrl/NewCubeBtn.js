@@ -13,7 +13,7 @@ const NewCubeBtn = () => {
     <Link tabIndex="-1" to="/dashboard/new">
       <button
         onClick={handleClick}
-        className="button header-btns btn-ctrl"
+        className="btn header-btns"
         type="button"
         value="Create New Cube"
         aria-label="Create New Cube">

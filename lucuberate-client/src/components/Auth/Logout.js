@@ -12,7 +12,7 @@ const Logout = ({ history, auth }) => {
   return (
     <form onSubmit={handleSubmit}>
       <button
-        className="button btn-ctrl navbar-item theme-transition"
+        className="btn navbar-item theme-transition"
         type="submit"
         title="log out">
         Log Out&ensp;

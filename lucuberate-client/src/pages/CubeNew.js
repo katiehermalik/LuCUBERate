@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { XCircleFillIcon, PackageIcon } from "@primer/octicons-react";
+import { XCircleFillIcon, PackageIcon, InfoIcon } from "@primer/octicons-react";
 
 import {
   UserContext,
@@ -151,6 +151,9 @@ const CubeNew = ({ history }) => {
   };
   const required = {
     color: "#ffc107",
+    fontSize: "24px",
+    lineHeight: "16px",
+    verticalAlign: "bottom",
   };
 
   return (
@@ -170,9 +173,9 @@ const CubeNew = ({ history }) => {
               categoryIsNew ? "col-md-5" : "col-md-11"
             }`}>
             <label htmlFor="category-dropdown">
-              Category <span style={required}>*</span>
+              Category&nbsp;<span style={required}>*</span>
               {categoryError && !categoryIsNew && !currentCategory && (
-                <span style={errorStyle}>{` ${categoryError}`}</span>
+                <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
               )}
             </label>
             <select
@@ -201,9 +204,9 @@ const CubeNew = ({ history }) => {
           {categoryIsNew && (
             <div className="form-group col-md-5">
               <label htmlFor="inputCategory">
-                New Category <span style={required}>*</span>
+                New Category&nbsp;<span style={required}>*</span>
                 {categoryError && !newCategory && (
-                  <span style={errorStyle}>{` ${categoryError}`}</span>
+                  <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
                 )}
               </label>
               <input
@@ -229,9 +232,9 @@ const CubeNew = ({ history }) => {
         <div className="form-row">
           <div className="form-group col-md-5">
             <label htmlFor="inputQuestion">
-              Question <span style={required}>*</span>
+              Question&nbsp;<span style={required}>*</span>
               {questionError && !question && (
-                <span style={errorStyle}>{` ${questionError}`}</span>
+                <span style={errorStyle}>&nbsp;{`${questionError}`}</span>
               )}
             </label>
             <textarea
@@ -254,9 +257,9 @@ const CubeNew = ({ history }) => {
           </div>
           <div className="form-group col-md-5">
             <label htmlFor="inputAnswer">
-              Answer <span style={required}>*</span>
+              Answer&nbsp;<span style={required}>*</span>
               {answerError && !answer && (
-                <span style={errorStyle}>{` ${answerError}`}</span>
+                <span style={errorStyle}>&nbsp;{`${answerError}`}</span>
               )}
             </label>
             <textarea
@@ -321,10 +324,10 @@ const CubeNew = ({ history }) => {
           </div>
         </div>
         <div className="form-row">
-          <div className="form-group col-md-3">
-            <label htmlFor="inputLink">Link</label>
+          <div className={link ? "form-group col-md-3" : "form-group col-md-5"}>
+            <label htmlFor="inputLink">Resource Link</label>
             <input
-              type="text"
+              type="url"
               className="form-control theme-transition"
               id="inputLink"
               placeholder="Link to a resource."
@@ -333,34 +336,37 @@ const CubeNew = ({ history }) => {
               onChange={e => setLink(e.target.value)}
             />
           </div>
-          <div className="form-group col-md-3">
-            <label htmlFor="inputAlias">Link Alias</label>
-            <input
-              type="text"
-              className="form-control theme-transition"
-              id="inputAlias"
-              placeholder="ex. 'Resource'"
-              maxLength="50"
-              name="link_alias"
-              value={link_alias}
-              onChange={e => {
-                setLinkAlias(e.target.value);
-                setLinkAliasCount(e.target.value.length);
-              }}
-            />
-            <div className="character-count" style={{ float: "right" }}>
-              <span className="currentCount">{linkAliasCount}</span>
-              <span className="maxCount">/ 50</span>
+          {link && (
+            <div className="form-group col-md-3">
+              <label htmlFor="inputAlias">
+                Link Text&nbsp;&nbsp;
+                <span
+                  className="info-icon"
+                  title="Use a descriptive phrase that provides context for the material you are linking to.">
+                  <InfoIcon size={16} />
+                </span>
+              </label>
+              <input
+                type="text"
+                className="form-control theme-transition"
+                id="inputAlias"
+                placeholder="ex. 'Article about education'"
+                maxLength="50"
+                name="link_alias"
+                value={link_alias}
+                onChange={e => {
+                  setLinkAlias(e.target.value);
+                  setLinkAliasCount(e.target.value.length);
+                }}
+              />
+              <div className="character-count" style={{ float: "right" }}>
+                <span className="currentCount">{linkAliasCount}</span>
+                <span className="maxCount">/ 50</span>
+              </div>
             </div>
-          </div>
-          <div className="form-group col-md-3">
+          )}
+          <div className={link ? "form-group col-md-3" : "form-group col-md-5"}>
             <div htmlFor="inputVisual">Visual Aid</div>
-            <label
-              tabIndex="0"
-              className="btn custom-file-upload theme-transition"
-              htmlFor="inputVisual">
-              Upload
-            </label>
             <input
               ref={visualAidInputRef}
               type="file"
@@ -370,6 +376,9 @@ const CubeNew = ({ history }) => {
               name="visual_aid"
               onChange={checkFileExtention}
             />
+            <label className="btn theme-transition" htmlFor="inputVisual">
+              Upload
+            </label>
             {visual_aid && visualAidError && (
               <div style={errorStyle}>{`${visualAidError}`}</div>
             )}
@@ -385,14 +394,14 @@ const CubeNew = ({ history }) => {
                     {visual_aid.name}{" "}
                   </span>
                 )}
-                <span
+                <button
                   className="delete-visual-aid"
                   type="button"
                   onClick={removeVisualAid}
                   title="Delete Visual Aid"
                   aria-label="Delete Visual Aid">
                   <XCircleFillIcon size={16} />
-                </span>
+                </button>
               </>
             ) : null}
           </div>
@@ -408,7 +417,7 @@ const CubeNew = ({ history }) => {
             <button
               disabled={isLoading ? true : false}
               type="submit"
-              className="btn form-btn btn-warning">
+              className="btn form-btn btn-primary">
               {isLoading ? (
                 <PackageIcon size={24} className="loading-icon" />
               ) : (

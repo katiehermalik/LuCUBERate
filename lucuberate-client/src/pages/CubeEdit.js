@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
-import { XCircleFillIcon, PackageIcon } from "@primer/octicons-react";
+import { XCircleFillIcon, PackageIcon, InfoIcon } from "@primer/octicons-react";
 
 import CubeModel from "../models/cube";
 import UserModel from "../models/user";
@@ -54,8 +54,12 @@ function CubeEdit({
   const [categoryIsNew, setCategoryIsNew] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // TODO - give the user a warning that if they are moving the last cube of a category to a new or other existing category, the category they are moving it from will be deleted.
+
   const updateCube = async () => {
+    console.log("formData", formData);
     const data = await CubeModel.update(formData, cubeId);
+    console.log("data", data);
     if (data.cubeError) {
       setIsLoading(false);
       data.question === "" && setQuestionError("Required");
@@ -75,6 +79,7 @@ function CubeEdit({
   };
 
   useEffect(() => {
+    console.log(categoryIsNew);
     (async function () {
       const data = await CubeModel.getOne(cubeId);
       setQuestion(data.cube.question);
@@ -95,7 +100,7 @@ function CubeEdit({
     } else {
       setCategoryIsNew(false);
     }
-  }, [cubeId, currentCategory, new_visual_aid]);
+  }, [cubeId, currentCategory, new_visual_aid, categoryIsNew]);
 
   const collectCubeFormData = categoryId => {
     formData = new FormData(document.getElementById("cube-edit-form"));
@@ -175,6 +180,9 @@ function CubeEdit({
 
   const required = {
     color: "#ffc107",
+    fontSize: "24px",
+    lineHeight: "16px",
+    verticalAlign: "bottom",
   };
 
   return (
@@ -195,9 +203,9 @@ function CubeEdit({
                 categoryIsNew ? "col-md-5" : "col-md-11"
               }`}>
               <label htmlFor="category-dropdown">
-                Category <span style={required}>*</span>
+                Category&nbsp;<span style={required}>*</span>
                 {categoryError && !categoryIsNew && !currentCategory && (
-                  <span style={errorStyle}>{` ${categoryError}`}</span>
+                  <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
                 )}
               </label>
               <select
@@ -227,9 +235,9 @@ function CubeEdit({
             {categoryIsNew && (
               <div className="form-group col-md-5">
                 <label htmlFor="inputCategory">
-                  New Category <span style={required}>*</span>
+                  New Category&nbsp;<span style={required}>*</span>
                   {categoryError && !newCategory && (
-                    <span style={errorStyle}>{` ${categoryError}`}</span>
+                    <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
                   )}
                 </label>
                 <input
@@ -255,9 +263,9 @@ function CubeEdit({
           <div className="form-row">
             <div className="form-group col-md-5">
               <label htmlFor="inputQuestion">
-                Question <span style={required}>*</span>
+                Question&nbsp;<span style={required}>*</span>
                 {questionError && !question && (
-                  <span style={errorStyle}>{` ${questionError}`}</span>
+                  <span style={errorStyle}>&nbsp;{`${questionError}`}</span>
                 )}
               </label>
               <textarea
@@ -280,9 +288,9 @@ function CubeEdit({
             </div>
             <div className="form-group col-md-5">
               <label htmlFor="inputAnswer">
-                Answer <span style={required}>*</span>
+                Answer&nbsp;<span style={required}>*</span>
                 {answerError && !answer && (
-                  <span style={errorStyle}>{` ${answerError}`}</span>
+                  <span style={errorStyle}>&nbsp;{`${answerError}`}</span>
                 )}
               </label>
               <textarea
@@ -347,10 +355,12 @@ function CubeEdit({
             </div>
           </div>
           <div className="form-row">
-            <div className="form-group col-md-3">
-              <label htmlFor="inputLink">Link</label>
+            {/* TODO - validate url using URL Constructor */}
+            <div
+              className={link ? "form-group col-md-3" : "form-group col-md-5"}>
+              <label htmlFor="inputLink">Resource Link</label>
               <input
-                type="text"
+                type="url"
                 className="form-control theme-transition"
                 id="inputLink"
                 placeholder="Link to a resource."
@@ -359,34 +369,40 @@ function CubeEdit({
                 onChange={e => setLink(e.target.value)}
               />
             </div>
-            <div className="form-group col-md-3">
-              <label htmlFor="inputAlias">Link Alias</label>
-              <input
-                type="text"
-                className="form-control theme-transition"
-                id="inputAlias"
-                placeholder="ex. 'Resource'"
-                maxLength="50"
-                name="link_alias"
-                value={link_alias || ""}
-                onChange={e => {
-                  setLinkAlias(e.target.value);
-                  setLinkAliasCount(e.target.value.length);
-                }}
-              />
-              <div className="character-count" style={{ float: "right" }}>
-                <span className="currentCount">{linkAliasCount}</span>
-                <span className="maxCount">/ 50</span>
+            {/* TODO - add multiple resource links functionality */}
+            {link && (
+              <div className="form-group col-md-3">
+                <label htmlFor="inputAlias">
+                  Link Text&nbsp;&nbsp;
+                  <span
+                    className="info-icon"
+                    title="Use a descriptive phrase that provides context for the material you are linking to.">
+                    <InfoIcon size={16} />
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control theme-transition"
+                  id="inputAlias"
+                  placeholder="ex. 'Article about education'"
+                  maxLength="50"
+                  name="link_alias"
+                  value={link_alias || ""}
+                  onChange={e => {
+                    setLinkAlias(e.target.value);
+                    setLinkAliasCount(e.target.value.length);
+                  }}
+                />
+                <div className="character-count" style={{ float: "right" }}>
+                  <span className="currentCount">{linkAliasCount}</span>
+                  <span className="maxCount">/ 50</span>
+                </div>
               </div>
-            </div>
-            <div className="form-group col-md-3">
+            )}
+
+            <div
+              className={link ? "form-group col-md-3" : "form-group col-md-5"}>
               <div htmlFor="inputVisual">Visual Aid</div>
-              <label
-                tabIndex="0"
-                className="btn custom-file-upload theme-transition"
-                htmlFor="inputVisual">
-                {visual_aid ? "Upload New" : "Upload"}
-              </label>
               <input
                 ref={visualAidInputRef}
                 type="file"
@@ -396,6 +412,9 @@ function CubeEdit({
                 name="visual_aid"
                 onChange={checkFileExtention}
               />
+              <label className="btn theme-transition" htmlFor="inputVisual">
+                {visual_aid ? "Upload New" : "Upload"}
+              </label>
               {new_visual_aid && visualAidError && (
                 <div style={errorStyle}>{`${visualAidError}`}</div>
               )}
@@ -411,16 +430,14 @@ function CubeEdit({
                       {new_visual_aid.name}{" "}
                     </span>
                   )}
-                  <span
-                    tabIndex="0"
-                    role="button"
+                  <button
                     className="delete-visual-aid"
                     type="button"
                     onClick={removeVisualAid}
                     title="Delete Visual Aid"
                     aria-label="Delete Visual Aid">
                     <XCircleFillIcon size={16} />
-                  </span>
+                  </button>
                 </>
               ) : visual_aid ? (
                 <div className="visual-aid-preview-container">
@@ -429,18 +446,19 @@ function CubeEdit({
                     alt="visual aid"
                     className="visual-aid-preview"
                   />
-                  <span
-                    tabIndex="0"
-                    role="button"
+                  <button
                     className="delete-saved-visual-aid"
                     type="button"
                     onClick={removeSavedVisualAid}
                     title="Delete Visual Aid"
                     aria-label="Delete Visual Aid">
                     <XCircleFillIcon size={24} />
-                  </span>
+                  </button>
                 </div>
               ) : null}
+              {/* TODO - compress visual aid size */}
+              {/* TODO - make sure visual aid is deleted from AWS S3 Bucket */}
+              {/* TODO - fix error that happens when you have an upload already waiting, then you click upload again, but cancel at the file browser screen */}
             </div>
           </div>
           <div className="form-buttons form-row">
@@ -457,7 +475,7 @@ function CubeEdit({
               <button
                 disabled={isLoading ? true : false}
                 type="submit"
-                className="btn form-btn btn-warning">
+                className="btn form-btn btn-primary">
                 {isLoading ? (
                   <PackageIcon size={24} className="loading-icon" />
                 ) : (

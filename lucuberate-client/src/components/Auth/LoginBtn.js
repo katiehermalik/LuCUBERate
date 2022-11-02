@@ -18,7 +18,7 @@ const LoginBtn = ({
       <button
         type="button"
         onClick={handleOpenModal}
-        className="nav-item navbar-item nav-link"
+        className="btn nav-item navbar-item nav-link"
         aria-label="login">
         Login
       </button>

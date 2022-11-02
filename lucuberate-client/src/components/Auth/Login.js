@@ -88,8 +88,8 @@ const Login = ({
           aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
-              <div className="modal-header text-center">
-                <h4 className="modal-title w-100 font-weight-bold">Login</h4>
+              <div className="modal-header">
+                <h4 className="modal-title">Login</h4>
                 <button
                   type="button"
                   onClick={closeModal}
@@ -100,8 +100,8 @@ const Login = ({
                 </button>
               </div>
               <form onSubmit={handleSubmit}>
-                <div className="modal-body mx-3">
-                  <div className="md-form mb-2">
+                <div className="modal-body">
+                  <div className="md-form">
                     <label
                       data-error="wrong"
                       data-success="right"
@@ -145,8 +145,8 @@ const Login = ({
                     )}
                   </div>
                 </div>
-                <div className="modal-footer d-flex justify-content-center">
-                  <button type="submit" className="btn btn-secondary">
+                <div className="modal-footer">
+                  <button type="submit" className="form-btn btn-secondary">
                     Login
                   </button>
                   <hr size="2" width="70%" />

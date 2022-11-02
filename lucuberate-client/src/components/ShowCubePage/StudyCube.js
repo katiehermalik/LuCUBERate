@@ -73,19 +73,17 @@ const StudyCube = props => {
                     </div>
                   )}
                 </div>
-                <div className="face Link theme-transition">
+                <div className="face Answer theme-transition">
                   <div
-                    className={`face-title ${side === "Link" ? "" : "blur"}`}>
-                    Link
+                    className={`face-title ${side === "Answer" ? "" : "blur"}`}>
+                    Answer
                   </div>
-                  {cube.link && (
+                  {cube.answer && (
                     <div
                       className={`face-content ${
-                        side === "Link" ? "" : "blur"
+                        side === "Answer" ? "" : "blur"
                       }`}>
-                      <a rel="noreferrer" target="_blank" href={cube.link}>
-                        {cube.link_alias}
-                      </a>
+                      {cube.answer}
                     </div>
                   )}
                 </div>
@@ -139,17 +137,19 @@ const StudyCube = props => {
                     </a>
                   )}
                 </div>
-                <div className="face Answer theme-transition">
+                <div className="face Link theme-transition">
                   <div
-                    className={`face-title ${side === "Answer" ? "" : "blur"}`}>
-                    Answer
+                    className={`face-title ${side === "Link" ? "" : "blur"}`}>
+                    Link
                   </div>
-                  {cube.answer && (
+                  {cube.link && (
                     <div
                       className={`face-content ${
-                        side === "Answer" ? "" : "blur"
+                        side === "Link" ? "" : "blur"
                       }`}>
-                      {cube.answer}
+                      <a rel="noreferrer" target="_blank" href={cube.link}>
+                        {cube.link_alias}
+                      </a>
                     </div>
                   )}
                 </div>

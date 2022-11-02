@@ -203,7 +203,8 @@ const CubeList = ({
           break;
       }
       foundCubeRef?.ref.scrollIntoView({
-        block: "nearest",
+        behavior: "smooth",
+        block: "center",
       });
     },
     [
@@ -299,6 +300,7 @@ const CubeList = ({
   //====================================================================================//
 
   const handleCategoryClick = e => {
+    e.stopPropagation();
     e.preventDefault();
     const {
       target: { nextElementSibling: categoryCubeList },

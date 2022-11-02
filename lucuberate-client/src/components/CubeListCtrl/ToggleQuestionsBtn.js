@@ -15,7 +15,7 @@ const ToggleQuestionsBtn = () => {
 
   return (
     <button
-      className="button header-btns btn-ctrl"
+      className="btn header-btns"
       type="button"
       onClick={toggleQuestions}
       aria-label={questionsAreVisible ? "Hide Questions" : "Show Questions"}>

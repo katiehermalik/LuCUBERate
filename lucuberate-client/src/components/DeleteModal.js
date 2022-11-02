@@ -23,26 +23,27 @@ const DeleteModal = ({
   const { setCurrentCategory } = useContext(CategoryContext);
 
   const closeModal = e => {
+    e.nativeEvent.stopImmediatePropagation();
     e.stopPropagation();
+    e.preventDefault();
     setShowModal(false);
   };
 
-  const handleDeleteCategory = e => {
+  const handleDeleteCategory = async e => {
     e.stopPropagation();
-    CategoryModel.delete(categoryId).then(data => {
-      UserModel.allCubesAndCategories(currentUserInfo.user_id).then(
-        categoriesAndCubes => {
-          setCurrentCubeId("");
-          setCurrentCategory(null);
-          setCurrentUserInfo({
-            ...categoriesAndCubes,
-            user_id: currentUserInfo.user_id,
-          });
-        }
-      );
-      history.push("/dashboard");
+    await history.push("/dashboard");
+    await CategoryModel.delete(categoryId);
+    const categoriesAndCubes = await UserModel.allCubesAndCategories(
+      currentUserInfo.user_id
+    );
+    setCurrentCubeId("");
+    setCurrentCategory(null);
+    setCurrentUserInfo({
+      ...categoriesAndCubes,
+      user_id: currentUserInfo.user_id,
     });
   };
+
   const handleDeleteCube = async e => {
     e.stopPropagation();
     await history.push("/dashboard");
@@ -61,6 +62,8 @@ const DeleteModal = ({
     <>
       {showModal && (
         <div
+          onClick={e => e.stopPropagation()}
+          onMouseDown={e => e.stopPropagation()}
           className="modal"
           id="deleteConfirmModal"
           tabIndex="-1"
@@ -69,12 +72,15 @@ const DeleteModal = ({
           aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
+              <div
+                className="modal-header"
+                onClick={e => e.stopPropagation()}
+                onMouseDown={e => e.stopPropagation()}>
+                <h4 className="modal-title" id="exampleModalLabel">
                   {type === "category"
                     ? `Delete '${categoryTitle}' Category`
                     : "Delete Cube"}
-                </h5>
+                </h4>
                 <button
                   type="button"
                   onClick={closeModal}
@@ -84,17 +90,29 @@ const DeleteModal = ({
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body">
-                {type === "category"
-                  ? "Are you sure you want to delete this category? All the cubes within this category will be deleted as well."
-                  : "Are you sure you want to delete this cube?"}
+              <div
+                className="modal-body"
+                onClick={e => e.stopPropagation()}
+                onMouseDown={e => e.stopPropagation()}>
+                {type === "category" ? (
+                  <>
+                    Are you sure you want to delete this category?
+                    <br />
+                    All the cubes within this category will be deleted as well.
+                  </>
+                ) : (
+                  "Are you sure you want to delete this cube?"
+                )}
               </div>
-              <div className="modal-footer delete">
+              <div
+                className="modal-footer"
+                onClick={e => e.stopPropagation()}
+                onMouseDown={e => e.stopPropagation()}>
                 <input
                   type="button"
                   value="Cancel"
                   onClick={closeModal}
-                  className="btn btn-secondary"
+                  className="form-btn btn-secondary"
                 />
                 <input
                   onClick={
@@ -104,7 +122,7 @@ const DeleteModal = ({
                   }
                   type="button"
                   value="Delete"
-                  className="btn btn-danger"
+                  className="form-btn btn-danger"
                 />
               </div>
             </div>
