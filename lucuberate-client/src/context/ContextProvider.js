@@ -6,6 +6,7 @@ export const CategoryContext = createContext(null);
 export const CubeContext = createContext(null);
 export const QuestionsContext = createContext(null);
 export const ThemeContext = createContext(null);
+export const CategoryListContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
   const [currentUserInfo, setCurrentUserInfo] = useState({});
@@ -13,6 +14,7 @@ const ContextProvider = ({ children }) => {
   const [currentCubeId, setCurrentCubeId] = useState("");
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
+  const [showCategoryList, setShowCategoryList] = useState(true);
 
   useEffect(() => {
     if (window.localStorage.user) {
@@ -27,15 +29,18 @@ const ContextProvider = ({ children }) => {
   return (
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
       <UserContext.Provider value={{ currentUserInfo, setCurrentUserInfo }}>
-        <CategoryContext.Provider
-          value={{ currentCategory, setCurrentCategory }}>
-          <CubeContext.Provider value={{ currentCubeId, setCurrentCubeId }}>
-            <QuestionsContext.Provider
-              value={{ questionsAreVisible, setQuestionsAreVisible }}>
-              {children}
-            </QuestionsContext.Provider>
-          </CubeContext.Provider>
-        </CategoryContext.Provider>
+        <CategoryListContext.Provider
+          value={{ showCategoryList, setShowCategoryList }}>
+          <CategoryContext.Provider
+            value={{ currentCategory, setCurrentCategory }}>
+            <CubeContext.Provider value={{ currentCubeId, setCurrentCubeId }}>
+              <QuestionsContext.Provider
+                value={{ questionsAreVisible, setQuestionsAreVisible }}>
+                {children}
+              </QuestionsContext.Provider>
+            </CubeContext.Provider>
+          </CategoryContext.Provider>
+        </CategoryListContext.Provider>
       </UserContext.Provider>
     </ThemeContext.Provider>
   );

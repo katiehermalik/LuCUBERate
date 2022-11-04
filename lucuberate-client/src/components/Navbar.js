@@ -6,6 +6,7 @@ import SignUpBtn from "./Auth/SignUpBtn";
 import LoginBtn from "./Auth/LoginBtn";
 import Logout from "./Auth/Logout";
 import ThemeSwitch from "./ThemeSwitch";
+import CategoryListToggle from "./CubeListCtrl/CategoryListToggle";
 
 const Navbar = ({ user, auth }) => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
@@ -17,20 +18,20 @@ const Navbar = ({ user, auth }) => {
         <div className="container-row">
           {window.location.pathname !== "/" && (
             <>
+              <div className="mobile-hidden">
+                <CategoryListToggle />
+              </div>
               <Link className="btn navbar-item theme-transition" to="/">
                 About LuCUBERate
               </Link>
             </>
           )}
           {window.location.pathname === "/" && (
-            <Link
-              className="btn navbar-item theme-transition"
-              to="/dashboard">
+            <Link className="btn navbar-item theme-transition" to="/dashboard">
               Back to dashboard
               <ChevronRightIcon size={16} />
             </Link>
           )}
-          <ThemeSwitch />
         </div>
       )}
       {!user && (
@@ -50,11 +51,19 @@ const Navbar = ({ user, auth }) => {
         </div>
       )}
       {user && (
-        <div className="container-row">
-          <div className="navbar-item username theme-transition">
+        <div className="container-row dropdown theme-transition">
+          <button className="navbar-item username theme-transition dropbtn">
             {user.currentUser.username}
+          </button>
+          <div className="dropdown-content theme-transition">
+            <div className="dropdown-item theme-transition">
+              <p>Theme</p>
+              <ThemeSwitch />
+            </div>
+            <div className="dropdown-item theme-transition">
+              <Logout logout={auth} />
+            </div>
           </div>
-          <Logout logout={auth} />
         </div>
       )}
     </nav>

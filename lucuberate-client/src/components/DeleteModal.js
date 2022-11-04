@@ -62,8 +62,8 @@ const DeleteModal = ({
     <>
       {showModal && (
         <div
-          onClick={e => e.stopPropagation()}
-          onMouseDown={e => e.stopPropagation()}
+          onClick={closeModal}
+          onMouseDown={closeModal}
           className="modal"
           id="deleteConfirmModal"
           tabIndex="-1"

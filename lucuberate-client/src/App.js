@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { ThemeContext } from "./context/ContextProvider";
 import Navbar from "./components/Navbar";
+import NavbarMobile from "./components/NavbarMobile";
 import Dashboard from "./components/Dashboard";
 import UnAuthRoutes from "./config/UnAuthRoutes";
 import "./App.css";
@@ -34,6 +35,9 @@ const App = () => {
       <Navbar auth={auth} user={currentUser} />
       <UnAuthRoutes />
       {window.location.pathname !== "/" && <Dashboard user={currentUser} />}
+      <div className="mobile-only">
+        <NavbarMobile auth={auth} user={currentUser} />
+      </div>
     </div>
   );
 };

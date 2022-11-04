@@ -1,13 +1,20 @@
-import React from "react";
-import CubeList from "./CubeList";
+import React, { useContext } from "react";
+import { CategoryListContext } from "../../context/ContextProvider";
 import CubeHeader from "./CubeHeader";
+import CubeList from "./CubeList";
 
 function CubeListCtrl() {
+  const { showCategoryList } = useContext(CategoryListContext);
+
   return (
-    <div className="cube-list-ctrl container-column theme-transition">
-      <CubeHeader />
-      <CubeList />
-    </div>
+    <>
+      {showCategoryList && (
+        <div className="cube-list-ctrl container-column theme-transition">
+          <CubeHeader />
+          <CubeList />
+        </div>
+      )}
+    </>
   );
 }
 

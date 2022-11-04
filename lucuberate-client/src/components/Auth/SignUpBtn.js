@@ -18,7 +18,7 @@ const SignUpBtn = ({
       <button
         type="button"
         onClick={handleOpenModal}
-        className="btn nav-item navbar-item nav-link"
+        className="btn navbar-item nav-link"
         aria-label="sign up">
         Sign Up
       </button>
