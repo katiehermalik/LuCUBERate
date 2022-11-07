@@ -15,7 +15,8 @@ const CategoryListToggle = () => {
       type="button"
       onClick={handleOpenCategoryList}
       className="btn navbar-item nav-link"
-      aria-label="sign up">
+      title={showCategoryList ? "Hide category list" : "Show category list"}
+      aria-label={showCategoryList ? "Hide category list" : "Show category list"}>
       {showCategoryList ? <XIcon size={16} /> : <ThreeBarsIcon size={16} />}
     </button>
   );

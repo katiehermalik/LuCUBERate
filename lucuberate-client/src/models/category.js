@@ -15,7 +15,6 @@ class CategoryModel {
   }
 
   static create(newCategory) {
-    console.log("newCategory REQ.body before fetch call---->", newCategory);
     return fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

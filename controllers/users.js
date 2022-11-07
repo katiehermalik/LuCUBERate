@@ -5,13 +5,7 @@ const show = (req, res) => {
     .populate("categories")
     .populate("cubes")
     .then(popUser => {
-      // popUser.cubes.populate('cubes')
-      // .then((populatedUser)=> {
-      res.json({
-        cubes: popUser.cubes,
-        categories: popUser.categories,
-      });
-      // })
+      res.json(popUser);
     })
     .catch(err => {
       console.log("Unable to populate cubes for user in cubes.create:", err);

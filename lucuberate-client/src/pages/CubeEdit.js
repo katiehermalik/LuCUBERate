@@ -57,9 +57,7 @@ function CubeEdit({
   // TODO - give the user a warning that if they are moving the last cube of a category to a new or other existing category, the category they are moving it from will be deleted.
 
   const updateCube = async () => {
-    console.log("formData", formData);
     const data = await CubeModel.update(formData, cubeId);
-    console.log("data", data);
     if (data.cubeError) {
       setIsLoading(false);
       data.question === "" && setQuestionError("Required");
@@ -79,7 +77,6 @@ function CubeEdit({
   };
 
   useEffect(() => {
-    console.log(categoryIsNew);
     (async function () {
       const data = await CubeModel.getOne(cubeId);
       setQuestion(data.cube.question);

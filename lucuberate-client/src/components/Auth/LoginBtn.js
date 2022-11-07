@@ -2,7 +2,6 @@ import { withRouter } from "react-router-dom";
 import Login from "./Login";
 
 const LoginBtn = ({
-  auth,
   showLoginModal,
   setShowLoginModal,
   setShowSignUpModal,
@@ -10,7 +9,6 @@ const LoginBtn = ({
   const handleOpenModal = e => {
     e.stopPropagation();
     setShowLoginModal(true);
-    console.log("opening login modal");
   };
 
   return (
@@ -23,7 +21,6 @@ const LoginBtn = ({
         Login
       </button>
       <Login
-        auth={auth}
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}
         setShowSignUpModal={setShowSignUpModal}

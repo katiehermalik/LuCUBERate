@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { ChevronRightIcon } from "@primer/octicons-react";
 
@@ -8,9 +8,30 @@ import Logout from "./Auth/Logout";
 import ThemeSwitch from "./ThemeSwitch";
 import CategoryListToggle from "./CubeListCtrl/CategoryListToggle";
 
-const Navbar = ({ user, auth }) => {
+const Navbar = ({ user }) => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const userBtnRef = useRef();
+
+  useEffect(() => {
+    const closeUserMenu = e => {
+      if (
+        userBtnRef.current &&
+        (!userBtnRef.current.contains(e.target) ||
+          userBtnRef.current === e.target)
+      ) {
+        setShowUserMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", closeUserMenu);
+  }, []);
+
+  const toggleUserMenu = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowUserMenu(prevState => !prevState);
+  };
 
   return (
     <nav className="navbar container-row theme-transition">
@@ -37,13 +58,11 @@ const Navbar = ({ user, auth }) => {
       {!user && (
         <div className="signup-login container-row">
           <SignUpBtn
-            auth={auth}
             showSignUpModal={showSignUpModal}
             setShowSignUpModal={setShowSignUpModal}
             setShowLoginModal={setShowLoginModal}
           />
           <LoginBtn
-            auth={auth}
             showLoginModal={showLoginModal}
             setShowLoginModal={setShowLoginModal}
             setShowSignUpModal={setShowSignUpModal}
@@ -51,19 +70,25 @@ const Navbar = ({ user, auth }) => {
         </div>
       )}
       {user && (
-        <div className="container-row dropdown theme-transition">
-          <button className="navbar-item username theme-transition dropbtn">
-            {user.currentUser.username}
+        <div
+          ref={userBtnRef}
+          className="container-row dropdown theme-transition">
+          <button
+            onClick={toggleUserMenu}
+            className="navbar-item username theme-transition dropbtn">
+            {user.username}
           </button>
-          <div className="dropdown-content theme-transition">
-            <div className="dropdown-item theme-transition">
-              <p>Theme</p>
-              <ThemeSwitch />
+          {showUserMenu && (
+            <div className="dropdown-content theme-transition">
+              <div className="dropdown-item theme-transition">
+                <p>Theme</p>
+                <ThemeSwitch />
+              </div>
+              <div className="dropdown-item theme-transition">
+                <Logout toggleUserMenu={toggleUserMenu} />
+              </div>
             </div>
-            <div className="dropdown-item theme-transition">
-              <Logout logout={auth} />
-            </div>
-          </div>
+          )}
         </div>
       )}
     </nav>

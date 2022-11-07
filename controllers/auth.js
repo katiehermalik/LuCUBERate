@@ -43,22 +43,24 @@ const signup = (req, res, next) => {
 
 const login = (req, res) => {
   User.findOne({ email: req.body.email })
-    .then(user => {
-      if (!user) {
+    .populate("categories")
+    .populate("cubes")
+    .then(popUser => {
+      if (!popUser) {
         return res.json({ userError: "User email not found" });
       } else {
         bcrypt
-          .compare(req.body.password, user.password)
+          .compare(req.body.password, popUser.password)
           .then(isMatch => {
             if (!isMatch) {
               return res.json({ matchError: "Incorrect password" });
             } else {
               req.session.isLoggedIn = true;
-              req.session.currentUser = user._id;
+              req.session.currentUser = popUser._id;
               return res.json({
                 isLoggedIn: req.session.isLoggedIn,
                 user_Id: req.session.currentUser,
-                currentUser: user,
+                currentUser: popUser,
               });
             }
           })

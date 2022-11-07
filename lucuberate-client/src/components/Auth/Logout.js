@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { SignOutIcon } from "@primer/octicons-react";
+import { UserContext } from "../../context/ContextProvider";
 
-const Logout = ({ history, auth }) => {
-  const handleSubmit = event => {
-    history.push("/");
+const Logout = ({ history, toggleUserMenu }) => {
+  const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
+
+  const handleSubmit = e => {
+    setCurrentUserInfo(null);
     localStorage.clear();
-    auth({});
+    history.push("/");
+    // toggleUserMenu(e);
   };
 
   return (

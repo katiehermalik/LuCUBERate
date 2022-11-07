@@ -68,13 +68,11 @@ const destroy = (req, res) => {
   db.Category.findByIdAndDelete(req.params.id).then(deletedCategory => {
     deletedCategory.cubes.map(cube => {
       db.Cube.findByIdAndDelete(cube._id).then(deletedCube => {
-        console.log("deleted cube------->", deletedCube);
         if (deletedCube.visual_aid) {
           s3.deleteObject(
             { Bucket: "lucuberatebucket", Key: deletedCube.visual_aid },
             (err, data) => {
               console.error("err", err);
-              console.log("data", data);
             }
           );
         }

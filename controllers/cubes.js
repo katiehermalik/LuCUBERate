@@ -34,7 +34,6 @@ const show = (req, res) => {
 
 // Creates New Cube and saves cube Id to current user
 const create = (req, res) => {
-  console.log("new cube from req.body", req.body);
   const newCube = {
     question: req.body.question,
     answer: req.body.answer,
@@ -49,16 +48,12 @@ const create = (req, res) => {
 
   db.Cube.create(newCube)
     .then(createdCube => {
-      console.log("User ID", newCube.user);
       db.User.findById(newCube.user).then(foundUser => {
-        console.log("foundUser------->", foundUser);
         foundUser.cubes.push(createdCube._id);
         foundUser.save().then(savedUser => {
           db.Category.findById(req.body.category).then(foundCategory => {
-            console.log("foundCategory------->", foundCategory);
             foundCategory.cubes.push(createdCube._id);
             foundCategory.save().then(savedCategory => {
-              console.log("createdCube", createdCube);
               res.json({
                 cube: createdCube,
                 category: foundCategory,
@@ -80,7 +75,6 @@ const create = (req, res) => {
 };
 
 const update = (req, res) => {
-  console.log("req.body", req.body);
   const changedCube = {
     question: req.body.question,
     answer: req.body.answer,
@@ -98,17 +92,16 @@ const update = (req, res) => {
   }
   if (changedCube.question && changedCube.answer && changedCube.category) {
     db.Cube.findById(req.params.id).then(foundCube => {
-      console.log(req.file);
-      console.log(foundCube.visual_aid);
-      console.log(changedCube.visual_aid);
-      console.log(changedCube.removingVisualAid);
+      // console.log(req.file);
+      // console.log(foundCube.visual_aid);
+      // console.log(changedCube.visual_aid);
+      // console.log(changedCube.removingVisualAid);
       if (!req.file && changedCube.removingVisualAid === "true") {
         changedCube.visual_aid = "";
         s3.deleteObject(
           { Bucket: "lucuberatebucket", Key: foundCube.visual_aid },
           (err, data) => {
             console.error("err", err);
-            console.log("data", data);
           }
         );
       }
@@ -168,9 +161,6 @@ const update = (req, res) => {
           new: true,
         }).then(updatedCube => {
           db.Category.findById(req.body.category).then(foundCategory => {
-            console.log("Category Stayed the Same!!!!");
-            console.log("updateCube", updatedCube);
-            console.log("foundCategory", foundCategory);
             res.json({
               cube: updatedCube,
               category: foundCategory,
@@ -198,7 +188,6 @@ const destroy = (req, res) => {
         { Bucket: "lucuberatebucket", Key: deletedCube.visual_aid },
         (err, data) => {
           console.error(err);
-          console.log(data);
         }
       );
       // fs.unlinkSync(deletedCube.visual_aid)

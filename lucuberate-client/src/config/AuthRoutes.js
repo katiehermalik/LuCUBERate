@@ -10,11 +10,7 @@ const AllAuthenticatedRoutes = ({ user }) => {
     <div className="pages">
       {user && (
         <Switch>
-          <Route
-            exact
-            path="/dashboard"
-            render={() => <Instructions user={user} />}
-          />
+          <Route exact path="/dashboard" render={() => <Instructions />} />
           <Route exact path="/dashboard/new" component={CubeNew} />
           <Route exact path="/dashboard/:id" component={CubeShow} />
           <Route exact path="/dashboard/:id/edit" component={CubeEdit} />

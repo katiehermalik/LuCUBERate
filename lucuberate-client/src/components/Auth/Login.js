@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState, useContext, useEffect, useLayoutEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
 import { MailIcon, LockIcon } from "@primer/octicons-react";
+import { UserContext } from "../../context/ContextProvider";
 
 const Login = ({
   history,
-  auth,
   showLoginModal,
   setShowLoginModal,
   setShowSignUpModal,
 }) => {
+  const { setCurrentUserInfo } = useContext(UserContext);
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
@@ -36,39 +37,31 @@ const Login = ({
     }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log(userInput);
-    UserModel.login(userInput).then(data => {
-      console.log("DATA", data);
-      if (data.userError) {
+    const data = await UserModel.login(userInput);
+    if (data.userError) {
+      setUserInput(prevState => ({
+        ...prevState,
+        userError: data.userError,
+      }));
+    } else if (data.matchError) {
+      setUserInput(prevState => ({
+        ...prevState,
+        matchError: data.matchError,
+      }));
+      if (data.userError === undefined) {
         setUserInput(prevState => ({
           ...prevState,
-          userError: data.userError,
+          userError: "",
         }));
-      } else if (data.matchError) {
-        setUserInput(prevState => ({
-          ...prevState,
-          matchError: data.matchError,
-        }));
-        if (data.userError === undefined) {
-          setUserInput(prevState => ({
-            ...prevState,
-            userError: "",
-          }));
-        }
-      } else {
-        setUserInput(data);
-        // Passing currentUser info to parent component (App.js)
-        auth(data);
-        localStorage.setItem("user", JSON.stringify(data));
-        if (data.currentUser) {
-          history.push("/dashboard");
-          window.location.reload();
-        }
-        console.log("This is the response from the user Model", data);
       }
-    });
+    } else {
+      localStorage.setItem("user", JSON.stringify(data));
+      setCurrentUserInfo(data.currentUser);
+      history.push("/dashboard");
+      window.location.reload();
+    }
   };
 
   const errorStyle = {

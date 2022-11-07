@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from "react";
-import UserModel from "../models/user";
 
 export const UserContext = createContext(null);
 export const CategoryContext = createContext(null);
@@ -9,7 +8,9 @@ export const ThemeContext = createContext(null);
 export const CategoryListContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
-  const [currentUserInfo, setCurrentUserInfo] = useState({});
+  const [currentUserInfo, setCurrentUserInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [currentCategory, setCurrentCategory] = useState("");
   const [currentCubeId, setCurrentCubeId] = useState("");
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
@@ -17,18 +18,17 @@ const ContextProvider = ({ children }) => {
   const [showCategoryList, setShowCategoryList] = useState(true);
 
   useEffect(() => {
-    if (window.localStorage.user) {
+    currentUserInfo && setIsLoading(false);
+    if (window.localStorage.user && isLoading) {
       const user = JSON.parse(localStorage.getItem("user"));
-      const user_id = user.user_Id;
-      UserModel.allCubesAndCategories(user_id).then(categoriesAndCubes => {
-        setCurrentUserInfo({ ...categoriesAndCubes, user_id: user_id });
-      });
+      setCurrentUserInfo(user.currentUser);
     }
-  }, []);
+  }, [currentUserInfo, isLoading]);
 
   return (
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-      <UserContext.Provider value={{ currentUserInfo, setCurrentUserInfo }}>
+      <UserContext.Provider
+        value={{ currentUserInfo, setCurrentUserInfo, isLoading }}>
         <CategoryListContext.Provider
           value={{ showCategoryList, setShowCategoryList }}>
           <CategoryContext.Provider

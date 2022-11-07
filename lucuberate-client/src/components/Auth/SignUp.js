@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
 import { PersonIcon, MailIcon, LockIcon } from "@primer/octicons-react";
+import { UserContext } from "../../context/ContextProvider";
 
 const SignUp = ({
   history,
-  auth,
   showSignUpModal,
   setShowSignUpModal,
   setShowLoginModal,
 }) => {
+  const { setCurrentUserInfo } = useContext(UserContext);
   const [newUserInfo, setNewUserInfo] = useState({
     username: "",
     email: "",
@@ -35,39 +36,33 @@ const SignUp = ({
     e.target.name === "Login" && setShowLoginModal(true);
   };
 
-  const handleChange = event => {
+  const handleChange = e => {
     setNewUserInfo(prevState => ({
       ...prevState,
-      [event.target.name]: event.target.value,
+      [e.target.name]: e.target.value,
     }));
-    console.log("handle change", event);
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault();
     if (newUserInfo.password === newUserInfo.password_confirmation) {
-      UserModel.create(newUserInfo).then(data => {
-        if (data.emailError) {
-          setNewUserInfo(prevState => ({
-            ...prevState,
-            emailError: data.emailError,
-          }));
+      const data = await UserModel.create(newUserInfo);
+      if (data.emailError) {
+        setNewUserInfo(prevState => ({
+          ...prevState,
+          emailError: data.emailError,
+        }));
+        validateUsername();
+      } else {
+        if (newUserInfo.username?.length < 3) {
           validateUsername();
         } else {
-          if (newUserInfo.username?.length < 3) {
-            validateUsername();
-          } else {
-            setNewUserInfo(data);
-            // Passing currentUser info to parent component (App.js)
-            auth(data);
-            localStorage.setItem("user", JSON.stringify(data));
-            if (data.currentUser) {
-              history.push("/dashboard");
-              window.location.reload();
-            }
-          }
+          localStorage.setItem("user", JSON.stringify(data));
+          setCurrentUserInfo(data.currentUser);
+          history.push("/dashboard");
+          window.location.reload();
         }
-      });
+      }
     } else {
       setNewUserInfo(prevState => ({
         ...prevState,

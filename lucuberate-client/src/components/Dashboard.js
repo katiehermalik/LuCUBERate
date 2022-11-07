@@ -2,11 +2,11 @@ import React from "react";
 import CubeListCtrl from "./CubeListCtrl/CubeListCtrl";
 import AllAuthenticatedRoutes from "../config/AuthRoutes";
 
-function Dashboard(props) {
+function Dashboard({ user }) {
   return (
     <div className="dashboard container-row theme-transition">
       <CubeListCtrl />
-      <AllAuthenticatedRoutes user={props.user} />
+      <AllAuthenticatedRoutes user={user} />
     </div>
   );
 }

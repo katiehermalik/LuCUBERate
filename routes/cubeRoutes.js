@@ -12,11 +12,6 @@ const s3 = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 
-//   s3.deleteObject({ Bucket: 'bucket-name', Key: 'image.jpg' }, (err, data) => {
-//     console.error(err);
-//     console.log(data);
-// });
-
 const upload = multer({
   storage: multerS3({
     s3: s3,

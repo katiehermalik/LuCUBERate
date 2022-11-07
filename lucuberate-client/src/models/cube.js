@@ -15,7 +15,6 @@ class CubeModel {
   }
 
   static create(newCube) {
-    console.log("newCube in cube.js being passed as body in fetch", ...newCube);
     return fetch(url, {
       method: "POST",
       body: newCube,
@@ -37,7 +36,6 @@ class CubeModel {
   }
 
   static update(updatedCube, id) {
-    console.log("updatedCube being sent to backend----->", ...updatedCube);
     return fetch(`${url}/${id}`, {
       method: "PUT",
       body: updatedCube,
