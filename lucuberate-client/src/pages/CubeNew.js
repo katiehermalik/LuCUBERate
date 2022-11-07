@@ -80,11 +80,11 @@ const CubeNew = ({ history }) => {
         setCategoryError("Required");
     } else {
       const categoriesAndCubes = await UserModel.allCubesAndCategories(
-        currentUserInfo.user_id
+        currentUserInfo._id
       );
       setCurrentUserInfo({
         ...categoriesAndCubes,
-        user_id: currentUserInfo.user_id,
+        user_id: currentUserInfo._id,
       });
       setIsLoading(false);
       setCurrentCubeId(data.cube._id);
@@ -94,7 +94,7 @@ const CubeNew = ({ history }) => {
 
   const collectCubeFormData = categoryId => {
     formData = new FormData(document.getElementById("cube-new-form"));
-    formData.append("user", currentUserInfo.user_id);
+    formData.append("user", currentUserInfo._id);
     formData.append("category", categoryId);
     !visualAidError && createCube();
   };
@@ -122,7 +122,7 @@ const CubeNew = ({ history }) => {
   const createNewCategory = async () => {
     const newCategoryData = {
       title: newCategory,
-      user: currentUserInfo.user_id,
+      user: currentUserInfo._id,
     };
     const data = await CategoryModel.create(newCategoryData);
     const { _id: newCategoryId } = data;

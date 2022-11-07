@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import UserModel from "../models/user";
 
 export const UserContext = createContext(null);
 export const CategoryContext = createContext(null);
@@ -18,12 +19,24 @@ const ContextProvider = ({ children }) => {
   const [showCategoryList, setShowCategoryList] = useState(true);
 
   useEffect(() => {
-    currentUserInfo && setIsLoading(false);
-    if (window.localStorage.user && isLoading) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      setCurrentUserInfo(user.currentUser);
+    console.log(currentUserInfo);
+    console.log(isLoading);
+    console.log(Boolean(window.localStorage.user));
+    const { user_Id, isLoggedIn } =
+      JSON.parse(localStorage.getItem("user")) || {};
+    if (isLoggedIn && isLoading) {
+      console.log("this happens");
+      UserModel.allCubesAndCategories(user_Id).then(userData => {
+        console.log(userData);
+        setCurrentUserInfo(userData);
+      });
+
+      // const user = JSON.parse(localStorage.getItem("user"));
+      // setCurrentUserInfo(user.currentUser);
+      setIsLoading(false);
     }
-  }, [currentUserInfo, isLoading]);
+    // currentUserInfo && setIsLoading(false);
+  }, [isLoading, currentUserInfo]);
 
   return (
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>

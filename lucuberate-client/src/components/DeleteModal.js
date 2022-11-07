@@ -34,13 +34,13 @@ const DeleteModal = ({
     await history.push("/dashboard");
     await CategoryModel.delete(categoryId);
     const categoriesAndCubes = await UserModel.allCubesAndCategories(
-      currentUserInfo.user_id
+      currentUserInfo._id
     );
     setCurrentCubeId("");
     setCurrentCategory(null);
     setCurrentUserInfo({
       ...categoriesAndCubes,
-      user_id: currentUserInfo.user_id,
+      user_id: currentUserInfo._id,
     });
   };
 
@@ -50,11 +50,11 @@ const DeleteModal = ({
     setCurrentCubeId("");
     await CubeModel.delete(cubeId);
     const categoriesAndCubes = await UserModel.allCubesAndCategories(
-      currentUserInfo.user_id
+      currentUserInfo._id
     );
     setCurrentUserInfo({
       ...categoriesAndCubes,
-      user_id: currentUserInfo.user_id,
+      user_id: currentUserInfo._id,
     });
   };
 

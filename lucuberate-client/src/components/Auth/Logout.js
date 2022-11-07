@@ -4,13 +4,12 @@ import { SignOutIcon } from "@primer/octicons-react";
 import { UserContext } from "../../context/ContextProvider";
 
 const Logout = ({ history, toggleUserMenu }) => {
-  const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
+  const { setCurrentUserInfo } = useContext(UserContext);
 
   const handleSubmit = e => {
     setCurrentUserInfo(null);
     localStorage.clear();
     history.push("/");
-    // toggleUserMenu(e);
   };
 
   return (

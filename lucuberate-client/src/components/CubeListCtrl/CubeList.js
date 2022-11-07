@@ -227,6 +227,7 @@ const CubeList = ({
   //====================================================================================//
 
   useEffect(() => {
+    console.log("USE EFFECT RAN");
     currentCategory ?? closeCategoryCubeList();
     findCurrentPath();
     if (cubeRefs.length !== 0 && categoryRefs.length !== 0) {
@@ -240,7 +241,7 @@ const CubeList = ({
         case "show":
           if (currentCubeId) {
             const currentCubeCat = currentUserInfo?.categories.find(category =>
-              category.currentUserInfo?.cubes.includes(currentCubeId)
+              category.cubes.includes(currentCubeId)
             );
             currentCubeCat._id !== currentCubeCategory &&
               findCurrentCubeCategory(currentCubeCat._id);
@@ -274,7 +275,7 @@ const CubeList = ({
       }
     }
   }, [
-    currentUserInfo?.categories,
+    currentUserInfo,
     pathname,
     findCurrentPath,
     cubeRefs.length,

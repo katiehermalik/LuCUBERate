@@ -92,6 +92,7 @@ const update = (req, res) => {
   }
   if (changedCube.question && changedCube.answer && changedCube.category) {
     db.Cube.findById(req.params.id).then(foundCube => {
+      console.log(foundCube);
       // console.log(req.file);
       // console.log(foundCube.visual_aid);
       // console.log(changedCube.visual_aid);
@@ -157,9 +158,13 @@ const update = (req, res) => {
           });
         });
       } else {
+        console.log("HERE");
+        console.log(req.params.id);
+        console.log(changedCube);
         db.Cube.findByIdAndUpdate(req.params.id, changedCube, {
           new: true,
         }).then(updatedCube => {
+          console.log("UPDATED CUBE", updatedCube);
           db.Category.findById(req.body.category).then(foundCategory => {
             res.json({
               cube: updatedCube,

@@ -57,10 +57,16 @@ const SignUp = ({
         if (newUserInfo.username?.length < 3) {
           validateUsername();
         } else {
-          localStorage.setItem("user", JSON.stringify(data));
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              user_Id: data.user_Id,
+              isLoggedIn: data.isLoggedIn,
+            })
+          );
           setCurrentUserInfo(data.currentUser);
+          setShowSignUpModal(false);
           history.push("/dashboard");
-          window.location.reload();
         }
       }
     } else {

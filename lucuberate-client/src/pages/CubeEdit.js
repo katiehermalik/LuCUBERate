@@ -11,18 +11,14 @@ import {
   CubeContext,
 } from "../context/ContextProvider";
 
-function CubeEdit({
+const CubeEdit = ({
   history,
   match: {
     params: { id: cubeId },
   },
-}) {
+}) => {
   let formData;
-  const {
-    currentUserInfo,
-    setCurrentUserInfo,
-    currentUserInfo: { categories },
-  } = useContext(UserContext);
+  const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
 
@@ -64,13 +60,12 @@ function CubeEdit({
       data.answer === "" && setAnswerError("Required");
       data.category === "undefined" && setCategoryError("Required");
     } else {
-      const categoriesAndCubes = await UserModel.allCubesAndCategories(
-        currentUserInfo.user_id
+      console.log(currentUserInfo._id);
+      const userData = await UserModel.allCubesAndCategories(
+        currentUserInfo._id
       );
-      setCurrentUserInfo({
-        ...categoriesAndCubes,
-        user_id: currentUserInfo.user_id,
-      });
+      console.log(userData);
+      setCurrentUserInfo(userData);
       setIsLoading(false);
       history.push(`/dashboard/${cubeId}`);
     }
@@ -101,7 +96,7 @@ function CubeEdit({
 
   const collectCubeFormData = categoryId => {
     formData = new FormData(document.getElementById("cube-edit-form"));
-    formData.append("user", currentUserInfo.user_id);
+    formData.append("user", currentUserInfo._id);
     formData.append("category", categoryId);
     formData.append("removingVisualAid", removingVisualAid);
     !visualAidError && updateCube();
@@ -140,7 +135,7 @@ function CubeEdit({
   const createNewCategory = async () => {
     const newCategoryData = {
       title: newCategory,
-      user: currentUserInfo.user_id,
+      user: currentUserInfo._id,
     };
     const data = await CategoryModel.create(newCategoryData);
     const { _id: newCategoryId } = data;
@@ -164,7 +159,7 @@ function CubeEdit({
   };
 
   const handleCancelClick = e => {
-    const currentCubeCat = categories.find(category =>
+    const currentCubeCat = currentUserInfo?.categories.find(category =>
       category.cubes.includes(currentCubeId)
     );
     setCurrentCategory(currentCubeCat._id);
@@ -485,6 +480,6 @@ function CubeEdit({
       </div>
     </>
   );
-}
+};
 
 export default CubeEdit;

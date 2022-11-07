@@ -57,10 +57,16 @@ const Login = ({
         }));
       }
     } else {
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          user_Id: data.user_Id,
+          isLoggedIn: data.isLoggedIn,
+        })
+      );
       setCurrentUserInfo(data.currentUser);
+      setShowLoginModal(false);
       history.push("/dashboard");
-      window.location.reload();
     }
   };
 

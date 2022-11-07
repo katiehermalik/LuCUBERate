@@ -3,9 +3,8 @@ import "../../App.css";
 
 const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
 
-const StudyCube = props => {
+const StudyCube = ({ cubeData }) => {
   const [side, setSide] = useState("");
-  const [cube, setCube] = useState({});
 
   // creating refs dynamically when mapping radio buttons
   const createdRefs = [];
@@ -13,19 +12,16 @@ const StudyCube = props => {
   const refs = useRef(createdRefs);
 
   useEffect(() => {
-    setCube(props.cube);
-    // when cube changes, side and checked radio btn changes to 'question'
     setSide("Question");
-
     sides.forEach((side, i) => {
       if (i === 0) refs.current[i].current.checked = true;
       else refs.current[i].current.checked = false;
     });
-  }, [props.cube]);
+  }, [cubeData]);
 
   return (
     <>
-      {cube && (
+      {cubeData && (
         <>
           <div className="cube-ctrl-group container-row theme-transition">
             <fieldset className="radio-face-group">
@@ -64,12 +60,12 @@ const StudyCube = props => {
                     }`}>
                     Question
                   </div>
-                  {cube.question && (
+                  {cubeData.question && (
                     <div
                       className={`face-content ${
                         side === "Question" || side === "" ? "" : "blur"
                       }`}>
-                      {cube.question}
+                      {cubeData.question}
                     </div>
                   )}
                 </div>
@@ -78,12 +74,12 @@ const StudyCube = props => {
                     className={`face-title ${side === "Answer" ? "" : "blur"}`}>
                     Answer
                   </div>
-                  {cube.answer && (
+                  {cubeData.answer && (
                     <div
                       className={`face-content ${
                         side === "Answer" ? "" : "blur"
                       }`}>
-                      {cube.answer}
+                      {cubeData.answer}
                     </div>
                   )}
                 </div>
@@ -92,12 +88,12 @@ const StudyCube = props => {
                     className={`face-title ${side === "Hint" ? "" : "blur"}`}>
                     Hint
                   </div>
-                  {cube.hint && (
+                  {cubeData.hint && (
                     <div
                       className={`face-content ${
                         side === "Hint" ? "" : "blur"
                       }`}>
-                      {cube.hint}
+                      {cubeData.hint}
                     </div>
                   )}
                 </div>
@@ -106,12 +102,12 @@ const StudyCube = props => {
                     className={`face-title ${side === "Notes" ? "" : "blur"}`}>
                     Notes
                   </div>
-                  {cube.notes && (
+                  {cubeData.notes && (
                     <div
                       className={`face-content ${
                         side === "Notes" ? "" : "blur"
                       }`}>
-                      {cube.notes}
+                      {cubeData.notes}
                     </div>
                   )}
                 </div>
@@ -122,13 +118,13 @@ const StudyCube = props => {
                     }`}>
                     Visual Aid
                   </div>
-                  {cube.visual_aid && (
+                  {cubeData.visual_aid && (
                     <a
-                      download={cube.visual_aid}
-                      href={cube.visual_aid}
+                      download={cubeData.visual_aid}
+                      href={cubeData.visual_aid}
                       title="Download image">
                       <img
-                        src={cube.visual_aid}
+                        src={cubeData.visual_aid}
                         alt="visual aid"
                         className={`visual-aid ${
                           side === "Visual Aid" ? "" : "blur"
@@ -142,13 +138,13 @@ const StudyCube = props => {
                     className={`face-title ${side === "Link" ? "" : "blur"}`}>
                     Link
                   </div>
-                  {cube.link && (
+                  {cubeData.link && (
                     <div
                       className={`face-content ${
                         side === "Link" ? "" : "blur"
                       }`}>
-                      <a rel="noreferrer" target="_blank" href={cube.link}>
-                        {cube.link_alias}
+                      <a rel="noreferrer" target="_blank" href={cubeData.link}>
+                        {cubeData.link_alias}
                       </a>
                     </div>
                   )}
