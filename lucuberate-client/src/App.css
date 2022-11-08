@@ -654,6 +654,7 @@ hr {
   align-items: center;
   text-align: left;
   border-right: 1px solid var(--category-select);
+  height: 52px;
 }
 
 .navbar-chevron-icon {
@@ -664,6 +665,7 @@ hr {
 .category-btn.active {
   background-color: var(--category-select);
   box-shadow: 0px 4px 8px -8px var(--boxShadow-color);
+  color: var(--category-text-color);
 }
 .category-btn:hover {
   background-color: var(--category-select);
@@ -677,6 +679,28 @@ hr {
   padding: 1px 6px;
   margin-left: 5px;
   box-shadow: none;
+}
+
+.category-container {
+  position: relative;
+}
+
+.category-btn-cover {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  height: 52px;
+  pointer-events: none;
+  width: 100%;
+  padding: 0 10px;
+  color: var(--category-text-color);
+}
+
+.category-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .category-action-btn {
@@ -1539,7 +1563,8 @@ input[type="radio"]:checked + label {
     flex-shrink: 1;
     flex-direction: column-reverse;
     resize: none;
-    max-width: none;
+    min-width: 100%;
+    max-width: 100%;
   }
 
   .cube-face-list {

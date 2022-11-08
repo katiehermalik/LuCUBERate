@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useLayoutEffect } from "react";
+import { useState, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
 import { MailIcon, LockIcon } from "@primer/octicons-react";

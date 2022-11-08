@@ -359,119 +359,130 @@ const CubeList = ({
                   i
                 ) => (
                   <div className="cube-list theme-transition" key={categoryId}>
-                    <button
-                      tabIndex="0"
-                      onClick={handleCategoryClick}
-                      type="button"
-                      className="category-btn theme-transition"
-                      id={categoryId}
-                      ref={element => {
-                        if (element) {
-                          cubeRefs[i] = [];
-                          categoryRefs[i] = element;
-                        }
-                      }}>
-                      {`${categoryTitle}`}
+                    <div className="category-container">
                       {currentCategory === categoryId ? (
-                        <div className="container-row pointer-disabled">
-                          <CubeCount
-                            categoryCubeLength={cubeListLength}
-                            cubeListOpened={true}
-                          />
-                          <span className="container-row pointer-auto">
-                            {currentCubeId &&
-                              currentPath[0] === "show" &&
-                              currentCubeCategory === currentCategory &&
-                              currCategoryCubeRefs.length > 1 && (
-                                <CategoryShuffle
-                                  setCategoryWasShuffled={
-                                    setCategoryWasShuffled
-                                  }
-                                  changeCubeListOpacity={changeCubeListOpacity}
-                                />
-                              )}
-                            <DeleteBtn
-                              categoryId={categoryId}
-                              categoryTitle={categoryTitle}
+                        <div className="category-btn-cover theme-transition">
+                          <span className="category-title">{`${categoryTitle}`}</span>
+                          <div className="category-options-grp container-row pointer-disabled">
+                            <CubeCount
+                              categoryCubeLength={cubeListLength}
+                              cubeListOpened={true}
                             />
-                          </span>
-                          <ChevronDownIcon
-                            size={16}
-                            className="pointer-disabled"
-                          />
+                            <span className="container-row pointer-auto">
+                              {currentCubeId &&
+                                currentPath[0] === "show" &&
+                                currentCubeCategory === currentCategory &&
+                                currCategoryCubeRefs.length > 1 && (
+                                  <CategoryShuffle
+                                    setCategoryWasShuffled={
+                                      setCategoryWasShuffled
+                                    }
+                                    changeCubeListOpacity={
+                                      changeCubeListOpacity
+                                    }
+                                  />
+                                )}
+                              <DeleteBtn
+                                categoryId={categoryId}
+                                categoryTitle={categoryTitle}
+                              />
+                            </span>
+                            <ChevronDownIcon
+                              size={16}
+                              className="pointer-disabled"
+                            />
+                          </div>
                         </div>
                       ) : (
-                        <div className="container-row pointer-disabled">
-                          <CubeCount
-                            categoryCubeLength={cubeListLength}
-                            cubeListOpened={false}
-                          />
-                          <ChevronRightIcon
-                            size={16}
-                            className="pointer-disabled"
-                          />
+                        <div className="category-btn-cover theme-transition">
+                          <span className="category-title">{`${categoryTitle}`}</span>
+                          <div className="category-options-grp container-row pointer-disabled">
+                            <CubeCount
+                              categoryCubeLength={cubeListLength}
+                              cubeListOpened={false}
+                            />
+                            <ChevronRightIcon
+                              size={16}
+                              className="pointer-disabled"
+                            />
+                          </div>
                         </div>
                       )}
-                    </button>
-                    <fieldset
-                      style={{
-                        overflow: "auto",
-                        maxHeight: "0px",
-                        transition: `all 0.${
-                          categoryCubes.length >= 4 ? 4 : categoryCubes.length
-                        }s ease-out 0s`,
-                        position: "relative",
-                      }}
-                      className="content container-column cube-select-group">
-                      <legend hidden>Choose a Cube</legend>
-                      <ul>
-                        {categoryCubes?.map((cube, j) => (
-                          <li key={cube} className="radio-button">
-                            <input
-                              tabIndex="0"
-                              type="radio"
-                              name="cube-select"
-                              value={cube}
-                              id={cube}
-                              category={categoryId}
-                              onClick={handleCubeClick}
-                              ref={element => {
-                                if (element) {
-                                  cubeRefs[i][j] = {
-                                    category_id: categoryId,
-                                    ref: element,
-                                  };
-                                }
-                              }}
-                            />
-                            <label className="radio-label" htmlFor={cube}>
-                              {questionsAreVisible
-                                ? currentUserInfo?.cubes.find(
-                                    item => item._id === cube
-                                  ).question.length > 60
-                                  ? currentUserInfo?.cubes
-                                      .find(item => item._id === cube)
-                                      .question.slice(0, 60) + " . . ."
-                                  : currentUserInfo?.cubes.find(
+                      <button
+                        tabIndex="0"
+                        onClick={handleCategoryClick}
+                        type="button"
+                        className="category-btn theme-transition"
+                        value={categoryTitle}
+                        title={categoryTitle}
+                        id={categoryId}
+                        ref={element => {
+                          if (element) {
+                            cubeRefs[i] = [];
+                            categoryRefs[i] = element;
+                          }
+                        }}></button>
+
+                      <fieldset
+                        style={{
+                          overflow: "auto",
+                          maxHeight: "0px",
+                          transition: `all 0.${
+                            categoryCubes.length >= 4 ? 4 : categoryCubes.length
+                          }s ease-out 0s`,
+                          position: "relative",
+                        }}
+                        className="content container-column cube-select-group">
+                        <legend hidden>Choose a Cube</legend>
+                        <ul>
+                          {categoryCubes?.map((cube, j) => (
+                            <li key={cube} className="radio-button">
+                              <input
+                                tabIndex="0"
+                                type="radio"
+                                name="cube-select"
+                                value={cube}
+                                id={cube}
+                                category={categoryId}
+                                onClick={handleCubeClick}
+                                ref={element => {
+                                  if (element) {
+                                    cubeRefs[i][j] = {
+                                      category_id: categoryId,
+                                      ref: element,
+                                    };
+                                  }
+                                }}
+                              />
+                              <label className="radio-label" htmlFor={cube}>
+                                {questionsAreVisible
+                                  ? currentUserInfo?.cubes.find(
                                       item => item._id === cube
-                                    ).question
-                                : `Cube ${j + 1}`}
-                            </label>
-                            {currentCubeId === cube && (
-                              <CubeCtrls cubeId={cube} />
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                      {((currentPath[0] === "edit" &&
-                        categoryId !== currentCubeCategory) ||
-                        currentPath[0] === "new") && (
-                        <PlaceHolderCube
-                          currentPath={currentPath}
-                          currentCubeCategory={currentCubeCategory}
-                        />
-                      )}
-                    </fieldset>
+                                    ).question.length > 60
+                                    ? currentUserInfo?.cubes
+                                        .find(item => item._id === cube)
+                                        .question.slice(0, 60) + " . . ."
+                                    : currentUserInfo?.cubes.find(
+                                        item => item._id === cube
+                                      ).question
+                                  : `Cube ${j + 1}`}
+                              </label>
+                              {currentCubeId === cube && (
+                                <CubeCtrls cubeId={cube} />
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                        {((currentPath[0] === "edit" &&
+                          categoryId !== currentCubeCategory) ||
+                          currentPath[0] === "new") && (
+                          <PlaceHolderCube
+                            currentPath={currentPath}
+                            currentCubeCategory={currentCubeCategory}
+                          />
+                        )}
+                      </fieldset>
+                    </div>
                   </div>
                 )
               )}
