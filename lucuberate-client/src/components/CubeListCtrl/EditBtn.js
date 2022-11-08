@@ -15,11 +15,11 @@ const EditBtn = ({
 
   return (
     <button
-      className={
+      className={`btn edit-btn select-action-btn cube-action-btn ${
         pathname.match(/\b[\w=.]+$/g)[0] === "edit"
-          ? "btn edit-btn active select-action-btn cube-action-btn"
-          : "btn edit-btn select-action-btn cube-action-btn theme-transition"
-      }
+          ? "active"
+          : "theme-transition"
+      }`}
       type="button"
       onClick={handleClick}
       title="Edit Cube"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { XCircleFillIcon, PackageIcon, InfoIcon } from "@primer/octicons-react";
+import DeleteModal from "../components/DeleteModal";
 
 import CubeModel from "../models/cube";
 import UserModel from "../models/user";
@@ -49,6 +50,8 @@ const CubeEdit = ({
   const [newCategoryCount, setNewCategoryCount] = useState(0);
   const [categoryIsNew, setCategoryIsNew] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentCubeCategory, setCurrentCubeCategory] = useState({});
+  const [showWarningModal, setShowWarningModal] = useState(false);
 
   // TODO - give the user a warning that if they are moving the last cube of a category to a new or other existing category, the category they are moving it from will be deleted.
 
@@ -87,12 +90,27 @@ const CubeEdit = ({
       setNotesCount(data.cube.notes.length);
       setLinkAliasCount(data.cube.link_alias.length);
     })();
-    if (currentCategory === null) {
-      setCategoryIsNew(true);
-    } else {
-      setCategoryIsNew(false);
+
+    const currentCubeCatInfo = currentUserInfo?.categories.find(category =>
+      category.cubes.includes(currentCubeId)
+    );
+    setCurrentCubeCategory(currentCubeCatInfo);
+    if (
+      currentCubeCatInfo?._id !== currentCategory &&
+      currentCubeCatInfo?.cubes.length === 1
+    ) {
+      setShowWarningModal(true);
     }
-  }, [cubeId, currentCategory, new_visual_aid, categoryIsNew]);
+    currentCategory === null ? setCategoryIsNew(true) : setCategoryIsNew(false);
+  }, [
+    cubeId,
+    currentCategory,
+    new_visual_aid,
+    categoryIsNew,
+    currentUserInfo,
+    currentCubeCategory,
+    currentCubeId,
+  ]);
 
   const collectCubeFormData = categoryId => {
     formData = new FormData(document.getElementById("cube-edit-form"));
@@ -159,10 +177,7 @@ const CubeEdit = ({
   };
 
   const handleCancelClick = e => {
-    const currentCubeCat = currentUserInfo?.categories.find(category =>
-      category.cubes.includes(currentCubeId)
-    );
-    setCurrentCategory(currentCubeCat._id);
+    setCurrentCategory(currentCubeCategory._id);
   };
 
   const errorStyle = {
@@ -478,6 +493,13 @@ const CubeEdit = ({
           </div>
         </form>
       </div>
+      <DeleteModal
+        showModal={showWarningModal}
+        setShowModal={setShowWarningModal}
+        categoryId={currentCubeCategory?._id}
+        categoryTitle={currentCubeCategory?.title}
+        type="warning"
+      />
     </>
   );
 };

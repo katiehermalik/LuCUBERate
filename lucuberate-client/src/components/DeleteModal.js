@@ -77,9 +77,9 @@ const DeleteModal = ({
                 onClick={e => e.stopPropagation()}
                 onMouseDown={e => e.stopPropagation()}>
                 <h4 className="modal-title" id="exampleModalLabel">
-                  {type === "category"
-                    ? `Delete '${categoryTitle}' Category`
-                    : "Delete Cube"}
+                  {type === "category" && `Delete '${categoryTitle}' Category`}
+                  {type === "cube" && "Delete Cube"}
+                  {type === "warning" && "Move last cube from category?"}
                 </h4>
                 <button
                   type="button"
@@ -94,34 +94,49 @@ const DeleteModal = ({
                 className="modal-body"
                 onClick={e => e.stopPropagation()}
                 onMouseDown={e => e.stopPropagation()}>
-                {type === "category" ? (
+                {type === "category" && (
                   <>
-                    Are you sure you want to delete this category?
-                    <br />
                     All the cubes within this category will be deleted as well.
+                    <br />
+                    <br />
+                    Are you sure you want to delete this category?
                   </>
-                ) : (
-                  "Are you sure you want to delete this cube?"
+                )}
+                {type === "cube" &&
+                  "Are you sure you want to delete this cube?"}
+                {type === "warning" && (
+                  <>
+                    {`This is the last cube in the '${categoryTitle}' category!`}
+                    <br />
+                    <br />
+                    {`If you choose to move this cube, the '${categoryTitle}' category will be deleted upon saving.`}
+                  </>
                 )}
               </div>
               <div
                 className="modal-footer"
                 onClick={e => e.stopPropagation()}
                 onMouseDown={e => e.stopPropagation()}>
-                <input
-                  type="button"
-                  value="Cancel"
-                  onClick={closeModal}
-                  className="form-btn btn-secondary"
-                />
+                {(type === "category" || type === "cube") && (
+                  <input
+                    type="button"
+                    value="Cancel"
+                    onClick={closeModal}
+                    className="form-btn btn-secondary"
+                  />
+                )}
                 <input
                   onClick={
-                    type === "category"
-                      ? handleDeleteCategory
-                      : handleDeleteCube
+                    (type === "category" && handleDeleteCategory) ||
+                    (type === "cube" && handleDeleteCube) ||
+                    (type === "warning" && closeModal)
                   }
                   type="button"
-                  value="Delete"
+                  value={
+                    type === "category" || type === "cube"
+                      ? "Delete"
+                      : "Continue"
+                  }
                   className="form-btn btn-danger"
                 />
               </div>
