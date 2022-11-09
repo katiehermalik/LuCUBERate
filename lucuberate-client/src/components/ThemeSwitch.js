@@ -13,8 +13,7 @@ const ThemeSwitch = () => {
 
   useEffect(() => {
     (async function () {
-      const data = await UserModel.update({ theme: theme }, user_Id);
-      console.log({ data });
+      await UserModel.update({ theme: theme }, user_Id);
     })();
   }, [theme]);
 

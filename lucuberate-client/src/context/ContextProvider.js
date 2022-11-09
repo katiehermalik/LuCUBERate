@@ -19,23 +19,14 @@ const ContextProvider = ({ children }) => {
   const [showCategoryList, setShowCategoryList] = useState(true);
 
   useEffect(() => {
-    console.log(currentUserInfo);
-    console.log(isLoading);
-    console.log(Boolean(window.localStorage.user));
     const { user_Id, isLoggedIn } =
       JSON.parse(localStorage.getItem("user")) || {};
     if (isLoggedIn && isLoading) {
-      console.log("this happens");
       UserModel.allCubesAndCategories(user_Id).then(userData => {
-        console.log(userData);
         setCurrentUserInfo(userData);
       });
-
-      // const user = JSON.parse(localStorage.getItem("user"));
-      // setCurrentUserInfo(user.currentUser);
       setIsLoading(false);
     }
-    // currentUserInfo && setIsLoading(false);
   }, [isLoading, currentUserInfo]);
 
   return (

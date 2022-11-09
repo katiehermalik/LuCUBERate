@@ -227,7 +227,6 @@ const CubeList = ({
   //====================================================================================//
 
   useEffect(() => {
-    console.log("USE EFFECT RAN");
     currentCategory ?? closeCategoryCubeList();
     findCurrentPath();
     if (cubeRefs.length !== 0 && categoryRefs.length !== 0) {

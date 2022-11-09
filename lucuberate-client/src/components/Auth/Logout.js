@@ -1,15 +1,21 @@
 import React, { useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { SignOutIcon } from "@primer/octicons-react";
-import { UserContext, ThemeContext } from "../../context/ContextProvider";
+import {
+  UserContext,
+  ThemeContext,
+  CategoryContext,
+} from "../../context/ContextProvider";
 
 const Logout = ({ history, toggleUserMenu }) => {
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setTheme } = useContext(ThemeContext);
+  const { setCurrentCategory } = useContext(CategoryContext);
 
   const handleSubmit = e => {
     setTheme("dark");
     setCurrentUserInfo(null);
+    setCurrentCategory(null);
     localStorage.clear();
     history.push("/");
   };
