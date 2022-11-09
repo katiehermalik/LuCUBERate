@@ -6,13 +6,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 class CubeModel {
-  static all() {
-    return fetch(url)
-      .then(res => res.json())
-      .catch(err => {
-        console.log("Error fetching data in CubeModel.all", err);
-      });
-  }
+  // static all() {
+  //   return fetch(url)
+  //     .then(res => res.json())
+  //     .catch(err => {
+  //       console.log("Error fetching data in CubeModel.all", err);
+  //     });
+  // }
 
   static create(newCube) {
     return fetch(url, {

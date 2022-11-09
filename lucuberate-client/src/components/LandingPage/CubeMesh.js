@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { a } from "react-spring/three";
 import { useFrame } from "react-three-fiber";
 
-function CubeMesh({ darkMode }) {
+function CubeMesh({ theme }) {
   const mesh = useRef(null);
   const [hover, setHover] = useState(false);
 
@@ -23,7 +23,7 @@ function CubeMesh({ darkMode }) {
         className="theme-transition"
         attach="material"
         color={
-          darkMode
+          theme === "dark"
             ? hover
               ? "#51636f"
               : "#3e5260"

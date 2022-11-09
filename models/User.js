@@ -12,12 +12,15 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      // type: mongoose.SchemaTypes.Email,
       required: true,
     },
     password: {
       type: String,
       required: true,
+    },
+    theme: {
+      type: String,
+      default: "dark",
     },
     cubes: [
       {

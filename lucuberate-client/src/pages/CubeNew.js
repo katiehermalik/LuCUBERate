@@ -79,13 +79,10 @@ const CubeNew = ({ history }) => {
       (data.category === "" || data.category === "undefined") &&
         setCategoryError("Required");
     } else {
-      const categoriesAndCubes = await UserModel.allCubesAndCategories(
+      const userData = await UserModel.allCubesAndCategories(
         currentUserInfo._id
       );
-      setCurrentUserInfo({
-        ...categoriesAndCubes,
-        user_id: currentUserInfo._id,
-      });
+      setCurrentUserInfo(userData);
       setIsLoading(false);
       setCurrentCubeId(data.cube._id);
       history.push(`/dashboard/${data.cube._id}`);

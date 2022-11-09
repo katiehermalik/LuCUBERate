@@ -10,16 +10,16 @@ const s3 = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 
-const index = (req, res) => {
-  db.Cube.find({})
-    .then(foundCubes => {
-      res.json({ cubes: foundCubes });
-    })
-    .catch(err => {
-      console.log("Error in cubes.index:", err);
-      res.json({ Error: "Unable to get data" });
-    });
-};
+// const index = (req, res) => {
+//   db.Cube.find({})
+//     .then(foundCubes => {
+//       res.json({ cubes: foundCubes });
+//     })
+//     .catch(err => {
+//       console.log("Error in cubes.index:", err);
+//       res.json({ Error: "Unable to get data" });
+//     });
+// };
 
 const show = (req, res) => {
   db.Cube.findById(req.params.id)
@@ -224,7 +224,7 @@ const destroy = (req, res) => {
 // ./lucuberate-client/public/uploads/
 
 module.exports = {
-  index,
+  // index,
   show,
   create,
   update,

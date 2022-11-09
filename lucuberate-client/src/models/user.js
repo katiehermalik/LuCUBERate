@@ -57,6 +57,20 @@ class UserModel {
       });
   }
 
+  static update(updatedUserProperties, id) {
+    console.log({ updatedUserProperties });
+    return fetch(`${url}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedUserProperties),
+    })
+      .then(res => res.json())
+      .catch(err => {
+        console.log("Error fetching data in UserModel.update", err);
+        return { message: "Error fetching data in UserModel.update" };
+      });
+  }
+
   static allCubesAndCategories(id) {
     return fetch(`${url}/${id}`, {
       method: "GET",

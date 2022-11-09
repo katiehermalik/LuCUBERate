@@ -41,7 +41,7 @@ const upload = multer({
 
 // routes - /api/v1/cubes
 
-router.get("/", ctrl.cubes.index);
+// router.get("/", ctrl.cubes.index);
 router.get("/:id", ctrl.cubes.show);
 router.post("/", upload.single("visual_aid"), ctrl.cubes.create);
 router.put("/:id", upload.single("visual_aid"), ctrl.cubes.update);

@@ -9,27 +9,27 @@ const s3 = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 
-const index = (req, res) => {
-  db.Category.find({})
-    .then(foundCategories => {
-      res.json({ categories: foundCategories });
-    })
-    .catch(err => {
-      console.log("Error in categories.index:", err);
-      res.json({ Error: "Unable to get data" });
-    });
-};
+// const index = (req, res) => {
+//   db.Category.find({})
+//     .then(foundCategories => {
+//       res.json({ categories: foundCategories });
+//     })
+//     .catch(err => {
+//       console.log("Error in categories.index:", err);
+//       res.json({ Error: "Unable to get data" });
+//     });
+// };
 
-const show = (req, res) => {
-  db.Category.findById(req.params.id)
-    .then(foundCategory => {
-      res.json({ category: foundCategory });
-    })
-    .catch(err => {
-      console.log("Error in categories.show:", err);
-      res.json({ Error: "Unable to get data" });
-    });
-};
+// const show = (req, res) => {
+//   db.Category.findById(req.params.id)
+//     .then(foundCategory => {
+//       res.json({ category: foundCategory });
+//     })
+//     .catch(err => {
+//       console.log("Error in categories.show:", err);
+//       res.json({ Error: "Unable to get data" });
+//     });
+// };
 
 // Creates New Category and saves category Id to current user
 const create = (req, res) => {
@@ -115,8 +115,8 @@ const shuffle = (req, res) => {
 };
 
 module.exports = {
-  index,
-  show,
+  // index,
+  // show,
   create,
   destroy,
   shuffle,

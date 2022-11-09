@@ -53,8 +53,6 @@ const CubeEdit = ({
   const [currentCubeCategory, setCurrentCubeCategory] = useState({});
   const [showWarningModal, setShowWarningModal] = useState(false);
 
-  // TODO - give the user a warning that if they are moving the last cube of a category to a new or other existing category, the category they are moving it from will be deleted.
-
   const updateCube = async () => {
     const data = await CubeModel.update(formData, cubeId);
     if (data.cubeError) {
@@ -63,11 +61,9 @@ const CubeEdit = ({
       data.answer === "" && setAnswerError("Required");
       data.category === "undefined" && setCategoryError("Required");
     } else {
-      console.log(currentUserInfo._id);
       const userData = await UserModel.allCubesAndCategories(
         currentUserInfo._id
       );
-      console.log(userData);
       setCurrentUserInfo(userData);
       setIsLoading(false);
       history.push(`/dashboard/${cubeId}`);

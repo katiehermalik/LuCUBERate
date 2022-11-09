@@ -7,13 +7,13 @@ import Dashboard from "./components/Dashboard";
 import UnAuthRoutes from "./config/UnAuthRoutes";
 
 const App = () => {
-  const { darkMode } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const { currentUserInfo } = useContext(UserContext);
 
   return (
     <div
       className={`app theme-transition container-column ${
-        darkMode ? "dark" : "light"
+        theme === "dark" ? "dark" : "light"
       }`}>
       <Navbar user={currentUserInfo} />
       <UnAuthRoutes />

@@ -15,7 +15,7 @@ const ContextProvider = ({ children }) => {
   const [currentCategory, setCurrentCategory] = useState("");
   const [currentCubeId, setCurrentCubeId] = useState("");
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const [theme, setTheme] = useState("dark");
   const [showCategoryList, setShowCategoryList] = useState(true);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const ContextProvider = ({ children }) => {
   }, [isLoading, currentUserInfo]);
 
   return (
-    <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       <UserContext.Provider
         value={{ currentUserInfo, setCurrentUserInfo, isLoading }}>
         <CategoryListContext.Provider

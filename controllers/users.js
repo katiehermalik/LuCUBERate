@@ -13,36 +13,40 @@ const show = (req, res) => {
     });
 };
 
-const index = (req, res) => {
-  db.User.find({})
-    .then(foundUsers => {
-      res.json({ cubes: foundUsers });
-    })
-    .catch(err => {
-      console.log("Error in users.index:", err);
-      res.json({ Error: "Unable to get data" });
-    });
-};
+// const index = (req, res) => {
+//   db.User.find({})
+//     .then(foundUsers => {
+//       res.json({ cubes: foundUsers });
+//     })
+//     .catch(err => {
+//       console.log("Error in users.index:", err);
+//       res.json({ Error: "Unable to get data" });
+//     });
+// };
 
-const create = (req, res) => {
-  db.User.create(req.body)
-    .then(savedUser => {
-      res.json({ user: savedUser });
-    })
-    .catch(err => {
-      console.log("Error in users.create:", err);
-      res.json({ Error: "Unable to create user" });
-    });
-};
+// const create = (req, res) => {
+//   db.User.create(req.body)
+//     .then(savedUser => {
+//       res.json({ user: savedUser });
+//     })
+//     .catch(err => {
+//       console.log("Error in users.create:", err);
+//       res.json({ Error: "Unable to create user" });
+//     });
+// };
 
 const update = (req, res) => {
-  db.User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  db.User.findByIdAndUpdate(
+    req.params.id,
+    { $set: { ...req.body } },
+    { upsert: true, new: true }
+  )
     .then(updatedUser => {
-      res.json({ user: updatedUser });
+      res.json(updatedUser);
     })
     .catch(err => {
-      console.log("Error in users.update:", err);
-      res.json({ Error: "Unable to get data" });
+      console.log("Error in users.updatee:", err);
+      res.json({ Error: "Unable to get data in users.update" });
     });
 };
 
@@ -58,9 +62,9 @@ const destroy = (req, res) => {
 };
 
 module.exports = {
-  index,
+  // index,
   show,
-  create,
+  // create,
   update,
   destroy,
 };

@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
 import { MailIcon, LockIcon } from "@primer/octicons-react";
-import { UserContext } from "../../context/ContextProvider";
+import { UserContext, ThemeContext } from "../../context/ContextProvider";
+
 
 const Login = ({
   history,
@@ -10,6 +11,7 @@ const Login = ({
   setShowLoginModal,
   setShowSignUpModal,
 }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
   const { setCurrentUserInfo } = useContext(UserContext);
   const [userInput, setUserInput] = useState({
     email: "",
@@ -65,6 +67,7 @@ const Login = ({
         })
       );
       setCurrentUserInfo(data.currentUser);
+      setTheme(data.currentUser.theme === "dark" ? "dark" : "light")
       setShowLoginModal(false);
       history.push("/dashboard");
     }

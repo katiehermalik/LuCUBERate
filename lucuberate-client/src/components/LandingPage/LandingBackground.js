@@ -6,13 +6,13 @@ import { useContext } from "react";
 import { ThemeContext } from "../../context/ContextProvider";
 
 function LandingBackground() {
-  const { darkMode } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
     <Canvas
       className="landing-background"
       camera={{ position: [5, 5, -5], fov: 30 }}>
-      <CubeMesh darkMode={darkMode} />
+      <CubeMesh theme={theme} />
       <Lights />
       <Stars
         radius={25}
