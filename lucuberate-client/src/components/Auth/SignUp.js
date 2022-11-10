@@ -64,6 +64,7 @@ const SignUp = ({
               isLoggedIn: data.isLoggedIn,
             })
           );
+          console.log({ CurrentUser: data.currentUser });
           setCurrentUserInfo(data.currentUser);
           setShowSignUpModal(false);
           history.push("/dashboard");

@@ -47,6 +47,10 @@ if (process.env.NODE_ENV === "production") {
       path.resolve(__dirname, "lucuberate-client", "build", "index.html")
     );
   });
+} else {
+  app.use(
+    express.static(path.join(__dirname, "lucuberate-client", "src", "images"))
+  );
 }
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

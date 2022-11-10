@@ -39,7 +39,7 @@ const update = (req, res) => {
   db.User.findByIdAndUpdate(
     req.params.id,
     { $set: { ...req.body } },
-    { upsert: true, new: true }
+    { new: true }
   )
     .then(updatedUser => {
       res.json(updatedUser);

@@ -34,6 +34,7 @@ const show = (req, res) => {
 
 // Creates New Cube and saves cube Id to current user
 const create = (req, res) => {
+  console.log(req.body);
   const newCube = {
     question: req.body.question,
     answer: req.body.answer,
@@ -45,6 +46,8 @@ const create = (req, res) => {
     user: req.body.user,
     category: req.body.category,
   };
+
+  console.log(newCube);
 
   db.Cube.create(newCube)
     .then(createdCube => {

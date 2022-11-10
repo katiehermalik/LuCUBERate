@@ -12,7 +12,6 @@ import UserModel from "../models/user";
 import CategoryModel from "../models/category";
 
 const CubeNew = ({ history }) => {
-  let formData;
   const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { setCurrentCubeId } = useContext(CubeContext);
@@ -70,7 +69,7 @@ const CubeNew = ({ history }) => {
     }
   }, [currentCategory]);
 
-  const createCube = async () => {
+  const createCube = async formData => {
     const data = await CubeModel.create(formData);
     if (data.cubeError) {
       setIsLoading(false);
@@ -90,10 +89,11 @@ const CubeNew = ({ history }) => {
   };
 
   const collectCubeFormData = categoryId => {
-    formData = new FormData(document.getElementById("cube-new-form"));
+    const formData = new FormData(document.getElementById("cube-new-form"));
     formData.append("user", currentUserInfo._id);
     formData.append("category", categoryId);
-    !visualAidError && createCube();
+    console.log(formData);
+    !visualAidError && createCube(formData);
   };
 
   const checkFileExtention = e => {

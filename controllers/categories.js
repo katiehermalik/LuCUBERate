@@ -33,21 +33,25 @@ const s3 = new AWS.S3({
 
 // Creates New Category and saves category Id to current user
 const create = (req, res) => {
+  console.log("THIS IS BEING HIT");
   const { title, user } = req.body;
 
   const newCategory = {
     title,
     user,
   };
-
+  console.log({ newCategory });
   db.Category.create(newCategory)
     .then(savedCategory => {
+      console.log({ savedCategory });
       db.User.findById(user).then(foundUser => {
+        console.log({ foundUser });
         foundUser.categories.push({
           _id: savedCategory._id,
           title: savedCategory.title,
         });
         foundUser.save();
+        console.log({ savedCategory });
         res.json(savedCategory);
       });
     })
