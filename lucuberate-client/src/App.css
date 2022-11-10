@@ -356,6 +356,7 @@ html,
 .pages {
   flex: 1;
   height: calc(100vh - 50px);
+  min-width: calc(100vh - 134px);
 }
 /* ----------------------------------------- Footer */
 
@@ -963,7 +964,7 @@ img.visual-aid-preview {
 /* ---------------------------------- Cube Show Page */
 
 .show-page-container {
-  align-items: center;
+  height: 100%;
 }
 
 .cube-container {
@@ -972,6 +973,9 @@ img.visual-aid-preview {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 68vmin;
+  /* height: 60vmin; */
+  perspective: 560vmin;
 }
 
 .cube-ctrl-group {
@@ -993,13 +997,22 @@ img.visual-aid-preview {
 }
 
 .cube-area {
-  display: -webkit-box;
+  /* display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10vmin 10vmin 0;
-  max-height: fit-content;
+  width: 100%; */
+  /* padding: 10vmin 10vmin 0;
+  height: calc(100% - 10vmin); */
+}
+
+.cube-area-container {
+  margin: 5vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }
 
 /* ---------------------------------- Landing Page */
@@ -1075,15 +1088,10 @@ section.about {
   padding: 10vh;
 }
 
-.cube-container {
-  width: 60vmin;
-  height: 60vmin;
-  perspective: 560vmin;
-}
-
 .study-cube {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  padding-bottom: 100%;
   transform-style: preserve-3d;
   transition: -webkit-transform 1s;
   transition: transform 1s;
@@ -1173,23 +1181,37 @@ section.about {
   scrollbar-width: none; /* Firefox */
 }
 
+/* Position of faces when moved away from origin to form cube */
 .face.Question {
   background-color: var(--cubeFace-color-1);
+  -webkit-transform: rotateY(0deg) translateZ(34vmin);
+  transform: rotateY(0deg) translateZ(34vmin);
 }
 .face.Answer {
   background-color: var(--cubeFace-color-1);
+  -webkit-transform: rotateY(180deg) translateZ(34vmin);
+  transform: rotateY(180deg) translateZ(34vmin);
 }
 .face.Visual {
   background-color: var(--cubeFace-color-2);
+  -webkit-transform: rotateX(90deg) translateZ(34vmin);
+  transform: rotateX(90deg) translateZ(34vmin);
 }
 .face.Link {
   background-color: var(--cubeFace-color-2);
+  -webkit-transform: rotateX(-90deg) translateZ(34vmin);
+  transform: rotateX(-90deg) translateZ(34vmin);
 }
 .face.Notes {
   background-color: var(--cubeFace-color-3);
+  -webkit-transform: rotateY(-90deg) translateZ(34vmin);
+  transform: rotateY(-90deg) translateZ(34vmin);
 }
+
 .face.Hint {
   background-color: var(--cubeFace-color-3);
+  -webkit-transform: rotateY(90deg) translateZ(34vmin);
+  transform: rotateY(90deg) translateZ(34vmin);
 }
 
 .face-content a {
@@ -1198,31 +1220,6 @@ section.about {
 }
 .face-content a:hover {
   text-decoration: none;
-}
-/* Position of faces when moved away from origin to form cube */
-.face.Question {
-  -webkit-transform: rotateY(0deg) translateZ(30vmin);
-  transform: rotateY(0deg) translateZ(30vmin);
-}
-.face.Answer {
-  -webkit-transform: rotateY(180deg) translateZ(30vmin);
-  transform: rotateY(180deg) translateZ(30vmin);
-}
-.face.Visual {
-  -webkit-transform: rotateX(90deg) translateZ(30vmin);
-  transform: rotateX(90deg) translateZ(30vmin);
-}
-.face.Link {
-  -webkit-transform: rotateX(-90deg) translateZ(30vmin);
-  transform: rotateX(-90deg) translateZ(30vmin);
-}
-.face.Notes {
-  -webkit-transform: rotateY(-90deg) translateZ(30vmin);
-  transform: rotateY(-90deg) translateZ(30vmin);
-}
-.face.Hint {
-  -webkit-transform: rotateY(90deg) translateZ(30vmin);
-  transform: rotateY(90deg) translateZ(30vmin);
 }
 
 .blur {
@@ -1297,14 +1294,6 @@ input[type="radio"]:checked + label {
 @media screen and (max-width: 1050px) {
   /* ================================ Landing Page */
 
-  /* .title-container {
-    padding-top: 30px;
-  } */
-
-  /* .landing-background {
-    padding-top: 30px;
-  } */
-
   .side-text {
     font-size: 50px;
   }
@@ -1323,134 +1312,6 @@ input[type="radio"]:checked + label {
     font-size: 16px;
     text-align: center;
   }
-
-  /* ================================ Dashboard */
-
-  /* .dashboard {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-
-  .pages {
-    padding-bottom: 15vmin;
-  } */
-
-  /* ================================ Cube Ctrls */
-
-  /* .cube-ctrl-group {
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
-    padding-top: 10px;
-  }
-
-  .radio-face-group {
-    overflow: auto;
-    margin-right: 0;
-    margin-left: 15px;
-  }
-
-  .cube-ctrls {
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    margin: 0 15px;
-  }
-
-  .edit-btn {
-    margin-left: 0;
-    white-space: normal;
-    font-size: 12px;
-  }
-
-  .delete-modal-btn {
-    white-space: normal;
-    font-size: 12px;
-  }
-
-  .delete-modal {
-    font-size: 16px;
-    white-space: normal;
-  } */
-
-  /* ================================ Forms */
-
-  /* .form-container{
-    -webkit-box-flex: 6;
-            -ms-flex: 6;
-                flex: 6;
-  }
-
-  .form-buttons {
-    margin-top: 20px;
-  }
-
-  .form-btn {
-    margin-bottom: 30px;
-  } */
-
-  /* ================================ Cube List */
-
-  /* .cube-list-ctrl {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-      justify-content: center;
-    padding: 0;
-    border-bottom: 8px solid var(--border-color);
-    border-right: none;
-    height: 100%;
-  }
-
-  .cube-header {
-    margin: 0;
-  }
-
-  .new-cube-btn {
-    margin: 15px;
-  }
-
-  .cube-list {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding: 5px;
-    margin: 20px;
-    height: 60%;
-    min-width: 0;
-  } */
-
-  /* ================================ Cube Show Page */
-
-  /* .radio-face-group {
-    overflow: auto;
-  }
-  
-  .cube-area {
-    -webkit-box-flex: 10;
-            -ms-flex: 10;
-                flex: 10;
-    padding-top: 30px;
-  } */
-
-  /* ================================ Instructions */
-
-  /* .instructions {
-    margin: 0 30px;
-    height: 80vh;
-  } */
 }
 
 /* ================================ */
@@ -1465,11 +1326,6 @@ input[type="radio"]:checked + label {
     max-width: 25%;
   }
 }
-@media screen and (max-width: 900px) {
-  .visual-aid:hover {
-    transform: scale(2) !important;
-  }
-}
 
 /* ================================ */
 
@@ -1479,10 +1335,6 @@ input[type="radio"]:checked + label {
   * {
     touch-action: none;
   }
-
-  /* .navbar-item.theme-transition {
-    transition: none !important;
-  } */
 
   .list-footer {
     border-right: none;
@@ -1524,6 +1376,7 @@ input[type="radio"]:checked + label {
     overflow-y: scroll;
     flex-shrink: 1;
     min-height: 0;
+    min-width: 0;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
@@ -1547,9 +1400,9 @@ input[type="radio"]:checked + label {
     border-top: 8px solid var(--accent-color);
   }
 
-  .cube-area {
-    padding: 10vmin;
-  }
+  /* .cube-area {
+    padding-top: 10vmin;
+  } */
 
   .loading-group {
     justify-content: center;

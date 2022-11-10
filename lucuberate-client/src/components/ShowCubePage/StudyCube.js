@@ -50,104 +50,113 @@ const StudyCube = ({ cubeData }) => {
               </ul>
             </fieldset>
           </div>
-          <div className="cube-area">
-            <div className="cube-container">
-              <div className={`study-cube ${side || sides[0]}`}>
-                <div className="face Question theme-transition">
-                  <div
-                    className={`face-title ${
-                      side === "Question" || side === "" ? "" : "blur"
-                    }`}>
-                    Question
-                  </div>
-                  {cubeData.question && (
+          <div className="cube-area-container">
+            <div className="cube-area">
+              <div className="cube-container">
+                <div className={`study-cube ${side || sides[0]}`}>
+                  <div className="face Question theme-transition">
                     <div
-                      className={`face-content ${
+                      className={`face-title ${
                         side === "Question" || side === "" ? "" : "blur"
                       }`}>
-                      {cubeData.question}
+                      Question
                     </div>
-                  )}
-                </div>
-                <div className="face Answer theme-transition">
-                  <div
-                    className={`face-title ${side === "Answer" ? "" : "blur"}`}>
-                    Answer
+                    {cubeData.question && (
+                      <div
+                        className={`face-content ${
+                          side === "Question" || side === "" ? "" : "blur"
+                        }`}>
+                        {cubeData.question}
+                      </div>
+                    )}
                   </div>
-                  {cubeData.answer && (
+                  <div className="face Answer theme-transition">
                     <div
-                      className={`face-content ${
+                      className={`face-title ${
                         side === "Answer" ? "" : "blur"
                       }`}>
-                      {cubeData.answer}
+                      Answer
                     </div>
-                  )}
-                </div>
-                <div className="face Hint theme-transition">
-                  <div
-                    className={`face-title ${side === "Hint" ? "" : "blur"}`}>
-                    Hint
+                    {cubeData.answer && (
+                      <div
+                        className={`face-content ${
+                          side === "Answer" ? "" : "blur"
+                        }`}>
+                        {cubeData.answer}
+                      </div>
+                    )}
                   </div>
-                  {cubeData.hint && (
+                  <div className="face Hint theme-transition">
                     <div
-                      className={`face-content ${
-                        side === "Hint" ? "" : "blur"
-                      }`}>
-                      {cubeData.hint}
+                      className={`face-title ${side === "Hint" ? "" : "blur"}`}>
+                      Hint
                     </div>
-                  )}
-                </div>
-                <div className="face Notes theme-transition">
-                  <div
-                    className={`face-title ${side === "Notes" ? "" : "blur"}`}>
-                    Notes
+                    {cubeData.hint && (
+                      <div
+                        className={`face-content ${
+                          side === "Hint" ? "" : "blur"
+                        }`}>
+                        {cubeData.hint}
+                      </div>
+                    )}
                   </div>
-                  {cubeData.notes && (
+                  <div className="face Notes theme-transition">
                     <div
-                      className={`face-content ${
+                      className={`face-title ${
                         side === "Notes" ? "" : "blur"
                       }`}>
-                      {cubeData.notes}
+                      Notes
                     </div>
-                  )}
-                </div>
-                <div className="face Visual theme-transition">
-                  <div
-                    className={`face-title ${
-                      side === "Visual Aid" ? "" : "blur"
-                    }`}>
-                    Visual Aid
+                    {cubeData.notes && (
+                      <div
+                        className={`face-content ${
+                          side === "Notes" ? "" : "blur"
+                        }`}>
+                        {cubeData.notes}
+                      </div>
+                    )}
                   </div>
-                  {cubeData.visual_aid && (
-                    <a
-                      download={cubeData.visual_aid}
-                      href={cubeData.visual_aid}
-                      title="Download image">
-                      <img
-                        src={cubeData.visual_aid}
-                        alt="visual aid"
-                        className={`visual-aid ${
-                          side === "Visual Aid" ? "" : "blur"
-                        }`}
-                      />
-                    </a>
-                  )}
-                </div>
-                <div className="face Link theme-transition">
-                  <div
-                    className={`face-title ${side === "Link" ? "" : "blur"}`}>
-                    Link
-                  </div>
-                  {cubeData.link && (
+                  <div className="face Visual theme-transition">
                     <div
-                      className={`face-content ${
-                        side === "Link" ? "" : "blur"
+                      className={`face-title ${
+                        side === "Visual Aid" ? "" : "blur"
                       }`}>
-                      <a rel="noreferrer" target="_blank" href={cubeData.link}>
-                        {cubeData.link_alias}
-                      </a>
+                      Visual Aid
                     </div>
-                  )}
+                    {cubeData.visual_aid && (
+                      <a
+                        download={cubeData.visual_aid}
+                        href={cubeData.visual_aid}
+                        title="Download image">
+                        <img
+                          src={cubeData.visual_aid}
+                          alt="visual aid"
+                          className={`visual-aid ${
+                            side === "Visual Aid" ? "" : "blur"
+                          }`}
+                        />
+                      </a>
+                    )}
+                  </div>
+                  <div className="face Link theme-transition">
+                    <div
+                      className={`face-title ${side === "Link" ? "" : "blur"}`}>
+                      Link
+                    </div>
+                    {cubeData.link && (
+                      <div
+                        className={`face-content ${
+                          side === "Link" ? "" : "blur"
+                        }`}>
+                        <a
+                          rel="noreferrer"
+                          target="_blank"
+                          href={cubeData.link}>
+                          {cubeData.link_alias}
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
