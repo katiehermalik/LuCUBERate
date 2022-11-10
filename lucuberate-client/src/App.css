@@ -1524,6 +1524,12 @@ input[type="radio"]:checked + label {
     overflow-y: scroll;
     flex-shrink: 1;
     min-height: 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .pages::-webkit-scrollbar {
+    display: none;
   }
 
   .dashboard {
@@ -1566,6 +1572,12 @@ input[type="radio"]:checked + label {
     resize: none;
     min-width: 100%;
     max-width: 100%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .cube-list-ctrl::-webkit-scrollbar {
+    display: none;
   }
 
   .cube-face-list {
