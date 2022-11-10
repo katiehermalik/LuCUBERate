@@ -24,6 +24,7 @@ const ContextProvider = ({ children }) => {
     if (isLoggedIn && isLoading) {
       UserModel.allCubesAndCategories(user_Id).then(userData => {
         setCurrentUserInfo(userData);
+        setTheme(userData.theme);
       });
       setIsLoading(false);
     }

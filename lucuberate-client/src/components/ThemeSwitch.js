@@ -12,10 +12,8 @@ const ThemeSwitch = () => {
   };
 
   useEffect(() => {
-    (async function () {
-      await UserModel.update({ theme: theme }, user_Id);
-    })();
-  }, [theme]);
+    UserModel.update({ theme: theme }, user_Id);
+  }, [theme, user_Id]);
 
   return (
     <div className="switch-container">
