@@ -1305,7 +1305,7 @@ input[type="radio"]:checked + label {
 
 /* ================================ */
 
-@media (min-width: 768px) {
+@media (min-width: 720px) {
   .col-md-5 {
     flex: 0 0 41.666667%;
     max-width: 41.666667%;
@@ -1313,6 +1313,14 @@ input[type="radio"]:checked + label {
   .col-md-3 {
     flex: 0 0 25%;
     max-width: 25%;
+  }
+}
+
+/* ================================ */
+
+@media screen and (max-width: 912px) {
+  .pages {
+    min-width: 0;
   }
 }
 
@@ -1365,7 +1373,6 @@ input[type="radio"]:checked + label {
     overflow-y: scroll;
     flex-shrink: 1;
     min-height: 0;
-    min-width: 0;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
