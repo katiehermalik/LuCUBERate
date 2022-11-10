@@ -996,17 +996,6 @@ img.visual-aid-preview {
   text-align: center;
 }
 
-.cube-area {
-  /* display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%; */
-  /* padding: 10vmin 10vmin 0;
-  height: calc(100% - 10vmin); */
-}
-
 .cube-area-container {
   margin: 5vmin;
   display: flex;
