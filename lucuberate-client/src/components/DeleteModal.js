@@ -23,7 +23,6 @@ const DeleteModal = ({
   const { setCurrentCategory } = useContext(CategoryContext);
 
   const closeModal = e => {
-    e.nativeEvent.stopImmediatePropagation();
     e.stopPropagation();
     e.preventDefault();
     setShowModal(false);

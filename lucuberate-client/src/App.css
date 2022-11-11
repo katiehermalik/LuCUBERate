@@ -19,7 +19,7 @@
   outline: 0;
   padding: 0;
   margin: 0;
-  font-family: "Hind Madurai", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 *:focus-visible {
@@ -576,7 +576,6 @@ footer {
   text-align: center;
   position: relative;
   flex: 1 1 auto;
-  padding: 1rem;
   font-weight: 500;
   margin: 0 1rem;
 }
@@ -626,6 +625,83 @@ hr {
   margin-bottom: 1rem;
   height: 1px;
   background: var(--hr-color);
+}
+ul {
+  margin-left: 30px;
+}
+
+li {
+  list-style: circle;
+}
+
+/* ------------------------------- Guide Modal */
+.modal-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  max-width: 400px;
+  padding: 16px;
+  border-radius: 0.3rem;
+  white-space: normal;
+  animation: 250ms ease-out 0s 1 normal none running fadeIn;
+  transform-origin: center top;
+  background-color: var(--modal-background-color);
+  background-clip: padding-box;
+  border: 1px solid var(--accent-color);
+  color: var(--category-text-color);
+}
+.modal-guide:before {
+  content: "";
+  position: absolute;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent var(--accent-color) transparent transparent;
+}
+.modal-guide.tour-step-1:before {
+  top: 120px;
+  left: 0px;
+  transform: translate(-100%);
+}
+
+.modal-guide.tour-step-2:before {
+  top: 20px;
+  left: 0px;
+  transform: translate(-100%);
+}
+
+.modal-guide.tour-step-3:before {
+  top: 0px;
+  right: 20px;
+  transform: translatey(-100%) rotate(90deg);
+}
+
+.modal-guide .modal-header {
+  border-bottom: none;
+}
+
+.modal-guide-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  grid-gap: 16px;
+  gap: 16px;
+}
+
+.modal-guide .modal-footer {
+  flex-direction: row;
+}
+
+.modal-guide [title="Back"] {
+  padding: 0;
+  height: 38px;
+}
+
+.modal-guide hr {
+  margin: 0;
 }
 
 /* ------------------------------- Cube List */
@@ -992,6 +1068,7 @@ img.visual-aid-preview {
   justify-content: center;
   align-items: center;
   flex: 1;
+  position: relative;
 }
 
 /* ---------------------------------- Landing Page */

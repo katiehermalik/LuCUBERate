@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
 import { PersonIcon, MailIcon, LockIcon } from "@primer/octicons-react";
-import { UserContext } from "../../context/ContextProvider";
+import { UserContext, NewUserContext } from "../../context/ContextProvider";
 
 const SignUp = ({
   history,
@@ -11,6 +11,7 @@ const SignUp = ({
   setShowLoginModal,
 }) => {
   const { setCurrentUserInfo } = useContext(UserContext);
+  const { setNewUser } = useContext(NewUserContext);
   const [newUserInfo, setNewUserInfo] = useState({
     username: "",
     email: "",
@@ -67,6 +68,7 @@ const SignUp = ({
           console.log({ CurrentUser: data.currentUser });
           setCurrentUserInfo(data.currentUser);
           setShowSignUpModal(false);
+          setNewUser(true);
           history.push("/dashboard");
         }
       }

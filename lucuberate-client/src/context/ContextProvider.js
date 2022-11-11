@@ -7,6 +7,7 @@ export const CubeContext = createContext(null);
 export const QuestionsContext = createContext(null);
 export const ThemeContext = createContext(null);
 export const CategoryListContext = createContext(null);
+export const NewUserContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
@@ -17,6 +18,7 @@ const ContextProvider = ({ children }) => {
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [showCategoryList, setShowCategoryList] = useState(true);
+  const [newUser, setNewUser] = useState(false);
 
   useEffect(() => {
     const { user_Id, isLoggedIn } =
@@ -32,21 +34,23 @@ const ContextProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <UserContext.Provider
-        value={{ currentUserInfo, setCurrentUserInfo, isLoading }}>
-        <CategoryListContext.Provider
-          value={{ showCategoryList, setShowCategoryList }}>
-          <CategoryContext.Provider
-            value={{ currentCategory, setCurrentCategory }}>
-            <CubeContext.Provider value={{ currentCubeId, setCurrentCubeId }}>
-              <QuestionsContext.Provider
-                value={{ questionsAreVisible, setQuestionsAreVisible }}>
-                {children}
-              </QuestionsContext.Provider>
-            </CubeContext.Provider>
-          </CategoryContext.Provider>
-        </CategoryListContext.Provider>
-      </UserContext.Provider>
+      <NewUserContext.Provider value={{ newUser, setNewUser }}>
+        <UserContext.Provider
+          value={{ currentUserInfo, setCurrentUserInfo, isLoading }}>
+          <CategoryListContext.Provider
+            value={{ showCategoryList, setShowCategoryList }}>
+            <CategoryContext.Provider
+              value={{ currentCategory, setCurrentCategory }}>
+              <CubeContext.Provider value={{ currentCubeId, setCurrentCubeId }}>
+                <QuestionsContext.Provider
+                  value={{ questionsAreVisible, setQuestionsAreVisible }}>
+                  {children}
+                </QuestionsContext.Provider>
+              </CubeContext.Provider>
+            </CategoryContext.Provider>
+          </CategoryListContext.Provider>
+        </UserContext.Provider>
+      </NewUserContext.Provider>
     </ThemeContext.Provider>
   );
 };
