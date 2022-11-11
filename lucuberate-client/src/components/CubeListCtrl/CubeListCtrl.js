@@ -7,14 +7,13 @@ function CubeListCtrl() {
   const { showCategoryList } = useContext(CategoryListContext);
 
   return (
-    <>
-      {showCategoryList && (
-        <div className="cube-list-ctrl container-column theme-transition">
-          <CubeHeader />
-          <CubeList />
-        </div>
-      )}
-    </>
+    <div
+      className={`cube-list-ctrl container-column theme-transition ${
+        showCategoryList ? "active" : ""
+      }`}>
+      <CubeHeader />
+      <CubeList />
+    </div>
   );
 }
 

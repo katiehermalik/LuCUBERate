@@ -13,15 +13,13 @@ const NavbarMobile = ({ user, auth }) => {
     <>
       {user && window.location.pathname !== "/" && (
         <nav className="navbar navbar-mobile container-row theme-transition">
-          <div className="container-row">
-            <CategoryListToggle />
-            {showCategoryList && (
-              <>
-                <NewCubeBtn />
-                <ToggleQuestionsBtn />
-              </>
-            )}
-          </div>
+          <CategoryListToggle />
+          {showCategoryList && (
+            <div className="container-row">
+              <NewCubeBtn />
+              <ToggleQuestionsBtn />
+            </div>
+          )}
         </nav>
       )}
     </>
