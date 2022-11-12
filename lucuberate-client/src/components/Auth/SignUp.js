@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
 import { PersonIcon, MailIcon, LockIcon } from "@primer/octicons-react";
-import { UserContext, NewUserContext } from "../../context/ContextProvider";
+import { UserContext, CubeContext } from "../../context/ContextProvider";
 
 const SignUp = ({
   history,
@@ -11,7 +11,7 @@ const SignUp = ({
   setShowLoginModal,
 }) => {
   const { setCurrentUserInfo } = useContext(UserContext);
-  const { setNewUser } = useContext(NewUserContext);
+  const { setCurrentCubeId } = useContext(CubeContext);
   const [newUserInfo, setNewUserInfo] = useState({
     username: "",
     email: "",
@@ -67,9 +67,9 @@ const SignUp = ({
           );
           console.log({ CurrentUser: data.currentUser });
           setCurrentUserInfo(data.currentUser);
+          setCurrentCubeId(data.currentUser.cubes[6]._id);
           setShowSignUpModal(false);
-          setNewUser(true);
-          history.push("/dashboard");
+          history.push(`/dashboard/${data.currentUser.cubes[6]._id}`);
         }
       }
     } else {
@@ -202,7 +202,7 @@ const SignUp = ({
                   <hr size="2" width="70%" />
                   <p>
                     Already have an account?{" "}
-                    <Link name="Login" onClick={closeModal}>
+                    <Link to="/" name="Login" onClick={closeModal}>
                       Login
                     </Link>
                   </p>

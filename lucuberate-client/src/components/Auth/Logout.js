@@ -7,7 +7,7 @@ import {
   CategoryContext,
 } from "../../context/ContextProvider";
 
-const Logout = ({ history, toggleUserMenu }) => {
+const Logout = ({ history, setShowUserMenu }) => {
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setTheme } = useContext(ThemeContext);
   const { setCurrentCategory } = useContext(CategoryContext);
@@ -16,6 +16,7 @@ const Logout = ({ history, toggleUserMenu }) => {
     setTheme("dark");
     setCurrentUserInfo(null);
     setCurrentCategory(null);
+    setShowUserMenu(false);
     localStorage.clear();
     history.push("/");
   };

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import "../../App.css";
 import GuideModal from "../GuideModal";
-import { NewUserContext } from "../../context/ContextProvider";
+import { UserContext } from "../../context/ContextProvider";
 
 const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
 
 const StudyCube = ({ cubeData }) => {
-  const { newUser } = useContext(NewUserContext);
+  const { currentUserInfo } = useContext(UserContext);
   const [side, setSide] = useState("");
 
   // creating refs dynamically when mapping radio buttons
@@ -54,7 +54,7 @@ const StudyCube = ({ cubeData }) => {
             </fieldset>
           </div>
           <div className="cube-area-container">
-            {newUser && <GuideModal />}
+            {currentUserInfo.newUser && <GuideModal />}
             <div className="cube-area">
               <div className="cube-container">
                 <div className={`study-cube ${side || sides[0]}`}>

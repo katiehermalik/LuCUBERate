@@ -58,7 +58,6 @@ class UserModel {
   }
 
   static update(updatedUserProperties, id) {
-    console.log({ updatedUserProperties });
     return fetch(`${url}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

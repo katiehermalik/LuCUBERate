@@ -1,19 +1,22 @@
 import React, { useState, useContext } from "react";
-import { UserContext, NewUserContext } from "../context/ContextProvider";
+import { UserContext } from "../context/ContextProvider";
 import { ChevronLeftIcon } from "@primer/octicons-react";
+import UserModel from "../models/user";
 
 const GuideModal = () => {
   const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
-  const { setNewUser } = useContext(NewUserContext);
   const [tourStep, setTourStep] = useState(1);
 
   const handleClick = () => {
-    tourStep !== 3 && setTourStep(prev => (prev += 1));
-    tourStep === 3 && setNewUser(false);
+    tourStep !== 3 && setTourStep(prevState => (prevState += 1));
+    if (tourStep === 3) {
+      UserModel.update({ newUser: false }, currentUserInfo._id);
+      setCurrentUserInfo(prevState => ({ ...prevState, newUser: false }));
+    }
   };
 
   const handleBackClick = () => {
-    setTourStep(prev => (prev -= 1));
+    setTourStep(prevState => (prevState -= 1));
   };
 
   return (
@@ -38,17 +41,14 @@ const GuideModal = () => {
               learners!
             </p>
             <p>
-              If you'd rather not dive into Quantum Physics right now, just
-              delete the category and all the cubes will go with it!
+              If you'd rather not dive into any of these subjects right now,
+              just delete the category and all the cubes will go with it!
             </p>
           </>
         )}
         {tourStep === 2 && (
           <>
-            <p>
-              Use the controls you'll find in the left hand panel for the
-              following:
-            </p>
+            <p>Use the controls you'll find here for the following:</p>
             <ul>
               <li>navigate between categories and cubes</li>
               <li>create a new cube</li>

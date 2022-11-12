@@ -626,13 +626,6 @@ hr {
   height: 1px;
   background: var(--hr-color);
 }
-ul {
-  margin-left: 30px;
-}
-
-li {
-  list-style: circle;
-}
 
 /* ------------------------------- Guide Modal */
 .modal-guide {
@@ -702,6 +695,14 @@ li {
 
 .modal-guide hr {
   margin: 0;
+}
+
+.modal-guide ul {
+  margin-left: 30px;
+}
+
+.modal-guide li {
+  list-style: circle;
 }
 
 /* ------------------------------- Cube List */
@@ -1049,7 +1050,6 @@ img.visual-aid-preview {
   display: -ms-flexbox;
   display: flex;
   align-items: center;
-  justify-content: space-around;
   width: 100%;
   background-color: var(--cube-ctrl-list-color);
 }
@@ -1303,7 +1303,6 @@ section.about {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-right: 15px;
   height: 84px;
 }
 

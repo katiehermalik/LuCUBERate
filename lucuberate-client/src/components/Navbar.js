@@ -85,7 +85,7 @@ const Navbar = ({ user }) => {
                 <ThemeSwitch />
               </div>
               <div className="dropdown-item theme-transition">
-                <Logout toggleUserMenu={toggleUserMenu} />
+                <Logout setShowUserMenu={setShowUserMenu} />
               </div>
             </div>
           )}

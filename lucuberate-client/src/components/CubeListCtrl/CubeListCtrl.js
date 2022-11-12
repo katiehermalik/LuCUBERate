@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
-import { CategoryListContext } from "../../context/ContextProvider";
+import {
+  CategoryListContext,
+  UserContext,
+} from "../../context/ContextProvider";
 import CubeHeader from "./CubeHeader";
 import CubeList from "./CubeList";
 
 function CubeListCtrl() {
   const { showCategoryList } = useContext(CategoryListContext);
+  const { currentUserInfo } = useContext(UserContext);
 
   return (
     <div
@@ -12,7 +16,7 @@ function CubeListCtrl() {
         showCategoryList ? "active" : ""
       }`}>
       <CubeHeader />
-      <CubeList />
+      {currentUserInfo && <CubeList />}
     </div>
   );
 }

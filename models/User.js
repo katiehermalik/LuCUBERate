@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "dark",
     },
+    newUser: {
+      type: Boolean,
+      default: true,
+    },
     cubes: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -41,20 +45,3 @@ const userSchema = new mongoose.Schema(
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
-
-// categories: [{
-//   id: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'Category',
-//     required: true,
-//     },
-//   title: {
-//       type: String,
-//       required: true,
-//     }
-// }]
-
-// categories: [{
-//   type: mongoose.Schema.Types.ObjectId,
-//   ref: 'Category'
-// }]

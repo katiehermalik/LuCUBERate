@@ -154,6 +154,7 @@ const Login = ({
                   <p>
                     Don't yet have an account?{" "}
                     <Link
+                      to="/"
                       name="SignUp"
                       onClick={closeModal}
                       data-dismiss="modal"
