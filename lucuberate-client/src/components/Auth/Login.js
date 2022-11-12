@@ -2,7 +2,11 @@ import { useState, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
 import { MailIcon, LockIcon } from "@primer/octicons-react";
-import { UserContext, ThemeContext } from "../../context/ContextProvider";
+import {
+  UserContext,
+  ThemeContext,
+  GuideContext,
+} from "../../context/ContextProvider";
 
 const Login = ({
   history,
@@ -12,6 +16,7 @@ const Login = ({
 }) => {
   const { setTheme } = useContext(ThemeContext);
   const { setCurrentUserInfo } = useContext(UserContext);
+  const { setShowGuide } = useContext(GuideContext);
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
@@ -58,7 +63,7 @@ const Login = ({
         }));
       }
     } else {
-      localStorage.setItem(
+      sessionStorage.setItem(
         "user",
         JSON.stringify({
           user_Id: data.user_Id,
@@ -68,7 +73,16 @@ const Login = ({
       setCurrentUserInfo(data.currentUser);
       setTheme(data.currentUser.theme === "dark" ? "dark" : "light");
       setShowLoginModal(false);
-      history.push("/dashboard");
+      if (data.currentUser.newUser) {
+        setShowGuide(true);
+        if (data.currentUser.cubes.length !== 0) {
+          history.push(`/dashboard/${data.currentUser.cubes[0]._id}`);
+        } else {
+          history.push("/dashboard");
+        }
+      } else {
+        history.push("/dashboard");
+      }
     }
   };
 

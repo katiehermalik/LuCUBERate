@@ -5,7 +5,7 @@ import UserModel from "../models/user";
 
 const ThemeSwitch = () => {
   const { theme, setTheme } = useContext(ThemeContext);
-  const { user_Id } = JSON.parse(localStorage.getItem("user")) || {};
+  const { user_Id } = JSON.parse(sessionStorage.getItem("user")) || {};
 
   const handleClick = async () => {
     setTheme(prevState => (prevState === "dark" ? "light" : "dark"));

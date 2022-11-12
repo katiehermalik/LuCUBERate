@@ -2,7 +2,11 @@ import { useState, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserModel from "../../models/user";
 import { PersonIcon, MailIcon, LockIcon } from "@primer/octicons-react";
-import { UserContext, CubeContext } from "../../context/ContextProvider";
+import {
+  UserContext,
+  CubeContext,
+  GuideContext,
+} from "../../context/ContextProvider";
 
 const SignUp = ({
   history,
@@ -12,6 +16,7 @@ const SignUp = ({
 }) => {
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
+  const { setShowGuide } = useContext(GuideContext);
   const [newUserInfo, setNewUserInfo] = useState({
     username: "",
     email: "",
@@ -58,7 +63,7 @@ const SignUp = ({
         if (newUserInfo.username?.length < 3) {
           validateUsername();
         } else {
-          localStorage.setItem(
+          sessionStorage.setItem(
             "user",
             JSON.stringify({
               user_Id: data.user_Id,
@@ -69,6 +74,7 @@ const SignUp = ({
           setCurrentUserInfo(data.currentUser);
           setCurrentCubeId(data.currentUser.cubes[6]._id);
           setShowSignUpModal(false);
+          data.currentUser.newUser && setShowGuide(true);
           history.push(`/dashboard/${data.currentUser.cubes[6]._id}`);
         }
       }

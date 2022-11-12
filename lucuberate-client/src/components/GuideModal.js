@@ -1,17 +1,29 @@
-import React, { useState, useContext } from "react";
-import { UserContext } from "../context/ContextProvider";
+import React, { useState, useRef, useContext } from "react";
+import { UserContext, GuideContext } from "../context/ContextProvider";
 import { ChevronLeftIcon } from "@primer/octicons-react";
 import UserModel from "../models/user";
 
 const GuideModal = () => {
   const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
+  const { setShowGuide } = useContext(GuideContext);
   const [tourStep, setTourStep] = useState(1);
+  const guideDecision = useRef();
 
   const handleClick = () => {
     tourStep !== 3 && setTourStep(prevState => (prevState += 1));
-    if (tourStep === 3) {
+    if (tourStep === 3 && guideDecision.current.checked) {
       UserModel.update({ newUser: false }, currentUserInfo._id);
       setCurrentUserInfo(prevState => ({ ...prevState, newUser: false }));
+    } else if (tourStep === 3) {
+      setShowGuide(false);
+      let prevData = JSON.parse(sessionStorage.getItem("user"));
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify({
+          ...prevData,
+          completedGuide: true,
+        })
+      );
     }
   };
 
@@ -72,6 +84,12 @@ const GuideModal = () => {
         )}
       </div>
       <div className="modal-footer theme-transition">
+        {tourStep === 3 && (
+          <form>
+            <input type="checkbox" id="guide-decision" ref={guideDecision} />
+            <label for="guide-decision">Do not show me this guide again.</label>
+          </form>
+        )}
         {tourStep !== 1 && (
           <button
             title="Back"

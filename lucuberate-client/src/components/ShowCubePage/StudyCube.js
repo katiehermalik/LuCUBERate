@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import "../../App.css";
 import GuideModal from "../GuideModal";
-import { UserContext } from "../../context/ContextProvider";
+import { UserContext, GuideContext } from "../../context/ContextProvider";
 
 const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
 
 const StudyCube = ({ cubeData }) => {
   const { currentUserInfo } = useContext(UserContext);
+  const { showGuide, setShowGuide } = useContext(GuideContext);
+  const sessionData = JSON.parse(sessionStorage.getItem("user")) || {};
   const [side, setSide] = useState("");
 
   // creating refs dynamically when mapping radio buttons
@@ -15,12 +17,20 @@ const StudyCube = ({ cubeData }) => {
   const refs = useRef(createdRefs);
 
   useEffect(() => {
+    currentUserInfo.newUser &&
+      !sessionData.completedGuide &&
+      setShowGuide(true);
     setSide("Question");
     sides.forEach((side, i) => {
       if (i === 0) refs.current[i].current.checked = true;
       else refs.current[i].current.checked = false;
     });
-  }, [cubeData]);
+  }, [
+    cubeData,
+    currentUserInfo.newUser,
+    sessionData.completedGuide,
+    setShowGuide,
+  ]);
 
   return (
     <>
@@ -54,7 +64,7 @@ const StudyCube = ({ cubeData }) => {
             </fieldset>
           </div>
           <div className="cube-area-container">
-            {currentUserInfo.newUser && <GuideModal />}
+            {currentUserInfo.newUser && showGuide && <GuideModal />}
             <div className="cube-area">
               <div className="cube-container">
                 <div className={`study-cube ${side || sides[0]}`}>

@@ -17,7 +17,7 @@ const Logout = ({ history, setShowUserMenu }) => {
     setCurrentUserInfo(null);
     setCurrentCategory(null);
     setShowUserMenu(false);
-    localStorage.clear();
+    sessionStorage.clear();
     history.push("/");
   };
 
