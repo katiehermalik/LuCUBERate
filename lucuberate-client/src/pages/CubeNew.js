@@ -82,7 +82,6 @@ const CubeNew = ({ history }) => {
     const formData = new FormData(document.getElementById("cube-new-form"));
     formData.append("user", currentUserInfo._id);
     formData.append("category", categoryId);
-    console.log(formData);
     !visualAidError && createCube(formData);
   };
 
@@ -107,20 +106,13 @@ const CubeNew = ({ history }) => {
   };
 
   const createNewCategory = async () => {
-    if (question && answer && newCategory) {
-      const newCategoryData = {
-        title: newCategory,
-        user: currentUserInfo._id,
-      };
-      const data = await CategoryModel.create(newCategoryData);
-      const { _id: newCategoryId } = data;
-      collectCubeFormData(newCategoryId);
-    } else {
-      setIsLoading(false);
-      !question && setQuestionError("Required");
-      !answer && setAnswerError("Required");
-      !newCategory && setCategoryError("Required");
-    }
+    const newCategoryData = {
+      title: newCategory,
+      user: currentUserInfo._id,
+    };
+    const data = await CategoryModel.create(newCategoryData);
+    const { _id: newCategoryId } = data;
+    collectCubeFormData(newCategoryId);
   };
 
   const handleCategoryChange = e => {
@@ -135,8 +127,23 @@ const CubeNew = ({ history }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setIsLoading(true);
-    categoryIsNew ? createNewCategory() : collectCubeFormData(currentCategory);
+    if (question && answer) {
+      if (categoryIsNew) {
+        if (newCategory) {
+          setIsLoading(true);
+          createNewCategory();
+        } else {
+          setCategoryError("Required");
+        }
+      } else {
+        setIsLoading(true);
+        collectCubeFormData(currentCategory);
+      }
+    } else {
+      !question && setQuestionError("Required");
+      !answer && setAnswerError("Required");
+      categoryIsNew && !newCategory && setCategoryError("Required");
+    }
   };
 
   const errorStyle = {

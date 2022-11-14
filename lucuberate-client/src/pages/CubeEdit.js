@@ -54,20 +54,11 @@ const CubeEdit = ({
   const [showWarningModal, setShowWarningModal] = useState(false);
 
   const updateCube = async () => {
-    const data = await CubeModel.update(formData, cubeId);
-    if (data.cubeError) {
-      setIsLoading(false);
-      data.question === "" && setQuestionError("Required");
-      data.answer === "" && setAnswerError("Required");
-      data.category === "undefined" && setCategoryError("Required");
-    } else {
-      const userData = await UserModel.allCubesAndCategories(
-        currentUserInfo._id
-      );
-      setCurrentUserInfo(userData);
-      setIsLoading(false);
-      history.push(`/dashboard/${cubeId}`);
-    }
+    await CubeModel.update(formData, cubeId);
+    const userData = await UserModel.allCubesAndCategories(currentUserInfo._id);
+    setCurrentUserInfo(userData);
+    setIsLoading(false);
+    history.push(`/dashboard/${cubeId}`);
   };
 
   useEffect(() => {
@@ -169,13 +160,26 @@ const CubeEdit = ({
 
   const handleSubmit = e => {
     e.preventDefault();
-    setIsLoading(true);
-    if (currentCubeCategory.cubes.length === 1) {
-      setShowWarningModal(true);
+    if (question && answer) {
+      if (categoryIsNew) {
+        if (newCategory) {
+          setIsLoading(true);
+          currentCubeCategory.cubes.length === 1
+            ? setShowWarningModal(true)
+            : createNewCategory();
+        } else {
+          setCategoryError("Required");
+        }
+      } else {
+        setIsLoading(true);
+        currentCubeCategory.cubes.length === 1
+          ? setShowWarningModal(true)
+          : collectCubeFormData(currentCategory);
+      }
     } else {
-      categoryIsNew
-        ? createNewCategory()
-        : collectCubeFormData(currentCategory);
+      !question && setQuestionError("Required");
+      !answer && setAnswerError("Required");
+      categoryIsNew && !newCategory && setCategoryError("Required");
     }
   };
 
