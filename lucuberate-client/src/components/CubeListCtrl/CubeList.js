@@ -66,25 +66,25 @@ const CubeList = ({
   const [currentCubeCategory, setCurrentCubeCategory] = useState("");
   const [categoryWasShuffled, setCategoryWasShuffled] = useState(false);
 
-  console.log(
-    "============================================================================================================================================"
-  );
-  console.log("cubeRefs ------->", cubeRefs);
-  console.log("categoryRefs ------->", categoryRefs);
-  console.log(
-    "currentUserInfo.categories ------->",
-    currentUserInfo.categories
-  );
-  console.log("currentPath ------->", currentPath);
-  console.log("currentCubeId ------->", currentCubeId);
-  console.log("currentCubeCategory ------->", currentCubeCategory);
-  console.log("currentCategory ------->", currentCategory);
-  console.log("currentCategoryRef ------->", currentCategoryRef);
-  console.log("currCategoryCubeRefs ------->", currCategoryCubeRefs);
-  console.log("categoryWasShuffled ------->", categoryWasShuffled);
-  console.log(
-    "============================================================================================================================================"
-  );
+  // console.log(
+  //   "============================================================================================================================================"
+  // );
+  // console.log("cubeRefs ------->", cubeRefs);
+  // console.log("categoryRefs ------->", categoryRefs);
+  // console.log(
+  //   "currentUserInfo.categories ------->",
+  //   currentUserInfo.categories
+  // );
+  // console.log("currentPath ------->", currentPath);
+  // console.log("currentCubeId ------->", currentCubeId);
+  // console.log("currentCubeCategory ------->", currentCubeCategory);
+  // console.log("currentCategory ------->", currentCategory);
+  // console.log("currentCategoryRef ------->", currentCategoryRef);
+  // console.log("currCategoryCubeRefs ------->", currCategoryCubeRefs);
+  // console.log("categoryWasShuffled ------->", categoryWasShuffled);
+  // console.log(
+  //   "============================================================================================================================================"
+  // );
 
   //====================================================================================//
 

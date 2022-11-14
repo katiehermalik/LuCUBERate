@@ -173,7 +173,7 @@ const destroy = async (req, res) => {
     foundUser.cubes.remove(req.params.id);
     foundUser.categories.remove(deletedCategory._id);
     foundUser.save();
-    res.json({ cube: deletedCube, category: deletedCategory });
+    res.json({ cube: deletedCube, categoryDeleted: deletedCategory });
   } else {
     foundUser.cubes.remove(req.params.id);
     foundUser.save();

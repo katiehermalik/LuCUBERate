@@ -64,10 +64,13 @@ const DeleteModal = ({
     e.stopPropagation();
     history.push("/dashboard");
     setCurrentCubeId("");
-    await CubeModel.delete(cubeId);
+    const deletedCube = await CubeModel.delete(cubeId);
     const categoriesAndCubes = await UserModel.allCubesAndCategories(
       currentUserInfo._id
     );
+    if (deletedCube.categoryDeleted) {
+      setCurrentCategory(null);
+    }
     setCurrentUserInfo({
       ...categoriesAndCubes,
       user_id: currentUserInfo._id,
