@@ -485,6 +485,7 @@ const CubeList = ({
                                     <CubeCtrls
                                       cubeId={cube}
                                       cubeListLength={cubeListLength}
+                                      categoryTitle={categoryTitle}
                                     />
                                   )}
                                 </li>

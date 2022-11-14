@@ -126,9 +126,14 @@ const DeleteModal = ({
                     Are you sure you want to delete this category?
                   </>
                 )}
-                {(type === "cube" &&
-                  cubeListLength === 1 &&
-                  "Since this is the last cube in this category, the category will be deleted as well. Are you sure you want to delete this cube?") ||
+                {(type === "cube" && cubeListLength === 1 && (
+                  <>
+                    {`This is the last cube in the '${categoryTitle}' category! If you choose to delete the last cube, the '${categoryTitle}' category will be deleted as well.`}
+                    <br />
+                    <br />
+                    {`Are you sure you want to delete this cube?`}
+                  </>
+                )) ||
                   (type === "cube" &&
                     "Are you sure you want to delete this cube?")}
                 {type === "warning" && (
@@ -162,7 +167,12 @@ const DeleteModal = ({
                   }
                   type="button"
                   value={
-                    type === "category" || type === "cube" ? "Delete" : "Save"
+                    (type === "cube" &&
+                      cubeListLength === 1 &&
+                      "Yes, delete cube & category") ||
+                    (type === "category" || type === "cube"
+                      ? "Delete"
+                      : "Yes, save cube & delete category")
                   }
                   className={`form-btn ${
                     type === "category" || type === "cube"

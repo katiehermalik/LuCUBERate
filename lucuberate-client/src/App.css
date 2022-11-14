@@ -690,8 +690,7 @@ hr {
   flex-direction: row;
 }
 
-.modal-guide.tour-step-3 .modal-footer,
-.modal-guide.return-user .modal-footer {
+.modal-guide.tour-step-3 .modal-footer {
   justify-content: space-between;
 }
 
@@ -715,7 +714,15 @@ hr {
 .modal-guide label {
   font-size: 12px;
   margin-left: 10px;
-  line-height: 1.1;
+  line-height: 1.2;
+}
+
+.modal-guide .subtext {
+  line-height: 1.2;
+}
+
+.modal-guide small {
+  font-size: 12px;
 }
 
 .modal-guide form {
@@ -1571,11 +1578,21 @@ input[type="radio"]:checked + label {
 
   /* ================================ Guide Modal */
 
-  .modal-guide {
+  .modal-guide.tour-step-1 {
+    top: auto;
+    bottom: auto;
+  }
+  .modal-guide.tour-step-2 {
     top: auto;
     bottom: 0;
     margin-bottom: 30px;
   }
+  .modal-guide.tour-step-3 {
+    top: 0;
+    bottom: auto;
+    margin-top: 10px;
+  }
+
   .modal-guide.tour-step-1:before {
     display: none;
   }
@@ -1592,7 +1609,8 @@ input[type="radio"]:checked + label {
     flex-direction: column;
     align-items: flex-end;
   }
-  .modal-guide form {
+  .modal-guide form,
+  .modal-guide .subtext {
     align-self: flex-start;
     margin-bottom: 20px;
   }
