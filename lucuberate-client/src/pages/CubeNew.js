@@ -62,7 +62,7 @@ const CubeNew = ({ history }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (currentCategory === null) {
+    if (!currentCategory) {
       setCategoryIsNew(true);
     } else {
       setCategoryIsNew(false);
@@ -71,21 +71,11 @@ const CubeNew = ({ history }) => {
 
   const createCube = async formData => {
     const data = await CubeModel.create(formData);
-    if (data.cubeError) {
-      setIsLoading(false);
-      data.question === "" && setQuestionError("Required");
-      data.answer === "" && setAnswerError("Required");
-      (data.category === "" || data.category === "undefined") &&
-        setCategoryError("Required");
-    } else {
-      const userData = await UserModel.allCubesAndCategories(
-        currentUserInfo._id
-      );
-      setCurrentUserInfo(userData);
-      setIsLoading(false);
-      setCurrentCubeId(data.cube._id);
-      history.push(`/dashboard/${data.cube._id}`);
-    }
+    const userData = await UserModel.allCubesAndCategories(currentUserInfo._id);
+    setCurrentUserInfo(userData);
+    setIsLoading(false);
+    setCurrentCubeId(data.cube._id);
+    history.push(`/dashboard/${data.cube._id}`);
   };
 
   const collectCubeFormData = categoryId => {
@@ -117,13 +107,20 @@ const CubeNew = ({ history }) => {
   };
 
   const createNewCategory = async () => {
-    const newCategoryData = {
-      title: newCategory,
-      user: currentUserInfo._id,
-    };
-    const data = await CategoryModel.create(newCategoryData);
-    const { _id: newCategoryId } = data;
-    collectCubeFormData(newCategoryId);
+    if (question && answer && newCategory) {
+      const newCategoryData = {
+        title: newCategory,
+        user: currentUserInfo._id,
+      };
+      const data = await CategoryModel.create(newCategoryData);
+      const { _id: newCategoryId } = data;
+      collectCubeFormData(newCategoryId);
+    } else {
+      setIsLoading(false);
+      !question && setQuestionError("Required");
+      !answer && setAnswerError("Required");
+      !newCategory && setCategoryError("Required");
+    }
   };
 
   const handleCategoryChange = e => {

@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { TrashIcon } from "@primer/octicons-react";
 import DeleteModal from "../DeleteModal";
 
-const DeleteBtn = ({ cubeId, categoryTitle, categoryId }) => {
+const DeleteBtn = ({ cubeId, categoryTitle, categoryId, cubeListLength }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = e => {
@@ -32,6 +32,7 @@ const DeleteBtn = ({ cubeId, categoryTitle, categoryId }) => {
         categoryId={categoryId}
         categoryTitle={categoryTitle}
         type={cubeId ? "cube" : "category"}
+        cubeListLength={cubeListLength}
       />
     </>
   );

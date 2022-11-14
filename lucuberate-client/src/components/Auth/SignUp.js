@@ -72,10 +72,10 @@ const SignUp = ({
           );
           console.log({ CurrentUser: data.currentUser });
           setCurrentUserInfo(data.currentUser);
-          setCurrentCubeId(data.currentUser.cubes[6]._id);
+          setCurrentCubeId(data.currentUser.categories[2].cubes[0]);
           setShowSignUpModal(false);
           data.currentUser.newUser && setShowGuide(true);
-          history.push(`/dashboard/${data.currentUser.cubes[6]._id}`);
+          history.push(`/dashboard/${data.currentUser.categories[2].cubes[0]}`);
         }
       }
     } else {

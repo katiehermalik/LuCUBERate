@@ -68,6 +68,7 @@ const Login = ({
         JSON.stringify({
           user_Id: data.user_Id,
           isLoggedIn: data.isLoggedIn,
+          returnUser: true,
         })
       );
       setCurrentUserInfo(data.currentUser);
@@ -76,7 +77,7 @@ const Login = ({
       if (data.currentUser.newUser) {
         setShowGuide(true);
         if (data.currentUser.cubes.length !== 0) {
-          history.push(`/dashboard/${data.currentUser.cubes[0]._id}`);
+          history.push(`/dashboard/${data.currentUser.categories[0].cubes[0]}`);
         } else {
           history.push("/dashboard");
         }

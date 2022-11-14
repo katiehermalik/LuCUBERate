@@ -32,73 +32,54 @@ const s3 = new AWS.S3({
 // };
 
 // Creates New Category and saves category Id to current user
-const create = (req, res) => {
-  console.log("THIS IS BEING HIT");
-  const { title, user } = req.body;
-
-  const newCategory = {
-    title,
-    user,
-  };
-  console.log({ newCategory });
-  db.Category.create(newCategory)
-    .then(savedCategory => {
-      console.log({ savedCategory });
-      db.User.findById(user).then(foundUser => {
-        console.log({ foundUser });
-        foundUser.categories.push({
-          _id: savedCategory._id,
-          title: savedCategory.title,
-        });
-        foundUser.save();
-        console.log({ savedCategory });
-        res.json(savedCategory);
-      });
-    })
-    .catch(err => {
-      console.log("Unable to find User in categories.create:", err);
-      res.json({ Error: "Unable to find User" });
-    })
-    .catch(err => {
-      console.log("Unable to save category in categories.create:", err);
-      res.json({
-        categoryError: "Unable to save category",
-        category: req.body.title,
-      });
+const create = async (req, res) => {
+  try {
+    const { title, user } = req.body;
+    const newCategory = {
+      title,
+      user,
+    };
+    const createdCategory = await db.Category.create(newCategory);
+    const foundUser = await db.User.findById(user);
+    foundUser.categories.push({
+      _id: createdCategory._id,
+      title: createdCategory.title,
     });
+    foundUser.save();
+    res.json(createdCategory);
+  } catch (err) {
+    res.json(err);
+  }
 };
 
-const destroy = (req, res) => {
-  db.Category.findByIdAndDelete(req.params.id).then(deletedCategory => {
-    deletedCategory.cubes.map(cube => {
-      db.Cube.findByIdAndDelete(cube._id).then(deletedCube => {
-        if (deletedCube.visual_aid) {
-          s3.deleteObject(
-            { Bucket: "lucuberatebucket", Key: deletedCube.visual_aid },
-            (err, data) => {
-              console.error("err", err);
-            }
-          );
-        }
-        db.User.findById(deletedCube.user).then(foundUser => {
-          foundUser.cubes.remove(deletedCube._id);
-          foundUser.save();
-        });
-      });
+const destroy = async (req, res) => {
+  try {
+    const deletedCategory = await db.Category.findByIdAndDelete(req.params.id);
+    deletedCategory.cubes.map(async cube => {
+      const deletedCube = await db.Cube.findByIdAndDelete(cube._id);
+      if (deletedCube.visual_aid) {
+        s3.deleteObject(
+          { Bucket: "lucuberatebucket", Key: deletedCube.visual_aid },
+          err => {
+            console.error(err);
+          }
+        );
+      }
+      const foundUser = await db.User.findById(deletedCube.user);
+      foundUser.cubes.remove(deletedCube._id);
+      foundUser.save();
     });
-    db.User.findById(deletedCategory.user)
-      .then(foundUser => {
-        foundUser.categories.remove(deletedCategory._id);
-        foundUser.save();
-      })
-      .then(() => {
-        res.json({ category: deletedCategory });
-      });
-  });
+    const foundUser = await db.User.findById(deletedCategory.user);
+    foundUser.categories.remove(deletedCategory._id);
+    res.json({ category: deletedCategory });
+  } catch (err) {
+    res.json(err);
+  }
 };
 
-const shuffle = (req, res) => {
-  db.Category.findById(req.params.id).then(foundCategory => {
+const shuffle = async (req, res) => {
+  try {
+    const foundCategory = await db.Category.findById(req.params.id);
     // Fisher–Yates shuffle
     let m = foundCategory.cubes.length;
     let i;
@@ -112,10 +93,11 @@ const shuffle = (req, res) => {
         foundCategory.cubes[m],
       ];
     }
-    foundCategory.save().then(savedCategory => {
-      res.json(savedCategory);
-    });
-  });
+    const savedCategory = await foundCategory.save();
+    res.json(savedCategory);
+  } catch (err) {
+    res.json(err);
+  }
 };
 
 module.exports = {

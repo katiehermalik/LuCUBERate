@@ -8,8 +8,8 @@ const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
 const StudyCube = ({ cubeData }) => {
   const { currentUserInfo } = useContext(UserContext);
   const { showGuide, setShowGuide } = useContext(GuideContext);
-  const sessionData = JSON.parse(sessionStorage.getItem("user")) || {};
   const [side, setSide] = useState("");
+  const sessionData = JSON.parse(sessionStorage.getItem("user")) || {};
 
   // creating refs dynamically when mapping radio buttons
   const createdRefs = [];

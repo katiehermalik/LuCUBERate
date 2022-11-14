@@ -91,12 +91,13 @@ const CubeEdit = ({
       category.cubes.includes(currentCubeId)
     );
     setCurrentCubeCategory(currentCubeCatInfo);
-    if (
-      currentCubeCatInfo?._id !== currentCategory &&
-      currentCubeCatInfo?.cubes.length === 1
-    ) {
-      setShowWarningModal(true);
-    }
+    // if (
+    //   currentCubeCatInfo?._id !== currentCategory &&
+    //   currentCubeCatInfo?.cubes.length === 1
+    //   //currentCubeCategory.cubes.length === 1
+    // ) {
+    //   setShowWarningModal(true);
+    // }
     currentCategory === null ? setCategoryIsNew(true) : setCategoryIsNew(false);
   }, [
     cubeId,
@@ -169,7 +170,13 @@ const CubeEdit = ({
   const handleSubmit = e => {
     e.preventDefault();
     setIsLoading(true);
-    categoryIsNew ? createNewCategory() : collectCubeFormData(currentCategory);
+    if (currentCubeCategory.cubes.length === 1) {
+      setShowWarningModal(true);
+    } else {
+      categoryIsNew
+        ? createNewCategory()
+        : collectCubeFormData(currentCategory);
+    }
   };
 
   const handleCancelClick = e => {
@@ -278,7 +285,7 @@ const CubeEdit = ({
                 placeholder="The quetsion goes here..."
                 maxLength="300"
                 name="question"
-                value={question || ""}
+                value={question}
                 onChange={e => {
                   setQuestion(e.target.value);
                   setQuestionCount(e.target.value.length);
@@ -303,7 +310,7 @@ const CubeEdit = ({
                 placeholder="The answer goes here..."
                 maxLength="300"
                 name="answer"
-                value={answer || ""}
+                value={answer}
                 onChange={e => {
                   setAnswer(e.target.value);
                   setAnswerCount(e.target.value.length);
@@ -490,6 +497,12 @@ const CubeEdit = ({
         </form>
       </div>
       <DeleteModal
+        newCategory={newCategory}
+        setIsLoading={setIsLoading}
+        categoryIsNew={categoryIsNew}
+        collectCubeFormData={collectCubeFormData}
+        createNewCategory={createNewCategory}
+        currentCategory={currentCategory}
         showModal={showWarningModal}
         setShowModal={setShowWarningModal}
         categoryId={currentCubeCategory?._id}

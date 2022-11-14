@@ -579,6 +579,7 @@ footer {
   flex: 1 1 auto;
   font-weight: 500;
   margin: 0 1rem;
+  white-space: normal;
 }
 
 .modal-body .md-form {
@@ -689,6 +690,11 @@ hr {
   flex-direction: row;
 }
 
+.modal-guide.tour-step-3 .modal-footer,
+.modal-guide.return-user .modal-footer {
+  justify-content: space-between;
+}
+
 .modal-guide [title="Back"] {
   padding: 0;
   height: 38px;
@@ -704,6 +710,21 @@ hr {
 
 .modal-guide li {
   list-style: circle;
+}
+
+.modal-guide label {
+  font-size: 12px;
+  margin-left: 10px;
+  line-height: 1.1;
+}
+
+.modal-guide form {
+  display: flex;
+  align-items: flex-start;
+}
+
+.modal-guide input[type="checkbox"] {
+  accent-color: var(--accent-color);
 }
 
 /* ------------------------------- Cube List */
@@ -1546,5 +1567,33 @@ input[type="radio"]:checked + label {
   .navbar-item {
     font-size: 14px;
     padding: 4px 6px;
+  }
+
+  /* ================================ Guide Modal */
+
+  .modal-guide {
+    top: auto;
+    bottom: 0;
+    margin-bottom: 30px;
+  }
+  .modal-guide.tour-step-1:before {
+    display: none;
+  }
+  .modal-guide.tour-step-2:before {
+    top: auto;
+    bottom: 0px;
+    left: 20px;
+    transform: translatey(100%) rotate(-90deg);
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .modal-guide .modal-footer {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .modal-guide form {
+    align-self: flex-start;
+    margin-bottom: 20px;
   }
 }

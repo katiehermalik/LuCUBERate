@@ -5,17 +5,26 @@ import {
   UserContext,
   ThemeContext,
   CategoryContext,
+  CubeContext,
+  QuestionsContext,
+  CategoryListContext,
 } from "../../context/ContextProvider";
 
 const Logout = ({ history, setShowUserMenu }) => {
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setTheme } = useContext(ThemeContext);
   const { setCurrentCategory } = useContext(CategoryContext);
+  const { setCurrentCubeId } = useContext(CubeContext);
+  const { setQuestionsAreVisible } = useContext(QuestionsContext);
+  const { setShowCategoryList } = useContext(CategoryListContext);
 
   const handleSubmit = e => {
     setTheme("dark");
     setCurrentUserInfo(null);
     setCurrentCategory(null);
+    setCurrentCubeId(null);
+    setQuestionsAreVisible(false);
+    setShowCategoryList(true);
     setShowUserMenu(false);
     sessionStorage.clear();
     history.push("/");
