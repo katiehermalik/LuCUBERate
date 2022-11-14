@@ -82,13 +82,6 @@ const CubeEdit = ({
       category.cubes.includes(currentCubeId)
     );
     setCurrentCubeCategory(currentCubeCatInfo);
-    // if (
-    //   currentCubeCatInfo?._id !== currentCategory &&
-    //   currentCubeCatInfo?.cubes.length === 1
-    //   //currentCubeCategory.cubes.length === 1
-    // ) {
-    //   setShowWarningModal(true);
-    // }
     currentCategory === null ? setCategoryIsNew(true) : setCategoryIsNew(false);
   }, [
     cubeId,
