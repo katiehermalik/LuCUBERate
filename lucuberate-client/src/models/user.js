@@ -35,9 +35,7 @@ class UserModel {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     })
-      .then(res => {
-        return res.json();
-      })
+      .then(res => res.json())
       .catch(err => {
         console.log("Error fetching data in UserModel.findOne", err);
         return { message: "Error fetching data in UserModel.findOne" };
@@ -48,9 +46,7 @@ class UserModel {
     return fetch(logoutUrl, {
       method: "DELETE",
     })
-      .then(res => {
-        res.json();
-      })
+      .then(res => res.json())
       .catch(err => {
         console.log("Error fetching data in UserModel.logout", err);
         return { message: "Error fetching data in UserModel.logout" };
@@ -74,9 +70,7 @@ class UserModel {
     return fetch(`${url}/${id}`, {
       method: "GET",
     })
-      .then(res => {
-        return res.json();
-      })
+      .then(res => res.json())
       .catch(err => {
         console.log("Error fetching data in UserModel.allCubes", err);
         return { cubes: [] }; // something back as well as error
