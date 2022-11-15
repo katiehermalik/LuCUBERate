@@ -20,9 +20,7 @@ class CategoryModel {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newCategory),
     })
-      .then(res => {
-        return res.json();
-      })
+      .then(res => res.json())
       .catch(err => {
         console.log("Error fetching data in CategoryModel.create", err);
         return { message: "Error fetching data in CategoryModel.create" };
