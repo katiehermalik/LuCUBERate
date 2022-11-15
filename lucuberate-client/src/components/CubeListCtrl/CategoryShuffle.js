@@ -8,19 +8,18 @@ const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
   const { currentCategory } = useContext(CategoryContext);
   const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
 
-  const handleShuffleCubes = e => {
+  const handleShuffleCubes = async e => {
     e.stopPropagation();
     changeCubeListOpacity();
-    CategoryModel.shuffle(currentCategory).then(data => {
-      setTimeout(() => {
-        const indexOfCategory = currentUserInfo.categories.findIndex(
-          category => category._id === data._id
-        );
-        currentUserInfo.categories[indexOfCategory] = data;
-        setCurrentUserInfo(currentUserInfo);
-        setCategoryWasShuffled(true);
-      }, 400);
-    });
+    const data = await CategoryModel.shuffle(currentCategory);
+    setTimeout(() => {
+      const indexOfCategory = currentUserInfo.categories.findIndex(
+        category => category._id === data._id
+      );
+      currentUserInfo.categories[indexOfCategory] = data;
+      setCurrentUserInfo(currentUserInfo);
+      setCategoryWasShuffled(true);
+    }, 400);
   };
 
   return (
