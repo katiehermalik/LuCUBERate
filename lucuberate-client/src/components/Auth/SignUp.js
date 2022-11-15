@@ -6,6 +6,7 @@ import {
   UserContext,
   CubeContext,
   GuideContext,
+  CategoryListContext,
 } from "../../context/ContextProvider";
 
 const SignUp = ({
@@ -17,6 +18,7 @@ const SignUp = ({
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
   const { setShowGuide } = useContext(GuideContext);
+  const { setShowCategoryList } = useContext(CategoryListContext);
   const [newUserInfo, setNewUserInfo] = useState({
     username: "",
     email: "",
@@ -74,7 +76,9 @@ const SignUp = ({
           setCurrentUserInfo(data.currentUser);
           setCurrentCubeId(data.currentUser.categories[2].cubes[0]);
           setShowSignUpModal(false);
-          data.currentUser.newUser && setShowGuide(true);
+          data.currentUser.newUser &&
+            setShowGuide(true) &&
+            setShowCategoryList(false);
           history.push(`/dashboard/${data.currentUser.categories[2].cubes[0]}`);
         }
       }

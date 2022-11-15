@@ -6,6 +6,7 @@ import {
   UserContext,
   ThemeContext,
   GuideContext,
+  CategoryListContext,
 } from "../../context/ContextProvider";
 
 const Login = ({
@@ -17,6 +18,7 @@ const Login = ({
   const { setTheme } = useContext(ThemeContext);
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setShowGuide } = useContext(GuideContext);
+  const { setShowCategoryList } = useContext(CategoryListContext);
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
@@ -76,6 +78,7 @@ const Login = ({
       setShowLoginModal(false);
       if (data.currentUser.newUser) {
         setShowGuide(true);
+        setShowCategoryList(false);
         if (data.currentUser.cubes.length !== 0) {
           history.push(`/dashboard/${data.currentUser.categories[0].cubes[0]}`);
         } else {

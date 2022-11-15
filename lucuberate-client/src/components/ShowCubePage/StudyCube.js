@@ -63,6 +63,7 @@ const StudyCube = ({ cubeData }) => {
               </ul>
             </fieldset>
           </div>
+          {showGuide && <div className="guide-background"></div>}
           <div className="cube-area-container">
             {currentUserInfo.newUser && showGuide && <GuideModal />}
             <div className="cube-area">
