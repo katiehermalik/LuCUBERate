@@ -102,15 +102,25 @@ const CubeEdit = ({
   };
 
   const checkFileExtention = e => {
-    let ext = e.target.files[0].name.substr(
-      e.target.files[0].name.lastIndexOf(".")
-    );
-    if (ext === ".jpg" || ext === ".jpeg" || ext === ".png" || ext === ".gif") {
-      setNewVisualAid(e.target.files[0]);
+    if (e.target.files.length === 0) {
+      setNewVisualAid("");
       setVisualAidError("");
     } else {
-      setNewVisualAid(e.target.files[0]);
-      setVisualAidError("Only .jpg, .jpeg, .png, and .gif allowed");
+      let ext = e.target.files[0].name.substr(
+        e.target.files[0].name.lastIndexOf(".")
+      );
+      if (
+        ext === ".jpg" ||
+        ext === ".jpeg" ||
+        ext === ".png" ||
+        ext === ".gif"
+      ) {
+        setNewVisualAid(e.target.files[0]);
+        setVisualAidError("");
+      } else {
+        setNewVisualAid(e.target.files[0]);
+        setVisualAidError("Only .jpg, .jpeg, .png, and .gif allowed");
+      }
     }
   };
 
@@ -255,6 +265,7 @@ const CubeEdit = ({
                   maxLength="20"
                   value={newCategory}
                   onChange={e => {
+                    setCategoryError("");
                     setNewCategory(e.target.value);
                     setNewCategoryCount(e.target.value.length);
                   }}
@@ -284,6 +295,7 @@ const CubeEdit = ({
                 name="question"
                 value={question}
                 onChange={e => {
+                  setQuestionError("");
                   setQuestion(e.target.value);
                   setQuestionCount(e.target.value.length);
                 }}
@@ -309,6 +321,7 @@ const CubeEdit = ({
                 name="answer"
                 value={answer}
                 onChange={e => {
+                  setAnswerError("");
                   setAnswer(e.target.value);
                   setAnswerCount(e.target.value.length);
                 }}
@@ -465,7 +478,6 @@ const CubeEdit = ({
               ) : null}
               {/* TODO - compress visual aid size */}
               {/* TODO - make sure visual aid is deleted from AWS S3 Bucket */}
-              {/* TODO - fix error that happens when you have an upload already waiting, then you click upload again, but cancel at the file browser screen */}
             </div>
           </div>
           <div className="form-buttons form-row">
@@ -480,9 +492,19 @@ const CubeEdit = ({
                 </button>
               </Link>
               <button
-                disabled={isLoading ? true : false}
+                disabled={
+                  questionError ||
+                  answerError ||
+                  categoryError ||
+                  visualAidError ||
+                  isLoading
+                    ? true
+                    : false
+                }
                 type="submit"
-                className="btn form-btn btn-primary">
+                className={`btn form-btn btn-primary ${
+                  isLoading ? "loading" : ""
+                }`}>
                 {isLoading ? (
                   <PackageIcon size={24} className="loading-icon" />
                 ) : (

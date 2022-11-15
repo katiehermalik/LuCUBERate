@@ -393,7 +393,7 @@ footer {
   margin-left: 10px;
 }
 
-.form-btn:disabled {
+.form-btn.loading:disabled {
   padding: 1rem;
 }
 

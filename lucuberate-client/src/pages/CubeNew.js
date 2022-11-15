@@ -18,8 +18,8 @@ const CubeNew = ({ history }) => {
 
   const visualAidInputRef = useRef(null);
 
-  // const [ cubeData, setCubeData ] = useState({
-  //   category: '',
+  // const initialState = {
+  //   newCategory: '',
   //   question: '',
   //   answer: '',
   //   hint: '',
@@ -27,16 +27,21 @@ const CubeNew = ({ history }) => {
   //   link: '',
   //   link_alias: '',
   //   visual_aid: '',
-  //   categoryCount: 0,
+  //   newCategoryCount: 0,
   //   questionCount: 0,
   //   answerCount: 0,
   //   hintCount: 0,
   //   notesCount: 0,
   //   linkAliasCount: 0,
+  //   categoryError: '',
   //   questionError: '',
   //   answerError: '',
   //   visualAidError: '',
-  // });
+  //   categoryIsNew: false,
+  //   isLoading: false,
+  // };
+
+  // const [state, dispatch] = useReducer(reducer, initialState);
 
   const [newCategory, setNewCategory] = useState("");
   const [question, setQuestion] = useState("");
@@ -86,15 +91,25 @@ const CubeNew = ({ history }) => {
   };
 
   const checkFileExtention = e => {
-    let ext = e.target.files[0].name.substr(
-      e.target.files[0].name.lastIndexOf(".")
-    );
-    if (ext === ".jpg" || ext === ".jpeg" || ext === ".png" || ext === ".gif") {
-      setVisualAid(e.target.files[0]);
+    if (e.target.files.length === 0) {
+      setVisualAid("");
       setVisualAidError("");
     } else {
-      setVisualAid(e.target.files[0]);
-      setVisualAidError("Only .jpg, .jpeg, .png, and .gif allowed");
+      let ext = e.target.files[0].name.substr(
+        e.target.files[0].name.lastIndexOf(".")
+      );
+      if (
+        ext === ".jpg" ||
+        ext === ".jpeg" ||
+        ext === ".png" ||
+        ext === ".gif"
+      ) {
+        setVisualAid(e.target.files[0]);
+        setVisualAidError("");
+      } else {
+        setVisualAid(e.target.files[0]);
+        setVisualAidError("Only .jpg, .jpeg, .png, and .gif allowed");
+      }
     }
   };
 
@@ -201,7 +216,6 @@ const CubeNew = ({ history }) => {
               ))}
             </select>
           </div>
-
           {categoryIsNew && (
             <div className="form-group col-md-5">
               <label htmlFor="inputCategory">
@@ -218,6 +232,7 @@ const CubeNew = ({ history }) => {
                 maxLength="20"
                 value={newCategory}
                 onChange={e => {
+                  setCategoryError("");
                   setNewCategory(e.target.value);
                   setNewCategoryCount(e.target.value.length);
                 }}
@@ -247,6 +262,7 @@ const CubeNew = ({ history }) => {
               name="question"
               value={question}
               onChange={e => {
+                setQuestionError("");
                 setQuestion(e.target.value);
                 setQuestionCount(e.target.value.length);
               }}
@@ -272,6 +288,7 @@ const CubeNew = ({ history }) => {
               name="answer"
               value={answer}
               onChange={e => {
+                setAnswerError("");
                 setAnswer(e.target.value);
                 setAnswerCount(e.target.value.length);
               }}
@@ -416,9 +433,19 @@ const CubeNew = ({ history }) => {
               </button>
             </Link>
             <button
-              disabled={isLoading ? true : false}
+              disabled={
+                questionError ||
+                answerError ||
+                categoryError ||
+                visualAidError ||
+                isLoading
+                  ? true
+                  : false
+              }
               type="submit"
-              className="btn form-btn btn-primary">
+              className={`btn form-btn btn-primary ${
+                isLoading ? "loading" : ""
+              }`}>
               {isLoading ? (
                 <PackageIcon size={24} className="loading-icon" />
               ) : (
