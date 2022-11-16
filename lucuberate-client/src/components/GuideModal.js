@@ -186,7 +186,8 @@ const GuideModal = () => {
             className="form-btn btn-primary">
             {tourStep === 1 && returnUser && <span>Tell me more</span>}
             {tourStep === 1 && !returnUser && <span>Show me</span>}
-            {tourStep === 2 && <span>Tell me more</span>}
+            {tourStep === 2 && returnUser && <span>Ok, got it</span>}
+            {tourStep === 2 && !returnUser && <span>Tell me more</span>}
             {tourStep === 3 && <span>Ok, got it</span>}
             {tourStep === 4 && <span>Start studying</span>}
           </button>

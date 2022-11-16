@@ -11,14 +11,14 @@ export const GuideContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
   const [currentCategory, setCurrentCategory] = useState("");
   const [currentCubeId, setCurrentCubeId] = useState("");
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [showCategoryList, setShowCategoryList] = useState(true);
   const [showGuide, setShowGuide] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const { user_Id, isLoggedIn } =

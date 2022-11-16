@@ -56,6 +56,7 @@ const CubeList = ({
 
   const [currentPath, setCurrentPath] = useReducer(currentPathReducer, []);
 
+  const buttonCover = useRef();
   const currentCubeRefs = useRef([]);
   const currentCategoryRefs = useRef([]);
   const { current: cubeRefs } = currentCubeRefs || [];
@@ -156,6 +157,7 @@ const CubeList = ({
     if (currentCategory === null) {
       categoryRefs.forEach(ref => {
         ref.classList.remove("active");
+        ref.parentElement.style.zIndex = "0";
         ref.nextElementSibling.style.maxHeight = "0px";
       });
     } else {
@@ -165,6 +167,7 @@ const CubeList = ({
           ref.className.split(" ").includes("active")
         ) {
           ref.classList.remove("active");
+          ref.parentElement.style.zIndex = "0";
           ref.nextElementSibling.style.maxHeight = "0px";
         }
       });
@@ -174,7 +177,7 @@ const CubeList = ({
   const openCategoryCubeList = useCallback(() => {
     if (!currentCategoryRef.className.split(" ").includes("active")) {
       currentCategoryRef.classList.add("active");
-
+      currentCategoryRef.parentElement.style.zIndex = "1";
       currentCategoryRef.nextElementSibling.style.maxHeight =
         currentCategoryRef.nextElementSibling.elements.length > 4
           ? "200px"
@@ -311,12 +314,15 @@ const CubeList = ({
     e.preventDefault();
     const {
       target: { nextElementSibling: categoryCubeList },
+      target: { parentElement: categoryContainer },
     } = e;
     if (categoryCubeList.style.maxHeight === "0px") {
       // if opening a new category
+      categoryContainer.style.zIndex = "1";
       setCurrentCategory(e.target.id);
     } else {
       // if closing current category, close targeted category and go to dashboard.
+      categoryContainer.style.zIndex = "0";
       currCategoryCubeRefs.forEach(cube => (cube.ref.checked = false));
       categoryCubeList.style.maxHeight = "0px";
       e.target.classList.remove("active");
@@ -372,7 +378,9 @@ const CubeList = ({
                         key={categoryId}>
                         <div className="category-container">
                           {currentCategory === categoryId ? (
-                            <div className="category-btn-cover theme-transition">
+                            <div
+                              className="category-btn-cover theme-transition"
+                              ref={buttonCover}>
                               <span className="category-title">{`${categoryTitle}`}</span>
                               <div className="category-options-grp container-row pointer-disabled">
                                 <CubeCount
@@ -433,7 +441,6 @@ const CubeList = ({
                                 categoryRefs[i] = element;
                               }
                             }}></button>
-
                           <fieldset
                             style={{
                               overflow: "auto",
@@ -443,7 +450,6 @@ const CubeList = ({
                                   ? 4
                                   : categoryCubes.length
                               }s ease-out 0s`,
-                              position: "relative",
                             }}
                             className="content container-column cube-select-group">
                             <legend

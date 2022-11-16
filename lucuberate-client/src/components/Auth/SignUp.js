@@ -76,9 +76,8 @@ const SignUp = ({
           setCurrentUserInfo(data.currentUser);
           setCurrentCubeId(data.currentUser.categories[2].cubes[0]);
           setShowSignUpModal(false);
-          data.currentUser.newUser &&
-            setShowGuide(true) &&
-            setShowCategoryList(false);
+          setShowGuide(true);
+          setShowCategoryList(false);
           history.push(`/dashboard/${data.currentUser.categories[2].cubes[0]}`);
         }
       }
