@@ -337,7 +337,7 @@ html,
   justify-content: center;
   align-items: center;
   min-height: 85px;
-  padding: 20px;
+  padding: 0 20px;
   background-color: var(--cube-ctrl-list-color);
 }
 
@@ -894,14 +894,15 @@ hr {
 
 .form-container {
   display: inline-block;
-  padding: 20px 0;
+  padding: 0 0 20px;
   width: 100%;
   height: calc(100vh - 50px);
   overflow-y: scroll;
 }
 
 .cube-form {
-  margin: 0 40px;
+  margin: 40px auto 20px;
+  max-width: 1000px;
 }
 
 .form-row {
@@ -909,8 +910,6 @@ hr {
   margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
-  margin-right: -5px;
-  margin-left: -5px;
 }
 
 .form-title {
@@ -1635,6 +1634,24 @@ input[type="radio"]:checked + label {
     bottom: 0px;
     left: 20px;
     transform: translatey(100%) rotate(-90deg);
+  }
+
+  /* ================================ Cube Form */
+
+  .cube-form {
+    margin: 20px 40px;
+  }
+
+  .instructions {
+    padding: 20px;
+  }
+
+  .form-row {
+    margin-top: 0;
+  }
+
+  .cube-form .form-buttons .form-group:nth-child(2) {
+    margin-bottom: 40px;
   }
 }
 

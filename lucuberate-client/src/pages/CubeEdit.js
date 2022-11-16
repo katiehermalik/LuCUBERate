@@ -207,10 +207,13 @@ const CubeEdit = ({
   return (
     <>
       <div className="form-container container-column">
-        <h1 className="form-title">Edit this Study Cube</h1>
-        <p className="required-warning">
-          ( Fields marked with a <span style={required}>*</span> are required )
-        </p>
+        <div className="instructions container-column theme-transition">
+          <h1 className="form-title">Edit this Study Cube</h1>
+          <p className="required-warning">
+            ( Fields marked with a <span style={required}>*</span> are required
+            )
+          </p>
+        </div>
         <form
           onSubmit={handleSubmit}
           encType="multipart/form-data"
