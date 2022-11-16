@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { ChevronRightIcon } from "@primer/octicons-react";
+import { ChevronRightIcon, PersonFillIcon } from "@primer/octicons-react";
 
 import SignUpBtn from "./Auth/SignUpBtn";
 import LoginBtn from "./Auth/LoginBtn";
@@ -76,7 +76,7 @@ const Navbar = ({ user }) => {
           <button
             onClick={toggleUserMenu}
             className="navbar-item username theme-transition dropbtn">
-            {user.username}
+            <PersonFillIcon size={16} /> {user.username}
           </button>
           {showUserMenu && (
             <div className="dropdown-content theme-transition">

@@ -167,6 +167,7 @@ const CubeEdit = ({
       if (categoryIsNew) {
         if (newCategory) {
           setIsLoading(true);
+          currentCategory !== currentCubeCategory._id &&
           currentCubeCategory.cubes.length === 1
             ? setShowWarningModal(true)
             : createNewCategory();
@@ -175,6 +176,7 @@ const CubeEdit = ({
         }
       } else {
         setIsLoading(true);
+        currentCategory !== currentCubeCategory._id &&
         currentCubeCategory.cubes.length === 1
           ? setShowWarningModal(true)
           : collectCubeFormData(currentCategory);

@@ -72,7 +72,6 @@ const SignUp = ({
               isLoggedIn: data.isLoggedIn,
             })
           );
-          console.log({ CurrentUser: data.currentUser });
           setCurrentUserInfo(data.currentUser);
           setCurrentCubeId(data.currentUser.categories[2].cubes[0]);
           setShowSignUpModal(false);
