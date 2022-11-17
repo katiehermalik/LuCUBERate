@@ -66,28 +66,33 @@ const CubeList = ({
   const [currCategoryCubeRefs, setCurrCategoryCubeRefs] = useState([]);
   const [currentCubeCategory, setCurrentCubeCategory] = useState("");
   const [categoryWasShuffled, setCategoryWasShuffled] = useState(false);
+  const [placeholderRendered, setPlaceHolderRendered] = useState(true);
 
-  // console.log(
-  //   "============================================================================================================================================"
-  // );
-  // console.log("cubeRefs ------->", cubeRefs);
-  // console.log("categoryRefs ------->", categoryRefs);
-  // console.log(
-  //   "currentUserInfo.categories ------->",
-  //   currentUserInfo.categories
-  // );
-  // console.log("currentPath ------->", currentPath);
-  // console.log("currentCubeId ------->", currentCubeId);
-  // console.log("currentCubeCategory ------->", currentCubeCategory);
-  // console.log("currentCategory ------->", currentCategory);
-  // console.log("currentCategoryRef ------->", currentCategoryRef);
-  // console.log("currCategoryCubeRefs ------->", currCategoryCubeRefs);
-  // console.log("categoryWasShuffled ------->", categoryWasShuffled);
-  // console.log(
-  //   "============================================================================================================================================"
-  // );
+  console.log(
+    "============================================================================================================================================"
+  );
+  console.log("cubeRefs ------->", cubeRefs);
+  console.log("categoryRefs ------->", categoryRefs);
+  console.log(
+    "currentUserInfo.categories ------->",
+    currentUserInfo.categories
+  );
+  console.log("currentPath ------->", currentPath);
+  console.log("currentCubeId ------->", currentCubeId);
+  console.log("currentCubeCategory ------->", currentCubeCategory);
+  console.log("currentCategory ------->", currentCategory);
+  console.log("currentCategoryRef ------->", currentCategoryRef);
+  console.log("currCategoryCubeRefs ------->", currCategoryCubeRefs);
+  console.log("categoryWasShuffled ------->", categoryWasShuffled);
+  console.log(
+    "============================================================================================================================================"
+  );
 
   //====================================================================================//
+
+  const checkPlaceHolder = cubeRendered => {
+    setPlaceHolderRendered(cubeRendered);
+  };
 
   const findCurrentCubeId = useCallback(() => {
     console.log({ currentPath });
@@ -178,12 +183,22 @@ const CubeList = ({
     if (!currentCategoryRef.className.split(" ").includes("active")) {
       currentCategoryRef.classList.add("active");
       currentCategoryRef.parentElement.style.zIndex = "1";
-      currentCategoryRef.nextElementSibling.style.maxHeight =
+      if (
+        (currentCategoryRef.nextElementSibling.elements.length > 3 &&
+          placeholderRendered) ||
         currentCategoryRef.nextElementSibling.elements.length > 4
-          ? "200px"
-          : `${currentCategoryRef.nextElementSibling.elements.length * 50}px`;
+      ) {
+        currentCategoryRef.nextElementSibling.style.maxHeight = "220px";
+      } else {
+        currentCategoryRef.nextElementSibling.style.maxHeight =
+          placeholderRendered
+            ? `${
+                currentCategoryRef.nextElementSibling.elements.length * 55 + 55
+              }px`
+            : `${currentCategoryRef.nextElementSibling.elements.length * 55}px`;
+      }
     }
-  }, [currentCategoryRef]);
+  }, [currentCategoryRef, placeholderRendered]);
 
   const scrollToCube = useCallback(
     isCurrentCubeCategory => {
@@ -193,10 +208,12 @@ const CubeList = ({
       switch (true) {
         case (currentPath[0] === "dashboard" || currentPath[0] === "show") &&
           !isCurrentCubeCategory:
-          currCategoryCubeRefs[0].ref.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
+          setTimeout(function () {
+            currCategoryCubeRefs[0].ref.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }, 100);
           break;
         case (currentPath[0] === "edit" || currentPath[0] === "show") &&
           isCurrentCubeCategory:
@@ -212,10 +229,12 @@ const CubeList = ({
         default:
           break;
       }
-      foundCubeRef?.ref.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+      setTimeout(function () {
+        foundCubeRef?.ref.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 100);
     },
     [
       currentCubeId,
@@ -501,6 +520,7 @@ const CubeList = ({
                               categoryId !== currentCubeCategory) ||
                               currentPath[0] === "new") && (
                               <PlaceHolderCube
+                                checkPlaceHolder={checkPlaceHolder}
                                 currentPath={currentPath}
                                 currentCubeCategory={currentCubeCategory}
                               />

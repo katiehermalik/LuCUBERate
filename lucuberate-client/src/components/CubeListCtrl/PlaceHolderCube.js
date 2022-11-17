@@ -8,6 +8,7 @@ import {
 } from "../../context/ContextProvider";
 
 const PlaceHolderCube = ({
+  checkPlaceHolder,
   currentCubeCategory,
   currentPath,
   history: {
@@ -29,11 +30,13 @@ const PlaceHolderCube = ({
         (currentPath[0] === "edit" && currentCubeCategory !== currentCategory)
       ) {
         setRenderPlaceHolder(true);
+        checkPlaceHolder(true);
         setCurrentCategoryData(
           categories.find(category => category._id === currentCategory)
         );
       } else {
         setRenderPlaceHolder(false);
+        checkPlaceHolder(false);
       }
     }
   }, [
