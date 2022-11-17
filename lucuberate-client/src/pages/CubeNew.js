@@ -1,6 +1,11 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { XCircleFillIcon, PackageIcon, InfoIcon } from "@primer/octicons-react";
+import {
+  XCircleFillIcon,
+  PackageIcon,
+  InfoIcon,
+  ChevronDownIcon,
+} from "@primer/octicons-react";
 
 import {
   UserContext,
@@ -67,6 +72,7 @@ const CubeNew = ({ history }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    document.title = "Lucuberate | New Cube";
     if (!currentCategory) {
       setCategoryIsNew(true);
     } else {
@@ -175,10 +181,18 @@ const CubeNew = ({ history }) => {
   return (
     <div className="form-container container-column">
       <div className="instructions container-column theme-transition">
-        <h1 className="form-title">Create a New Study Cube</h1>
-        <h5 className="required-warning">
-          ( Fields marked with a <span style={required}>*</span> are required )
-        </h5>
+        <h1 className="form-title">
+          <span className="force-line-break">Create a New&nbsp;</span>
+          <span className="force-line-break">Study Cube</span>
+        </h1>
+        <h2 className="required-warning">
+          <span className="force-line-break">
+            &#40; Fields marked with&nbsp;
+          </span>
+          <span className="force-line-break">
+            a <span style={required}>*</span> are required &#41;
+          </span>
+        </h2>
       </div>
       <form
         onSubmit={handleSubmit}
@@ -196,27 +210,32 @@ const CubeNew = ({ history }) => {
                 <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
               )}
             </label>
-            <select
-              className="form-control theme-transition"
-              id="category-dropdown"
-              onChange={handleCategoryChange}
-              value={
-                currentCategory
-                  ? currentCategory
-                  : categoryIsNew
-                  ? "New Category"
-                  : ""
-              }>
-              <option value="" disabled>
-                -- select an option --
-              </option>
-              <option value="New Category">New Category</option>
-              {currentUserInfo?.categories?.map(category => (
-                <option
-                  key={`${category._id}`}
-                  value={`${category._id}`}>{`${category.title}`}</option>
-              ))}
-            </select>
+            <div className="select-group">
+              <select
+                className="form-control theme-transition"
+                id="category-dropdown"
+                onChange={handleCategoryChange}
+                value={
+                  currentCategory
+                    ? currentCategory
+                    : categoryIsNew
+                    ? "New Category"
+                    : ""
+                }>
+                <option value="" disabled>
+                  -- select an option --
+                </option>
+                <option value="New Category">New Category</option>
+                {currentUserInfo?.categories?.map(category => (
+                  <option
+                    key={`${category._id}`}
+                    value={`${category._id}`}>{`${category.title}`}</option>
+                ))}
+              </select>
+              <div className="select-icon">
+                <ChevronDownIcon size={16} />
+              </div>
+            </div>
           </div>
           {categoryIsNew && (
             <div className="form-group col-md-5">

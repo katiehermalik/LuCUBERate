@@ -62,6 +62,7 @@ const CubeEdit = ({
   };
 
   useEffect(() => {
+    document.title = "Lucuberate | Edit Cube";
     (async function () {
       const data = await CubeModel.getOne(cubeId);
       setQuestion(data.cube.question);
@@ -208,11 +209,18 @@ const CubeEdit = ({
     <>
       <div className="form-container container-column">
         <div className="instructions container-column theme-transition">
-          <h1 className="form-title">Edit this Study Cube</h1>
-          <h5 className="required-warning">
-            ( Fields marked with a <span style={required}>*</span> are required
-            )
-          </h5>
+          <h1 className="form-title">
+            <span className="force-line-break">Edit this&nbsp;</span>
+            <span className="force-line-break">Study Cube</span>
+          </h1>
+          <h2 className="required-warning">
+            <span className="force-line-break">
+              &#40; Fields marked with&nbsp;
+            </span>
+            <span className="force-line-break">
+              a <span style={required}>*</span> are required &#41;
+            </span>
+          </h2>
         </div>
         <form
           onSubmit={handleSubmit}
