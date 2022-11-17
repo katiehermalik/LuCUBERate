@@ -2,11 +2,15 @@ import { Canvas } from "react-three-fiber";
 import { Stars, OrbitControls } from "drei";
 import CubeMesh from "./CubeMesh";
 import Lights from "./Lights";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../context/ContextProvider";
 
 function LandingBackground() {
   const { theme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    document.title = 'Lucuberate | Home';
+  }, []);
 
   return (
     <Canvas

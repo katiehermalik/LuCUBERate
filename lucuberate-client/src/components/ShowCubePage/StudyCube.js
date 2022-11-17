@@ -17,6 +17,7 @@ const StudyCube = ({ cubeData }) => {
   const refs = useRef(createdRefs);
 
   useEffect(() => {
+    document.title = 'Lucuberate | Study Cube';
     currentUserInfo.newUser &&
       !sessionData.completedGuide &&
       setShowGuide(true);
