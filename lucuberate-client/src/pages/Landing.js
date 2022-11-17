@@ -4,47 +4,51 @@ const Landing = () => {
   return (
     <div className="landing">
       <div id="title-container" className="title-container">
-        <br></br>
-        <br></br>
-        <br></br>
-        <section className="about">
-          <div className="logo">
-            <h2
-              id="brand-name"
-              className="landing-text side-text theme-transition">
-              Lu
-            </h2>
-            <h1
-              id="brand-name"
-              className="brand-name landing-text theme-transition">
-              CUBER
-            </h1>
-            <h3
-              id="brand-name"
-              className="landing-text side-text theme-transition">
-              ate
+        <section className="about landing-text">
+          <h1 className="brand-name">LUCUBERATE</h1>
+          <section className="description theme-transition">
+            <h3>
+              <span className="force-line-break">
+                <span className="force-line-break">
+                  Lucuberate &#40;&nbsp;lu•cuber•ate&nbsp;&#41;&nbsp;
+                </span>
+                <span className="force-line-break">
+                  leverages the convience&nbsp;
+                </span>
+              </span>
+              <span className="force-line-break">
+                <span className="force-line-break">
+                  of a flash card into&nbsp;
+                </span>
+                <span className="force-line-break">a third dimension.</span>
+              </span>
             </h3>
-          </div>
-          <h5 className="description landing-text theme-transition">
-            LuCUBERate leverages the convience of a flash card into a third
-            dimension.
-          </h5>
-          <h5 className="description landing-text theme-transition">
-            We allow more space and freedom for the unique ways in which{" "}
-            <u>you</u> learn.
-          </h5>
-          <br></br>
-          <h5
-            id="tagline"
-            className="landing-text description theme-transition">
-            Our name is inspired by the word
-          </h5>
-          <h5
-            id="tagline"
-            className="landing-text description theme-transition">
-            lu•cu•brate &nbsp;&nbsp;/&nbsp;&nbsp; to write or study (especially
-            by night)
-          </h5>
+            <br />
+            <h3>
+              <span className="force-line-break">
+                <span className="force-line-break">We allow more&nbsp;</span>
+                <span className="force-line-break">
+                  space and freedom&nbsp;
+                </span>
+              </span>
+              <span className="force-line-break">
+                <span className="force-line-break">
+                  for the unique ways&nbsp;
+                </span>
+                <span className="force-line-break">
+                  in which&nbsp;
+                  <u>
+                    <b>you&nbsp;</b>
+                  </u>
+                  learn.
+                </span>
+              </span>
+            </h3>
+            <br />
+            <h4>Our name is inspired by the word:</h4>
+            <h4>lu•cu•brate&nbsp;&nbsp;/&nbsp;&nbsp;to write or study</h4>
+            <h4>&#40;&nbsp;especially by night&nbsp;&#41;</h4>
+          </section>
         </section>
       </div>
       <LandingBackground />

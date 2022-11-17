@@ -96,7 +96,7 @@ const DeleteModal = ({
           aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
-              <div
+              <section
                 className="modal-header"
                 onClick={e => e.stopPropagation()}
                 onMouseDown={e => e.stopPropagation()}>
@@ -116,43 +116,49 @@ const DeleteModal = ({
                   aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-              </div>
-              <div
+              </section>
+              <section
                 className="modal-body"
                 onClick={e => e.stopPropagation()}
                 onMouseDown={e => e.stopPropagation()}>
                 {type === "category" && (
                   <>
-                    All the cubes within this category will be deleted as well.
-                    <br />
-                    <br />
-                    Are you sure you want to delete this category?
+                    <p>
+                      All the cubes within this category will be deleted as
+                      well.
+                    </p>
+                    <p>Are you sure you want to delete this category?</p>
                   </>
                 )}
                 {(type === "cube" && cubeListLength === 1 && (
                   <>
-                    {`This is the last cube in the '${categoryTitle}' category! If you choose to delete the last cube, the '${categoryTitle}' category will be deleted as well.`}
-                    <br />
-                    <br />
-                    {`Are you sure you want to delete this cube?`}
+                    <p>
+                      {`This is the last cube in the '${categoryTitle}' category!`}
+                    </p>
+                    <p>
+                      {`If you choose to delete the last cube, the '${categoryTitle}' category will be deleted as well.`}
+                    </p>
+                    <p>{`Are you sure you want to delete this cube?`}</p>
                   </>
                 )) ||
                   (type === "cube" &&
                     "Are you sure you want to delete this cube?")}
                 {type === "warning" && (
                   <>
-                    {`This is the last cube in the '${categoryTitle}' category!`}
-                    <br />
-                    <br />
-                    {`If you choose to move this cube to the ${
-                      categoryIsNew
-                        ? `new '${newCategory}' category`
-                        : `'${currentCategoryInfo.title}' category`
-                    }, the '${categoryTitle}' category will be deleted upon saving.`}
+                    <p>
+                      {`This is the last cube in the '${categoryTitle}' category!`}
+                    </p>
+                    <p>
+                      {`If you choose to move this cube to the ${
+                        categoryIsNew
+                          ? `new '${newCategory}' category`
+                          : `'${currentCategoryInfo.title}' category`
+                      }, the '${categoryTitle}' category will be deleted upon saving.`}
+                    </p>
                   </>
                 )}
-              </div>
-              <div
+              </section>
+              <section
                 className="modal-footer"
                 onClick={e => e.stopPropagation()}
                 onMouseDown={e => e.stopPropagation()}>
@@ -183,7 +189,7 @@ const DeleteModal = ({
                       : "btn-primary"
                   }`}
                 />
-              </div>
+              </section>
             </div>
           </div>
         </div>

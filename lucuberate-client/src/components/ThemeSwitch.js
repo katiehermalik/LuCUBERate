@@ -22,6 +22,7 @@ const ThemeSwitch = () => {
         <MoonIcon size={16} />
       </div>
       <button
+        id="theme-switch"
         title={
           theme === "dark" ? "switch to light theme" : "switch to dark theme"
         }

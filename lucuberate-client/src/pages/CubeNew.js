@@ -176,9 +176,9 @@ const CubeNew = ({ history }) => {
     <div className="form-container container-column">
       <div className="instructions container-column theme-transition">
         <h1 className="form-title">Create a New Study Cube</h1>
-        <p className="required-warning">
+        <h5 className="required-warning">
           ( Fields marked with a <span style={required}>*</span> are required )
-        </p>
+        </h5>
       </div>
       <form
         onSubmit={handleSubmit}

@@ -43,7 +43,7 @@ const Navbar = ({ user }) => {
                 <CategoryListToggle />
               </div>
               <Link className="btn navbar-item theme-transition" to="/">
-                About LuCUBERate
+                About Lucuberate
               </Link>
             </>
           )}
@@ -76,12 +76,13 @@ const Navbar = ({ user }) => {
           <button
             onClick={toggleUserMenu}
             className="navbar-item username theme-transition dropbtn">
-            <PersonFillIcon size={16} /> {user.username}
+            <PersonFillIcon size={16} />
+            &nbsp;{user.username}
           </button>
           {showUserMenu && (
             <div className="dropdown-content theme-transition">
               <div className="dropdown-item theme-transition">
-                <p>Theme</p>
+                <label htmlFor="theme-switch">Theme</label>
                 <ThemeSwitch />
               </div>
               <div className="dropdown-item theme-transition">
