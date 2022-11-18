@@ -68,25 +68,25 @@ const CubeList = ({
   const [categoryWasShuffled, setCategoryWasShuffled] = useState(false);
   const [placeholderRendered, setPlaceHolderRendered] = useState(true);
 
-  console.log(
-    "============================================================================================================================================"
-  );
-  console.log("cubeRefs ------->", cubeRefs);
-  console.log("categoryRefs ------->", categoryRefs);
-  console.log(
-    "currentUserInfo.categories ------->",
-    currentUserInfo.categories
-  );
-  console.log("currentPath ------->", currentPath);
-  console.log("currentCubeId ------->", currentCubeId);
-  console.log("currentCubeCategory ------->", currentCubeCategory);
-  console.log("currentCategory ------->", currentCategory);
-  console.log("currentCategoryRef ------->", currentCategoryRef);
-  console.log("currCategoryCubeRefs ------->", currCategoryCubeRefs);
-  console.log("categoryWasShuffled ------->", categoryWasShuffled);
-  console.log(
-    "============================================================================================================================================"
-  );
+  // console.log(
+  //   "============================================================================================================================================"
+  // );
+  // console.log("cubeRefs ------->", cubeRefs);
+  // console.log("categoryRefs ------->", categoryRefs);
+  // console.log(
+  //   "currentUserInfo.categories ------->",
+  //   currentUserInfo.categories
+  // );
+  // console.log("currentPath ------->", currentPath);
+  // console.log("currentCubeId ------->", currentCubeId);
+  // console.log("currentCubeCategory ------->", currentCubeCategory);
+  // console.log("currentCategory ------->", currentCategory);
+  // console.log("currentCategoryRef ------->", currentCategoryRef);
+  // console.log("currCategoryCubeRefs ------->", currCategoryCubeRefs);
+  // console.log("categoryWasShuffled ------->", categoryWasShuffled);
+  // console.log(
+  //   "============================================================================================================================================"
+  // );
 
   //====================================================================================//
 
@@ -95,7 +95,6 @@ const CubeList = ({
   };
 
   const findCurrentCubeId = useCallback(() => {
-    console.log({ currentPath });
     setCurrentCubeId(currentPath[1]);
   }, [currentPath, setCurrentCubeId]);
 
@@ -371,7 +370,7 @@ const CubeList = ({
     <>
       {currentUserInfo && (
         <>
-          <div className="cube-list-grp container-column">
+          <div id={"cube-list-grp"} className="cube-list-grp container-column">
             {isLoading && (
               <div className="loading-group">
                 <PackageIcon size={24} className="loading-icon" />
@@ -398,7 +397,7 @@ const CubeList = ({
                         <div className="category-container">
                           {currentCategory === categoryId ? (
                             <div
-                              className="category-btn-cover theme-transition"
+                              className="cat-item category-btn-cover theme-transition"
                               ref={buttonCover}>
                               <span className="category-title">{`${categoryTitle}`}</span>
                               <div className="category-options-grp container-row pointer-disabled">
@@ -432,7 +431,7 @@ const CubeList = ({
                               </div>
                             </div>
                           ) : (
-                            <div className="category-btn-cover theme-transition">
+                            <div className="cat-item category-btn-cover theme-transition">
                               <span className="category-title">{`${categoryTitle}`}</span>
                               <div className="category-options-grp container-row pointer-disabled">
                                 <CubeCount
@@ -450,7 +449,7 @@ const CubeList = ({
                             tabIndex="0"
                             onClick={handleCategoryClick}
                             type="button"
-                            className="category-btn theme-transition"
+                            className="cat-item category-btn theme-transition"
                             value={categoryTitle}
                             title={categoryTitle}
                             id={categoryId}

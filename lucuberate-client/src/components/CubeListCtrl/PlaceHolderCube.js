@@ -40,6 +40,7 @@ const PlaceHolderCube = ({
       }
     }
   }, [
+    checkPlaceHolder,
     currentCategory,
     categories,
     currentCubeId,

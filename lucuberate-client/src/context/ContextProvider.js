@@ -8,6 +8,7 @@ export const QuestionsContext = createContext(null);
 export const ThemeContext = createContext(null);
 export const CategoryListContext = createContext(null);
 export const GuideContext = createContext(null);
+export const DeleteModalContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
@@ -17,6 +18,7 @@ const ContextProvider = ({ children }) => {
   const [theme, setTheme] = useState("dark");
   const [showCategoryList, setShowCategoryList] = useState(true);
   const [showGuide, setShowGuide] = useState(false);
+  const [deleteModalInfo, setDeleteModalInfo] = useState({});
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,20 +38,24 @@ const ContextProvider = ({ children }) => {
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <UserContext.Provider
         value={{ currentUserInfo, setCurrentUserInfo, isLoading }}>
-        <GuideContext.Provider value={{ showGuide, setShowGuide }}>
-          <CategoryListContext.Provider
-            value={{ showCategoryList, setShowCategoryList }}>
-            <CategoryContext.Provider
-              value={{ currentCategory, setCurrentCategory }}>
-              <CubeContext.Provider value={{ currentCubeId, setCurrentCubeId }}>
-                <QuestionsContext.Provider
-                  value={{ questionsAreVisible, setQuestionsAreVisible }}>
-                  {children}
-                </QuestionsContext.Provider>
-              </CubeContext.Provider>
-            </CategoryContext.Provider>
-          </CategoryListContext.Provider>
-        </GuideContext.Provider>
+        <DeleteModalContext.Provider
+          value={{ deleteModalInfo, setDeleteModalInfo }}>
+          <GuideContext.Provider value={{ showGuide, setShowGuide }}>
+            <CategoryListContext.Provider
+              value={{ showCategoryList, setShowCategoryList }}>
+              <CategoryContext.Provider
+                value={{ currentCategory, setCurrentCategory }}>
+                <CubeContext.Provider
+                  value={{ currentCubeId, setCurrentCubeId }}>
+                  <QuestionsContext.Provider
+                    value={{ questionsAreVisible, setQuestionsAreVisible }}>
+                    {children}
+                  </QuestionsContext.Provider>
+                </CubeContext.Provider>
+              </CategoryContext.Provider>
+            </CategoryListContext.Provider>
+          </GuideContext.Provider>
+        </DeleteModalContext.Provider>
       </UserContext.Provider>
     </ThemeContext.Provider>
   );

@@ -1,14 +1,21 @@
 import { useContext } from "react";
 import { withRouter } from "react-router-dom";
-import { ThemeContext, UserContext } from "./context/ContextProvider";
+import {
+  ThemeContext,
+  UserContext,
+  DeleteModalContext,
+} from "./context/ContextProvider";
 import Navbar from "./components/Navbar";
 import NavbarMobile from "./components/NavbarMobile";
 import Dashboard from "./components/Dashboard";
 import UnAuthRoutes from "./config/UnAuthRoutes";
+import DeleteModal from "./components/DeleteModal";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
   const { currentUserInfo } = useContext(UserContext);
+  const { deleteModalInfo, setDeleteModalInfo } =
+    useContext(DeleteModalContext);
 
   return (
     <div
@@ -21,6 +28,12 @@ const App = () => {
       <div className="mobile-only">
         <NavbarMobile user={currentUserInfo} />
       </div>
+      {deleteModalInfo.showModal && (
+        <DeleteModal
+          setDeleteModalInfo={setDeleteModalInfo}
+          deleteModalInfo={deleteModalInfo}
+        />
+      )}
     </div>
   );
 };

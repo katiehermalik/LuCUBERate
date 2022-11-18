@@ -6,7 +6,6 @@ import {
   InfoIcon,
   ChevronDownIcon,
 } from "@primer/octicons-react";
-import DeleteModal from "../components/DeleteModal";
 
 import CubeModel from "../models/cube";
 import UserModel from "../models/user";
@@ -15,6 +14,7 @@ import {
   UserContext,
   CategoryContext,
   CubeContext,
+  DeleteModalContext,
 } from "../context/ContextProvider";
 
 const CubeEdit = ({
@@ -56,7 +56,7 @@ const CubeEdit = ({
   const [categoryIsNew, setCategoryIsNew] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentCubeCategory, setCurrentCubeCategory] = useState({});
-  const [showWarningModal, setShowWarningModal] = useState(false);
+  const { setDeleteModalInfo } = useContext(DeleteModalContext);
 
   const updateCube = async () => {
     await CubeModel.update(formData, cubeId);
@@ -175,7 +175,18 @@ const CubeEdit = ({
           setIsLoading(true);
           currentCategory !== currentCubeCategory._id &&
           currentCubeCategory.cubes.length === 1
-            ? setShowWarningModal(true)
+            ? setDeleteModalInfo({
+                showModal: true,
+                type: "warning",
+                cubeId: cubeId || "",
+                newCategory: newCategory || "",
+                categoryIsNew: categoryIsNew || false,
+                currentCategory: currentCategory || "",
+                categoryTitle: currentCubeCategory.title || "",
+                setIsLoading: setIsLoading || null,
+                createNewCategory: createNewCategory || null,
+                collectCubeFormData: collectCubeFormData || null,
+              })
             : createNewCategory();
         } else {
           setCategoryError("Required");
@@ -184,7 +195,18 @@ const CubeEdit = ({
         setIsLoading(true);
         currentCategory !== currentCubeCategory._id &&
         currentCubeCategory.cubes.length === 1
-          ? setShowWarningModal(true)
+          ? setDeleteModalInfo({
+              showModal: true,
+              type: "warning",
+              cubeId: cubeId || "",
+              newCategory: newCategory || "",
+              categoryIsNew: categoryIsNew || false,
+              currentCategory: currentCategory || "",
+              categoryTitle: currentCubeCategory.title || "",
+              setIsLoading: setIsLoading || null,
+              createNewCategory: createNewCategory || null,
+              collectCubeFormData: collectCubeFormData || null,
+            })
           : collectCubeFormData(currentCategory);
       }
     } else {
@@ -537,19 +559,6 @@ const CubeEdit = ({
           </div>
         </form>
       </div>
-      <DeleteModal
-        newCategory={newCategory}
-        setIsLoading={setIsLoading}
-        categoryIsNew={categoryIsNew}
-        collectCubeFormData={collectCubeFormData}
-        createNewCategory={createNewCategory}
-        currentCategory={currentCategory}
-        showModal={showWarningModal}
-        setShowModal={setShowWarningModal}
-        categoryId={currentCubeCategory?._id}
-        categoryTitle={currentCubeCategory?.title}
-        type="warning"
-      />
     </>
   );
 };
