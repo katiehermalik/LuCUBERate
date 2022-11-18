@@ -232,7 +232,7 @@ const CubeNew = ({ history }) => {
                     value={`${category._id}`}>{`${category.title}`}</option>
                 ))}
               </select>
-              <div className="select-icon">
+              <div className="select-icon theme-transition">
                 <ChevronDownIcon size={16} />
               </div>
             </div>

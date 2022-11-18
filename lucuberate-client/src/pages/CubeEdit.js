@@ -1,6 +1,11 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
-import { XCircleFillIcon, PackageIcon, InfoIcon } from "@primer/octicons-react";
+import {
+  XCircleFillIcon,
+  PackageIcon,
+  InfoIcon,
+  ChevronDownIcon,
+} from "@primer/octicons-react";
 import DeleteModal from "../components/DeleteModal";
 
 import CubeModel from "../models/cube";
@@ -238,30 +243,34 @@ const CubeEdit = ({
                   <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
                 )}
               </label>
-              <select
-                className="form-control theme-transition"
-                id="category-dropdown"
-                onChange={handleCategoryChange}
-                value={
-                  currentCategory
-                    ? currentCategory
-                    : categoryIsNew
-                    ? "New Category"
-                    : ""
-                }>
-                <option value="" disabled>
-                  {" "}
-                  -- select an option --{" "}
-                </option>
-                <option value="New Category">New Category</option>
-                {currentUserInfo?.categories?.map(category => (
-                  <option
-                    key={`${category._id}`}
-                    value={`${category._id}`}>{`${category.title}`}</option>
-                ))}
-              </select>
+              <div className="select-group">
+                <select
+                  className="form-control theme-transition"
+                  id="category-dropdown"
+                  onChange={handleCategoryChange}
+                  value={
+                    currentCategory
+                      ? currentCategory
+                      : categoryIsNew
+                      ? "New Category"
+                      : ""
+                  }>
+                  <option value="" disabled>
+                    {" "}
+                    -- select an option --{" "}
+                  </option>
+                  <option value="New Category">New Category</option>
+                  {currentUserInfo?.categories?.map(category => (
+                    <option
+                      key={`${category._id}`}
+                      value={`${category._id}`}>{`${category.title}`}</option>
+                  ))}
+                </select>
+                <div className="select-icon theme-transition">
+                  <ChevronDownIcon size={16} />
+                </div>
+              </div>
             </div>
-
             {categoryIsNew && (
               <div className="form-group col-md-5">
                 <label htmlFor="inputCategory">
