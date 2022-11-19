@@ -75,6 +75,7 @@ const Navbar = ({ user }) => {
           className="container-row dropdown theme-transition">
           <button
             onClick={toggleUserMenu}
+            title={`${user.username}'s settings`}
             className="navbar-item username theme-transition dropbtn">
             <PersonFillIcon size={16} />
             &nbsp;{user.username}

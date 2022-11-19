@@ -425,9 +425,7 @@ html,
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: block;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -1539,9 +1537,36 @@ section.about {
 }
 
 .description {
-  padding: 30px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 30px 30px;
   background-color: var(--border-color);
   color: var(--category-text-color);
+  flex: 1;
+  margin-top: 80px;
+}
+
+.landing aside {
+  border: 4px solid var(--accent-color);
+  border-radius: 24px;
+  padding: 20px;
+  background-color: var(--background-main);
+  width: 30%;
+  float: right;
+  margin: -100px 0 20px 20px;
+  min-width: 145px;
+  max-width: 250px;
+  color: var(--text-color-light);
+  box-shadow: 0 3px 8px -3px rgb(0 0 0 / 75%);
+}
+
+.description h3 {
+  text-align: left;
+}
+
+.description div {
+  max-width: 1000px;
 }
 
 .force-line-break {
@@ -1808,7 +1833,7 @@ input[type="radio"]:checked + label {
 
 /* ================================================================ Media Queries */
 
-/* ================================  Landing Text */
+/* ================================  Landing Page */
 
 @media screen and (min-width: 1050px) {
   .brand-name {
@@ -1882,9 +1907,30 @@ input[type="radio"]:checked + label {
   }
 }
 
+@media screen and (max-height: 540px) {
+  .description {
+    padding: 20px 30px 30px;
+    margin-top: 0;
+  }
+  .landing aside {
+    margin: -35px 0 20px 20px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .landing aside {
+    margin-left: 20px;
+    margin-top: -67px;
+    width: 80%;
+    min-width: 0;
+    max-width: none;
+    margin-bottom: 30px;
+  }
+}
+
 /* ================================ */
 
-@media screen and (min-width: 721px) {
+@media screen and (min-width: 720px) {
   .modal-dialog {
     max-width: 500px;
     margin: 1.75rem auto;
@@ -1942,6 +1988,12 @@ input[type="radio"]:checked + label {
     padding-right: 5px;
     background-color: var(--cube-ctrl-list-color);
     border-bottom: none;
+  }
+
+  .divider-line {
+    height: 1px;
+    width: 100%;
+    background-color: var(--cube-ctrl-list-color);
   }
 
   .dropdown-item {
@@ -2097,6 +2149,7 @@ input[type="radio"]:checked + label {
   }
 
   /* ================================ Guide Modal */
+
   .modal-dialog {
     min-width: 80%;
   }
@@ -2115,10 +2168,6 @@ input[type="radio"]:checked + label {
     bottom: auto;
     margin-top: 10px;
   }
-
-  /* .modal-guide.tour-step-1:before {
-    display: none;
-  } */
 
   .modal-guide.tour-step-2:before,
   .modal-guide.tour-step-3:before {
@@ -2149,6 +2198,8 @@ input[type="radio"]:checked + label {
   }
 }
 
+/* ================================ Smaller Media Queries */
+
 @media screen and (max-width: 280px) {
   .modal-guide .modal-footer {
     -webkit-box-orient: vertical;
@@ -2164,5 +2215,17 @@ input[type="radio"]:checked + label {
     -ms-flex-item-align: start;
     align-self: flex-start;
     margin-bottom: 20px;
+  }
+
+  .landing aside {
+    margin-left: 0;
+    margin-top: -80px;
+    min-width: 100%;
+    max-width: none;
+    margin-bottom: 20px;
+  }
+
+  .description h3 {
+    text-align: center;
   }
 }
