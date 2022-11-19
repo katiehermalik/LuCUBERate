@@ -1,47 +1,64 @@
-import React, { Component } from 'react';
-import UserModel from '../models/user';
+import { createContext, useState, useEffect } from "react";
+import UserModel from "../models/user";
 
-const MyContext = React.createContext();
+export const UserContext = createContext(null);
+export const CategoryContext = createContext(null);
+export const CubeContext = createContext(null);
+export const QuestionsContext = createContext(null);
+export const ThemeContext = createContext(null);
+export const CategoryListContext = createContext(null);
+export const GuideContext = createContext(null);
+export const DeleteModalContext = createContext(null);
 
-class ContextProvider extends Component {
-  state = {
-    cubes: []
-  }
+const ContextProvider = ({ children }) => {
+  const [currentUserInfo, setCurrentUserInfo] = useState(null);
+  const [currentCategory, setCurrentCategory] = useState("");
+  const [currentCubeId, setCurrentCubeId] = useState("");
+  const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
+  const [theme, setTheme] = useState("dark");
+  const [showCategoryList, setShowCategoryList] = useState(true);
+  const [showGuide, setShowGuide] = useState(false);
+  const [deleteModalInfo, setDeleteModalInfo] = useState({});
 
+  const [isLoading, setIsLoading] = useState(true);
 
-
-  componentDidMount() {
-    if (window.localStorage.user) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const user_id = user.user_Id
-      UserModel.allCubes(user_id)
-      .then((cubes) => {
-        // Waiting to see when new cube has been added to the database by comparing the response object in the fetch calls with current state. Once new cube has been added and lengths differ, set state.
-        if (cubes.cubes) {
-          if (cubes.cubes.length === this.state.cubes.length) {
-            this.componentDidMount()
-          } else {
-            this.setState( cubes )
-          }
-        }
-      }); 
+  useEffect(() => {
+    const { user_Id, isLoggedIn } =
+      JSON.parse(sessionStorage.getItem("user")) || {};
+    if (isLoggedIn && isLoading) {
+      UserModel.allCubesAndCategories(user_Id).then(userData => {
+        setCurrentUserInfo(userData);
+        setTheme(userData.theme);
+      });
+      setIsLoading(false);
     }
-  }
+  }, [isLoading, currentUserInfo]);
 
-  render() {
-    return (
-    <MyContext.Provider value={{
-      state: this.state,
-      updateCubeList: () => this.componentDidMount()
-      }
-    }> 
-      {this.props.children}
-    </MyContext.Provider>
-    )
-  }
-}
-
-export {
-  ContextProvider,
-  MyContext
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <UserContext.Provider
+        value={{ currentUserInfo, setCurrentUserInfo, isLoading }}>
+        <DeleteModalContext.Provider
+          value={{ deleteModalInfo, setDeleteModalInfo }}>
+          <GuideContext.Provider value={{ showGuide, setShowGuide }}>
+            <CategoryListContext.Provider
+              value={{ showCategoryList, setShowCategoryList }}>
+              <CategoryContext.Provider
+                value={{ currentCategory, setCurrentCategory }}>
+                <CubeContext.Provider
+                  value={{ currentCubeId, setCurrentCubeId }}>
+                  <QuestionsContext.Provider
+                    value={{ questionsAreVisible, setQuestionsAreVisible }}>
+                    {children}
+                  </QuestionsContext.Provider>
+                </CubeContext.Provider>
+              </CategoryContext.Provider>
+            </CategoryListContext.Provider>
+          </GuideContext.Provider>
+        </DeleteModalContext.Provider>
+      </UserContext.Provider>
+    </ThemeContext.Provider>
+  );
 };
+
+export default ContextProvider;

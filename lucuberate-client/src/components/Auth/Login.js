@@ -1,131 +1,194 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import UserModel from '../../models/user'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { useState, useContext } from "react";
+import { Link, withRouter } from "react-router-dom";
+import UserModel from "../../models/user";
+import { MailIcon, LockIcon } from "@primer/octicons-react";
+import {
+  UserContext,
+  ThemeContext,
+  GuideContext,
+  CategoryListContext,
+} from "../../context/ContextProvider";
 
+const Login = ({
+  history,
+  showLoginModal,
+  setShowLoginModal,
+  setShowSignUpModal,
+}) => {
+  const { setTheme } = useContext(ThemeContext);
+  const { setCurrentUserInfo } = useContext(UserContext);
+  const { setShowGuide } = useContext(GuideContext);
+  const { setShowCategoryList } = useContext(CategoryListContext);
+  const [userInput, setUserInput] = useState({
+    email: "",
+    password: "",
+    userError: "",
+    matchError: "",
+  });
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
+  const closeModal = e => {
+    e.stopPropagation();
+    setUserInput({
       email: "",
       password: "",
       userError: "",
-      matchError: ""
-    }
-
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
+      matchError: "",
     });
-    console.log('handle change', event);
-  }
+    setShowLoginModal(false);
+    e.target.name === "SignUp" && setShowSignUpModal(true);
+  };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    UserModel.login(this.state)
-      .then((data) => {
-        if (data.userError) {
-          this.setState({userError: data.userError});
-        } else if (data.matchError) {
-          this.setState({matchError: data.matchError});
-          if (data.userError === undefined) {
-            this.setState({userError: ""})
-          }
+  const handleChange = e => {
+    setUserInput(prevState => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const data = await UserModel.login(userInput);
+    if (data.userError) {
+      setUserInput(prevState => ({
+        ...prevState,
+        userError: data.userError,
+      }));
+    } else if (data.matchError) {
+      setUserInput(prevState => ({
+        ...prevState,
+        matchError: data.matchError,
+      }));
+      if (data.userError === undefined) {
+        setUserInput(prevState => ({
+          ...prevState,
+          userError: "",
+        }));
+      }
+    } else {
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify({
+          user_Id: data.user_Id,
+          isLoggedIn: data.isLoggedIn,
+          returnUser: true,
+        })
+      );
+      setCurrentUserInfo(data.currentUser);
+      setTheme(data.currentUser.theme === "dark" ? "dark" : "light");
+      setShowLoginModal(false);
+      if (data.currentUser.newUser) {
+        setShowGuide(true);
+        setShowCategoryList(false);
+        if (data.currentUser.cubes.length !== 0) {
+          history.push(`/dashboard/${data.currentUser.categories[0].cubes[0]}`);
         } else {
-        this.setState(data)
-        // Passing currentUser info to parent component (App.js)
-        this.props.auth(data);
-        localStorage.setItem('user', JSON.stringify(data));
-        if (this.state.currentUser) {
-          this.props.history.push('/dashboard');
-          window.location.reload();
+          history.push("/dashboard");
         }
-        console.log("This is the response from the user Model", data)
-        }
-      });
-  }
-
-  render() {
-    const errorStyle = {
-      color: "red",
-      fontSize: "12px",
+      } else {
+        history.push("/dashboard");
+      }
     }
-    return(
-      <> 
-        <div className="text-center">
-          <a href="!#" className="nav-item navbar-item nav-link" data-toggle="modal" data-target="#modalLoginForm">
-          Login</a>
-        </div>    
-        <div 
-        className="modal fade" 
-        id="modalLoginForm" 
-        tabIndex="-1" 
-        role="dialog" 
-        aria-labelledby="myModalLabel"
-        aria-hidden="true">
+  };
+
+  const errorStyle = {
+    color: "red",
+    fontSize: "12px",
+  };
+
+  return (
+    <>
+      {showLoginModal && (
+        <div
+          className="modal"
+          id="modalLoginForm"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="myModalLabel"
+          aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
-              <div className="modal-header text-center">
-                <h4 className="modal-title w-100 font-weight-bold">Login</h4>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <div className="modal-header">
+                <h4 className="modal-title">Login</h4>
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form onSubmit={this.handleSubmit}>
-                <div className="modal-body mx-3">
-                  <div className="md-form mb-5">
-                    <i className="prefix grey-text"><FontAwesomeIcon icon={faEnvelope} /></i>
-                    <span> </span>
-                    <label data-error="wrong" data-success="right" htmlFor="login-email">Email</label>
-                    <input 
-                    type="email"
-                    name="email"
-                    id="login-email" 
-                    className="form-control validate"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required
+              <form onSubmit={handleSubmit}>
+                <div className="modal-body">
+                  <div className="md-form">
+                    <label
+                      data-error="wrong"
+                      data-success="right"
+                      htmlFor="login-email">
+                      <MailIcon size={16} className="label-icon" />
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="login-email"
+                      className="form-control validate"
+                      value={userInput.email}
+                      onChange={handleChange}
+                      required
                     />
-                    {this.state.userError &&
-                    <p style={errorStyle}>{this.state.userError}</p>
-                    }
+                    {userInput.userError && (
+                      <p style={errorStyle}>{userInput.userError}</p>
+                    )}
                   </div>
                   <div className="md-form mb-4">
-                    <i className="prefix grey-text"><FontAwesomeIcon icon={faLock} /></i>
-                    <span> </span>
-                    <label data-error="wrong" data-success="right" htmlFor="login-pass">Password</label>
-                    <input 
-                    type="password"
-                    name="password" 
-                    id="login-pass" 
-                    className="form-control validate" 
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    required
-                    autoComplete="off"
+                    <label
+                      data-error="wrong"
+                      data-success="right"
+                      htmlFor="login-pass">
+                      <LockIcon size={16} className="label-icon" />
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="login-pass"
+                      className="form-control validate"
+                      value={userInput.password}
+                      onChange={handleChange}
+                      required
+                      autoComplete="off"
                     />
-                    {this.state.matchError &&
-                    <p style={errorStyle}>{this.state.matchError}</p>
-                    }
+                    {userInput.matchError && (
+                      <p style={errorStyle}>{userInput.matchError}</p>
+                    )}
                   </div>
                 </div>
-                <div className="modal-footer d-flex justify-content-center">
-                  <button type="submit" className="btn">Login</button>
-                  <hr size="2" width="70%"/>
-                  <p>Don't yet have an account? <a href="!#" data-dismiss="modal" data-toggle="modal" data-target="#modalRegisterForm">Sign up</a></p>
+                <div className="modal-footer">
+                  <button type="submit" className="form-btn btn-secondary">
+                    Login
+                  </button>
+                  <hr size="2" width="70%" />
+                  <p>
+                    Don't yet have an account?{" "}
+                    <Link
+                      to="/"
+                      name="SignUp"
+                      onClick={closeModal}
+                      data-dismiss="modal"
+                      data-toggle="modal"
+                      data-target="#modalRegisterForm">
+                      Sign up
+                    </Link>
+                  </p>
                 </div>
               </form>
             </div>
           </div>
         </div>
-      </>
-    )
-  }
-}
+      )}
+    </>
+  );
+};
 
 export default withRouter(Login);

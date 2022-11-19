@@ -1,24 +1,45 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useContext } from "react";
+import { withRouter } from "react-router-dom";
+import { SignOutIcon } from "@primer/octicons-react";
+import {
+  UserContext,
+  ThemeContext,
+  CategoryContext,
+  CubeContext,
+  QuestionsContext,
+  CategoryListContext,
+} from "../../context/ContextProvider";
 
-class Logout extends React.Component {
-  state = {}
+const Logout = ({ history, setShowUserMenu }) => {
+  const { setCurrentUserInfo } = useContext(UserContext);
+  const { setTheme } = useContext(ThemeContext);
+  const { setCurrentCategory } = useContext(CategoryContext);
+  const { setCurrentCubeId } = useContext(CubeContext);
+  const { setQuestionsAreVisible } = useContext(QuestionsContext);
+  const { setShowCategoryList } = useContext(CategoryListContext);
 
-  handleSubmit = (event) => {
-    this.props.history.push('/');
-    localStorage.clear();
-    this.props.auth({});
-  }
+  const handleSubmit = e => {
+    setTheme("dark");
+    setCurrentUserInfo(null);
+    setCurrentCategory(null);
+    setCurrentCubeId(null);
+    setQuestionsAreVisible(false);
+    setShowCategoryList(true);
+    setShowUserMenu(false);
+    sessionStorage.clear();
+    history.push("/");
+  };
 
-  render() {
-    return(
-      <> 
-        <form onSubmit={this.handleSubmit}>
-          <button type="submit" className="logout-btn navbar-item nav-link">Logout</button>
-        </form>
-      </>
-    )
-  }
-}
+  return (
+    <button
+      onClick={handleSubmit}
+      className="btn navbar-item logout-btn theme-transition"
+      type="submit"
+      title="log out">
+      Log Out&ensp;
+      <SignOutIcon size={16} />
+    </button>
+  );
+};
 
 export default withRouter(Logout);

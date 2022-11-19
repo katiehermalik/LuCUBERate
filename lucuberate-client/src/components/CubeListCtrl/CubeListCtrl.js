@@ -1,16 +1,24 @@
-import React from 'react';
-import CubeList from './CubeList';
-import CubeHeader from './CubeHeader'
-
+import React, { useContext } from "react";
+import {
+  CategoryListContext,
+  UserContext,
+} from "../../context/ContextProvider";
+import CubeHeader from "./CubeHeader";
+import CubeList from "./CubeList";
 
 function CubeListCtrl() {
+  const { showCategoryList } = useContext(CategoryListContext);
+  const { currentUserInfo } = useContext(UserContext);
 
-  return(
-    <div className="cube-list-ctrl container-column">
+  return (
+    <div
+      className={`cube-list-ctrl container-column theme-transition ${
+        showCategoryList ? "active" : ""
+      }`}>
       <CubeHeader />
-      <CubeList />
+      {currentUserInfo && <CubeList />}
     </div>
-  )
+  );
 }
 
 export default CubeListCtrl;

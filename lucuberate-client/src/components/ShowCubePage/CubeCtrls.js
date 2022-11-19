@@ -1,17 +1,18 @@
-import React from 'react';
-import EditBtn from './EditBtn';
-import DeleteBtn from './DeleteBtn'
+import React from "react";
+import EditBtn from "../CubeListCtrl/EditBtn";
+import DeleteBtn from "../CubeListCtrl/DeleteBtn";
 
-
-class CubeCtrls extends React.Component {
-  render() {
-    return(
-      <div className="cube-ctrls container-row">
-      <EditBtn cube_id={this.props.cube_id} />
-      <DeleteBtn cube_id={this.props.cube_id} />
-      </div>
-    )
-  }
-}
+const CubeCtrls = ({ cubeId, cubeListLength, categoryTitle }) => {
+  return (
+    <div className="cube-ctrls container-row">
+      <EditBtn cubeId={cubeId} />
+      <DeleteBtn
+        cubeId={cubeId}
+        cubeListLength={cubeListLength}
+        categoryTitle={categoryTitle}
+      />
+    </div>
+  );
+};
 
 export default CubeCtrls;

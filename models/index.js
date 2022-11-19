@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const connectionString = process.env.MONGODB_URI || 'mongodb://localhost:27017/lucuberate';
+const connectionString =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/lucuberate";
 
 const configOptions = {
   useNewUrlParser: true,
@@ -12,9 +13,10 @@ const configOptions = {
 mongoose
   .connect(connectionString, configOptions)
   .then(() => console.log("MongoDB successfully connected..."))
-  .catch((err) => console.log(`MongoDB connection error: ${err}`));
+  .catch(err => console.log(`MongoDB connection error: ${err}`));
 
 module.exports = {
-  User: require('./User'),
-  Cube: require('./Cube')
+  User: require("./User"),
+  Cube: require("./Cube"),
+  Category: require("./Category"),
 };

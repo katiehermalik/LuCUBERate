@@ -7,7 +7,7 @@ function Lights() {
       <pointLight position={[2, 10, 20]} intensity={1.5} />
       <pointLight position={[10, 0, -20]} intensity={0.5} />
     </>
-  )
+  );
 }
 
 export default Lights;

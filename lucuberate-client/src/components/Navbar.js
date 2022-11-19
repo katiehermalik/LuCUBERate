@@ -1,57 +1,100 @@
-import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import SignUp from './Auth/SignUp';
-import Login from './Auth/Login';
-import Logout from './Auth/Logout';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, withRouter } from "react-router-dom";
+import { ChevronRightIcon, PersonFillIcon } from "@primer/octicons-react";
 
-class Navbar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state ={}
-  }
-  
-  render() {
-    return (
-      <>
-        <nav className="nav-bar container-row">
-        {this.props.user &&
-        <>
-          {window.location.pathname !== '/' &&
-          <>
-            <Link 
-            className="navbar-brand navbar-item" 
-            to="/">LuCUBERate
+import SignUpBtn from "./Auth/SignUpBtn";
+import LoginBtn from "./Auth/LoginBtn";
+import Logout from "./Auth/Logout";
+import ThemeSwitch from "./ThemeSwitch";
+import CategoryListToggle from "./CubeListCtrl/CategoryListToggle";
+
+const Navbar = ({ user }) => {
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const userBtnRef = useRef();
+
+  useEffect(() => {
+    const closeUserMenu = e => {
+      if (
+        userBtnRef.current &&
+        (!userBtnRef.current.contains(e.target) ||
+          userBtnRef.current === e.target)
+      ) {
+        setShowUserMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", closeUserMenu);
+  }, []);
+
+  const toggleUserMenu = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowUserMenu(prevState => !prevState);
+  };
+
+  return (
+    <nav className="navbar container-row theme-transition">
+      {user && (
+        <div className="container-row">
+          {window.location.pathname !== "/" && (
+            <>
+              <div className="mobile-hidden">
+                <CategoryListToggle />
+              </div>
+              <Link className="btn navbar-item theme-transition" to="/">
+                About Lucuberate
+              </Link>
+            </>
+          )}
+          {window.location.pathname === "/" && (
+            <Link className="btn navbar-item theme-transition" to="/dashboard">
+              Back to dashboard
+              <ChevronRightIcon size={16} />
             </Link>
-            <span 
-              className="navbar-text">
-              Hello, {this.props.user.username}
-            </span>
-          </>
-          }
-          {window.location.pathname === '/' &&
-          <Link 
-          className="nav-item navbar-item nav-link"
-          to="/dashboard">Dashboard
-          </Link>
-          }
-        </>
-        }
-        {!this.props.user &&
-        <>
-          <div></div>
-          <div className="signup-login container-row">
-            <SignUp auth={this.props.auth} user={this.props.user}/>
-            <Login auth={this.props.auth} user={this.props.user}/>
-          </div>
-        </>
-        }
-        {this.props.user &&
-        <Logout logout={this.props.auth}/>
-        }
-        </nav>
-      </>
-    )
-  }
-}
+          )}
+        </div>
+      )}
+      {!user && (
+        <div className="signup-login container-row">
+          <SignUpBtn
+            showSignUpModal={showSignUpModal}
+            setShowSignUpModal={setShowSignUpModal}
+            setShowLoginModal={setShowLoginModal}
+          />
+          <LoginBtn
+            showLoginModal={showLoginModal}
+            setShowLoginModal={setShowLoginModal}
+            setShowSignUpModal={setShowSignUpModal}
+          />
+        </div>
+      )}
+      {user && (
+        <div
+          ref={userBtnRef}
+          className="container-row dropdown theme-transition">
+          <button
+            onClick={toggleUserMenu}
+            title={`${user.username}'s settings`}
+            className="navbar-item username theme-transition dropbtn">
+            <PersonFillIcon size={16} />
+            &nbsp;{user.username}
+          </button>
+          {showUserMenu && (
+            <div className="dropdown-content theme-transition">
+              <div className="dropdown-item theme-transition">
+                <label htmlFor="theme-switch">Theme</label>
+                <ThemeSwitch />
+              </div>
+              <div className="dropdown-item theme-transition">
+                <Logout setShowUserMenu={setShowUserMenu} />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </nav>
+  );
+};
 
 export default withRouter(Navbar);
