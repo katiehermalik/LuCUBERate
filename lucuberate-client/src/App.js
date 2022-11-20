@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { withRouter } from "react-router-dom";
 import {
   ThemeContext,
@@ -24,10 +24,14 @@ const App = () => {
       }`}>
       <Navbar user={currentUserInfo} />
       <UnAuthRoutes />
-      {window.location.pathname !== "/" && <Dashboard user={currentUserInfo} />}
-      <div className="mobile-only-nav">
-        <NavbarMobile user={currentUserInfo} />
-      </div>
+      {window.location.pathname !== "/" && (
+        <>
+          <Dashboard user={currentUserInfo} />
+          <div className="mobile-only-nav">
+            <NavbarMobile user={currentUserInfo} />
+          </div>
+        </>
+      )}
       {deleteModalInfo.showModal && (
         <DeleteModal
           setDeleteModalInfo={setDeleteModalInfo}
