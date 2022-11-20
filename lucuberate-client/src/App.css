@@ -48,7 +48,6 @@ body {
 
 #root {
   height: 100%;
-  overflow: hidden;
 }
 
 p {
@@ -235,7 +234,6 @@ button:not(:disabled) {
 
 .app {
   height: 100%;
-  overflow: hidden;
   position: relative;
   -ms-flex-line-pack: center;
   align-content: center;
@@ -383,7 +381,7 @@ button:not(:disabled) {
 
 .navbar {
   -ms-flex-preferred-size: 50px;
-  height: 50px;
+  min-height: 50px;
   width: 100%;
   color: var(--text-color-light);
   background-color: var(--border-color);
@@ -462,7 +460,6 @@ button:not(:disabled) {
   align-items: stretch;
   background-image: var(--dashboard-background-img);
   background-size: cover;
-  overflow: hidden;
 }
 
 .instructions {
