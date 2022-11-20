@@ -234,6 +234,7 @@ button:not(:disabled) {
 
 .app {
   height: 100%;
+  overflow: hidden;
   position: relative;
   -ms-flex-line-pack: center;
   align-content: center;
@@ -1101,9 +1102,6 @@ hr {
   width: 100%;
   background-color: var(--cube-ctrl-list-color);
   border-bottom: 1px solid var(--cube-ctrl-header-border-color);
-  -webkit-box-shadow: -5px -4px 3px 3px var(--category-select);
-  box-shadow: -5px -4px 3px 3px var(--category-select);
-  overflow: hidden;
 }
 
 .cube-list-grp {
