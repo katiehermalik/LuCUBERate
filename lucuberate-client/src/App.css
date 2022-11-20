@@ -396,6 +396,7 @@ button:not(:disabled) {
   box-shadow: 10px 6px 4px -7px var(--boxShadow-color);
   font-weight: bold;
   padding-left: 5px;
+  z-index: 6;
 }
 
 .navlinks-container {
@@ -521,7 +522,7 @@ footer {
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.25rem;
+  border-radius: 5px;
   -webkit-transition: color 0.15s ease-in-out,
     background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
     -webkit-box-shadow 0.15s ease-in-out;
@@ -759,6 +760,11 @@ footer {
   max-height: 60vh;
 }
 
+.modal-body p:last-of-type,
+.modal-guide-body p:last-of-type {
+  margin-bottom: 0;
+}
+
 .modal-body .md-form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -898,8 +904,6 @@ hr {
   -ms-flex-direction: column;
   flex-direction: column;
   padding: 0 16px;
-  grid-gap: 16px;
-  gap: 16px;
 }
 
 .modal-guide .modal-footer {
@@ -936,14 +940,6 @@ hr {
   font-size: 12px;
   margin-left: 10px;
   line-height: 1.2;
-}
-
-.modal-guide .subtext {
-  line-height: 1.2;
-}
-
-.modal-guide small {
-  font-size: 12px;
 }
 
 .modal-guide form {
@@ -1102,6 +1098,7 @@ hr {
   width: 100%;
   background-color: var(--cube-ctrl-list-color);
   border-bottom: 1px solid var(--cube-ctrl-header-border-color);
+  overflow: hidden;
 }
 
 .cube-list-grp {
@@ -1413,10 +1410,16 @@ img.visual-aid-preview {
 }
 
 /* ---------------------------------- Cube Show Page */
+/* .cube-guide-container {
+  flex: 1;
+  display: flex;
+  position: relative;
+} */
 
 .show-page-container {
   height: 100%;
-  position: relative;
+  width: 100%;
+  /* position: relative; */
 }
 
 .cube-container {
@@ -2009,11 +2012,6 @@ input[type="radio"]:checked + label {
 @media screen and (max-width: 720px) {
   /* ================================ Cube Show Page */
 
-  * {
-    -ms-touch-action: none;
-    touch-action: none;
-  }
-
   .list-footer {
     border-right: none;
   }
@@ -2089,6 +2087,7 @@ input[type="radio"]:checked + label {
     -webkit-box-direction: reverse;
     -ms-flex-direction: column-reverse;
     flex-direction: column-reverse;
+    position: relative;
   }
 
   .form-container {
@@ -2204,11 +2203,71 @@ input[type="radio"]:checked + label {
     font-size: 14px;
     padding: 4px 6px;
   }
+  /* ================================ All Modal */
 
+  .modal,
+  .modal-guide {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .modal-header h4 {
+    font-size: 20px;
+  }
+
+  .modal button,
+  .modal-guide button,
+  .modal [type="button"],
+  .modal-guide [type="button"] {
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+
+  .modal-guide [title="Back"] {
+    height: 26px;
+  }
+
+  /* ================================ SignUp / Login Modal */
+
+  .signup-login .modal-body .md-form {
+    margin: 0.5rem 0;
+  }
+
+  .signup-login .modal-footer p,
+  .signup-login .modal-footer {
+    margin-bottom: 0;
+    padding-bottom: 0.5rem;
+  }
+
+  .signup-login hr {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .signup-login .modal-header,
+  .signup-login .modal-body,
+  .signup-login .modal-footer {
+    padding: 0.5rem;
+  }
+
+  .signup-login .modal-header {
+    padding-left: 1rem;
+  }
   /* ================================ Guide Modal */
+
+  .modal-guide {
+    padding: 0;
+    display: block;
+  }
 
   .modal-dialog {
     min-width: 80%;
+  }
+
+  .modal-guide .modal-header,
+  .modal-guide-body,
+  .modal-guide .modal-footer {
+    padding: 0.5rem 1rem;
   }
   .modal-guide.tour-step-1 {
     top: auto;
@@ -2236,6 +2295,10 @@ input[type="radio"]:checked + label {
     transform: translatey(100%) rotate(-90deg);
   }
 
+  .modal-guide.return-user .subtext {
+    margin-bottom: 5px;
+  }
+
   /* ================================ Cube Form */
 
   .cube-form {
@@ -2259,13 +2322,9 @@ input[type="radio"]:checked + label {
 
 @media screen and (max-width: 280px) {
   .modal-guide .modal-footer {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
     -webkit-box-align: end;
     -ms-flex-align: end;
-    align-items: flex-end;
+    align-items: center;
   }
   .modal-guide form,
   .modal-guide .subtext {
@@ -2280,13 +2339,18 @@ input[type="radio"]:checked + label {
     justify-content: space-between;
   }
 
-  .modal-guide.return-user.tour-step-1 .modal-footer div {
-    -ms-flex-item-align: start;
-    align-self: flex-start;
+  .modal-guide.tour-step-4 .modal-footer form {
+    margin: 0 0 6px;
+  }
+
+  .modal-guide.tour-step-4 .modal-footer label {
+    font-size: 10px;
+    margin-left: 5px;
   }
 
   .modal-guide.return-user .subtext {
-    max-width: none;
+    max-width: 50%;
+    margin-bottom: 5px;
   }
 
   .landing aside {

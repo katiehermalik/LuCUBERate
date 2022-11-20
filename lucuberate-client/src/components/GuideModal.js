@@ -137,11 +137,9 @@ const GuideModal = () => {
       <div className="modal-footer theme-transition">
         {tourStep === 1 && returnUser && (
           <p className="subtext">
-            <small>
-              If you no longer need this guide, check the box at the end and
-              we'll leave you to your studies, undisturbed.&nbsp;
-              <SmileyIcon size={16} className="label-icon" />
-            </small>
+            If you no longer need this guide, check the box at the end and we'll
+            leave you to your studies, undisturbed.&nbsp;
+            <SmileyIcon size={16} className="label-icon" />
           </p>
         )}
         {tourStep === 4 && (
