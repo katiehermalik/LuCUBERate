@@ -310,17 +310,14 @@ button:not(:disabled) {
   font-size: 16px;
   height: 32px;
   width: 32px;
+  z-index: 12;
+  -webkit-transition: -webkit-transform 0.45s ease-in-out;
+  transition: -webkit-transform 0.45s ease-in-out;
+  -o-transition: transform 0.45s ease-in-out;
+  transition: transform 0.45s ease-in-out;
+  transition: transform 0.45s ease-in-out, -webkit-transform 0.45s ease-in-out;
   -webkit-box-shadow: 0 4px 8px -8px var(--boxShadow-color);
   box-shadow: 0 4px 8px -8px var(--boxShadow-color);
-  -webkit-transition: background-color 0.45s ease-in-out,
-    -webkit-transform 0.45s ease-in-out;
-  transition: background-color 0.45s ease-in-out,
-    -webkit-transform 0.45s ease-in-out;
-  -o-transition: transform 0.45s ease-in-out, background-color 0.45s ease-in-out;
-  transition: transform 0.45s ease-in-out, background-color 0.45s ease-in-out;
-  transition: transform 0.45s ease-in-out, background-color 0.45s ease-in-out,
-    -webkit-transform 0.45s ease-in-out;
-  z-index: 12;
 }
 
 .switch-btn:hover {
@@ -341,18 +338,24 @@ button:not(:disabled) {
     opacity 0.45s ease-in-out, width 0.45s ease-in-out,
     min-width 0.45s ease-in-out, -webkit-box-shadow 0.45s ease-in-out,
     -webkit-flex-basis 0.45s ease-in-out;
-  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
-    min-width 0.45s ease-in-out, -webkit-box-shadow 0.45s ease-in-out,
-    -webkit-flex-basis 0.45s ease-in-out;
   -o-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
     background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
     box-shadow 0.45s ease-in-out, outline 0.45s ease-in-out,
     background-image 0.45s ease-in-out, opacity 0.45s ease-in-out,
     flex-basis 0.45s ease-in-out, width 0.45s ease-in-out,
     min-width 0.45s ease-in-out;
+  -webkit-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
+    min-width 0.45s ease-in-out, -webkit-box-shadow 0.45s ease-in-out,
+    -webkit-flex-basis 0.45s ease-in-out;
+  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
+    min-width 0.45s ease-in-out, -webkit-box-shadow 0.45s ease-in-out,
+    -webkit-flex-basis 0.45s ease-in-out;
   transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
     background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
     box-shadow 0.45s ease-in-out, outline 0.45s ease-in-out,
@@ -367,12 +370,20 @@ button:not(:disabled) {
     min-width 0.45s ease-in-out, -webkit-box-shadow 0.45s ease-in-out,
     -webkit-flex-basis 0.45s ease-in-out,
     -ms-flex-preferred-size 0.45s ease-in-out;
+  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    box-shadow 0.45s ease-in-out, outline 0.45s ease-in-out,
+    background-image 0.45s ease-in-out, opacity 0.45s ease-in-out,
+    flex-basis 0.45s ease-in-out, width 0.45s ease-in-out,
+    min-width 0.45s ease-in-out, -webkit-box-shadow 0.45s ease-in-out,
+    -ms-flex-preferred-size 0.45s ease-in-out;
 }
 
 /* ------------------------------- Nav Bar */
 
 .navbar {
-  flex-basis: 50px;
+  -ms-flex-preferred-size: 50px;
+  height: 50px;
   width: 100%;
   color: var(--text-color-light);
   background-color: var(--border-color);
@@ -442,6 +453,8 @@ button:not(:disabled) {
 
 .dashboard {
   min-height: calc(100% - 50px);
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
   width: 100%;
   -webkit-box-align: stretch;
@@ -518,8 +531,14 @@ footer {
     border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
     -webkit-box-shadow 0.15s ease-in-out;
@@ -943,6 +962,8 @@ hr {
 }
 
 .modal-guide.return-user.tour-step-1 .modal-footer {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
@@ -1005,14 +1026,20 @@ hr {
 }
 
 .category-container {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr;
   grid-template-columns: 1fr;
   position: relative;
   z-index: 0;
 }
 
 .cat-item {
+  -ms-grid-row: 1;
+  grid-row: 1;
   grid-row-start: 1;
+  -ms-grid-column: 1;
+  grid-column: 1;
   grid-column-start: 1;
 }
 
@@ -1088,6 +1115,8 @@ hr {
   width: 100%;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
 }
 
@@ -1245,7 +1274,13 @@ select.form-control {
   transition: border-color 0.35s ease-in-out,
     -webkit-box-shadow 0.35s ease-in-out;
   -o-transition: border-color 0.35s ease-in-out, box-shadow 0.35s ease-in-out;
+  -webkit-transition: border-color 0.35s ease-in-out,
+    -webkit-box-shadow 0.35s ease-in-out;
+  transition: border-color 0.35s ease-in-out,
+    -webkit-box-shadow 0.35s ease-in-out;
   transition: border-color 0.35s ease-in-out, box-shadow 0.35s ease-in-out;
+  transition: border-color 0.35s ease-in-out, box-shadow 0.35s ease-in-out,
+    -webkit-box-shadow 0.35s ease-in-out;
   transition: border-color 0.35s ease-in-out, box-shadow 0.35s ease-in-out,
     -webkit-box-shadow 0.35s ease-in-out;
   display: block;
@@ -1386,6 +1421,7 @@ img.visual-aid-preview {
 
 .show-page-container {
   height: 100%;
+  position: relative;
 }
 
 .cube-container {
@@ -1458,6 +1494,8 @@ img.visual-aid-preview {
 /* ---------------------------------- Landing Page */
 
 .landing {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
 }
 
@@ -1539,12 +1577,21 @@ section.about {
 }
 
 .description {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 50px 30px 30px;
   background-color: var(--border-color);
   color: var(--category-text-color);
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
   margin-top: 80px;
 }
@@ -1560,6 +1607,7 @@ section.about {
   min-width: 145px;
   max-width: 250px;
   color: var(--text-color-light);
+  -webkit-box-shadow: 0 3px 8px -3px rgb(0 0 0 / 75%);
   box-shadow: 0 3px 8px -3px rgb(0 0 0 / 75%);
 }
 
@@ -1761,6 +1809,8 @@ section.about {
   -webkit-transition: -webkit-filter 0.75s, -webkit-transform 0.5s ease;
   -o-transition: filter 0.75s, transform 0.5s ease;
   transition: filter 0.75s, transform 0.5s ease;
+  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
+    -webkit-transform 0.5s ease;
   transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
     -webkit-transform 0.5s ease;
   transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
@@ -1978,9 +2028,15 @@ input[type="radio"]:checked + label {
   }
 
   .mobile-only-nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     z-index: 5;
+    -ms-flex-preferred-size: 50px;
     flex-basis: 50px;
     width: 100%;
   }
@@ -2224,10 +2280,13 @@ input[type="radio"]:checked + label {
   }
 
   .modal-guide.return-user.tour-step-1 .modal-footer {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
   }
 
   .modal-guide.return-user.tour-step-1 .modal-footer div {
+    -ms-flex-item-align: start;
     align-self: flex-start;
   }
 
