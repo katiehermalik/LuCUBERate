@@ -35,26 +35,6 @@ const Navbar = ({ user }) => {
 
   return (
     <nav className="navbar container-row theme-transition">
-      {user && (
-        <div className="container-row">
-          {window.location.pathname !== "/" && (
-            <>
-              <div className="mobile-hidden">
-                <CategoryListToggle />
-              </div>
-              <Link className="btn navbar-item theme-transition" to="/">
-                About Lucuberate
-              </Link>
-            </>
-          )}
-          {window.location.pathname === "/" && (
-            <Link className="btn navbar-item theme-transition" to="/dashboard">
-              Back to dashboard
-              <ChevronRightIcon size={16} />
-            </Link>
-          )}
-        </div>
-      )}
       {!user && (
         <div className="signup-login container-row">
           <SignUpBtn
@@ -70,28 +50,48 @@ const Navbar = ({ user }) => {
         </div>
       )}
       {user && (
-        <div
-          ref={userBtnRef}
-          className="container-row dropdown theme-transition">
-          <button
-            onClick={toggleUserMenu}
-            title={`${user.username}'s settings`}
-            className="navbar-item username theme-transition dropbtn">
-            <PersonFillIcon size={16} />
-            &nbsp;{user.username}
-          </button>
-          {showUserMenu && (
-            <div className="dropdown-content theme-transition">
-              <div className="dropdown-item theme-transition">
-                <label htmlFor="theme-switch">Theme</label>
-                <ThemeSwitch />
-              </div>
-              <div className="dropdown-item theme-transition">
-                <Logout setShowUserMenu={setShowUserMenu} />
-              </div>
+        <>
+          <div className="mobile-hidden">
+            <CategoryListToggle />
+          </div>
+          <div className="about-settings container-row">
+            {window.location.pathname !== "/" && (
+              <Link className="btn navbar-item theme-transition" to="/">
+                About Lucuberate
+              </Link>
+            )}
+            {window.location.pathname === "/" && (
+              <Link
+                className="btn navbar-item theme-transition"
+                to="/dashboard">
+                Back to dashboard
+                <ChevronRightIcon size={16} />
+              </Link>
+            )}
+            <div
+              ref={userBtnRef}
+              className="container-row dropdown theme-transition">
+              <button
+                onClick={toggleUserMenu}
+                title={`${user.username}'s settings`}
+                className="navbar-item username theme-transition dropbtn">
+                <PersonFillIcon size={16} />
+                &nbsp;{user.username}
+              </button>
+              {showUserMenu && (
+                <div className="dropdown-content theme-transition">
+                  <div className="dropdown-item theme-transition">
+                    <label htmlFor="theme-switch">Theme</label>
+                    <ThemeSwitch />
+                  </div>
+                  <div className="dropdown-item theme-transition">
+                    <Logout setShowUserMenu={setShowUserMenu} />
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </div>
+        </>
       )}
     </nav>
   );

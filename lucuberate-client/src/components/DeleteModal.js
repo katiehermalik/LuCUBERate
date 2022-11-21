@@ -180,7 +180,7 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo, history }) => {
                   "Yes, delete cube & category") ||
                 (type === "category" || type === "cube"
                   ? "Delete"
-                  : "Yes, save cube & delete category")
+                  : "Save cube & delete category")
               }
               className={`form-btn ${
                 type === "category" || type === "cube"

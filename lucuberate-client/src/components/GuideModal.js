@@ -150,14 +150,14 @@ const GuideModal = () => {
             </label>
           </form>
         )}
-        <div>
+        <div className="modal-footer-buttons">
           {tourStep !== 1 && (
             <button
               title="Back"
               aria-label="Back"
               onClick={handleBackClick}
               className="form-btn btn-secondary">
-              <ChevronLeftIcon size={24} />
+              <ChevronLeftIcon size={16} />
             </button>
           )}
           <button
