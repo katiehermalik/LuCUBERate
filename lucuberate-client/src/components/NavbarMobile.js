@@ -14,9 +14,7 @@ const NavbarMobile = ({ user }) => {
       {user && window.location.pathname !== "/" && (
         <>
           <div className="divider-line theme-transition"></div>
-          <nav
-            id="navbar-mobile"
-            className="navbar navbar-mobile container-row theme-transition">
+          <nav className="navbar navbar-mobile container-row theme-transition">
             <CategoryListToggle />
             {showCategoryList && (
               <div className="container-row">

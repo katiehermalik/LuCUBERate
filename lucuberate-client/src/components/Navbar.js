@@ -34,7 +34,7 @@ const Navbar = ({ user }) => {
   };
 
   return (
-    <nav className="navbar navbar-desktop container-row theme-transition">
+    <nav className="navbar container-row theme-transition">
       {!user && (
         <div className="signup-login container-row">
           <SignUpBtn
@@ -51,11 +51,11 @@ const Navbar = ({ user }) => {
       )}
       {user && (
         <>
-          {window.location.pathname !== "/" && (
-            <div className="mobile-hidden">
-              <CategoryListToggle />
-            </div>
-          )}
+        {window.location.pathname !== "/" && (
+          <div className="mobile-hidden">
+            <CategoryListToggle />
+          </div>
+        )}
           <div className="about-settings container-row">
             {window.location.pathname !== "/" && (
               <Link className="btn navbar-item theme-transition" to="/">
