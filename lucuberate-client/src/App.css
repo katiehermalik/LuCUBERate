@@ -395,7 +395,7 @@ button:not(:disabled) {
   -webkit-box-shadow: 10px 6px 4px -7px var(--boxShadow-color);
   box-shadow: 10px 6px 4px -7px var(--boxShadow-color);
   font-weight: bold;
-  padding-left: 5px;
+  padding: 0 5px;
   z-index: 6;
 }
 
@@ -614,7 +614,7 @@ footer {
   display: -ms-flexbox;
   display: flex;
   border-left: 1px solid var(--category-select);
-  padding: 0 16px;
+  padding: 0 5px 0 16px;
   margin-left: 11px;
   overflow: auto;
 }
