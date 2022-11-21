@@ -6,7 +6,7 @@ import CategoryListToggle from "./CubeListCtrl/CategoryListToggle";
 import ToggleQuestionsBtn from "./CubeListCtrl/ToggleQuestionsBtn";
 import NewCubeBtn from "./CubeListCtrl/NewCubeBtn";
 
-const NavbarMobile = ({ user, auth }) => {
+const NavbarMobile = ({ user }) => {
   const { showCategoryList } = useContext(CategoryListContext);
 
   return (
@@ -14,7 +14,9 @@ const NavbarMobile = ({ user, auth }) => {
       {user && window.location.pathname !== "/" && (
         <>
           <div className="divider-line theme-transition"></div>
-          <nav className="navbar navbar-mobile container-row theme-transition">
+          <nav
+            id="navbar-mobile"
+            className="navbar navbar-mobile container-row theme-transition">
             <CategoryListToggle />
             {showCategoryList && (
               <div className="container-row">

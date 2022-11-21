@@ -386,9 +386,9 @@ button:not(:disabled) {
   width: 100%;
   color: var(--text-color-light);
   background-color: var(--border-color);
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -452,6 +452,10 @@ button:not(:disabled) {
 
 .signup-login {
   justify-content: flex-end;
+}
+
+.navbar .mobile-hidden {
+  flex: 1;
 }
 
 .toggle-list {
@@ -2038,6 +2042,7 @@ input[type="radio"]:checked + label {
     border-top: 4px solid var(--accent-color);
     padding-right: 5px;
     background-color: var(--cube-ctrl-list-color);
+    justify-content: space-between;
   }
 
   .divider-line {
@@ -2108,7 +2113,7 @@ input[type="radio"]:checked + label {
     margin: 0 5px;
     font-size: 12px;
     padding: 8px 12px;
-    min-width: 110px;
+    min-width: 125px;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
