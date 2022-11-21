@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import CubeNew from "../pages/CubeNew";
 import CubeEdit from "../pages/CubeEdit";
 import CubeShow from "../pages/CubeShow";
@@ -27,13 +27,15 @@ const AllAuthenticatedRoutes = ({ user }) => {
 
   return (
     <div ref={pagesRef} className="pages">
-      {user && (
+      {user ? (
         <Switch>
           <Route exact path="/dashboard" render={() => <Instructions />} />
           <Route exact path="/dashboard/new" component={CubeNew} />
           <Route exact path="/dashboard/:id" component={CubeShow} />
           <Route exact path="/dashboard/:id/edit" component={CubeEdit} />
         </Switch>
+      ) : (
+        <Redirect path="/" />
       )}
     </div>
   );
