@@ -51,9 +51,11 @@ const Navbar = ({ user }) => {
       )}
       {user && (
         <>
+        {window.location.pathname !== "/" && (
           <div className="mobile-hidden">
             <CategoryListToggle />
           </div>
+        )}
           <div className="about-settings container-row">
             {window.location.pathname !== "/" && (
               <Link className="btn navbar-item theme-transition" to="/">

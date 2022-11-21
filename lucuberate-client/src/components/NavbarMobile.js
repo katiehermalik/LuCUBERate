@@ -6,7 +6,7 @@ import CategoryListToggle from "./CubeListCtrl/CategoryListToggle";
 import ToggleQuestionsBtn from "./CubeListCtrl/ToggleQuestionsBtn";
 import NewCubeBtn from "./CubeListCtrl/NewCubeBtn";
 
-const NavbarMobile = ({ user, auth }) => {
+const NavbarMobile = ({ user }) => {
   const { showCategoryList } = useContext(CategoryListContext);
 
   return (

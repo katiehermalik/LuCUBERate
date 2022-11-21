@@ -161,19 +161,18 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo, history }) => {
             className="modal-footer"
             onClick={e => e.stopPropagation()}
             onMouseDown={e => e.stopPropagation()}>
-            <input
-              type="button"
+            <button
               value="Cancel"
               onClick={closeModal}
-              className="form-btn btn-secondary"
-            />
-            <input
+              className="form-btn btn-secondary">
+              Cancel
+            </button>
+            <button
               onClick={
                 (type === "category" && handleDeleteCategory) ||
                 (type === "cube" && handleDeleteCube) ||
                 (type === "warning" && handleMoveLastCube)
               }
-              type="button"
               value={
                 (type === "cube" &&
                   cubeListLength === 1 &&
@@ -186,8 +185,14 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo, history }) => {
                 type === "category" || type === "cube"
                   ? "btn-danger"
                   : "btn-primary"
-              }`}
-            />
+              }`}>
+              {(type === "cube" &&
+                cubeListLength === 1 &&
+                "Yes, delete cube & category") ||
+                (type === "category" || type === "cube"
+                  ? "Delete"
+                  : "Save cube & delete category")}
+            </button>
           </section>
         </div>
       </div>
