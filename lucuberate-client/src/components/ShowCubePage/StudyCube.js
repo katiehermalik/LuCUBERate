@@ -159,17 +159,45 @@ const StudyCube = ({ cubeData }) => {
                       className={`face-title ${side === "Link" ? "" : "blur"}`}>
                       Link
                     </div>
-                    {cubeData.link && (
+                    {(cubeData.link_1 ||
+                      cubeData.link_2 ||
+                      cubeData.link_3) && (
                       <div
                         className={`face-content ${
                           side === "Link" ? "" : "blur"
                         }`}>
-                        <a
-                          rel="noreferrer"
-                          target="_blank"
-                          href={cubeData.link}>
-                          {cubeData.link_alias}
-                        </a>
+                        {cubeData.link_1 && (
+                          <a
+                            rel="noreferrer"
+                            target="_blank"
+                            href={cubeData.link_1}>
+                            {cubeData.link_alias_1}
+                          </a>
+                        )}
+                        {cubeData.link_2 && (
+                          <>
+                            <br />
+                            <br />
+                            <a
+                              style={{ fontSize: "12px" }}
+                              rel="noreferrer"
+                              target="_blank"
+                              href={cubeData.link_2}>
+                              {cubeData.link_alias_2}
+                            </a>
+                          </>
+                        )}
+                        {cubeData.link_3 && (
+                          <>
+                            <br />
+                            <a
+                              rel="noreferrer"
+                              target="_blank"
+                              href={cubeData.link_3}>
+                              {cubeData.link_alias_3}
+                            </a>
+                          </>
+                        )}
                       </div>
                     )}
                   </div>
