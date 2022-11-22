@@ -29,8 +29,8 @@ const CubeNew = ({ history }) => {
   //   answer: '',
   //   hint: '',
   //   notes: '',
-  //   link: '',
-  //   link_alias: '',
+  //   link_1: '',
+  //   link_alias_1: '',
   //   visual_aid: '',
   //   newCategoryCount: 0,
   //   questionCount: 0,
@@ -53,8 +53,8 @@ const CubeNew = ({ history }) => {
   const [answer, setAnswer] = useState("");
   const [hint, setHint] = useState("");
   const [notes, setNotes] = useState("");
-  const [link, setLink] = useState("");
-  const [link_alias, setLinkAlias] = useState("");
+  const [link_1, setLinkOne] = useState("");
+  const [link_alias_1, setLinkAliasOne] = useState("");
   const [visual_aid, setVisualAid] = useState("");
   const [newCategoryCount, setNewCategoryCount] = useState(0);
   const [questionCount, setQuestionCount] = useState(0);
@@ -363,19 +363,20 @@ const CubeNew = ({ history }) => {
           </div>
         </div>
         <div className="form-row">
-          <div className={link ? "form-group col-md-3" : "form-group col-md-5"}>
+          <div
+            className={link_1 ? "form-group col-md-3" : "form-group col-md-5"}>
             <label htmlFor="inputLink">Resource Link</label>
             <input
               type="url"
               className="form-control theme-transition"
               id="inputLink"
               placeholder="Link to a resource."
-              name="link"
-              value={link}
-              onChange={e => setLink(e.target.value)}
+              name="link_1"
+              value={link_1}
+              onChange={e => setLinkOne(e.target.value)}
             />
           </div>
-          {link && (
+          {link_1 && (
             <div className="form-group col-md-3">
               <label htmlFor="inputAlias">
                 Link Text&nbsp;&nbsp;
@@ -391,10 +392,10 @@ const CubeNew = ({ history }) => {
                 id="inputAlias"
                 placeholder="ex. 'Article about education'"
                 maxLength="50"
-                name="link_alias"
-                value={link_alias}
+                name="link_alias_1"
+                value={link_alias_1}
                 onChange={e => {
-                  setLinkAlias(e.target.value);
+                  setLinkAliasOne(e.target.value);
                   setLinkAliasCount(e.target.value.length);
                 }}
               />
@@ -404,7 +405,8 @@ const CubeNew = ({ history }) => {
               </div>
             </div>
           )}
-          <div className={link ? "form-group col-md-3" : "form-group col-md-5"}>
+          <div
+            className={link_1 ? "form-group col-md-3" : "form-group col-md-5"}>
             <div htmlFor="inputVisual">Visual Aid</div>
             <input
               ref={visualAidInputRef}

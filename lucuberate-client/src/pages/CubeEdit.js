@@ -34,8 +34,8 @@ const CubeEdit = ({
   const [answer, setAnswer] = useState("");
   const [hint, setHint] = useState("");
   const [notes, setNotes] = useState("");
-  const [link, setLink] = useState("");
-  const [link_alias, setLinkAlias] = useState("");
+  const [link_1, setLinkOne] = useState("");
+  const [link_alias_1, setLinkAliasOne] = useState("");
   const [visual_aid, setVisualAid] = useState("");
   const [new_visual_aid, setNewVisualAid] = useState("");
   const [removingVisualAid, setRemovingVisualAid] = useState(false);
@@ -74,14 +74,14 @@ const CubeEdit = ({
       setAnswer(data.cube.answer);
       setHint(data.cube.hint);
       setNotes(data.cube.notes);
-      setLink(data.cube.link);
-      setLinkAlias(data.cube.link_alias);
+      setLinkOne(data.cube.link_1);
+      setLinkAliasOne(data.cube.link_alias_1);
       setVisualAid(data.cube.visual_aid);
       setQuestionCount(data.cube.question.length);
       setAnswerCount(data.cube.answer.length);
       setHintCount(data.cube.hint.length);
       setNotesCount(data.cube.notes.length);
-      setLinkAliasCount(data.cube.link_alias.length);
+      setLinkAliasCount(data.cube.link_alias_1.length);
     })();
 
     const currentCubeCatInfo = currentUserInfo?.categories.find(category =>
@@ -421,20 +421,22 @@ const CubeEdit = ({
           <div className="form-row">
             {/* TODO - validate url using URL Constructor */}
             <div
-              className={link ? "form-group col-md-3" : "form-group col-md-5"}>
+              className={
+                link_1 ? "form-group col-md-3" : "form-group col-md-5"
+              }>
               <label htmlFor="inputLink">Resource Link</label>
               <input
                 type="url"
                 className="form-control theme-transition"
                 id="inputLink"
                 placeholder="Link to a resource."
-                name="link"
-                value={link || ""}
-                onChange={e => setLink(e.target.value)}
+                name="link_1"
+                value={link_1 || ""}
+                onChange={e => setLinkOne(e.target.value)}
               />
             </div>
             {/* TODO - add multiple resource links functionality */}
-            {link && (
+            {link_1 && (
               <div className="form-group col-md-3">
                 <label htmlFor="inputAlias">
                   Link Text&nbsp;&nbsp;
@@ -450,10 +452,10 @@ const CubeEdit = ({
                   id="inputAlias"
                   placeholder="ex. 'Article about education'"
                   maxLength="50"
-                  name="link_alias"
-                  value={link_alias || ""}
+                  name="link_alias_1"
+                  value={link_alias_1 || ""}
                   onChange={e => {
-                    setLinkAlias(e.target.value);
+                    setLinkAliasOne(e.target.value);
                     setLinkAliasCount(e.target.value.length);
                   }}
                 />
@@ -465,7 +467,9 @@ const CubeEdit = ({
             )}
 
             <div
-              className={link ? "form-group col-md-3" : "form-group col-md-5"}>
+              className={
+                link_1 ? "form-group col-md-3" : "form-group col-md-5"
+              }>
               <div htmlFor="inputVisual">Visual Aid</div>
               <input
                 ref={visualAidInputRef}
