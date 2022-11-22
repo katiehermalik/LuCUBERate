@@ -11,7 +11,7 @@ const app = express();
 
 let origin;
 if (process.env.NODE_ENV === "production") {
-  origin = "https://lucuberate.com";
+  origin = "https://www.lucuberate.com";
 } else {
   origin = "http://localhost:3000";
 }
