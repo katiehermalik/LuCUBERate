@@ -1,6 +1,6 @@
 let url;
 if (process.env.NODE_ENV === "production") {
-  url = `https://lucuberate.herokuapp.com/api/v1/categories`;
+  url = `https://lucuberate.com/api/v1/categories`;
 } else {
   url = "http://localhost:4000/api/v1/categories";
 }
