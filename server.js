@@ -20,6 +20,15 @@ const corsOptions = {
   origin: origin,
 };
 
+// Redirect to secure https
+if (process.env.NODE_ENV === "production") {
+  app.use((req, res, next) => {
+    if (req.header("x-forwarded-proto") !== "https") {
+      res.redirect(`https://${req.header("host")}${req.url}`);
+    } else next();
+  });
+}
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -51,15 +60,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(
     express.static(path.join(__dirname, "lucuberate-client", "src", "images"))
   );
-}
-
-// Redirect to secure https
-if (process.env.NODE_ENV === "production") {
-  app.use((req, res, next) => {
-    if (req.header("x-forwarded-proto") !== "https") {
-      res.redirect(`https://${req.header("host")}${req.url}`);
-    } else next();
-  });
 }
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
