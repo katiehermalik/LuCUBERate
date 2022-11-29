@@ -6,7 +6,7 @@ import CubeShow from "../pages/CubeShow";
 import Instructions from "../pages/Instructions";
 import { CategoryListContext } from "../context/ContextProvider";
 
-const AllAuthenticatedRoutes = ({ user }) => {
+const AuthRoutes = ({ user }) => {
   const { setShowCategoryList } = useContext(CategoryListContext);
   const pagesRef = useRef();
 
@@ -41,4 +41,4 @@ const AllAuthenticatedRoutes = ({ user }) => {
   );
 };
 
-export default AllAuthenticatedRoutes;
+export default AuthRoutes;

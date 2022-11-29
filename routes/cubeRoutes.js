@@ -1,29 +1,10 @@
 const router = require("express").Router();
 const ctrl = require("../controllers");
 const multer = require("multer");
-const multerS3 = require("multer-s3");
-const AWS = require("aws-sdk");
-const uuid = require("uuid").v4;
-const path = require("path");
 
-const s3 = new AWS.S3({
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  region: process.env.AWS_REGION,
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: "lucuberatebucket",
-    metadata: (req, file, cb) => {
-      cb(null, { fieldName: file.fieldname });
-    },
-    key: (req, file, cb) => {
-      const ext = path.extname(file.originalname);
-      cb(null, `${uuid()}${ext}`);
-    },
-  }),
+  storage: storage,
   fileFilter: (req, file, cb) => {
     if (
       file.mimetype == "image/png" ||
@@ -49,5 +30,4 @@ router.delete("/:id", ctrl.cubes.destroy);
 
 module.exports = {
   router,
-  s3,
 };

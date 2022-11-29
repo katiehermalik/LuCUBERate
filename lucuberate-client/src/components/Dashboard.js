@@ -1,13 +1,12 @@
 import React from "react";
 import CubeListCtrl from "./CubeListCtrl/CubeListCtrl";
-import AllAuthenticatedRoutes from "../config/AuthRoutes";
+import AuthRoutes from "../config/AuthRoutes";
 
 function Dashboard({ user }) {
-
   return (
     <div className="dashboard container-row theme-transition">
       <CubeListCtrl />
-      <AllAuthenticatedRoutes user={user} />
+      <AuthRoutes user={user} />
     </div>
   );
 }

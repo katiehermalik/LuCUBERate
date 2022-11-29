@@ -14,7 +14,7 @@ const GuideModal = () => {
   const { setShowCategoryList } = useContext(CategoryListContext);
   const guideDecision = useRef();
   const [tourStep, setTourStep] = useState(1);
-  const { returnUser } = JSON.parse(sessionStorage.getItem("user")) || {};
+  const { returnUser } = JSON.parse(sessionStorage.getItem("user")) || "";
 
   const handleStepForwardClick = async () => {
     tourStep !== 4 &&

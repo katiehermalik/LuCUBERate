@@ -1,12 +1,18 @@
 const db = require("../models");
-const AWS = require("aws-sdk");
-const multer = require("multer");
-const Cube = require("../models/Cube");
+const { S3Client, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 
-const s3 = new AWS.S3({
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  region: process.env.AWS_REGION,
+require("dotenv").config();
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+const accessKey = process.env.ACCESS_KEY;
+const bucketRegion = process.env.BUCKET_REGION;
+const bucketName = process.env.BUCKET_NAME;
+
+const s3 = new S3Client({
+  region: bucketRegion,
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretAccessKey,
+  },
 });
 
 // const index = (req, res) => {
@@ -58,12 +64,12 @@ const destroy = async (req, res) => {
     deletedCategory.cubes.map(async cube => {
       const deletedCube = await db.Cube.findByIdAndDelete(cube._id);
       if (deletedCube.visual_aid) {
-        s3.deleteObject(
-          { Bucket: "lucuberatebucket", Key: deletedCube.visual_aid },
-          err => {
-            console.error(err);
-          }
-        );
+        const params = {
+          Bucket: bucketName,
+          Key: deletedCube.visual_aid,
+        };
+        const command = new DeleteObjectCommand(params);
+        await s3.send(command);
       }
       const foundUser = await db.User.findById(deletedCube.user);
       foundUser.cubes.remove(deletedCube._id);

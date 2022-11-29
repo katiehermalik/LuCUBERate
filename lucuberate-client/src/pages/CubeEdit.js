@@ -76,7 +76,7 @@ const CubeEdit = ({
       setNotes(data.cube.notes);
       setLinkOne(data.cube.link_1);
       setLinkAliasOne(data.cube.link_alias_1);
-      setVisualAid(data.cube.visual_aid);
+      setVisualAid(data.cube.visual_aid_url);
       setQuestionCount(data.cube.question.length);
       setAnswerCount(data.cube.answer.length);
       setHintCount(data.cube.hint.length);
