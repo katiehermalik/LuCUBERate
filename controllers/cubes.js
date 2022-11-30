@@ -149,17 +149,19 @@ const update = async (req, res) => {
       removingVisualAid: removingVisualAid,
     };
     const foundCube = await db.Cube.findById(req.params.id);
-    // Handle Removing Old Image without New Image & with New Image
+    // Handle Removing Old Image
     if (
       (!req.file && changedCube.removingVisualAid === "true") ||
       (req.file && foundCube.visual_aid)
     ) {
-      const params = {
-        Bucket: bucketName,
-        Key: foundCube.visual_aid,
-      };
-      const command = new DeleteObjectCommand(params);
-      await s3.send(command);
+      if (!foundCube.visual_aid.includes("seedData")) {
+        const params = {
+          Bucket: bucketName,
+          Key: foundCube.visual_aid,
+        };
+        const command = new DeleteObjectCommand(params);
+        await s3.send(command);
+      }
       changedCube.visual_aid = "";
     }
     // Handle New Image Uploaded - If no new image uploaded on edit form, visual_aid will be previous image
@@ -185,7 +187,9 @@ const update = async (req, res) => {
         const deletedCategory = await db.Category.findByIdAndDelete(
           foundOldCategory._id
         );
-        await foundUser.updateOne({ $pull: { categories: deletedCategory._id } });
+        await foundUser.updateOne({
+          $pull: { categories: deletedCategory._id },
+        });
         await foundUser.save();
       } else {
         await foundCategory.updateOne({ $pull: { cubes: req.params.id } });
@@ -225,7 +229,10 @@ const destroy = async (req, res) => {
   try {
     const cubeToDelete = await db.Cube.findById(req.params.id);
     // Delete Cube Visual Aid
-    if (cubeToDelete.visual_aid) {
+    if (
+      cubeToDelete.visual_aid &&
+      !cubeToDelete.visual_aid.includes("seedData")
+    ) {
       const params = {
         Bucket: bucketName,
         Key: cubeToDelete.visual_aid,

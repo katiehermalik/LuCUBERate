@@ -68,7 +68,7 @@ const destroy = async (req, res) => {
     // Delete cube visual aid, remove cube reference from user, & delete cube
     categoryToDelete.cubes.map(async cube => {
       // Delete Cube Visual Aid
-      if (cube.visual_aid) {
+      if (cube.visual_aid && !cube.visual_aid.includes("seedData")) {
         const params = {
           Bucket: bucketName,
           Key: cube.visual_aid,
