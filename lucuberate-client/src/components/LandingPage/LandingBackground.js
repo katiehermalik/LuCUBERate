@@ -1,15 +1,15 @@
-import { Canvas } from "react-three-fiber";
-import { Stars, OrbitControls } from "drei";
+import { Canvas } from "@react-three/fiber";
+import { Stars, OrbitControls } from "@react-three/drei";
 import CubeMesh from "./CubeMesh";
 import Lights from "./Lights";
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../context/ContextProvider";
 
-function LandingBackground() {
+const LandingBackground = () => {
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
-    document.title = 'Lucuberate | Home';
+    document.title = "Lucuberate | Home";
   }, []);
 
   return (
@@ -33,6 +33,6 @@ function LandingBackground() {
       />
     </Canvas>
   );
-}
+};
 
 export default LandingBackground;

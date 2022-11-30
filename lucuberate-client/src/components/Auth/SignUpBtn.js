@@ -1,4 +1,3 @@
-import { withRouter } from "react-router-dom";
 import SignUp from "./SignUp";
 
 const SignUpBtn = ({
@@ -29,4 +28,4 @@ const SignUpBtn = ({
   );
 };
 
-export default withRouter(SignUpBtn);
+export default SignUpBtn;

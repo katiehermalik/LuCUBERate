@@ -1,4 +1,4 @@
-import React, {
+import {
   useContext,
   useReducer,
   useRef,
@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { withRouter } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   UserContext,
   CategoryContext,
@@ -43,12 +43,9 @@ function currentPathReducer(prevState, action) {
   }
 }
 
-const CubeList = ({
-  history,
-  history: {
-    location: { pathname },
-  },
-}) => {
+const CubeList = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { currentUserInfo, isLoading } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId, setCurrentCubeId } = useContext(CubeContext);
@@ -249,9 +246,9 @@ const CubeList = ({
       cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCategory)
     );
     scrollToCube(true);
-    history.push(`/dashboard/${currentCubeId}`);
+    navigate(`/dashboard/${currentCubeId}`);
     setCategoryWasShuffled(false);
-  }, [cubeRefs, currentCategory, currentCubeId, history, scrollToCube]);
+  }, [cubeRefs, currentCategory, currentCubeId, navigate, scrollToCube]);
 
   //====================================================================================//
 
@@ -347,13 +344,13 @@ const CubeList = ({
       setCurrentCategory(null);
       setCurrentCategoryRef(null);
       setCurrCategoryCubeRefs([]);
-      history.push(`/dashboard`);
+      navigate(`/dashboard`);
     }
   };
 
   const handleCubeClick = e => {
     setCurrentCubeId(e.target.value);
-    history.push(`/dashboard/${e.target.value}`);
+    navigate(`/dashboard/${e.target.value}`);
     e.target.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
@@ -540,4 +537,4 @@ const CubeList = ({
   );
 };
 
-export default withRouter(CubeList);
+export default CubeList;

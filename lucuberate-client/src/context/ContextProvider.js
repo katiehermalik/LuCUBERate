@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import UserModel from "../models/user";
+import { PackageIcon } from "@primer/octicons-react";
 
 export const UserContext = createContext(null);
 export const CategoryContext = createContext(null);
@@ -21,43 +22,55 @@ const ContextProvider = ({ children }) => {
   const [deleteModalInfo, setDeleteModalInfo] = useState({});
 
   const [isLoading, setIsLoading] = useState(true);
+  const { user_Id, isLoggedIn } =
+    JSON.parse(sessionStorage.getItem("user")) || "";
 
   useEffect(() => {
-    const { user_Id, isLoggedIn } =
-      JSON.parse(sessionStorage.getItem("user")) || {};
     if (isLoggedIn && isLoading) {
-      UserModel.allCubesAndCategories(user_Id).then(userData => {
+      (async () => {
+        const userData = await UserModel.allCubesAndCategories(user_Id);
         setCurrentUserInfo(userData);
         setTheme(userData.theme);
-      });
+      })();
+      if (currentUserInfo && theme) {
+        setIsLoading(false);
+      }
+    } else {
       setIsLoading(false);
     }
-  }, [isLoading, currentUserInfo]);
+  }, [isLoading, currentUserInfo, theme, isLoggedIn, user_Id]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      <UserContext.Provider
-        value={{ currentUserInfo, setCurrentUserInfo, isLoading }}>
-        <DeleteModalContext.Provider
-          value={{ deleteModalInfo, setDeleteModalInfo }}>
-          <GuideContext.Provider value={{ showGuide, setShowGuide }}>
-            <CategoryListContext.Provider
-              value={{ showCategoryList, setShowCategoryList }}>
-              <CategoryContext.Provider
-                value={{ currentCategory, setCurrentCategory }}>
-                <CubeContext.Provider
-                  value={{ currentCubeId, setCurrentCubeId }}>
-                  <QuestionsContext.Provider
-                    value={{ questionsAreVisible, setQuestionsAreVisible }}>
-                    {children}
-                  </QuestionsContext.Provider>
-                </CubeContext.Provider>
-              </CategoryContext.Provider>
-            </CategoryListContext.Provider>
-          </GuideContext.Provider>
-        </DeleteModalContext.Provider>
-      </UserContext.Provider>
-    </ThemeContext.Provider>
+    <>
+      {isLoggedIn && isLoading && (
+        <PackageIcon size={24} className="loading-icon" />
+      )}
+      {!isLoading && (
+        <ThemeContext.Provider value={{ theme, setTheme }}>
+          <UserContext.Provider
+            value={{ currentUserInfo, setCurrentUserInfo, isLoading }}>
+            <DeleteModalContext.Provider
+              value={{ deleteModalInfo, setDeleteModalInfo }}>
+              <GuideContext.Provider value={{ showGuide, setShowGuide }}>
+                <CategoryListContext.Provider
+                  value={{ showCategoryList, setShowCategoryList }}>
+                  <CategoryContext.Provider
+                    value={{ currentCategory, setCurrentCategory }}>
+                    <CubeContext.Provider
+                      value={{ currentCubeId, setCurrentCubeId }}>
+                      <QuestionsContext.Provider
+                        value={{ questionsAreVisible, setQuestionsAreVisible }}>
+                        {children}
+                      </QuestionsContext.Provider>
+                    </CubeContext.Provider>
+                  </CategoryContext.Provider>
+                </CategoryListContext.Provider>
+              </GuideContext.Provider>
+            </DeleteModalContext.Provider>
+          </UserContext.Provider>
+        </ThemeContext.Provider>
+      )}
+    </>
   );
 };
 

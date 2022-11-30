@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import { a } from "react-spring/three";
-import { useFrame } from "react-three-fiber";
+import { a } from "@react-spring/three";
+import { useFrame } from "@react-three/fiber";
 
-function CubeMesh({ theme }) {
+const CubeMesh = ({ theme }) => {
   const mesh = useRef(null);
   const [hover, setHover] = useState(false);
 
@@ -18,7 +18,7 @@ function CubeMesh({ theme }) {
       scale={[0.6, 0.6, 0.6]}
       position={[0, 1.5, 0]}
       ref={mesh}>
-      <boxBufferGeometry attach="geometry" />
+      <boxGeometry attach="geometry" />
       <meshStandardMaterial
         className="theme-transition"
         attach="material"
@@ -34,6 +34,6 @@ function CubeMesh({ theme }) {
       />
     </a.mesh>
   );
-}
+};
 
 export default CubeMesh;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { ChevronRightIcon, PersonFillIcon } from "@primer/octicons-react";
 
 import SignUpBtn from "./Auth/SignUpBtn";
@@ -9,6 +9,7 @@ import ThemeSwitch from "./ThemeSwitch";
 import CategoryListToggle from "./CubeListCtrl/CategoryListToggle";
 
 const Navbar = ({ user }) => {
+  const { pathname } = useLocation();
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -51,18 +52,18 @@ const Navbar = ({ user }) => {
       )}
       {user && (
         <>
-        {window.location.pathname !== "/" && (
-          <div className="mobile-hidden">
-            <CategoryListToggle />
-          </div>
-        )}
+          {pathname !== "/" && (
+            <div className="mobile-hidden">
+              <CategoryListToggle />
+            </div>
+          )}
           <div className="about-settings container-row">
-            {window.location.pathname !== "/" && (
+            {pathname !== "/" && (
               <Link className="btn navbar-item theme-transition" to="/">
                 About Lucuberate
               </Link>
             )}
-            {window.location.pathname === "/" && (
+            {pathname === "/" && (
               <Link
                 className="btn navbar-item theme-transition"
                 to="/dashboard">
@@ -99,4 +100,4 @@ const Navbar = ({ user }) => {
   );
 };
 
-export default withRouter(Navbar);
+export default Navbar;

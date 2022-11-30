@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   XCircleFillIcon,
   PackageIcon,
@@ -11,12 +11,13 @@ import {
   UserContext,
   CategoryContext,
   CubeContext,
-} from "../context/ContextProvider";
-import CubeModel from "../models/cube";
-import UserModel from "../models/user";
-import CategoryModel from "../models/category";
+} from "../../context/ContextProvider";
+import CubeModel from "../../models/cube";
+import UserModel from "../../models/user";
+import CategoryModel from "../../models/category";
 
-const CubeNew = ({ history }) => {
+const CubeNew = () => {
+  const navigate = useNavigate();
   const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { setCurrentCubeId } = useContext(CubeContext);
@@ -86,7 +87,7 @@ const CubeNew = ({ history }) => {
     setCurrentUserInfo(userData);
     setIsLoading(false);
     setCurrentCubeId(data.cube._id);
-    history.push(`/dashboard/${data.cube._id}`);
+    navigate(`/dashboard/${data.cube._id}`);
   };
 
   const collectCubeFormData = categoryId => {

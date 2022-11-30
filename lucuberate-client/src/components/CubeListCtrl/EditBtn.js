@@ -1,16 +1,13 @@
-import { withRouter } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { PencilIcon } from "@primer/octicons-react";
 
-const EditBtn = ({
-  history,
-  cubeId,
-  history: {
-    location: { pathname },
-  },
-}) => {
+const EditBtn = ({ cubeId }) => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const handleClick = e => {
     e.stopPropagation();
-    history.push(`/dashboard/${cubeId}/edit`);
+    navigate(`/dashboard/${cubeId}/edit`);
   };
 
   return (
@@ -29,4 +26,4 @@ const EditBtn = ({
   );
 };
 
-export default withRouter(EditBtn);
+export default EditBtn;

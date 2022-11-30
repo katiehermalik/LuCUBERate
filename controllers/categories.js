@@ -1,12 +1,18 @@
 const db = require("../models");
-const AWS = require("aws-sdk");
-const multer = require("multer");
-const Cube = require("../models/Cube");
+const { S3Client, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 
-const s3 = new AWS.S3({
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  region: process.env.AWS_REGION,
+require("dotenv").config();
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+const accessKey = process.env.ACCESS_KEY;
+const bucketRegion = process.env.BUCKET_REGION;
+const bucketName = process.env.BUCKET_NAME;
+
+const s3 = new S3Client({
+  region: bucketRegion,
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretAccessKey,
+  },
 });
 
 // const index = (req, res) => {
@@ -41,11 +47,8 @@ const create = async (req, res) => {
     };
     const createdCategory = await db.Category.create(newCategory);
     const foundUser = await db.User.findById(user);
-    foundUser.categories.push({
-      _id: createdCategory._id,
-      title: createdCategory.title,
-    });
-    foundUser.save();
+    foundUser.categories.push(createdCategory._id);
+    await foundUser.save();
     res.json(createdCategory);
   } catch (err) {
     res.json(err);
@@ -54,23 +57,33 @@ const create = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const deletedCategory = await db.Category.findByIdAndDelete(req.params.id);
-    deletedCategory.cubes.map(async cube => {
-      const deletedCube = await db.Cube.findByIdAndDelete(cube._id);
-      if (deletedCube.visual_aid) {
-        s3.deleteObject(
-          { Bucket: "lucuberatebucket", Key: deletedCube.visual_aid },
-          err => {
-            console.error(err);
-          }
-        );
-      }
-      const foundUser = await db.User.findById(deletedCube.user);
-      foundUser.cubes.remove(deletedCube._id);
-      foundUser.save();
+    const categoryToDelete = await db.Category.findById(req.params.id).populate(
+      "cubes"
+    );
+    const foundUser = await db.User.findById(categoryToDelete.user);
+    // Remove Category Reference from User
+    await foundUser.updateOne({
+      $pull: { categories: req.params.id },
     });
-    const foundUser = await db.User.findById(deletedCategory.user);
-    foundUser.categories.remove(deletedCategory._id);
+    // Delete cube visual aid, remove cube reference from user, & delete cube
+    categoryToDelete.cubes.map(async cube => {
+      // Delete Cube Visual Aid
+      if (cube.visual_aid) {
+        const params = {
+          Bucket: bucketName,
+          Key: cube.visual_aid,
+        };
+        const command = new DeleteObjectCommand(params);
+        await s3.send(command);
+      }
+      // Remove Cube reference from User
+      await foundUser.updateOne({ $pull: { cubes: cube._id } });
+      // Delete Cube
+      await db.Cube.findByIdAndDelete(cube._id);
+    });
+    await foundUser.save();
+    // Delete Category
+    const deletedCategory = await db.Category.findByIdAndDelete(req.params.id);
     res.json({ category: deletedCategory });
   } catch (err) {
     res.json(err);

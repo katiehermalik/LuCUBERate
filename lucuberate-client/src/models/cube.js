@@ -22,7 +22,7 @@ class CubeModel {
       .then(res => res.json())
       .catch(err => {
         console.log("Error fetching data in CubeModel.create", err);
-        return { message: "Error fetching data in CubeModel.create" };
+        return { message: "Error fetching data in CubeModel.create", err: err };
       });
   }
 

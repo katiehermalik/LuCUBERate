@@ -33,7 +33,7 @@ const addNewUserCubes = async newUser => {
     newUser.cubes.push(cube._id);
     const foundCategory = await db.Category.findById(cube.category);
     foundCategory.cubes.push(cube._id);
-    foundCategory.save();
+    await foundCategory.save();
   });
   await newUser.save();
   return newUser;

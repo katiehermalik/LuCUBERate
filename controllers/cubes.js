@@ -1,13 +1,27 @@
 const db = require("../models");
-const fs = require("fs");
-const AWS = require("aws-sdk");
-const multer = require("multer");
-const Cube = require("../models/Cube");
+const uuid = require("uuid").v4;
+const path = require("path");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+  DeleteObjectCommand,
+  HeadObjectCommand,
+} = require("@aws-sdk/client-s3");
 
-const s3 = new AWS.S3({
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  region: process.env.AWS_REGION,
+require("dotenv").config();
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+const accessKey = process.env.ACCESS_KEY;
+const bucketRegion = process.env.BUCKET_REGION;
+const bucketName = process.env.BUCKET_NAME;
+
+const s3 = new S3Client({
+  region: bucketRegion,
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretAccessKey,
+  },
 });
 
 // const index = (req, res) => {
@@ -24,100 +38,162 @@ const s3 = new AWS.S3({
 const show = async (req, res) => {
   try {
     const foundCube = await db.Cube.findById(req.params.id);
-    res.json({ cube: foundCube });
+    if (foundCube.visual_aid) {
+      const getObjectParams = {
+        Bucket: bucketName,
+        Key: foundCube.visual_aid,
+      };
+      const command = new GetObjectCommand(getObjectParams);
+      const headCommand = new HeadObjectCommand(getObjectParams);
+      await s3.send(headCommand);
+      const url = await getSignedUrl(s3, command, { expiresIn: 86400 });
+      const cubeWithVisualAid = { ...foundCube._doc, visual_aid_url: url };
+      res.json({ cube: cubeWithVisualAid });
+    } else {
+      res.json({ cube: foundCube });
+    }
   } catch (err) {
-    console.log("Error in cubes.show:", err);
-    res.json({ Error: "Unable to get data" });
+    if (err.name === "NotFound") {
+      const foundCube = await db.Cube.findById(req.params.id);
+      foundCube.visual_aid = "";
+      await foundCube.save();
+      res.json({ cube: foundCube });
+    } else {
+      console.log("Unable to retrieve cube data in cubes.show:", err);
+      res.json({ Error: err });
+    }
   }
 };
 
 // Creates New Cube and saves cube Id to current user
 const create = async (req, res) => {
   try {
-    console.log(req.body);
+    const {
+      body: {
+        question,
+        answer,
+        hint,
+        link_1,
+        link_alias_1,
+        notes,
+        user,
+        category,
+      },
+    } = req;
     const newCube = {
-      question: req.body.question,
-      answer: req.body.answer,
-      hint: req.body.hint || "",
-      visual_aid: req.file && req.file.location,
-      link_1: req.body.link_1 || "",
-      link_alias_1:
-        req.body.link_alias_1 || (req.body.link_1 ? "Resource" : ""),
-      notes: req.body.notes || "",
-      user: req.body.user,
-      category: req.body.category,
+      question: question,
+      answer: answer,
+      hint: hint || "",
+      link_1: link_1 || "",
+      link_alias_1: link_alias_1 || (link_1 ? "Resource" : ""),
+      notes: notes || "",
+      user: user,
+      category: category,
     };
-    console.log(newCube);
+    if (req.file) {
+      const randomImageName = uuid();
+      const ext = path.extname(req.file.originalname);
+      const params = {
+        Bucket: bucketName,
+        Key: `${randomImageName}${ext}`,
+        Body: req.file.buffer,
+        ContentType: req.file.mimetype,
+      };
+      const command = new PutObjectCommand(params);
+      await s3.send(command);
+      newCube.visual_aid = `${randomImageName}${ext}`;
+    } else {
+      newCube.visual_aid = "";
+    }
     const createdCube = await db.Cube.create(newCube);
     const foundUser = await db.User.findById(newCube.user);
     foundUser.cubes.push(createdCube._id);
-    foundUser.save();
-    const foundCategory = await db.Category.findById(req.body.category);
+    await foundUser.save();
+    const foundCategory = await db.Category.findById(category);
     foundCategory.cubes.push(createdCube._id);
-    foundCategory.save();
+    await foundCategory.save();
     res.json({
       cube: createdCube,
       category: foundCategory,
     });
   } catch (err) {
     console.log("Unable to create cube in cubes.create:", err);
-    res.json({
-      cubeError: "Unable to create cube",
-      question: req.body.question,
-      answer: req.body.answer,
-      category: req.body.category,
-    });
+    res.json({ Error: err });
   }
 };
 
 const update = async (req, res) => {
-  const changedCube = {
-    question: req.body.question,
-    answer: req.body.answer,
-    hint: req.body.hint || "",
-    link_1: req.body.link_1 || "",
-    link_alias_1: req.body.link_alias_1 || (req.body.link_1 ? "Resource" : ""),
-    notes: req.body.notes || "",
-    user: req.body.user,
-    category: req.body.category,
-    removingVisualAid: req.body.removingVisualAid,
-  };
-  // If no new image uploaded on edit form, visual_aid will be previous image
-  if (req.file) {
-    changedCube.visual_aid = req.file && req.file.location;
-  }
-  if (changedCube.question && changedCube.answer && changedCube.category) {
+  try {
+    const {
+      body: {
+        question,
+        answer,
+        hint,
+        link_1,
+        link_alias_1,
+        notes,
+        user,
+        category,
+        removingVisualAid,
+      },
+    } = req;
+    const changedCube = {
+      question: question,
+      answer: answer,
+      hint: hint || "",
+      link_1: link_1 || "",
+      link_alias_1: link_alias_1 || (link_1 ? "Resource" : ""),
+      notes: notes || "",
+      user: user,
+      category: category,
+      removingVisualAid: removingVisualAid,
+    };
     const foundCube = await db.Cube.findById(req.params.id);
-    // console.log(req.file);
-    // console.log(foundCube.visual_aid);
-    // console.log(changedCube.visual_aid);
-    // console.log(changedCube.removingVisualAid);
-    if (!req.file && changedCube.removingVisualAid === "true") {
+    // Handle Removing Old Image without New Image & with New Image
+    if (
+      (!req.file && changedCube.removingVisualAid === "true") ||
+      (req.file && foundCube.visual_aid)
+    ) {
+      const params = {
+        Bucket: bucketName,
+        Key: foundCube.visual_aid,
+      };
+      const command = new DeleteObjectCommand(params);
+      await s3.send(command);
       changedCube.visual_aid = "";
-      s3.deleteObject(
-        { Bucket: "lucuberatebucket", Key: foundCube.visual_aid },
-        (err, data) => {
-          console.error("err", err);
-        }
-      );
     }
-    // req.file ?? fs.unlinkSync(foundCube.visual_aid);
-    if (foundCube.category != req.body.category) {
+    // Handle New Image Uploaded - If no new image uploaded on edit form, visual_aid will be previous image
+    if (req.file) {
+      const randomImageName = uuid();
+      const ext = path.extname(req.file.originalname);
+      const params = {
+        Bucket: bucketName,
+        Key: `${randomImageName}${ext}`,
+        Body: req.file.buffer,
+        ContentType: req.file.mimetype,
+      };
+      const command = new PutObjectCommand(params);
+      await s3.send(command);
+      changedCube.visual_aid = `${randomImageName}${ext}`;
+    }
+    // Handle Category Change
+    if (foundCube.category != category) {
       const foundOldCategory = await db.Category.findById(foundCube.category);
       const foundUser = await db.User.findById(foundCube.user);
+      // Handle Last Cube in Category being moved scenario
       if (foundOldCategory.cubes.length === 1) {
         const deletedCategory = await db.Category.findByIdAndDelete(
           foundOldCategory._id
         );
-        foundUser.categories.remove(deletedCategory._id);
-        foundUser.save();
+        await foundUser.updateOne({ $pull: { categories: deletedCategory._id } });
+        await foundUser.save();
       } else {
-        foundOldCategory.cubes.remove(req.params.id);
-        foundOldCategory.save();
+        await foundCategory.updateOne({ $pull: { cubes: req.params.id } });
+        await foundOldCategory.save();
       }
-      const newCategory = await db.Category.findById(req.body.category);
+      const newCategory = await db.Category.findById(category);
       newCategory.cubes.push(foundCube._id);
-      newCategory.save();
+      await newCategory.save();
       const updatedCube = await db.Cube.findByIdAndUpdate(
         req.params.id,
         changedCube,
@@ -133,58 +209,59 @@ const update = async (req, res) => {
         changedCube,
         { new: true }
       );
-      const foundCategory = await db.Category.findById(req.body.category);
+      const foundCategory = await db.Category.findById(category);
       res.json({
         cube: updatedCube,
         category: foundCategory,
       });
     }
-  } else {
-    console.log("Unable to update cube in cubes.update:");
-    res.json({
-      cubeError: "Unable to update cube",
-      question: req.body.question,
-      answer: req.body.answer,
-      category: req.body.category,
-    });
+  } catch (err) {
+    console.log("Unable to update cube in cubes.update:", err);
+    res.json({ Error: err });
   }
 };
 
 const destroy = async (req, res) => {
-  const deletedCube = await db.Cube.findByIdAndDelete(req.params.id);
-  if (deletedCube.visual_aid) {
-    console.log("VISUAL AID", deletedCube.visual_aid);
-    s3.deleteObject(
-      { Bucket: "lucuberatebucket", Key: deletedCube.visual_aid },
-      (err, data) => {
-        console.error(err);
-      }
-    );
-    // fs.unlinkSync(deletedCube.visual_aid)
-    // `${deletedCube.visual_aid}`
-    // fs.unlinkSync(`./lucuberate-client/public/uploads/${deletedCube.visual_aid}`)
-    // 16ab58d2-d1f8-4e3d-aa44-d7330c4d0022
-  }
-  const foundCategory = await db.Category.findById(deletedCube.category);
-  const foundUser = await db.User.findById(deletedCube.user);
-  if (foundCategory.cubes.length === 1) {
-    const deletedCategory = await db.Category.findByIdAndDelete(
-      foundCategory._id
-    );
-    foundUser.cubes.remove(req.params.id);
-    foundUser.categories.remove(deletedCategory._id);
-    foundUser.save();
-    res.json({ cube: deletedCube, categoryDeleted: deletedCategory });
-  } else {
-    foundUser.cubes.remove(req.params.id);
-    foundUser.save();
-    foundCategory.cubes.remove(req.params.id);
-    foundCategory.save();
-    res.json({ cube: deletedCube });
+  try {
+    const cubeToDelete = await db.Cube.findById(req.params.id);
+    // Delete Cube Visual Aid
+    if (cubeToDelete.visual_aid) {
+      const params = {
+        Bucket: bucketName,
+        Key: cubeToDelete.visual_aid,
+      };
+      const command = new DeleteObjectCommand(params);
+      await s3.send(command);
+    }
+    const foundUser = await db.User.findById(cubeToDelete.user);
+    const foundCategory = await db.Category.findById(cubeToDelete.category);
+    // Remove cube from user
+    await foundUser.updateOne({ $pull: { cubes: req.params.id } });
+    await foundUser.save();
+
+    // Delete Category as well if this was the last cube in the category
+    if (foundCategory.cubes.length === 1) {
+      // Remove category from user
+      await foundUser.updateOne({ $pull: { categories: foundCategory._id } });
+      await foundUser.save();
+      // Delete Category
+      await db.Category.findByIdAndDelete(foundCategory._id);
+    } else {
+      // Remove cube from category
+      await foundCategory.updateOne({ $pull: { cubes: req.params.id } });
+      await foundCategory.save();
+    }
+
+    // Delete Cube
+    const deletedCube = await db.Cube.findByIdAndDelete(req.params.id);
+    res.json({
+      cube: deletedCube,
+    });
+  } catch (err) {
+    console.log("Unable to delete cube in cubes.destroy:", err);
+    res.json({ Error: err });
   }
 };
-
-// ./lucuberate-client/public/uploads/
 
 module.exports = {
   // index,

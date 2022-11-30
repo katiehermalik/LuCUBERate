@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { withRouter } from "react-router-dom";
+import { useContext } from "react";
 import { ArrowSwitchIcon } from "@primer/octicons-react";
 import { UserContext, CategoryContext } from "../../context/ContextProvider";
 import CategoryModel from "../../models/category";
@@ -36,4 +35,4 @@ const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
   );
 };
 
-export default withRouter(CategoryShuffle);
+export default CategoryShuffle;

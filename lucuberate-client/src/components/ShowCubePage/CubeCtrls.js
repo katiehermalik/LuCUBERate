@@ -1,4 +1,3 @@
-import React from "react";
 import EditBtn from "../CubeListCtrl/EditBtn";
 import DeleteBtn from "../CubeListCtrl/DeleteBtn";
 

@@ -4,18 +4,17 @@
   "private": true,
   "dependencies": {
     "@primer/octicons-react": "^17.8.0",
+    "@react-spring/three": "^9.5.5",
+    "@react-three/drei": "^9.45.1",
+    "@react-three/fiber": "^8.9.1",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.2.2",
-    "drei": "^1.5.7",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1",
-    "react-spring": "^8.0.27",
-    "react-three-fiber": "^5.3.4",
-    "three": "^0.123.0",
-    "web-vitals": "^0.2.4"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

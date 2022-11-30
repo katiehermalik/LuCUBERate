@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-require("mongoose-type-url");
 
 const cubeSchema = new mongoose.Schema(
   {

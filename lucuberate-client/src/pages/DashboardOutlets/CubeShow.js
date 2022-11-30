@@ -1,13 +1,10 @@
-import React, { useState } from "react";
-import CubeModel from "../models/cube";
-import StudyCube from "../components/ShowCubePage/StudyCube";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import CubeModel from "../../models/cube";
+import StudyCube from "../../components/ShowCubePage/StudyCube";
 
-const CubeShow = ({
-  match: {
-    params: { id: cubeId },
-  },
-}) => {
+const CubeShow = () => {
+  const { id: cubeId } = useParams();
   const [cubeData, setCubeData] = useState({});
 
   useEffect(() => {

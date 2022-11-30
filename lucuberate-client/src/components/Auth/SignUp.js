@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserModel from "../../models/user";
 import { PersonIcon, MailIcon, LockIcon } from "@primer/octicons-react";
 import {
@@ -9,12 +9,8 @@ import {
   CategoryListContext,
 } from "../../context/ContextProvider";
 
-const SignUp = ({
-  history,
-  showSignUpModal,
-  setShowSignUpModal,
-  setShowLoginModal,
-}) => {
+const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
+  const navigate = useNavigate();
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
   const { setShowGuide } = useContext(GuideContext);
@@ -77,7 +73,7 @@ const SignUp = ({
           setShowSignUpModal(false);
           setShowGuide(true);
           setShowCategoryList(false);
-          history.push(`/dashboard/${data.currentUser.categories[2].cubes[0]}`);
+          navigate(`/dashboard/${data.currentUser.categories[2].cubes[0]}`);
         }
       }
     } else {
@@ -224,4 +220,4 @@ const SignUp = ({
   );
 };
 
-export default withRouter(SignUp);
+export default SignUp;

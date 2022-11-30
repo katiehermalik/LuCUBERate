@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { withRouter } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { SignOutIcon } from "@primer/octicons-react";
 import {
   UserContext,
@@ -10,7 +10,8 @@ import {
   CategoryListContext,
 } from "../../context/ContextProvider";
 
-const Logout = ({ history, setShowUserMenu }) => {
+const Logout = ({ setShowUserMenu }) => {
+  const navigate = useNavigate();
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setTheme } = useContext(ThemeContext);
   const { setCurrentCategory } = useContext(CategoryContext);
@@ -27,7 +28,7 @@ const Logout = ({ history, setShowUserMenu }) => {
     setShowCategoryList(true);
     setShowUserMenu(false);
     sessionStorage.clear();
-    history.push("/");
+    navigate("/");
   };
 
   return (
@@ -42,4 +43,4 @@ const Logout = ({ history, setShowUserMenu }) => {
   );
 };
 
-export default withRouter(Logout);
+export default Logout;

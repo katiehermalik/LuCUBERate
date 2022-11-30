@@ -9,7 +9,7 @@ const StudyCube = ({ cubeData }) => {
   const { currentUserInfo } = useContext(UserContext);
   const { showGuide, setShowGuide } = useContext(GuideContext);
   const [side, setSide] = useState("");
-  const sessionData = JSON.parse(sessionStorage.getItem("user")) || {};
+  const sessionData = JSON.parse(sessionStorage.getItem("user")) || "";
 
   // creating refs dynamically when mapping radio buttons
   const createdRefs = [];
@@ -18,7 +18,7 @@ const StudyCube = ({ cubeData }) => {
 
   useEffect(() => {
     document.title = "Lucuberate | Study Cube";
-    currentUserInfo.newUser &&
+    currentUserInfo?.newUser &&
       !sessionData.completedGuide &&
       setShowGuide(true);
     setSide("Question");
@@ -28,7 +28,7 @@ const StudyCube = ({ cubeData }) => {
     });
   }, [
     cubeData,
-    currentUserInfo.newUser,
+    currentUserInfo?.newUser,
     sessionData.completedGuide,
     setShowGuide,
   ]);
@@ -66,7 +66,7 @@ const StudyCube = ({ cubeData }) => {
           </div>
           {showGuide && <div className="guide-background"></div>}
           <div className="cube-area-container">
-            {currentUserInfo.newUser && showGuide && <GuideModal />}
+            {currentUserInfo?.newUser && showGuide && <GuideModal />}
             <div className="cube-area">
               <div className="cube-container">
                 <div className={`study-cube ${side || sides[0]}`}>
@@ -141,11 +141,11 @@ const StudyCube = ({ cubeData }) => {
                     </div>
                     {cubeData.visual_aid && (
                       <a
-                        download={cubeData.visual_aid}
-                        href={cubeData.visual_aid}
+                        download={cubeData.visual_aid_url}
+                        href={cubeData.visual_aid_url}
                         title="Download image">
                         <img
-                          src={cubeData.visual_aid}
+                          src={cubeData.visual_aid_url}
                           alt="visual aid"
                           className={`visual-aid ${
                             side === "Visual Aid" ? "" : "blur"
