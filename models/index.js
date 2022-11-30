@@ -5,9 +5,7 @@ const connectionString =
 
 const configOptions = {
   useNewUrlParser: true,
-  useCreateIndex: true,
   useUnifiedTopology: true,
-  useFindAndModify: false,
 };
 
 mongoose

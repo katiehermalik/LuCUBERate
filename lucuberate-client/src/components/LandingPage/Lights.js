@@ -1,4 +1,4 @@
-function Lights() {
+const Lights = () => {
   return (
     <>
       <ambientLight intensity={0.7} />
@@ -8,6 +8,6 @@ function Lights() {
       <pointLight position={[10, 0, -20]} intensity={0.5} />
     </>
   );
-}
+};
 
 export default Lights;

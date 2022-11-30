@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   UserContext,
   CubeContext,
@@ -9,7 +9,8 @@ import CubeModel from "../models/cube";
 import CategoryModel from "../models/category";
 import UserModel from "../models/user";
 
-const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo, history }) => {
+const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
+  const navigate = useNavigate();
   const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
   const { setCurrentCategory } = useContext(CategoryContext);
@@ -45,7 +46,7 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo, history }) => {
 
   const handleDeleteCategory = async e => {
     e.stopPropagation();
-    history.push("/dashboard");
+    navigate("/dashboard");
     await CategoryModel.delete(categoryId);
     const categoriesAndCubes = await UserModel.allCubesAndCategories(
       currentUserInfo._id
@@ -61,10 +62,8 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo, history }) => {
 
   const handleDeleteCube = async e => {
     e.stopPropagation();
-    history.push("/dashboard");
+    navigate("/dashboard");
     setCurrentCubeId("");
-    console.log({ cubeId });
-    console.log({ currentUserInfoId: currentUserInfo._id });
     const deletedCube = await CubeModel.delete(cubeId);
     const categoriesAndCubes = await UserModel.allCubesAndCategories(
       currentUserInfo._id
@@ -200,4 +199,4 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo, history }) => {
   );
 };
 
-export default withRouter(DeleteModal);
+export default DeleteModal;

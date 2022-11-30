@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { withRouter } from "react-router-dom";
 import { TrashIcon } from "@primer/octicons-react";
 import { DeleteModalContext } from "../../context/ContextProvider";
 
@@ -34,4 +33,4 @@ const DeleteBtn = ({ cubeId, categoryTitle, categoryId, cubeListLength }) => {
   );
 };
 
-export default withRouter(DeleteBtn);
+export default DeleteBtn;

@@ -56,7 +56,7 @@ const show = async (req, res) => {
     if (err.name === "NotFound") {
       const foundCube = await db.Cube.findById(req.params.id);
       foundCube.visual_aid = "";
-      foundCube.save();
+      await foundCube.save();
       res.json({ cube: foundCube });
     } else {
       console.log("Unable to retrieve cube data in cubes.show:", err);
@@ -108,10 +108,10 @@ const create = async (req, res) => {
     const createdCube = await db.Cube.create(newCube);
     const foundUser = await db.User.findById(newCube.user);
     foundUser.cubes.push(createdCube._id);
-    foundUser.save();
+    await foundUser.save();
     const foundCategory = await db.Category.findById(category);
     foundCategory.cubes.push(createdCube._id);
-    foundCategory.save();
+    await foundCategory.save();
     res.json({
       cube: createdCube,
       category: foundCategory,
@@ -185,15 +185,15 @@ const update = async (req, res) => {
         const deletedCategory = await db.Category.findByIdAndDelete(
           foundOldCategory._id
         );
-        foundUser.categories.remove(deletedCategory._id);
-        foundUser.save();
+        await foundUser.updateOne({ $pull: { categories: deletedCategory._id } });
+        await foundUser.save();
       } else {
-        foundOldCategory.cubes.remove(req.params.id);
-        foundOldCategory.save();
+        await foundCategory.updateOne({ $pull: { cubes: req.params.id } });
+        await foundOldCategory.save();
       }
       const newCategory = await db.Category.findById(category);
       newCategory.cubes.push(foundCube._id);
-      newCategory.save();
+      await newCategory.save();
       const updatedCube = await db.Cube.findByIdAndUpdate(
         req.params.id,
         changedCube,
@@ -223,32 +223,40 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const deletedCube = await db.Cube.findByIdAndDelete(req.params.id);
-    if (deletedCube.visual_aid) {
+    const cubeToDelete = await db.Cube.findById(req.params.id);
+    // Delete Cube Visual Aid
+    if (cubeToDelete.visual_aid) {
       const params = {
         Bucket: bucketName,
-        Key: deletedCube.visual_aid,
+        Key: cubeToDelete.visual_aid,
       };
       const command = new DeleteObjectCommand(params);
       await s3.send(command);
     }
-    const foundCategory = await db.Category.findById(deletedCube.category);
-    const foundUser = await db.User.findById(deletedCube.user);
+    const foundUser = await db.User.findById(cubeToDelete.user);
+    const foundCategory = await db.Category.findById(cubeToDelete.category);
+    // Remove cube from user
+    await foundUser.updateOne({ $pull: { cubes: req.params.id } });
+    await foundUser.save();
+
+    // Delete Category as well if this was the last cube in the category
     if (foundCategory.cubes.length === 1) {
-      const deletedCategory = await db.Category.findByIdAndDelete(
-        foundCategory._id
-      );
-      foundUser.cubes.remove(req.params.id);
-      foundUser.categories.remove(deletedCategory._id);
-      foundUser.save();
-      res.json({ cube: deletedCube, categoryDeleted: deletedCategory });
+      // Remove category from user
+      await foundUser.updateOne({ $pull: { categories: foundCategory._id } });
+      await foundUser.save();
+      // Delete Category
+      await db.Category.findByIdAndDelete(foundCategory._id);
     } else {
-      foundUser.cubes.remove(req.params.id);
-      foundUser.save();
-      foundCategory.cubes.remove(req.params.id);
-      foundCategory.save();
-      res.json({ cube: deletedCube });
+      // Remove cube from category
+      await foundCategory.updateOne({ $pull: { cubes: req.params.id } });
+      await foundCategory.save();
     }
+
+    // Delete Cube
+    const deletedCube = await db.Cube.findByIdAndDelete(req.params.id);
+    res.json({
+      cube: deletedCube,
+    });
   } catch (err) {
     console.log("Unable to delete cube in cubes.destroy:", err);
     res.json({ Error: err });

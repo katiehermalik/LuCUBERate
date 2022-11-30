@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "../context/ContextProvider";
 import { MoonIcon, SunIcon } from "@primer/octicons-react";
 import UserModel from "../models/user";

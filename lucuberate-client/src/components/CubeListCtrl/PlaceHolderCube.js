@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   UserContext,
   CategoryContext,
@@ -11,10 +11,8 @@ const PlaceHolderCube = ({
   checkPlaceHolder,
   currentCubeCategory,
   currentPath,
-  history: {
-    location: { pathname },
-  },
 }) => {
+  const { pathname } = useLocation();
   const { currentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
   const {
@@ -63,4 +61,4 @@ const PlaceHolderCube = ({
   );
 };
 
-export default withRouter(PlaceHolderCube);
+export default PlaceHolderCube;

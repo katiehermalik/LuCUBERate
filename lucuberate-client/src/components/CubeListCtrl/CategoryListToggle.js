@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { CategoryListContext } from "../../context/ContextProvider";
 import { ThreeBarsIcon, XIcon } from "@primer/octicons-react";
 

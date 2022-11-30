@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useContext, useRef } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   XCircleFillIcon,
   PackageIcon,
@@ -7,23 +7,19 @@ import {
   ChevronDownIcon,
 } from "@primer/octicons-react";
 
-import CubeModel from "../models/cube";
-import UserModel from "../models/user";
-import CategoryModel from "../models/category";
+import CubeModel from "../../models/cube";
+import UserModel from "../../models/user";
+import CategoryModel from "../../models/category";
 import {
   UserContext,
   CategoryContext,
   CubeContext,
   DeleteModalContext,
-} from "../context/ContextProvider";
+} from "../../context/ContextProvider";
 
-const CubeEdit = ({
-  history,
-  match: {
-    params: { id: cubeId },
-  },
-}) => {
-  let formData;
+const CubeEdit = () => {
+  const navigate = useNavigate();
+  const { id: cubeId } = useParams();
   const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
@@ -58,12 +54,12 @@ const CubeEdit = ({
   const [currentCubeCategory, setCurrentCubeCategory] = useState({});
   const { setDeleteModalInfo } = useContext(DeleteModalContext);
 
-  const updateCube = async () => {
+  const updateCube = async formData => {
     await CubeModel.update(formData, cubeId);
     const userData = await UserModel.allCubesAndCategories(currentUserInfo._id);
     setCurrentUserInfo(userData);
     setIsLoading(false);
-    history.push(`/dashboard/${cubeId}`);
+    navigate(`/dashboard/${cubeId}`);
   };
 
   useEffect(() => {
@@ -100,11 +96,11 @@ const CubeEdit = ({
   ]);
 
   const collectCubeFormData = categoryId => {
-    formData = new FormData(document.getElementById("cube-edit-form"));
+    const formData = new FormData(document.getElementById("cube-edit-form"));
     formData.append("user", currentUserInfo._id);
     formData.append("category", categoryId);
     formData.append("removingVisualAid", removingVisualAid);
-    !visualAidError && updateCube();
+    !visualAidError && updateCube(formData);
   };
 
   const checkFileExtention = e => {

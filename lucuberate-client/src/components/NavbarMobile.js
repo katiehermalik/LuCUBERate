@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { withRouter } from "react-router-dom";
+import { useContext } from "react";
+import { useLocation } from "react-router-dom";
 import { CategoryListContext } from "../context/ContextProvider";
 
 import CategoryListToggle from "./CubeListCtrl/CategoryListToggle";
@@ -7,11 +7,12 @@ import ToggleQuestionsBtn from "./CubeListCtrl/ToggleQuestionsBtn";
 import NewCubeBtn from "./CubeListCtrl/NewCubeBtn";
 
 const NavbarMobile = ({ user }) => {
+  const { pathname } = useLocation();
   const { showCategoryList } = useContext(CategoryListContext);
 
   return (
     <>
-      {user && window.location.pathname !== "/" && (
+      {user && pathname !== "/" && (
         <>
           <div className="divider-line theme-transition"></div>
           <nav className="navbar navbar-mobile container-row theme-transition">
@@ -29,4 +30,4 @@ const NavbarMobile = ({ user }) => {
   );
 };
 
-export default withRouter(NavbarMobile);
+export default NavbarMobile;
