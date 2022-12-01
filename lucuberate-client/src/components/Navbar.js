@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronRightIcon, PersonFillIcon } from "@primer/octicons-react";
 
 import SignUpBtn from "./Auth/SignUpBtn";
@@ -9,6 +9,7 @@ import ThemeSwitch from "./ThemeSwitch";
 import CategoryListToggle from "./CubeListCtrl/CategoryListToggle";
 
 const Navbar = ({ user }) => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -59,14 +60,18 @@ const Navbar = ({ user }) => {
           )}
           <div className="about-settings container-row">
             {pathname !== "/" && (
-              <Link className="btn navbar-item theme-transition" to="/">
+              <Link
+                className="btn navbar-item about-dash theme-transition"
+                to="/">
                 About Lucuberate
+                <ChevronRightIcon size={16} />
               </Link>
             )}
             {pathname === "/" && (
               <Link
-                className="btn navbar-item theme-transition"
-                to="/dashboard">
+                className="btn navbar-item about-dash theme-transition"
+                to="#"
+                onClick={() => navigate(-1)}>
                 Back to dashboard
                 <ChevronRightIcon size={16} />
               </Link>

@@ -420,6 +420,11 @@ button:not(:disabled) {
   font-size: 14px;
 }
 
+.navbar-item.about-dash {
+  padding: 4px 16px 4px 20px;
+  width: 183px;
+}
+
 .navbar-item.logout-btn {
   width: 100%;
   margin: 0;
@@ -2196,6 +2201,10 @@ input[type="radio"]:checked + label {
   .navbar-item {
     font-size: 12px;
     padding: 8px 12px;
+  }
+
+  .navbar-item.about-dash {
+    width: 167px;
   }
 
   .navbar-item.username {
