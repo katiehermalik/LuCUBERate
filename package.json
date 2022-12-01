@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix lucuberate-client && npm run build --prefix lucuberate-client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix lucuberate-client && npm run build --prefix lucuberate-client",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Katie Hermalik",
   "license": "ISC",
