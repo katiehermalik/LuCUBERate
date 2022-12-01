@@ -310,11 +310,7 @@ button:not(:disabled) {
   height: 32px;
   width: 32px;
   z-index: 12;
-  -webkit-transition: -webkit-transform 0.45s ease-in-out;
-  transition: -webkit-transform 0.45s ease-in-out;
-  -o-transition: transform 0.45s ease-in-out;
-  transition: transform 0.45s ease-in-out;
-  transition: transform 0.45s ease-in-out, -webkit-transform 0.45s ease-in-out;
+  transition: translate 0.45s ease-in-out;
   -webkit-box-shadow: 0 4px 8px -8px var(--boxShadow-color);
   box-shadow: 0 4px 8px -8px var(--boxShadow-color);
 }
@@ -324,9 +320,7 @@ button:not(:disabled) {
 }
 
 .activate-light {
-  -webkit-transform: translateX(100%);
-  -ms-transform: translateX(100%);
-  transform: translateX(100%);
+  translate: 100%;
 }
 
 .theme-transition:not(.button.theme-transition:hover, :focus-visible),
