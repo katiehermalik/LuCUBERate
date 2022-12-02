@@ -13,48 +13,56 @@ import CubeShow from "./pages/DashboardOutlets/CubeShow";
 import Instructions from "./pages/DashboardOutlets/Instructions";
 import DeleteModal from "./components/DeleteModal";
 import Landing from "./pages/Landing";
+import Loading from "./components/Loading";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
-  const { currentUserInfo } = useContext(UserContext);
+  const { currentUserInfo, isLoading, isLoggedIn } = useContext(UserContext);
   const { deleteModalInfo, setDeleteModalInfo } =
     useContext(DeleteModalContext);
 
   return (
-    <div
-      className={`app theme-transition container-column ${
-        theme === "dark" ? "dark" : "light"
-      }`}>
-      <Navbar user={currentUserInfo} />
-      {currentUserInfo ? (
-        <Routes>
-          <Route index element={<Landing />} />
-          <Route path="/" element={<Landing />} />
-          <Route
-            path="/dashboard"
-            element={<Dashboard user={currentUserInfo} />}>
-            <Route index element={<Instructions />} />
-            <Route path="new" element={<CubeNew />} />
-            <Route path=":id" element={<CubeShow />} />
-            <Route path=":id/edit" element={<CubeEdit />} />
-            {/* <Route path="/*" element={<Dashboard404 />}/> */}
-          </Route>
-          {/* <Route path="*" element={<404 />}/> */}
-        </Routes>
-      ) : (
-        <Routes>
-          <Route index element={<Landing />} />
-          <Route path="/" element={<Landing />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      )}
-      {deleteModalInfo.showModal && (
-        <DeleteModal
-          setDeleteModalInfo={setDeleteModalInfo}
-          deleteModalInfo={deleteModalInfo}
-        />
-      )}
-    </div>
+    <>
+      <div
+        className={`app theme-transition container-column ${
+          theme === "dark" ? "dark" : "light"
+        }`}>
+        {isLoggedIn && isLoading && <Loading />}
+        {!isLoading && (
+          <>
+            <Navbar user={currentUserInfo} />
+            {currentUserInfo ? (
+              <Routes>
+                <Route index element={<Landing />} />
+                <Route path="/" element={<Landing />} />
+                <Route
+                  path="/dashboard"
+                  element={<Dashboard user={currentUserInfo} />}>
+                  <Route index element={<Instructions />} />
+                  <Route path="new" element={<CubeNew />} />
+                  <Route path=":id" element={<CubeShow />} />
+                  <Route path=":id/edit" element={<CubeEdit />} />
+                  {/* <Route path="/*" element={<Dashboard404 />}/> */}
+                </Route>
+                {/* <Route path="*" element={<404 />}/> */}
+              </Routes>
+            ) : (
+              <Routes>
+                <Route index element={<Landing />} />
+                <Route path="/" element={<Landing />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            )}
+            {deleteModalInfo.showModal && (
+              <DeleteModal
+                setDeleteModalInfo={setDeleteModalInfo}
+                deleteModalInfo={deleteModalInfo}
+              />
+            )}
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
