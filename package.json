@@ -11,8 +11,8 @@
   "author": "Katie Hermalik",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.218.0",
-    "@aws-sdk/s3-request-presigner": "^3.218.0",
+    "@aws-sdk/client-s3": "^3.223.0",
+    "@aws-sdk/cloudfront-signer": "^3.222.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

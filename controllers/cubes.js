@@ -1,11 +1,10 @@
 const db = require("../models");
 const uuid = require("uuid").v4;
 const path = require("path");
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const { getSignedUrl } = require("@aws-sdk/cloudfront-signer");
 const {
   S3Client,
   PutObjectCommand,
-  GetObjectCommand,
   DeleteObjectCommand,
   HeadObjectCommand,
 } = require("@aws-sdk/client-s3");
@@ -15,6 +14,8 @@ const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 const accessKey = process.env.ACCESS_KEY;
 const bucketRegion = process.env.BUCKET_REGION;
 const bucketName = process.env.BUCKET_NAME;
+const cloudFrontPrivateKey = process.env.CLOUDFRONT_PRIVATE_KEY;
+const cloudFrontKeyPairId = process.env.CLOUDFRONT_KEY_PAIR_ID;
 
 const s3 = new S3Client({
   region: bucketRegion,
@@ -24,17 +25,6 @@ const s3 = new S3Client({
   },
 });
 
-// const index = (req, res) => {
-//   db.Cube.find({})
-//     .then(foundCubes => {
-//       res.json({ cubes: foundCubes });
-//     })
-//     .catch(err => {
-//       console.log("Error in cubes.index:", err);
-//       res.json({ Error: "Unable to get data" });
-//     });
-// };
-
 const show = async (req, res) => {
   try {
     const foundCube = await db.Cube.findById(req.params.id);
@@ -43,11 +33,18 @@ const show = async (req, res) => {
         Bucket: bucketName,
         Key: foundCube.visual_aid,
       };
-      const command = new GetObjectCommand(getObjectParams);
+      // Check if object exists in S3 bucket first
       const headCommand = new HeadObjectCommand(getObjectParams);
       await s3.send(headCommand);
-      const url = await getSignedUrl(s3, command, { expiresIn: 86400 });
-      const cubeWithVisualAid = { ...foundCube._doc, visual_aid_url: url };
+
+      // Get signed url so that CloudFront can validate the request came from a logged in user on this app.
+      const visual_aid_url = getSignedUrl({
+        url: `https://dwsjxft4cvgm2.cloudfront.net/${foundCube.visual_aid}`,
+        dateLessThan: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        privateKey: cloudFrontPrivateKey,
+        keyPairId: cloudFrontKeyPairId,
+      });
+      const cubeWithVisualAid = { ...foundCube._doc, visual_aid_url };
       res.json({ cube: cubeWithVisualAid });
     } else {
       res.json({ cube: foundCube });
@@ -271,7 +268,6 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
-  // index,
   show,
   create,
   update,
