@@ -56,7 +56,6 @@ This project was bootstrapped with Create React App.
 * Express-Session
 * Bcrypt
 * Cors
-* Dotenv
 
 
 ### Front End Dependencies
@@ -65,7 +64,6 @@ This project was bootstrapped with Create React App.
 * React-Three-Fiber
 * React-Spring
 * Drei
-* Bootstrap
 
 
 
