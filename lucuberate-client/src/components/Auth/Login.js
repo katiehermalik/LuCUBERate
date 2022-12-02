@@ -161,7 +161,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button type="submit" className="form-btn btn-secondary">
+                  <button type="submit" className="btn form-btn btn-secondary">
                     Login
                   </button>
                   <hr size="2" width="70%" />

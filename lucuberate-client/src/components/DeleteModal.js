@@ -163,7 +163,7 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
             <button
               value="Cancel"
               onClick={closeModal}
-              className="form-btn btn-secondary">
+              className="btn form-btn btn-secondary">
               Cancel
             </button>
             <button
@@ -175,22 +175,22 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
               value={
                 (type === "cube" &&
                   cubeListLength === 1 &&
-                  "Yes, delete cube & category") ||
+                  "Delete Cube & Category") ||
                 (type === "category" || type === "cube"
                   ? "Delete"
-                  : "Save cube & delete category")
+                  : "Save Cube & Delete Category")
               }
-              className={`form-btn ${
+              className={`btn form-btn ${
                 type === "category" || type === "cube"
                   ? "btn-danger"
                   : "btn-primary"
               }`}>
               {(type === "cube" &&
                 cubeListLength === 1 &&
-                "Yes, delete cube & category") ||
+                "Delete Cube & Category") ||
                 (type === "category" || type === "cube"
                   ? "Delete"
-                  : "Save cube & delete category")}
+                  : "Save Cube & Delete Category")}
             </button>
           </section>
         </div>

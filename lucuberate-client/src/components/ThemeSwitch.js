@@ -27,7 +27,7 @@ const ThemeSwitch = () => {
           theme === "dark" ? "switch to light theme" : "switch to dark theme"
         }
         className={
-          theme === "dark" ? "btn switch-btn" : "btn switch-btn activate-light"
+          theme === "dark" ? "switch-btn" : "switch-btn activate-light"
         }
         onClick={handleClick}></button>
     </div>

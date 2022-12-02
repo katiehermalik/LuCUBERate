@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ChevronRightIcon, PersonFillIcon } from "@primer/octicons-react";
+import {
+  ChevronRightIcon,
+  ChevronDownIcon,
+  PersonFillIcon,
+} from "@primer/octicons-react";
 
 import SignUpBtn from "./Auth/SignUpBtn";
 import LoginBtn from "./Auth/LoginBtn";
@@ -82,9 +86,14 @@ const Navbar = ({ user }) => {
               <button
                 onClick={toggleUserMenu}
                 title={`${user.username}'s settings`}
-                className="navbar-item username theme-transition dropbtn">
+                className="btn navbar-item username theme-transition dropbtn">
                 <PersonFillIcon size={16} />
                 &nbsp;{user.username}
+                {showUserMenu ? (
+                  <ChevronDownIcon size={16} />
+                ) : (
+                  <ChevronRightIcon size={16} />
+                )}
               </button>
               {showUserMenu && (
                 <div className="dropdown-content theme-transition">
