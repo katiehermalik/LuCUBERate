@@ -24,7 +24,7 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
     categoryIsNew,
     currentCategory,
     newCategory,
-    setIsLoading,
+    setIsLoadingButton,
     collectCubeFormData,
     createNewCategory,
   } = deleteModalInfo;
@@ -40,7 +40,7 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
   const closeModal = e => {
     e.stopPropagation();
     e.preventDefault();
-    type === "warning" && setIsLoading(false);
+    type === "warning" && setIsLoadingButton(false);
     setDeleteModalInfo({ showModal: false });
   };
 

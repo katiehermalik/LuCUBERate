@@ -15,28 +15,6 @@ const s3 = new S3Client({
   },
 });
 
-// const index = (req, res) => {
-//   db.Category.find({})
-//     .then(foundCategories => {
-//       res.json({ categories: foundCategories });
-//     })
-//     .catch(err => {
-//       console.log("Error in categories.index:", err);
-//       res.json({ Error: "Unable to get data" });
-//     });
-// };
-
-// const show = (req, res) => {
-//   db.Category.findById(req.params.id)
-//     .then(foundCategory => {
-//       res.json({ category: foundCategory });
-//     })
-//     .catch(err => {
-//       console.log("Error in categories.show:", err);
-//       res.json({ Error: "Unable to get data" });
-//     });
-// };
-
 // Creates New Category and saves category Id to current user
 const create = async (req, res) => {
   try {
@@ -114,8 +92,6 @@ const shuffle = async (req, res) => {
 };
 
 module.exports = {
-  // index,
-  // show,
   create,
   destroy,
   shuffle,
