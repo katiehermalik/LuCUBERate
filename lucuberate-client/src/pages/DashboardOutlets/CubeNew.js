@@ -44,7 +44,7 @@ const CubeNew = () => {
   //   answerError: '',
   //   visualAidError: '',
   //   categoryIsNew: false,
-  //   isLoading: false,
+  //   isLoadingButton: false,
   // };
 
   // const [state, dispatch] = useReducer(reducer, initialState);
@@ -70,7 +70,7 @@ const CubeNew = () => {
   const [visualAidError, setVisualAidError] = useState("");
 
   const [categoryIsNew, setCategoryIsNew] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
 
   useEffect(() => {
     document.title = "Lucuberate | New Cube";
@@ -85,7 +85,7 @@ const CubeNew = () => {
     const data = await CubeModel.create(formData);
     const userData = await UserModel.allCubesAndCategories(currentUserInfo._id);
     setCurrentUserInfo(userData);
-    setIsLoading(false);
+    setIsLoadingButton(false);
     setCurrentCubeId(data.cube._id);
     navigate(`/dashboard/${data.cube._id}`);
   };
@@ -152,13 +152,13 @@ const CubeNew = () => {
     if (question && answer) {
       if (categoryIsNew) {
         if (newCategory) {
-          setIsLoading(true);
+          setIsLoadingButton(true);
           createNewCategory();
         } else {
           setCategoryError("Required");
         }
       } else {
-        setIsLoading(true);
+        setIsLoadingButton(true);
         collectCubeFormData(currentCategory);
       }
     } else {
@@ -462,15 +462,15 @@ const CubeNew = () => {
                 answerError ||
                 categoryError ||
                 visualAidError ||
-                isLoading
+                isLoadingButton
                   ? true
                   : false
               }
               type="submit"
               className={`btn form-btn btn-primary ${
-                isLoading ? "loading" : ""
+                isLoadingButton ? "loading" : ""
               }`}>
-              {isLoading ? (
+              {isLoadingButton ? (
                 <PackageIcon size={24} className="loading-icon" />
               ) : (
                 "Generate New Cube"

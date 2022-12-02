@@ -50,7 +50,7 @@ const CubeEdit = () => {
   const [newCategory, setNewCategory] = useState("");
   const [newCategoryCount, setNewCategoryCount] = useState(0);
   const [categoryIsNew, setCategoryIsNew] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
   const [currentCubeCategory, setCurrentCubeCategory] = useState({});
   const { setDeleteModalInfo } = useContext(DeleteModalContext);
 
@@ -58,7 +58,7 @@ const CubeEdit = () => {
     await CubeModel.update(formData, cubeId);
     const userData = await UserModel.allCubesAndCategories(currentUserInfo._id);
     setCurrentUserInfo(userData);
-    setIsLoading(false);
+    setIsLoadingButton(false);
     navigate(`/dashboard/${cubeId}`);
   };
 
@@ -168,7 +168,7 @@ const CubeEdit = () => {
     if (question && answer) {
       if (categoryIsNew) {
         if (newCategory) {
-          setIsLoading(true);
+          setIsLoadingButton(true);
           currentCategory !== currentCubeCategory._id &&
           currentCubeCategory.cubes.length === 1
             ? setDeleteModalInfo({
@@ -179,7 +179,7 @@ const CubeEdit = () => {
                 categoryIsNew: categoryIsNew || false,
                 currentCategory: currentCategory || "",
                 categoryTitle: currentCubeCategory.title || "",
-                setIsLoading: setIsLoading || null,
+                setIsLoadingButton: setIsLoadingButton || null,
                 createNewCategory: createNewCategory || null,
                 collectCubeFormData: collectCubeFormData || null,
               })
@@ -188,7 +188,7 @@ const CubeEdit = () => {
           setCategoryError("Required");
         }
       } else {
-        setIsLoading(true);
+        setIsLoadingButton(true);
         currentCategory !== currentCubeCategory._id &&
         currentCubeCategory.cubes.length === 1
           ? setDeleteModalInfo({
@@ -199,7 +199,7 @@ const CubeEdit = () => {
               categoryIsNew: categoryIsNew || false,
               currentCategory: currentCategory || "",
               categoryTitle: currentCubeCategory.title || "",
-              setIsLoading: setIsLoading || null,
+              setIsLoadingButton: setIsLoadingButton || null,
               createNewCategory: createNewCategory || null,
               collectCubeFormData: collectCubeFormData || null,
             })
@@ -541,15 +541,15 @@ const CubeEdit = () => {
                   answerError ||
                   categoryError ||
                   visualAidError ||
-                  isLoading
+                  isLoadingButton
                     ? true
                     : false
                 }
                 type="submit"
                 className={`btn form-btn btn-primary ${
-                  isLoading ? "loading" : ""
+                  isLoadingButton ? "loading" : ""
                 }`}>
-                {isLoading ? (
+                {isLoadingButton ? (
                   <PackageIcon size={24} className="loading-icon" />
                 ) : (
                   "Save Changes"
