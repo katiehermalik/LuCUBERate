@@ -1,4 +1,4 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import {
   UserContext,
   GuideContext,
@@ -15,6 +15,10 @@ const GuideModal = () => {
   const guideDecision = useRef();
   const [tourStep, setTourStep] = useState(1);
   const { returnUser } = JSON.parse(sessionStorage.getItem("user")) || "";
+
+  useEffect(() => {
+    setShowCategoryList(false);
+  }, [setShowCategoryList]);
 
   const handleStepForwardClick = async () => {
     tourStep !== 4 &&
@@ -67,11 +71,11 @@ const GuideModal = () => {
           (returnUser ? "tour-step-4 return-user" : "tour-step-4"))
       }`}>
       <div className="modal-header">
-        {tourStep === 1 && returnUser && <h4>Welcome back!</h4>}
-        {tourStep === 1 && !returnUser && <h4>Welcome to LuCUBERate!</h4>}
-        {tourStep === 2 && <h4>Category & Cube List</h4>}
-        {tourStep === 3 && <h4>Example Categories & Cubes</h4>}
-        {tourStep === 4 && <h4>Cube Controls</h4>}
+        {tourStep === 1 && returnUser && <h1>Welcome back!</h1>}
+        {tourStep === 1 && !returnUser && <h1>Welcome to Lucuberate!</h1>}
+        {tourStep === 2 && <h1>Category & Cube List</h1>}
+        {tourStep === 3 && <h1>Example Categories & Cubes</h1>}
+        {tourStep === 4 && <h1>Cube Controls</h1>}
       </div>
       <hr className="theme-transition" />
       <div className="modal-guide-body">
@@ -156,7 +160,7 @@ const GuideModal = () => {
               title="Back"
               aria-label="Back"
               onClick={handleBackClick}
-              className="form-btn btn-secondary">
+              className="btn form-btn btn-secondary">
               <ChevronLeftIcon size={16} />
             </button>
           )}
@@ -181,13 +185,13 @@ const GuideModal = () => {
               (tourStep === 3 && "Tell me about the cube controls") ||
               (tourStep === 4 && "Close guide and start studying")
             }`}
-            className="form-btn btn-primary">
-            {tourStep === 1 && returnUser && <span>Tell me more</span>}
-            {tourStep === 1 && !returnUser && <span>Show me</span>}
-            {tourStep === 2 && returnUser && <span>Ok, got it</span>}
-            {tourStep === 2 && !returnUser && <span>Tell me more</span>}
-            {tourStep === 3 && <span>Ok, got it</span>}
-            {tourStep === 4 && <span>Start studying</span>}
+            className="btn form-btn btn-primary">
+            {tourStep === 1 && returnUser && <span>Tell Me More</span>}
+            {tourStep === 1 && !returnUser && <span>Show Me</span>}
+            {tourStep === 2 && returnUser && <span>Ok, Got It</span>}
+            {tourStep === 2 && !returnUser && <span>Tell Me More</span>}
+            {tourStep === 3 && <span>Ok, Got It</span>}
+            {tourStep === 4 && <span>Start Studying</span>}
           </button>
         </div>
       </div>

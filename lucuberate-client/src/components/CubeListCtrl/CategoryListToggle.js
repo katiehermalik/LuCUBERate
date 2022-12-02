@@ -14,7 +14,7 @@ const CategoryListToggle = () => {
     <button
       type="button"
       onClick={handleOpenCategoryList}
-      className="btn navbar-item nav-link toggle-list theme-transition"
+      className="btn navbar-item nav-link toggle-list-btn theme-transition"
       title={showCategoryList ? "Hide category list" : "Show category list"}
       aria-label={
         showCategoryList ? "Hide category list" : "Show category list"

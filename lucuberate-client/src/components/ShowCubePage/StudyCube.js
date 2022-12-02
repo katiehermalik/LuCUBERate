@@ -42,7 +42,7 @@ const StudyCube = ({ cubeData }) => {
               <legend hidden>
                 Select wich side of the cube you would like to view
               </legend>
-              <ul className="cube-face-list">
+              <ul className="cube-face-list theme-transition">
                 {sides.map((side, i) => (
                   <li key={`list-item${side}`} className="radio-button">
                     <input
