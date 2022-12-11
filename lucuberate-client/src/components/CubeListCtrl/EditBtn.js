@@ -1,9 +1,11 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { PencilIcon } from "@primer/octicons-react";
+import { CurrentPathContext } from "../../context/ContextProvider";
 
 const EditBtn = ({ cubeId }) => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { currentPath } = useContext(CurrentPathContext);
 
   const handleClick = e => {
     e.stopPropagation();
@@ -13,9 +15,7 @@ const EditBtn = ({ cubeId }) => {
   return (
     <button
       className={`btn edit-btn select-action-btn cube-action-btn ${
-        pathname.match(/\b[\w=.]+$/g)[0] === "edit"
-          ? "active"
-          : "theme-transition"
+        currentPath[0] === "edit" ? "active" : "theme-transition"
       }`}
       type="button"
       onClick={handleClick}

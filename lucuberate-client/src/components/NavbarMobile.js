@@ -1,9 +1,7 @@
 import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { CategoryListContext } from "../context/ContextProvider";
-
 import CategoryListToggle from "./CubeListCtrl/CategoryListToggle";
-import ToggleQuestionsBtn from "./CubeListCtrl/ToggleQuestionsBtn";
 import NewCubeBtn from "./CubeListCtrl/NewCubeBtn";
 
 const NavbarMobile = ({ user }) => {
@@ -20,7 +18,6 @@ const NavbarMobile = ({ user }) => {
             {showCategoryList && (
               <div className="container-row">
                 <NewCubeBtn />
-                <ToggleQuestionsBtn />
               </div>
             )}
           </nav>

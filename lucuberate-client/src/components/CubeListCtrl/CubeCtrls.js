@@ -1,5 +1,5 @@
-import EditBtn from "../CubeListCtrl/EditBtn";
-import DeleteBtn from "../CubeListCtrl/DeleteBtn";
+import EditBtn from "./EditBtn";
+import DeleteBtn from "./DeleteBtn";
 
 const CubeCtrls = ({ cubeId, cubeListLength, categoryTitle }) => {
   return (

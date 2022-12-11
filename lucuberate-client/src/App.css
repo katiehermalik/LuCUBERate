@@ -296,7 +296,11 @@ button:not(:disabled) {
   translate: 100%;
 }
 
-.theme-transition:not(btn:active, .button.theme-transition:hover, :focus-visible),
+.theme-transition:not(
+    btn:active,
+    .button.theme-transition:hover,
+    :focus-visible
+  ),
 .theme-transition::after {
   transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
     background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
@@ -396,6 +400,12 @@ button:not(:disabled) {
   flex: 1;
 }
 
+.toggle-list-btn-container {
+  display: flex;
+  align-items: flex-end;
+  height: 32px;
+}
+
 .toggle-list-btn {
   background-color: var(--accent-color);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
@@ -464,6 +474,15 @@ footer {
 
 .btn:active {
   box-shadow: rgb(9 30 66 / 40%) 0px 1px 1px, rgb(9 30 66 / 20%) 0px 0px 1px 1px;
+}
+.btn:active:not(
+    .header-btns,
+    .signup-login .btn,
+    .modal-guide .btn,
+    .form-btn,
+    [for="inputVisual"]
+  ) {
+  height: 29px;
 }
 
 .form-btn {
@@ -536,15 +555,19 @@ footer {
 .edit-btn.active {
   background-color: var(--accent-color);
 }
+.cube-header a {
+  width: 100%;
+  display: flex;
+}
 
 .header-btns {
   height: 54px;
   padding: 5px 10px;
+  margin: 15px;
   font-size: 14px;
-  margin: 15px 15px;
   background-color: var(--primary-btn-color);
   white-space: nowrap;
-  min-width: 140px;
+  min-width: 312px;
 }
 
 .header-btns:hover {
@@ -874,7 +897,7 @@ hr {
 
 .modal-guide [title="Back"] {
   padding: 8px 16px;
-  height: 35px;
+  height: 37px;
 }
 
 .modal-guide hr {
@@ -916,6 +939,21 @@ hr {
 
 .modal-guide.return-user .subtext {
   max-width: 50%;
+}
+
+/* ------------------------------------------------------ 404 */
+
+.page-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.app-404 {
+  background: var(--stars-bg-img);
 }
 
 /* ------------------------------- Cube List */
@@ -994,7 +1032,7 @@ hr {
   z-index: 2;
   height: 52px;
   pointer-events: none;
-  width: 100%;
+  width: 342px;
   padding: 0 10px;
   color: var(--primary-text-color);
 }
@@ -1057,6 +1095,7 @@ hr {
   background-color: var(--secondary-bg-color);
   border-bottom: 1px solid var(--cube-ctrl-header-border-color);
   overflow: hidden;
+  justify-content: center;
 }
 
 .cube-list-grp {
@@ -1333,17 +1372,6 @@ img.visual-aid-preview {
   background-color: transparent;
 }
 
-@-webkit-keyframes loading {
-  from {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes loading {
   from {
     -webkit-transform: rotate(0deg);
@@ -1368,6 +1396,23 @@ img.visual-aid-preview {
 }
 
 /* ---------------------------------- Cube Show Page */
+
+@keyframes mount-cube {
+  0% {
+    transform: scale3d(0, 0, 0);
+  }
+  80% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.mount-cube {
+  animation: mount-cube 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
 
 .show-page-container {
   height: 100%;
@@ -1405,9 +1450,7 @@ img.visual-aid-preview {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  align-items: flex-end;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
@@ -1538,7 +1581,8 @@ section.about {
   -ms-flex-align: center;
   align-items: center;
   padding: 50px 80px 30px;
-  background-color: var(--nav-bg-color);
+  border-top: 8px solid var(--nav-bg-color);
+  background-color: var(--category-select);
   color: var(--primary-text-color);
   -webkit-box-flex: 1;
   -ms-flex: 1;
@@ -2050,6 +2094,14 @@ input[type="radio"]:checked + label {
     border-top: 8px solid var(--accent-color);
   }
 
+  .category-btn-cover {
+    width: 100vw;
+  }
+
+  .category-title {
+    min-width: 0;
+  }
+
   .mobile-only-nav .header-btns {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2196,7 +2248,7 @@ input[type="radio"]:checked + label {
   }
 
   .modal-guide button[title="Back"] {
-    height: 30px;
+    height: 32px;
   }
 
   .close {

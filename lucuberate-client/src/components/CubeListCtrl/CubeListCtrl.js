@@ -3,7 +3,7 @@ import {
   CategoryListContext,
   UserContext,
 } from "../../context/ContextProvider";
-import CubeHeader from "./CubeHeader";
+import NewCubeBtn from "./NewCubeBtn";
 import CubeList from "./CubeList";
 
 function CubeListCtrl() {
@@ -15,7 +15,9 @@ function CubeListCtrl() {
       className={`cube-list-ctrl container-column theme-transition ${
         showCategoryList ? "active" : ""
       }`}>
-      <CubeHeader />
+      <div className="cube-header container-row theme-transition mobile-hidden">
+        <NewCubeBtn />
+      </div>
       {currentUserInfo && <CubeList />}
     </div>
   );

@@ -6,16 +6,16 @@ import {
   InfoIcon,
   ChevronDownIcon,
 } from "@primer/octicons-react";
-
-import CubeModel from "../../models/cube";
-import UserModel from "../../models/user";
-import CategoryModel from "../../models/category";
 import {
   UserContext,
   CategoryContext,
   CubeContext,
   DeleteModalContext,
+  CurrentPathContext,
 } from "../../context/ContextProvider";
+import UserModel from "../../models/user";
+import CubeModel from "../../models/cube";
+import CategoryModel from "../../models/category";
 
 const CubeEdit = () => {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ const CubeEdit = () => {
   const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
+  const { cubeData } = useContext(CurrentPathContext);
 
   const visualAidInputRef = useRef(null);
 
@@ -64,27 +65,44 @@ const CubeEdit = () => {
 
   useEffect(() => {
     document.title = "Lucuberate | Edit Cube";
-    (async function () {
-      const data = await CubeModel.getOne(cubeId);
-      setQuestion(data.cube.question);
-      setAnswer(data.cube.answer);
-      setHint(data.cube.hint);
-      setNotes(data.cube.notes);
-      setLinkOne(data.cube.link_1);
-      setLinkAliasOne(data.cube.link_alias_1);
-      setVisualAid(data.cube.visual_aid_url);
-      setQuestionCount(data.cube.question.length);
-      setAnswerCount(data.cube.answer.length);
-      setHintCount(data.cube.hint.length);
-      setNotesCount(data.cube.notes.length);
-      setLinkAliasCount(data.cube.link_alias_1.length);
-    })();
+    // (async function () {
+    //   const data = await CubeModel.getOne(cubeId);
+    if (cubeData.cube) {
+      const {
+        cube: {
+          question,
+          answer,
+          hint,
+          notes,
+          link_1,
+          link_alias_1,
+          visual_aid_url,
+        },
+      } = cubeData;
+      setQuestion(question);
+      setAnswer(answer);
+      setHint(hint);
+      setNotes(notes);
+      setLinkOne(link_1);
+      setLinkAliasOne(link_alias_1);
+      setVisualAid(visual_aid_url);
+      setQuestionCount(question.length);
+      setAnswerCount(answer.length);
+      setHintCount(hint.length);
+      setNotesCount(notes.length);
+      setLinkAliasCount(link_alias_1.length);
 
-    const currentCubeCatInfo = currentUserInfo?.categories.find(category =>
-      category.cubes.includes(currentCubeId)
-    );
-    setCurrentCubeCategory(currentCubeCatInfo);
-    currentCategory === null ? setCategoryIsNew(true) : setCategoryIsNew(false);
+      const currentCubeCatInfo = currentUserInfo?.categories.find(category =>
+        category.cubes.includes(currentCubeId)
+      );
+      setCurrentCubeCategory(currentCubeCatInfo);
+      currentCategory === null
+        ? setCategoryIsNew(true)
+        : setCategoryIsNew(false);
+    } else {
+      navigate(`/dashboard/${cubeId}`);
+    }
+    // })();
   }, [
     cubeId,
     currentCategory,
@@ -93,6 +111,8 @@ const CubeEdit = () => {
     currentUserInfo,
     currentCubeCategory,
     currentCubeId,
+    navigate,
+    cubeData,
   ]);
 
   const collectCubeFormData = categoryId => {
