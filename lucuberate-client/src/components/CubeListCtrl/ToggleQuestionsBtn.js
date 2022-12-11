@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { EyeIcon, EyeClosedIcon } from "@primer/octicons-react";
 import { QuestionsContext } from "../../context/ContextProvider";
 
 const ToggleQuestionsBtn = () => {
@@ -15,11 +16,16 @@ const ToggleQuestionsBtn = () => {
 
   return (
     <button
-      className="btn header-btns"
+      className="btn select-action-btn category-action-btn theme-transition"
       type="button"
       onClick={toggleQuestions}
+      title={questionsAreVisible ? "Hide Questions" : "Show Questions"}
       aria-label={questionsAreVisible ? "Hide Questions" : "Show Questions"}>
-      {questionsAreVisible ? "Hide Questions" : "Show Questions"}
+      {questionsAreVisible ? (
+        <EyeIcon size={16} />
+      ) : (
+        <EyeClosedIcon size={16} />
+      )}
     </button>
   );
 };

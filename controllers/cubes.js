@@ -176,7 +176,7 @@ const update = async (req, res) => {
       changedCube.visual_aid = `${randomImageName}${ext}`;
     }
     // Handle Category Change
-    if (foundCube.category != category) {
+    if (foundCube.category !== category) {
       const foundOldCategory = await db.Category.findById(foundCube.category);
       const foundUser = await db.User.findById(foundCube.user);
       // Handle Last Cube in Category being moved scenario
@@ -189,7 +189,7 @@ const update = async (req, res) => {
         });
         await foundUser.save();
       } else {
-        await foundCategory.updateOne({ $pull: { cubes: req.params.id } });
+        await foundOldCategory.updateOne({ $pull: { cubes: req.params.id } });
         await foundOldCategory.save();
       }
       const newCategory = await db.Category.findById(category);

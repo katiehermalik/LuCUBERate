@@ -22,16 +22,14 @@ const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
   };
 
   return (
-    <>
-      <button
-        className="btn select-action-btn category-action-btn theme-transition"
-        type="button"
-        onClick={handleShuffleCubes}
-        title="Shuffle Cubes"
-        aria-label="Shuffle Cubes">
-        <ArrowSwitchIcon size={16} />
-      </button>
-    </>
+    <button
+      className="btn select-action-btn category-action-btn theme-transition"
+      type="button"
+      onClick={handleShuffleCubes}
+      title="Shuffle Cubes"
+      aria-label="Shuffle Cubes">
+      <ArrowSwitchIcon size={16} />
+    </button>
   );
 };
 

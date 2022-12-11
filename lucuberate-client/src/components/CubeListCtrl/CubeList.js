@@ -1,59 +1,27 @@
-import {
-  useContext,
-  useReducer,
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
+import { useContext, useRef, useState, useCallback, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { PackageIcon } from "@primer/octicons-react";
 import {
   UserContext,
+  CurrentPathContext,
   CategoryContext,
   CubeContext,
   QuestionsContext,
 } from "../../context/ContextProvider";
-
-import {
-  ChevronRightIcon,
-  ChevronDownIcon,
-  PackageIcon,
-} from "@primer/octicons-react";
 import PlaceHolderCube from "./PlaceHolderCube";
-import DeleteBtn from "./DeleteBtn";
-import CategoryShuffle from "./CategoryShuffle";
-import CubeCount from "./CubeCount";
-import CubeCtrls from "../ShowCubePage/CubeCtrls";
+import CubeCtrls from "./CubeCtrls";
+import CategoryCtrls from "./CategoryCtrls";
 import Footer from "../Footer";
-
-function currentPathReducer(prevState, action) {
-  switch (action.type) {
-    case "edit":
-      return prevState[0] !== action.type
-        ? [action.type, action.pathname.split("/")[2]]
-        : prevState;
-    case "new":
-    case "dashboard":
-      return prevState[0] !== action.type ? [action.type, null] : prevState;
-    default:
-      return prevState[1] !== action.pathname.match(/\b[\w]+$/g)[0] ||
-        prevState[0] !== "show"
-        ? ["show", action.pathname.match(/\b[\w]+$/g)[0]]
-        : prevState;
-  }
-}
 
 const CubeList = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { currentUserInfo, isLoading } = useContext(UserContext);
+  const { currentPath } = useContext(CurrentPathContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId, setCurrentCubeId } = useContext(CubeContext);
   const { questionsAreVisible } = useContext(QuestionsContext);
 
-  const [currentPath, setCurrentPath] = useReducer(currentPathReducer, []);
-
-  const buttonCover = useRef();
   const currentCubeRefs = useRef([]);
   const currentCategoryRefs = useRef([]);
   const { current: cubeRefs } = currentCubeRefs || [];
@@ -65,26 +33,6 @@ const CubeList = () => {
   const [categoryWasShuffled, setCategoryWasShuffled] = useState(false);
   const [placeholderRendered, setPlaceHolderRendered] = useState(true);
 
-  // console.log(
-  //   "============================================================================================================================================"
-  // );
-  // console.log("cubeRefs ------->", cubeRefs);
-  // console.log("categoryRefs ------->", categoryRefs);
-  // console.log(
-  //   "currentUserInfo.categories ------->",
-  //   currentUserInfo.categories
-  // );
-  // console.log("currentPath ------->", currentPath);
-  // console.log("currentCubeId ------->", currentCubeId);
-  // console.log("currentCubeCategory ------->", currentCubeCategory);
-  // console.log("currentCategory ------->", currentCategory);
-  // console.log("currentCategoryRef ------->", currentCategoryRef);
-  // console.log("currCategoryCubeRefs ------->", currCategoryCubeRefs);
-  // console.log("categoryWasShuffled ------->", categoryWasShuffled);
-  // console.log(
-  //   "============================================================================================================================================"
-  // );
-
   //====================================================================================//
 
   const checkPlaceHolder = cubeRendered => {
@@ -94,10 +42,6 @@ const CubeList = () => {
   const findCurrentCubeId = useCallback(() => {
     setCurrentCubeId(currentPath[1]);
   }, [currentPath, setCurrentCubeId]);
-
-  const findCurrentPath = useCallback(() => {
-    setCurrentPath({ type: pathname.match(/\b[\w]+$/g)[0], pathname });
-  }, [pathname]);
 
   const resetCubeId = useCallback(() => {
     setCurrentCubeId("");
@@ -254,13 +198,13 @@ const CubeList = () => {
 
   useEffect(() => {
     currentCategory ?? closeCategoryCubeList();
-    findCurrentPath();
     if (cubeRefs.length !== 0 && categoryRefs.length !== 0) {
       currentCategory &&
         currentCategory !== currentCategoryRef?.id &&
         findCurrentCategoryInfo();
       categoryWasShuffled && categoryWasShuffledEvents();
       // Gathering needed cube and category info differently depending on the path
+      console.log({ currentPath });
       switch (currentPath[0]) {
         case "edit":
         case "show":
@@ -285,6 +229,7 @@ const CubeList = () => {
           break;
         case "dashboard":
         case "new":
+        case "404":
           resetCubeId();
           if (
             currentCategory &&
@@ -302,7 +247,6 @@ const CubeList = () => {
   }, [
     currentUserInfo,
     pathname,
-    findCurrentPath,
     cubeRefs.length,
     categoryRefs.length,
     currentCategory,
@@ -349,16 +293,10 @@ const CubeList = () => {
   };
 
   const handleCubeClick = e => {
+    console.log({ currentCubeId });
     setCurrentCubeId(e.target.value);
     navigate(`/dashboard/${e.target.value}`);
     e.target.scrollIntoView({ behavior: "smooth", block: "center" });
-  };
-
-  const changeCubeListOpacity = () => {
-    currentCategoryRef.nextElementSibling.style.opacity = "0";
-    setTimeout(() => {
-      currentCategoryRef.nextElementSibling.style.opacity = "1";
-    }, 1000);
   };
 
   //====================================================================================//
@@ -391,57 +329,18 @@ const CubeList = () => {
                       <div
                         className="cube-list theme-transition"
                         key={categoryId}>
-                        <div className="category-container">
-                          {currentCategory === categoryId ? (
-                            <div
-                              className="cat-item category-btn-cover theme-transition"
-                              ref={buttonCover}>
-                              <span className="category-title">{`${categoryTitle}`}</span>
-                              <div className="category-options-grp container-row pointer-disabled">
-                                <CubeCount
-                                  categoryCubeLength={cubeListLength}
-                                  cubeListOpened={true}
-                                />
-                                <span className="container-row pointer-auto">
-                                  {currentCubeId &&
-                                    currentPath[0] === "show" &&
-                                    currentCubeCategory === currentCategory &&
-                                    currCategoryCubeRefs.length > 1 && (
-                                      <CategoryShuffle
-                                        setCategoryWasShuffled={
-                                          setCategoryWasShuffled
-                                        }
-                                        changeCubeListOpacity={
-                                          changeCubeListOpacity
-                                        }
-                                      />
-                                    )}
-                                  <DeleteBtn
-                                    categoryId={categoryId}
-                                    categoryTitle={categoryTitle}
-                                  />
-                                </span>
-                                <ChevronDownIcon
-                                  size={16}
-                                  className="pointer-disabled"
-                                />
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="cat-item category-btn-cover theme-transition">
-                              <span className="category-title">{`${categoryTitle}`}</span>
-                              <div className="category-options-grp container-row pointer-disabled">
-                                <CubeCount
-                                  categoryCubeLength={cubeListLength}
-                                  cubeListOpened={false}
-                                />
-                                <ChevronRightIcon
-                                  size={16}
-                                  className="pointer-disabled"
-                                />
-                              </div>
-                            </div>
-                          )}
+                        <div
+                          key={`container-${categoryId}`}
+                          className="category-container">
+                          <CategoryCtrls
+                            setCategoryWasShuffled={setCategoryWasShuffled}
+                            currentCubeCategory={currentCubeCategory}
+                            cubeRefsLength={currCategoryCubeRefs.length}
+                            currentCategoryRef={currentCategoryRef}
+                            cubeListLength={cubeListLength}
+                            categoryTitle={categoryTitle}
+                            categoryId={categoryId}
+                          />
                           <button
                             tabIndex="0"
                             onClick={handleCategoryClick}
@@ -471,45 +370,51 @@ const CubeList = () => {
                               hidden>{`Cube list for ${categoryTitle} category: Choose a Cube`}</legend>
                             <ul>
                               {categoryCubes?.map((cube, j) => (
-                                <li key={cube} className="radio-button">
-                                  <input
-                                    tabIndex="0"
-                                    type="radio"
-                                    name="cube-select"
-                                    value={cube}
-                                    id={cube}
-                                    category={categoryId}
-                                    onClick={handleCubeClick}
-                                    ref={element => {
-                                      if (element) {
-                                        cubeRefs[i][j] = {
-                                          category_id: categoryId,
-                                          ref: element,
-                                        };
-                                      }
-                                    }}
-                                  />
-                                  <label className="radio-label" htmlFor={cube}>
-                                    {questionsAreVisible
-                                      ? currentUserInfo.cubes.find(
-                                          item => item._id === cube
-                                        ).question.length > 60
-                                        ? currentUserInfo.cubes
-                                            .find(item => item._id === cube)
-                                            .question.slice(0, 60) + " . . ."
-                                        : currentUserInfo.cubes.find(
-                                            item => item._id === cube
-                                          ).question
-                                      : `Cube ${j + 1}`}
-                                  </label>
-                                  {currentCubeId === cube && (
-                                    <CubeCtrls
-                                      cubeId={cube}
-                                      cubeListLength={cubeListLength}
-                                      categoryTitle={categoryTitle}
+                                <>
+                                  <li key={cube} className="radio-button">
+                                    <input
+                                      key={`input-${cube}`}
+                                      tabIndex="0"
+                                      type="radio"
+                                      name="cube-select"
+                                      value={cube}
+                                      id={cube}
+                                      category={categoryId}
+                                      onClick={handleCubeClick}
+                                      ref={element => {
+                                        if (element) {
+                                          cubeRefs[i][j] = {
+                                            category_id: categoryId,
+                                            ref: element,
+                                          };
+                                        }
+                                      }}
                                     />
-                                  )}
-                                </li>
+                                    <label
+                                      key={`label-${cube}`}
+                                      className="radio-label"
+                                      htmlFor={cube}>
+                                      {questionsAreVisible
+                                        ? currentUserInfo.cubes.find(
+                                            item => item._id === cube
+                                          ).question.length > 60
+                                          ? currentUserInfo.cubes
+                                              .find(item => item._id === cube)
+                                              .question.slice(0, 60) + " . . ."
+                                          : currentUserInfo.cubes.find(
+                                              item => item._id === cube
+                                            ).question
+                                        : `Cube ${j + 1}`}
+                                    </label>
+                                    {currentCubeId === cube && (
+                                      <CubeCtrls
+                                        cubeId={cube}
+                                        cubeListLength={cubeListLength}
+                                        categoryTitle={categoryTitle}
+                                      />
+                                    )}
+                                  </li>
+                                </>
                               ))}
                             </ul>
                             {((currentPath[0] === "edit" &&
