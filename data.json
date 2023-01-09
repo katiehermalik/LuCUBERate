@@ -33,7 +33,7 @@
       "category": "2nd Grade Math"
     },
     {
-      "question": "In JavaScript, What are the differences between let, const, and var?",
+      "question": "In JavaScript, what are the differences between let, const, and var?",
       "answer": "Always hoisted to the top of it's scope (the current execution context), var can be used before it is declared. It can also be redeclared and reassigned. let and const must be declared only once and before they are used. Let can be reassigned, but const cannot. let and const are both block scoped.",
       "hint": "'const' stands for constant",
       "visual_aid": "seedData_letConstVar.jpeg",
