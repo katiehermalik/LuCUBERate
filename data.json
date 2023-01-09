@@ -1,7 +1,7 @@
 {
   "categories": [
     { "title": "2nd Grade Math" },
-    { "title": "JavaScript" },
+    { "title": "Programming" },
     { "title": "Quantum Physics" }
   ],
 
@@ -33,7 +33,7 @@
       "category": "2nd Grade Math"
     },
     {
-      "question": "What are the differences between let, const, and var?",
+      "question": "In JavaScript, What are the differences between let, const, and var?",
       "answer": "Always hoisted to the top of it's scope (the current execution context), var can be used before it is declared. It can also be redeclared and reassigned. let and const must be declared only once and before they are used. Let can be reassigned, but const cannot. let and const are both block scoped.",
       "hint": "'const' stands for constant",
       "visual_aid": "seedData_letConstVar.jpeg",
@@ -59,7 +59,7 @@
       "category": "JavaScript"
     },
     {
-      "question": "What is the difference between 'null' and 'undefined'?",
+      "question": "In JavaScript, what is the difference between 'null' and 'undefined'?",
       "answer": "Null is a way of explicitly declaring that a variable has no value. Undefined is implicit if a variable has not been given a value.",
       "hint": "Undefined means no value has been given",
       "visual_aid": "seedData_nullUndefined.jpeg",
