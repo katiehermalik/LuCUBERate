@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import UserModel from "../../models/user";
+import UserAPI from "../../utils/api/user";
 import { MailIcon, LockIcon } from "@primer/octicons-react";
 import {
   UserContext,
@@ -43,7 +43,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const data = await UserModel.login(userInput);
+    const data = await UserAPI.login(userInput);
     if (data.userError) {
       setUserInput(prevState => ({
         ...prevState,

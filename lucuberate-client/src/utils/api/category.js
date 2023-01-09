@@ -5,12 +5,12 @@ if (process.env.NODE_ENV === "production") {
   url = "http://localhost:4000/api/v1/categories";
 }
 
-class CategoryModel {
+class CategoryAPI {
   // static all() {
   //   return fetch(url)
   //     .then(res => res.json())
   //     .catch(err => {
-  //       console.log("Error fetching data in CategoryModel.all", err);
+  //       console.log("Error fetching data in CategoryAPI.all", err);
   //     });
   // }
 
@@ -22,8 +22,8 @@ class CategoryModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in CategoryModel.create", err);
-        return { message: "Error fetching data in CategoryModel.create" };
+        console.log("Error fetching data in CategoryAPI.create", err);
+        return { message: "Error fetching data in CategoryAPI.create" };
       });
   }
 
@@ -31,7 +31,7 @@ class CategoryModel {
   //   return fetch(`${url}/${id}`)
   //     .then(res => res.json())
   //     .catch(err => {
-  //       console.log("Error fetching data in CategoryModel.getOne", err);
+  //       console.log("Error fetching data in CategoryAPI.getOne", err);
   //       return { category: {} };
   //     });
   // }
@@ -43,8 +43,8 @@ class CategoryModel {
   //   })
   //     .then(res => res.json())
   //     .catch(err => {
-  //       console.log("Error fetching data in CategoryModel.update", err);
-  //       return { message: "Error fetching data in CategoryModel.update" };
+  //       console.log("Error fetching data in CategoryAPI.update", err);
+  //       return { message: "Error fetching data in CategoryAPI.update" };
   //     });
   // }
 
@@ -54,8 +54,8 @@ class CategoryModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in CategoryModel.delete", err);
-        return { message: "Error fetching data in CategoryModel.delete" };
+        console.log("Error fetching data in CategoryAPI.delete", err);
+        return { message: "Error fetching data in CategoryAPI.delete" };
       });
   }
 
@@ -65,10 +65,10 @@ class CategoryModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in CategoryModel.delete", err);
-        return { message: "Error fetching data in CategoryModel.delete" };
+        console.log("Error fetching data in CategoryAPI.delete", err);
+        return { message: "Error fetching data in CategoryAPI.delete" };
       });
   }
 }
 
-export default CategoryModel;
+export default CategoryAPI;

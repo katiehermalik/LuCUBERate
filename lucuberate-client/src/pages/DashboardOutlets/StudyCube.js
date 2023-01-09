@@ -1,11 +1,18 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { UserContext, GuideContext } from "../../context/ContextProvider";
+import React, { useState, useEffect, useRef, useContext } from "react";  
+import {
+  UserContext,
+  GuideContext,
+  CurrentPathContext,
+} from "../../context/ContextProvider";
 import "../../App.css";
 import GuideModal from "../../components/GuideModal";
 
 const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
 
-const StudyCube = ({ cubeData }) => {
+const StudyCube = () => {
+  const {
+    cubeData: { cube },
+  } = useContext(CurrentPathContext);
   const { currentUserInfo } = useContext(UserContext);
   const { showGuide, setShowGuide } = useContext(GuideContext);
   const [side, setSide] = useState("");
@@ -20,13 +27,13 @@ const StudyCube = ({ cubeData }) => {
       setShowGuide(true);
     setSide("Question");
     if (sideRefs.current.length !== 0) {
-      sides.forEach((side, i) => {
-        if (i === 0) sideRefs.current[i].current.checked = true;
-        else sideRefs.current[i].current.checked = false;
+      sideRefs.current.forEach((ref, i) => {
+        if (i === 0) ref.checked = true;
+        else ref.checked = false;
       });
     }
   }, [
-    cubeData,
+    cube,
     currentUserInfo?.newUser,
     sessionData.completedGuide,
     setShowGuide,
@@ -35,7 +42,7 @@ const StudyCube = ({ cubeData }) => {
 
   return (
     <>
-      {cubeData && (
+      {cube && (
         <>
           <div className="show-page-container container-column">
             <div className="cube-ctrl-group container-row theme-transition">
@@ -53,7 +60,7 @@ const StudyCube = ({ cubeData }) => {
                         id={side}
                         ref={element => {
                           if (element) {
-                            sideRefs[i] = element;
+                            sideRefs.current[i] = element;
                           }
                         }}
                         onChange={() => setSide(side)}
@@ -82,12 +89,12 @@ const StudyCube = ({ cubeData }) => {
                         }`}>
                         Question
                       </div>
-                      {cubeData.question && (
+                      {cube.question && (
                         <div
                           className={`face-content ${
                             side === "Question" || side === "" ? "" : "blur"
                           }`}>
-                          {cubeData.question}
+                          {cube.question}
                         </div>
                       )}
                     </div>
@@ -98,12 +105,12 @@ const StudyCube = ({ cubeData }) => {
                         }`}>
                         Answer
                       </div>
-                      {cubeData.answer && (
+                      {cube.answer && (
                         <div
                           className={`face-content ${
                             side === "Answer" ? "" : "blur"
                           }`}>
-                          {cubeData.answer}
+                          {cube.answer}
                         </div>
                       )}
                     </div>
@@ -114,12 +121,12 @@ const StudyCube = ({ cubeData }) => {
                         }`}>
                         Hint
                       </div>
-                      {cubeData.hint && (
+                      {cube.hint && (
                         <div
                           className={`face-content ${
                             side === "Hint" ? "" : "blur"
                           }`}>
-                          {cubeData.hint}
+                          {cube.hint}
                         </div>
                       )}
                     </div>
@@ -130,12 +137,12 @@ const StudyCube = ({ cubeData }) => {
                         }`}>
                         Notes
                       </div>
-                      {cubeData.notes && (
+                      {cube.notes && (
                         <div
                           className={`face-content ${
                             side === "Notes" ? "" : "blur"
                           }`}>
-                          {cubeData.notes}
+                          {cube.notes}
                         </div>
                       )}
                     </div>
@@ -146,13 +153,13 @@ const StudyCube = ({ cubeData }) => {
                         }`}>
                         Visual Aid
                       </div>
-                      {cubeData.visual_aid && (
+                      {cube.visual_aid && (
                         <a
-                          download={cubeData.visual_aid_url}
-                          href={cubeData.visual_aid_url}
+                          download={cube.visual_aid_url}
+                          href={cube.visual_aid_url}
                           title="Download image">
                           <img
-                            src={cubeData.visual_aid_url}
+                            src={cube.visual_aid_url}
                             alt="visual aid"
                             className={`visual-aid ${
                               side === "Visual Aid" ? "" : "blur"
@@ -168,22 +175,20 @@ const StudyCube = ({ cubeData }) => {
                         }`}>
                         Link
                       </div>
-                      {(cubeData.link_1 ||
-                        cubeData.link_2 ||
-                        cubeData.link_3) && (
+                      {(cube.link_1 || cube.link_2 || cube.link_3) && (
                         <div
                           className={`face-content ${
                             side === "Link" ? "" : "blur"
                           }`}>
-                          {cubeData.link_1 && (
+                          {cube.link_1 && (
                             <a
                               rel="noreferrer"
                               target="_blank"
-                              href={cubeData.link_1}>
-                              {cubeData.link_alias_1}
+                              href={cube.link_1}>
+                              {cube.link_alias_1}
                             </a>
                           )}
-                          {cubeData.link_2 && (
+                          {cube.link_2 && (
                             <>
                               <br />
                               <br />
@@ -191,19 +196,19 @@ const StudyCube = ({ cubeData }) => {
                                 style={{ fontSize: "12px" }}
                                 rel="noreferrer"
                                 target="_blank"
-                                href={cubeData.link_2}>
-                                {cubeData.link_alias_2}
+                                href={cube.link_2}>
+                                {cube.link_alias_2}
                               </a>
                             </>
                           )}
-                          {cubeData.link_3 && (
+                          {cube.link_3 && (
                             <>
                               <br />
                               <a
                                 rel="noreferrer"
                                 target="_blank"
-                                href={cubeData.link_3}>
-                                {cubeData.link_alias_3}
+                                href={cube.link_3}>
+                                {cube.link_alias_3}
                               </a>
                             </>
                           )}

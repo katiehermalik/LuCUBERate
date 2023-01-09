@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === "production") {
   logoutUrl = `http://localhost:4000/api/logout`;
 }
 
-class UserModel {
+class UserAPI {
   static create(newUser) {
     return fetch(signupUrl, {
       method: "POST",
@@ -24,8 +24,8 @@ class UserModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in UserModel.create", err);
-        return { message: "Error fetching data in UserModel.create" };
+        console.log("Error fetching data in UserAPI.create", err);
+        return { message: "Error fetching data in UserAPI.create" };
       });
   }
 
@@ -37,8 +37,8 @@ class UserModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in UserModel.findOne", err);
-        return { message: "Error fetching data in UserModel.findOne" };
+        console.log("Error fetching data in UserAPI.findOne", err);
+        return { message: "Error fetching data in UserAPI.findOne" };
       });
   }
 
@@ -48,8 +48,8 @@ class UserModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in UserModel.logout", err);
-        return { message: "Error fetching data in UserModel.logout" };
+        console.log("Error fetching data in UserAPI.logout", err);
+        return { message: "Error fetching data in UserAPI.logout" };
       });
   }
 
@@ -61,8 +61,8 @@ class UserModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in UserModel.update", err);
-        return { message: "Error fetching data in UserModel.update" };
+        console.log("Error fetching data in UserAPI.update", err);
+        return { message: "Error fetching data in UserAPI.update" };
       });
   }
 
@@ -72,10 +72,10 @@ class UserModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in UserModel.allCubes", err);
+        console.log("Error fetching data in UserAPI.allCubes", err);
         return { cubes: [] }; // something back as well as error
       });
   }
 }
 
-export default UserModel;
+export default UserAPI;

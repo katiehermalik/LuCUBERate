@@ -5,7 +5,7 @@ import {
   CategoryListContext,
 } from "../context/ContextProvider";
 import { ChevronLeftIcon } from "@primer/octicons-react";
-import UserModel from "../models/user";
+import UserAPI from "../utils/api/user";
 import { SmileyIcon } from "@primer/octicons-react";
 
 const GuideModal = () => {
@@ -31,7 +31,7 @@ const GuideModal = () => {
         }
       });
     if (tourStep === 4 && guideDecision.current?.checked) {
-      await UserModel.update({ newUser: false }, currentUserInfo._id);
+      await UserAPI.update({ newUser: false }, currentUserInfo._id);
       setCurrentUserInfo(prevState => ({ ...prevState, newUser: false }));
       setShowGuide(false);
     } else if (tourStep === 4) {

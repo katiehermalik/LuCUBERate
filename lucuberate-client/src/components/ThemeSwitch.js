@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../context/ContextProvider";
 import { MoonIcon, SunIcon } from "@primer/octicons-react";
-import UserModel from "../models/user";
+import UserAPI from "../utils/api/user";
 
 const ThemeSwitch = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -12,7 +12,7 @@ const ThemeSwitch = () => {
   };
 
   useEffect(() => {
-    UserModel.update({ theme: theme }, user_Id);
+    UserAPI.update({ theme: theme }, user_Id);
   }, [theme, user_Id]);
 
   return (

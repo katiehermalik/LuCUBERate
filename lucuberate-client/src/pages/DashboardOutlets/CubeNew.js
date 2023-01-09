@@ -12,13 +12,13 @@ import {
   CategoryContext,
   CubeContext,
 } from "../../context/ContextProvider";
-import CubeModel from "../../models/cube";
-import UserModel from "../../models/user";
-import CategoryModel from "../../models/category";
+import CubeAPI from "../../utils/api/cube";
+// import UserAPI from "../../models/user";
+import CategoryAPI from "../../utils/api/category";
 
 const CubeNew = () => {
   const navigate = useNavigate();
-  const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
+  const { currentUserInfo, setUserDataUpdating } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { setCurrentCubeId } = useContext(CubeContext);
 
@@ -82,9 +82,10 @@ const CubeNew = () => {
   }, [currentCategory]);
 
   const createCube = async formData => {
-    const data = await CubeModel.create(formData);
-    const userData = await UserModel.allCubesAndCategories(currentUserInfo._id);
-    setCurrentUserInfo(userData);
+    const data = await CubeAPI.create(formData);
+    setUserDataUpdating(true);
+    // const userData = await UserAPI.allCubesAndCategories(currentUserInfo._id);
+    // setCurrentUserInfo(userData);
     setIsLoadingButton(false);
     setCurrentCubeId(data.cube._id);
     navigate(`/dashboard/${data.cube._id}`);
@@ -132,7 +133,7 @@ const CubeNew = () => {
       title: newCategory,
       user: currentUserInfo._id,
     };
-    const data = await CategoryModel.create(newCategoryData);
+    const data = await CategoryAPI.create(newCategoryData);
     const { _id: newCategoryId } = data;
     collectCubeFormData(newCategoryId);
   };

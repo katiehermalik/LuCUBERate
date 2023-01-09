@@ -5,13 +5,13 @@ import {
   CubeContext,
   CategoryContext,
 } from "../context/ContextProvider";
-import CubeModel from "../models/cube";
-import CategoryModel from "../models/category";
-import UserModel from "../models/user";
+import CubeAPI from "../utils/api/cube";
+import CategoryAPI from "../utils/api/category";
+// import UserAPI from "../models/user";
 
 const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
   const navigate = useNavigate();
-  const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
+  const { currentUserInfo, setUserDataUpdating } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
   const { setCurrentCategory } = useContext(CategoryContext);
   const [currentCategoryInfo, setCurrentCategoryInfo] = useState({});
@@ -47,16 +47,17 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
   const handleDeleteCategory = async e => {
     e.stopPropagation();
     navigate("/dashboard");
-    await CategoryModel.delete(categoryId);
-    const categoriesAndCubes = await UserModel.allCubesAndCategories(
-      currentUserInfo._id
-    );
+    await CategoryAPI.delete(categoryId);
+    setUserDataUpdating(true);
+    // const categoriesAndCubes = await UserAPI.allCubesAndCategories(
+    //   currentUserInfo._id
+    // );
     setCurrentCubeId("");
     setCurrentCategory(null);
-    setCurrentUserInfo({
-      ...categoriesAndCubes,
-      user_id: currentUserInfo._id,
-    });
+    // setCurrentUserInfo({
+    //   ...categoriesAndCubes,
+    //   user_id: currentUserInfo._id,
+    // });
     setDeleteModalInfo({ showModal: false });
   };
 
@@ -64,17 +65,18 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
     e.stopPropagation();
     navigate("/dashboard");
     setCurrentCubeId("");
-    const deletedCube = await CubeModel.delete(cubeId);
-    const categoriesAndCubes = await UserModel.allCubesAndCategories(
-      currentUserInfo._id
-    );
+    const deletedCube = await CubeAPI.delete(cubeId);
+    setUserDataUpdating(true);
+    // const categoriesAndCubes = await UserAPI.allCubesAndCategories(
+    //   currentUserInfo._id
+    // );
     if (deletedCube.categoryDeleted) {
       setCurrentCategory(null);
     }
-    setCurrentUserInfo({
-      ...categoriesAndCubes,
-      user_id: currentUserInfo._id,
-    });
+    // setCurrentUserInfo({
+    //   ...categoriesAndCubes,
+    //   user_id: currentUserInfo._id,
+    // });
     setDeleteModalInfo({ showModal: false });
   };
 
