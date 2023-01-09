@@ -6,8 +6,8 @@ import {
   useReducer,
 } from "react";
 import { useLocation } from "react-router-dom";
-import UserModel from "../models/user";
-import CubeModel from "../models/cube";
+import UserAPI from "../utils/api/user";
+import CubeAPI from "../utils/api/cube";
 
 export const UserContext = createContext(null);
 export const CategoryContext = createContext(null);
@@ -20,20 +20,22 @@ export const DeleteModalContext = createContext(null);
 export const CurrentPathContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
+  const { user_Id, isLoggedIn } =
+    JSON.parse(sessionStorage.getItem("user")) || "";
+  const { pathname } = useLocation();
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [userDataUpdating, setUserDataUpdating] = useState(true);
+  const [currentPath, setCurrentPath] = useReducer(currentPathReducer, [""]);
   const [currentCategory, setCurrentCategory] = useState("");
+  const [cubeData, setCubeData] = useState({});
   const [currentCubeId, setCurrentCubeId] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [showCategoryList, setShowCategoryList] = useState(true);
   const [showGuide, setShowGuide] = useState(false);
   const [deleteModalInfo, setDeleteModalInfo] = useState({});
-  const { user_Id, isLoggedIn } =
-    JSON.parse(sessionStorage.getItem("user")) || "";
-  const { pathname } = useLocation();
-  const [currentPath, setCurrentPath] = useReducer(currentPathReducer, [""]);
-  const [cubeData, setCubeData] = useState({});
 
   function currentPathReducer(prevState, { type, cleanedPathname }) {
     switch (type) {
@@ -92,56 +94,74 @@ const ContextProvider = ({ children }) => {
     [pathname, isLoggedIn]
   );
 
-  const cleanPathname = useCallback(() => {
-    let cleanedPathname;
-    pathname[pathname.length - 1] === "/"
-      ? (cleanedPathname = pathname.slice(0, -1))
-      : (cleanedPathname = pathname);
+  const getUpdatedPath = useCallback(() => {
+    const cleanedPathname = (() => {
+      if (pathname[pathname.length - 1] === "/") {
+        return pathname.slice(0, -1);
+      } else {
+        return pathname;
+      }
+    })();
     findCurrentPath(cleanedPathname);
   }, [pathname, findCurrentPath]);
 
   const findUserInfo = useCallback(async () => {
-    const userData = await UserModel.allCubesAndCategories(user_Id);
-    setCurrentUserInfo(userData);
-    setTheme(userData.theme);
-  }, [user_Id]);
+    if (userDataUpdating) {
+      const userData = await UserAPI.allCubesAndCategories(user_Id);
+      setCurrentUserInfo(userData);
+      setTheme(userData.theme);
+      setUserDataUpdating(false);
+    }
+  }, [user_Id, userDataUpdating]);
 
-  const findCubeData = useCallback(async () => {
+  const loadCube = useCallback(async () => {
     if (currentPath[0] === "show" || currentPath[0] === "edit") {
-      const cube = await CubeModel.getOne(currentPath[1]);
+      const cube = await CubeAPI.getOne(currentPath[1]);
       setCubeData(cube);
-    } else setCubeData({});
+    } else {
+      setCubeData({});
+    }
+    setIsLoading(false);
   }, [currentPath]);
 
   useEffect(() => {
     if (isLoggedIn) {
-      setIsLoading(true);
-      !currentUserInfo && findUserInfo();
-      currentUserInfo && cleanPathname();
-      currentPath[0] && findCubeData();
-      currentUserInfo && currentPath[0] && setIsLoading(false);
+      if (!currentUserInfo || userDataUpdating === true) {
+        setIsLoading(true);
+        console.log("UPDATING USER INFO");
+        findUserInfo();
+      } else if (currentUserInfo && userDataUpdating === false) {
+        console.log("PATH UPDATED - GETTING NEW PATH");
+        getUpdatedPath();
+      }
     } else {
       findCurrentPath();
     }
   }, [
+    userDataUpdating,
+    getUpdatedPath,
     currentUserInfo,
-    cleanPathname,
-    currentPath,
     findUserInfo,
     isLoggedIn,
     pathname,
-    findCubeData,
     findCurrentPath,
   ]);
 
+  useEffect(() => {
+    console.log("FINDING CURRENT CUBE DATA");
+    loadCube();
+  }, [currentPath, loadCube]);
+
   return (
     <>
-      <CurrentPathContext.Provider value={{ currentPath, cubeData }}>
+      <CurrentPathContext.Provider
+        value={{ currentPath, cubeData, setCubeData }}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
           <UserContext.Provider
             value={{
               currentUserInfo,
               setCurrentUserInfo,
+              setUserDataUpdating,
               isLoading,
               isLoggedIn,
             }}>
