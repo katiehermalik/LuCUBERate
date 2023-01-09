@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ArrowSwitchIcon } from "@primer/octicons-react";
 import { UserContext, CategoryContext } from "../../context/ContextProvider";
-import CategoryModel from "../../models/category";
+import CategoryAPI from "../../utils/api/category";
 
 const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
   const { currentCategory } = useContext(CategoryContext);
@@ -10,7 +10,7 @@ const CategoryShuffle = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
   const handleShuffleCubes = async e => {
     e.stopPropagation();
     changeCubeListOpacity();
-    const data = await CategoryModel.shuffle(currentCategory);
+    const data = await CategoryAPI.shuffle(currentCategory);
     setTimeout(() => {
       const indexOfCategory = currentUserInfo.categories.findIndex(
         category => category._id === data._id

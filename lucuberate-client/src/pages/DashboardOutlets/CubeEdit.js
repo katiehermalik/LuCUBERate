@@ -13,17 +13,18 @@ import {
   DeleteModalContext,
   CurrentPathContext,
 } from "../../context/ContextProvider";
-import UserModel from "../../models/user";
-import CubeModel from "../../models/cube";
-import CategoryModel from "../../models/category";
+// import UserAPI from "../../models/user";
+import CubeAPI from "../../utils/api/cube";
+import CategoryAPI from "../../utils/api/category";
 
 const CubeEdit = () => {
   const navigate = useNavigate();
   const { id: cubeId } = useParams();
-  const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
+  const { currentUserInfo, setUserDataUpdating } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
   const { cubeData } = useContext(CurrentPathContext);
+  const { setDeleteModalInfo } = useContext(DeleteModalContext);
 
   const visualAidInputRef = useRef(null);
 
@@ -53,12 +54,12 @@ const CubeEdit = () => {
   const [categoryIsNew, setCategoryIsNew] = useState(false);
   const [isLoadingButton, setIsLoadingButton] = useState(false);
   const [currentCubeCategory, setCurrentCubeCategory] = useState({});
-  const { setDeleteModalInfo } = useContext(DeleteModalContext);
 
   const updateCube = async formData => {
-    await CubeModel.update(formData, cubeId);
-    const userData = await UserModel.allCubesAndCategories(currentUserInfo._id);
-    setCurrentUserInfo(userData);
+    await CubeAPI.update(formData, cubeId);
+    setUserDataUpdating(true);
+    // const userData = await UserAPI.allCubesAndCategories(currentUserInfo._id);
+    // setCurrentUserInfo(userData);
     setIsLoadingButton(false);
     navigate(`/dashboard/${cubeId}`);
   };
@@ -66,7 +67,7 @@ const CubeEdit = () => {
   useEffect(() => {
     document.title = "Lucuberate | Edit Cube";
     // (async function () {
-    //   const data = await CubeModel.getOne(cubeId);
+    //   const data = await CubeAPI.getOne(cubeId);
     if (cubeData.cube) {
       const {
         cube: {
@@ -168,7 +169,7 @@ const CubeEdit = () => {
       title: newCategory,
       user: currentUserInfo._id,
     };
-    const data = await CategoryModel.create(newCategoryData);
+    const data = await CategoryAPI.create(newCategoryData);
     const { _id: newCategoryId } = data;
     collectCubeFormData(newCategoryId);
   };

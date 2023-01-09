@@ -5,12 +5,12 @@ if (process.env.NODE_ENV === "production") {
   url = "http://localhost:4000/api/v1/cubes";
 }
 
-class CubeModel {
+class CubeAPI {
   // static all() {
   //   return fetch(url)
   //     .then(res => res.json())
   //     .catch(err => {
-  //       console.log("Error fetching data in CubeModel.all", err);
+  //       console.log("Error fetching data in CubeAPI.all", err);
   //     });
   // }
 
@@ -21,8 +21,8 @@ class CubeModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in CubeModel.create", err);
-        return { message: "Error fetching data in CubeModel.create", err: err };
+        console.log("Error fetching data in CubeAPI.create", err);
+        return { message: "Error fetching data in CubeAPI.create", err: err };
       });
   }
 
@@ -30,7 +30,7 @@ class CubeModel {
     return fetch(`${url}/${id}`)
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in CubeModel.getOne", err);
+        console.log("Error fetching data in CubeAPI.getOne", err);
         return { cube: {} };
       });
   }
@@ -42,8 +42,8 @@ class CubeModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in CubeModel.update", err);
-        return { message: "Error fetching data in CubeModel.update" };
+        console.log("Error fetching data in CubeAPI.update", err);
+        return { message: "Error fetching data in CubeAPI.update" };
       });
   }
 
@@ -53,10 +53,10 @@ class CubeModel {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in CubeModel.delete", err);
-        return { message: "Error fetching data in CubeModel.delete" };
+        console.log("Error fetching data in CubeAPI.delete", err);
+        return { message: "Error fetching data in CubeAPI.delete" };
       });
   }
 }
 
-export default CubeModel;
+export default CubeAPI;
