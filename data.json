@@ -43,7 +43,7 @@
       "link_alias_2": "Source of the Visual Aid",
       "notes": "Const cannot be reassigned, but that does not mean it is immutable.",
       "user": "",
-      "category": "JavaScript"
+      "category": "Programming"
     },
     {
       "question": "What is the DOM?",
@@ -56,7 +56,7 @@
       "link_alias_2": "Source of the Visual Aid",
       "notes": "React uses a virtual DOM to compare any changes as data is updated. By updating the virtual DOM first and then comparing it with the actual DOM, React only needs to update the parts that changed in the actual DOM (which is a faster and more efficient experience).",
       "user": "",
-      "category": "JavaScript"
+      "category": "Programming"
     },
     {
       "question": "In JavaScript, what is the difference between 'null' and 'undefined'?",
@@ -69,7 +69,7 @@
       "link_alias_2": "Source of the Visual Aid",
       "notes": "Other FALSY values include:\nfalse\nNAN\n0\n'' (empty string)",
       "user": "",
-      "category": "JavaScript"
+      "category": "Programming"
     },
     {
       "question": "What is the Heisenberg Uncertainty Principle?",
