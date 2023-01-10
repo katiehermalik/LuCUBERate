@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const App404 = () => {
   useEffect(() => {
@@ -7,8 +8,25 @@ const App404 = () => {
 
   return (
     <div className="page-not-found app-404">
-      <h1>App 404</h1>
-      <h4>This is the app 404 page.</h4>
+      <h1>
+        Whoops!
+        <br></br>
+        <span className="force-line-break">
+          <span className="force-line-break">
+            This&nbsp;
+            <span className="force-line-break">page is&nbsp;</span>
+          </span>
+          <span className="force-line-break">
+            <span className="force-line-break">nowhere to&nbsp;</span>
+            <span className="force-line-break">be found.</span>
+          </span>
+        </span>
+      </h1>
+      <h4>
+        Your studying has taken you far... maybe too far? We aren't sure how you
+        got lost out here in cyberspace, but we're happy to direct you back to
+        the <Link to="/dashboard">dashboard</Link>.
+      </h4>
     </div>
   );
 };
