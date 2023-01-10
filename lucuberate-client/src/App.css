@@ -124,6 +124,11 @@ label {
 a {
   text-decoration: none;
   background-color: transparent;
+  color: var(--accent-color);
+}
+
+a:active {
+  color: var(--primary-btn-color-hover);
 }
 
 [type="button"]:not(:disabled),
@@ -946,10 +951,19 @@ hr {
 .page-not-found {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 50px 50px;
   width: 100%;
+  height: 100%;
+}
+
+.page-not-found h1 {
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.contact-us {
+  margin-top: 20px;
 }
 
 .app-404 {
