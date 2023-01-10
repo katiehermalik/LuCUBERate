@@ -7,7 +7,10 @@ const Instructions = () => {
 
   return (
     <div className="instructions container-row theme-transition">
-      <h1>Select or create a cube to start studying.</h1>
+      <h1>
+        <span className="force-line-break">Select or create a cube&nbsp;</span>
+        <span className="force-line-break">to start studying.</span>
+      </h1>
     </div>
   );
 };
