@@ -12,7 +12,6 @@ import PlaceHolderCube from "./PlaceHolderCube";
 import CubeCtrls from "./CubeCtrls";
 import CategoryCtrls from "./CategoryCtrls";
 import Footer from "../Footer";
-// import CubeAPI from "../../models/cube"
 
 const CubeList = () => {
   const navigate = useNavigate();
@@ -205,8 +204,6 @@ const CubeList = () => {
         findCurrentCategoryInfo();
       categoryWasShuffled && categoryWasShuffledEvents();
       // Gathering needed cube and category info differently depending on the path
-      console.log(currentPath);
-      console.log({ currentCubeId });
       switch (currentPath[0]) {
         case "edit":
         case "show":
@@ -296,8 +293,6 @@ const CubeList = () => {
 
   const handleCubeClick = async e => {
     setCurrentCubeId(e.target.value);
-    // const cube = await CubeAPI.getOne(currentPath[1]);
-    // setCubeData(cube);
     navigate(`/dashboard/${e.target.value}`);
     e.target.scrollIntoView({ behavior: "smooth", block: "center" });
   };

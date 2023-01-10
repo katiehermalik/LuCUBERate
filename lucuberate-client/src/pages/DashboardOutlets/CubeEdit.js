@@ -13,7 +13,6 @@ import {
   DeleteModalContext,
   CurrentPathContext,
 } from "../../context/ContextProvider";
-// import UserAPI from "../../models/user";
 import CubeAPI from "../../utils/api/cube";
 import CategoryAPI from "../../utils/api/category";
 
@@ -56,18 +55,15 @@ const CubeEdit = () => {
   const [currentCubeCategory, setCurrentCubeCategory] = useState({});
 
   const updateCube = async formData => {
+    console.log("MADE IT TO UPDATING THE CUBE");
     await CubeAPI.update(formData, cubeId);
     setUserDataUpdating(true);
-    // const userData = await UserAPI.allCubesAndCategories(currentUserInfo._id);
-    // setCurrentUserInfo(userData);
     setIsLoadingButton(false);
     navigate(`/dashboard/${cubeId}`);
   };
 
   useEffect(() => {
     document.title = "Lucuberate | Edit Cube";
-    // (async function () {
-    //   const data = await CubeAPI.getOne(cubeId);
     if (cubeData.cube) {
       const {
         cube: {
@@ -103,7 +99,6 @@ const CubeEdit = () => {
     } else {
       navigate(`/dashboard/${cubeId}`);
     }
-    // })();
   }, [
     cubeId,
     currentCategory,
@@ -542,7 +537,6 @@ const CubeEdit = () => {
                 </div>
               ) : null}
               {/* TODO - compress visual aid size */}
-              {/* TODO - make sure visual aid is deleted from AWS S3 Bucket */}
             </div>
           </div>
           <div className="form-buttons form-row">

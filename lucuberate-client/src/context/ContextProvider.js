@@ -94,7 +94,7 @@ const ContextProvider = ({ children }) => {
     [pathname, isLoggedIn]
   );
 
-  const getUpdatedPath = useCallback(() => {
+  const cleanPathname = useCallback(() => {
     const cleanedPathname = (() => {
       if (pathname[pathname.length - 1] === "/") {
         return pathname.slice(0, -1);
@@ -121,34 +121,33 @@ const ContextProvider = ({ children }) => {
     } else {
       setCubeData({});
     }
-    setIsLoading(false);
   }, [currentPath]);
 
   useEffect(() => {
     if (isLoggedIn) {
       if (!currentUserInfo || userDataUpdating === true) {
         setIsLoading(true);
-        console.log("UPDATING USER INFO");
         findUserInfo();
-      } else if (currentUserInfo && userDataUpdating === false) {
-        console.log("PATH UPDATED - GETTING NEW PATH");
-        getUpdatedPath();
       }
     } else {
       findCurrentPath();
     }
   }, [
     userDataUpdating,
-    getUpdatedPath,
     currentUserInfo,
-    findUserInfo,
     isLoggedIn,
-    pathname,
+    findUserInfo,
     findCurrentPath,
   ]);
 
   useEffect(() => {
-    console.log("FINDING CURRENT CUBE DATA");
+    if (currentUserInfo && userDataUpdating === false) {
+      cleanPathname();
+    }
+    setIsLoading(false);
+  }, [pathname, currentUserInfo, userDataUpdating, cleanPathname]);
+
+  useEffect(() => {
     loadCube();
   }, [currentPath, loadCube]);
 
