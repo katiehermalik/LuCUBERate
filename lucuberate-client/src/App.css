@@ -1166,14 +1166,19 @@ hr {
 }
 
 .list-footer {
-  background-color: var(--nav-bg-color);
-  color: var(--primary-text-color);
+  background-color: var(--primary-bg-color);
+  color: var(--text-color-light);
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  justify-content: flex-end;
   font-size: 14px;
   border-right: 1px solid var(--category-select);
   white-space: nowrap;
+}
+
+.list-footer p {
+  margin-bottom: 0;
 }
 
 .cube-icon {
