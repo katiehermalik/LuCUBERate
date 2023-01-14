@@ -86,6 +86,10 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
     }
   };
 
+  const loginWithGoogle = () => {
+    window.open("http://localhost:4000/oauth/google", "_self");
+  };
+
   const errorStyle = {
     color: "red",
     fontSize: "12px",
@@ -161,12 +165,13 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                   </div>
                 </div>
                 <div className="modal-footer">
+                  <hr size="2" width="90%" />
                   <button type="submit" className="btn form-btn btn-secondary">
                     Login
                   </button>
                   <hr size="2" width="70%" />
                   <p>
-                    Don't yet have an account?{" "}
+                    Need an account?{" "}
                     <Link
                       to="/"
                       name="SignUp"
@@ -174,11 +179,12 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                       data-dismiss="modal"
                       data-toggle="modal"
                       data-target="#modalRegisterForm">
-                      Sign up
+                      Sign Up Here
                     </Link>
                   </p>
                 </div>
               </form>
+              <button onClick={loginWithGoogle}>Google</button>
             </div>
           </div>
         </div>

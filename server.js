@@ -3,6 +3,8 @@ const cors = require("cors");
 const routes = require("./routes");
 const session = require("express-session");
 const path = require("path");
+const passportSetup = require("./utils/passport");
+const passport = require("passport");
 require("dotenv").config();
 const PORT = process.env.PORT || 4000;
 
@@ -17,6 +19,8 @@ if (process.env.NODE_ENV === "production") {
 
 const corsOptions = {
   origin: origin,
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true,
 };
 
 // Redirect to secure https
@@ -39,6 +43,9 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.json());
 app.use(cors(corsOptions));
 
@@ -46,6 +53,7 @@ app.use("/api/v1/cubes", routes.cubes.router);
 app.use("/api/v1/users", routes.users);
 app.use("/api/v1/categories", routes.categories);
 app.use("/api", routes.auth);
+app.use("/oauth", routes.oauth);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

@@ -37,8 +37,8 @@ class UserAPI {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in UserAPI.findOne", err);
-        return { message: "Error fetching data in UserAPI.findOne" };
+        console.log("Error fetching data in UserAPI.login", err);
+        return { message: "Error fetching data in UserAPI.login" };
       });
   }
 

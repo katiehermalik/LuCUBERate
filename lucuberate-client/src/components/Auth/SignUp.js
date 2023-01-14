@@ -207,7 +207,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                   <p>
                     Already have an account?{" "}
                     <Link to="/" name="Login" onClick={closeModal}>
-                      Login
+                      Login Here
                     </Link>
                   </p>
                 </div>
