@@ -161,6 +161,7 @@ button:not(:disabled) {
   --text-color-dark: var(--primary-bg-color);
   --text-color-light: #f1f4f9;
   --accent-color: #edb532;
+  --success-color: #5c993a;
   --primary-btn-color: var(--accent-color);
   --primary-btn-color-hover: #d39e00;
   --secondary-btn-color: #acb0b5;
@@ -1897,6 +1898,67 @@ input[type="radio"] {
 
 input[type="radio"]:checked + label {
   color: var(--accent-color);
+}
+
+/* ================================  Login Success */
+
+.success-animation {
+  margin: 150px auto;
+}
+
+.checkmark {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 5;
+  stroke: var(--success-color);
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px var(--success-color);
+  animation: scale 0.15s ease-in-out 0.2s both;
+  position: relative;
+  top: 5px;
+  right: 5px;
+  margin: 0 auto;
+}
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 5;
+  stroke-miterlimit: 10;
+  stroke: var(--success-color);
+  fill: none;
+  animation: stroke 0.15s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.15s cubic-bezier(0.65, 0, 0.45, 1) 0.15s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px var(--accent-color);
+  }
 }
 
 /* ================================================================ Media Queries */

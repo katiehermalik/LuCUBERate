@@ -2,7 +2,6 @@ const db = require("../models");
 const seedData = require("../data.json");
 const bcrypt = require("bcryptjs");
 
-//------------------------------------------------- Add default categories and cubes to new Users for examples
 let signupData = {};
 
 const addNewUserCategories = async newUser => {
@@ -96,8 +95,14 @@ const login = async (req, res) => {
 
 const logout = (req, res) => {
   if (req.session.currentUser) {
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
+    });
     req.session.destroy(err => {
       if (err) return console.log("Error destroying session");
+      res.clearCookie("connect.sid");
       res.redirect("/");
     });
   }

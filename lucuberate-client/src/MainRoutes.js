@@ -10,6 +10,7 @@ import Instructions from "./pages/DashboardOutlets/Instructions";
 import Landing from "./pages/Landing";
 import App404 from "./pages/App404";
 import Dashboard404 from "./pages/DashboardOutlets/Dashboard404";
+import LoginSuccess from "./components/Auth/LoginSuccess";
 
 const MainRoutes = () => {
   const { currentUserInfo, isLoggedIn } = useContext(UserContext);
@@ -84,6 +85,7 @@ const MainRoutes = () => {
                   />
                 }
               />
+              <Route path="/login/success" element={<LoginSuccess />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           )}

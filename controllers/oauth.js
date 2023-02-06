@@ -1,15 +1,20 @@
 const db = require("../models");
 const passport = require("passport");
 
-const authenticate = () => {
+const authenticate = (req, res) => {
   console.log("AUTHENTICATING");
-  passport.authenticate("google", { scope: ["profile"] });
+  (() => {
+    console.log("Hello");
+    passport.authenticate("google", {
+      scope: ["https://www.googleapis.com/oauth2/v3/userinfo"],
+    });
+  })();
 };
 
-const redirect = () => {
+const redirect = (req, res) => {
   console.log("REDIRECTING");
   passport.authenticate("google", {
-    successRedirect: process.env.GOOGLE_OAUTH_REDIRECT_URL,
+    successRedirect: "http://localhost:3000",
     failureRedirect: "/login/failed",
   });
 };

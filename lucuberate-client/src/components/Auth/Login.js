@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import UserAPI from "../../utils/api/user";
+import OauthAPI from "../../utils/api/oauth";
+import AuthAPI from "../../utils/api/auth";
 import { MailIcon, LockIcon } from "@primer/octicons-react";
 import {
   UserContext,
@@ -43,7 +44,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const data = await UserAPI.login(userInput);
+    const data = await AuthAPI.login(userInput);
     if (data.userError) {
       setUserInput(prevState => ({
         ...prevState,
@@ -86,8 +87,70 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
     }
   };
 
-  const loginWithGoogle = () => {
-    window.open("http://localhost:4000/oauth/google", "_self");
+  const fetchOAuthUser = async () => {
+    const data = await OauthAPI.oauthUserData();
+    console.log({ data });
+    if (data._id) {
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify({
+          user_Id: data._id,
+          isLoggedIn: true,
+        })
+      );
+      const sessionUser = JSON.parse(sessionStorage.getItem("user"));
+      console.log({ sessionUser });
+      setCurrentUserInfo(data);
+      setTheme(data.theme === "dark" ? "dark" : "light");
+      setShowLoginModal(false);
+      console.log(data.newUser);
+      navigate(`/dashboard/${data.categories[0].cubes[0]}`);
+      // if (data.newUser) {
+      //   setShowGuide(true);
+      //   setShowCategoryList(false);
+      //   console.log(data.cubes.length);
+      //   if (data.cubes.length !== 0) {
+      //     navigate(`/dashboard/${data.categories[0].cubes[0]}`);
+      //   } else {
+      //     navigate("/dashboard");
+      //   }
+      // } else {
+      //   navigate("/dashboard");
+      // }
+    }
+  };
+
+  const loginWithGoogle = async () => {
+    console.log("OPENING NEW WINDOW FOR GOOGLE LOGIN");
+    const googleLoginUrl = "http://localhost:4000/api/v1/oauth/google";
+
+    function popupWindow(url, windowName, win, w, h) {
+      const y = win.top.outerHeight / 2 + win.top.screenY - h / 2;
+      const x = win.top.outerWidth / 2 + win.top.screenX - w / 2;
+      return win.open(
+        url,
+        windowName,
+        `width=${w}, height=${h}, top=${y}, left=${x}`
+      );
+    }
+    const newWindow = popupWindow(
+      googleLoginUrl,
+      "Login with Google",
+      window,
+      500,
+      600
+    );
+    if (newWindow) {
+      const timer = setInterval(() => {
+        if (newWindow.closed) {
+          console.log("CLOSED WINDOW FOR GOOGLE LOGIN");
+          fetchOAuthUser();
+          if (timer) {
+            clearInterval(timer);
+          }
+        }
+      }, 500);
+    }
   };
 
   const errorStyle = {

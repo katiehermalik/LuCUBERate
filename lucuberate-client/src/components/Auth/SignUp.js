@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import UserAPI from "../../utils/api/user";
+import AuthAPI from "../../utils/api/auth";
 import { PersonIcon, MailIcon, LockIcon } from "@primer/octicons-react";
 import {
   UserContext,
@@ -50,7 +50,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     if (newUserInfo.password === newUserInfo.password_confirmation) {
-      const data = await UserAPI.create(newUserInfo);
+      const data = await AuthAPI.signup(newUserInfo);
       if (data.emailError) {
         setNewUserInfo(prevState => ({
           ...prevState,

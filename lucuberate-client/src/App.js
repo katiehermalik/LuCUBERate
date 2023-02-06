@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   ThemeContext,
   UserContext,
@@ -16,6 +16,10 @@ const App = () => {
     deleteModalInfo: { showModal },
     setDeleteModalInfo,
   } = useContext(DeleteModalContext);
+
+  useEffect(() => {
+    console.log({ isLoggedIn });
+  }, [isLoggedIn]);
 
   return (
     <div
