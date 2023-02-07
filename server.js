@@ -45,7 +45,7 @@ app.use(
       ttl: 14 * 24 * 60 * 60,
       autoRemove: "native",
     }),
-    unset: 'destroy',
+    unset: "destroy",
     cookie: {
       secure: process.env.NODE_ENV === "production" ? true : false,
       maxAge: 1000 * 60 * 60 * 24 * 3,

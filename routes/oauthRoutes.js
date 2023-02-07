@@ -18,6 +18,7 @@ router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
+
 router.get(
   "/google/redirect",
   passport.authenticate("google", {
@@ -26,6 +27,7 @@ router.get(
     failureMessage: "Cannot login with Goggle, please try again.",
   })
 );
+
 router.get("/user", async (req, res) => {
   try {
     const populatedUser = await db.User.findById(req.user._id)
@@ -33,8 +35,8 @@ router.get("/user", async (req, res) => {
       .populate("cubes");
     res.json(populatedUser);
   } catch (err) {
-    console.log("Unable to populate cubes for user in cubes.create:", err);
-    res.json({ Error: "Unable to populate cubes for user" });
+    console.log("Unable to populate user in oauth/user", err);
+    res.json({ Error: "Unable to populate user in oauth/user" });
   }
 });
 

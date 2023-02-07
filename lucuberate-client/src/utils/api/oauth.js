@@ -17,8 +17,8 @@ class OauthAPI {
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in AuthAPI.oauthLogin", err);
-        return { message: "Error fetching data in AuthAPI.oauthLogin" };
+        console.log("Error fetching data in OauthAPI.oauthLogin", err);
+        return { message: "Error fetching data in OauthAPI.oauthLogin" };
       });
   }
 }
