@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
+// const ctrl = require("../controllers");
+const db = require("../models");
 
 let successLoginUrl;
 let errorLoginURL;
@@ -11,13 +13,11 @@ if (process.env.NODE_ENV === "production") {
   errorLoginURL = "http://localhost:3000/login/failed";
 }
 
-// routes - /api/v1/oauth
-
+// /api/v1/oauth
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
-
 router.get(
   "/google/redirect",
   passport.authenticate("google", {
@@ -26,9 +26,16 @@ router.get(
     failureMessage: "Cannot login with Goggle, please try again.",
   })
 );
-
-router.get("/user", (req, res) => {
-  res.json(req.user);
+router.get("/user", async (req, res) => {
+  try {
+    const populatedUser = await db.User.findById(req.user._id)
+      .populate("categories")
+      .populate("cubes");
+    res.json(populatedUser);
+  } catch (err) {
+    console.log("Unable to populate cubes for user in cubes.create:", err);
+    res.json({ Error: "Unable to populate cubes for user" });
+  }
 });
 
 module.exports = router;

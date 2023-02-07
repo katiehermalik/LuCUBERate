@@ -67,13 +67,12 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
         JSON.stringify({
           user_Id: data.user_Id,
           isLoggedIn: data.isLoggedIn,
-          returnUser: true,
         })
       );
       setCurrentUserInfo(data.currentUser);
       setTheme(data.currentUser.theme === "dark" ? "dark" : "light");
       setShowLoginModal(false);
-      if (data.currentUser.newUser) {
+      if (data.currentUser.showGuideModal) {
         setShowGuide(true);
         setShowCategoryList(false);
         if (data.currentUser.cubes.length !== 0) {
@@ -98,30 +97,24 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
           isLoggedIn: true,
         })
       );
-      const sessionUser = JSON.parse(sessionStorage.getItem("user"));
-      console.log({ sessionUser });
       setCurrentUserInfo(data);
       setTheme(data.theme === "dark" ? "dark" : "light");
       setShowLoginModal(false);
-      console.log(data.newUser);
-      navigate(`/dashboard/${data.categories[0].cubes[0]}`);
-      // if (data.newUser) {
-      //   setShowGuide(true);
-      //   setShowCategoryList(false);
-      //   console.log(data.cubes.length);
-      //   if (data.cubes.length !== 0) {
-      //     navigate(`/dashboard/${data.categories[0].cubes[0]}`);
-      //   } else {
-      //     navigate("/dashboard");
-      //   }
-      // } else {
-      //   navigate("/dashboard");
-      // }
+      if (data.showGuideModal) {
+        setShowGuide(true);
+        setShowCategoryList(false);
+        if (data.cubes.length !== 0) {
+          navigate(`/dashboard/${data.categories[0].cubes[0]}`);
+        } else {
+          navigate("/dashboard");
+        }
+      } else {
+        navigate("/dashboard");
+      }
     }
   };
 
   const loginWithGoogle = async () => {
-    console.log("OPENING NEW WINDOW FOR GOOGLE LOGIN");
     const googleLoginUrl = "http://localhost:4000/api/v1/oauth/google";
 
     function popupWindow(url, windowName, win, w, h) {
@@ -143,7 +136,6 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
     if (newWindow) {
       const timer = setInterval(() => {
         if (newWindow.closed) {
-          console.log("CLOSED WINDOW FOR GOOGLE LOGIN");
           fetchOAuthUser();
           if (timer) {
             clearInterval(timer);

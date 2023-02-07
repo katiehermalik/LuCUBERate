@@ -327,9 +327,7 @@ const CubeList = () => {
                       <div
                         className="cube-list theme-transition"
                         key={categoryId}>
-                        <div
-                          key={`container-${categoryId}`}
-                          className="category-container">
+                        <div className="category-container">
                           <CategoryCtrls
                             setCategoryWasShuffled={setCategoryWasShuffled}
                             currentCubeCategory={currentCubeCategory}
@@ -368,10 +366,9 @@ const CubeList = () => {
                               hidden>{`Cube list for ${categoryTitle} category: Choose a Cube`}</legend>
                             <ul>
                               {categoryCubes?.map((cube, j) => (
-                                <>
-                                  <li key={cube} className="radio-button">
+                                <div key={cube}>
+                                  <li className="radio-button">
                                     <input
-                                      key={`input-${cube}`}
                                       tabIndex="0"
                                       type="radio"
                                       name="cube-select"
@@ -389,7 +386,6 @@ const CubeList = () => {
                                       }}
                                     />
                                     <label
-                                      key={`label-${cube}`}
                                       className="radio-label"
                                       htmlFor={cube}>
                                       {questionsAreVisible
@@ -412,7 +408,7 @@ const CubeList = () => {
                                       />
                                     )}
                                   </li>
-                                </>
+                                </div>
                               ))}
                             </ul>
                             {((currentPath[0] === "edit" &&

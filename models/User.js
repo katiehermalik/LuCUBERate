@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    showGuideModal: {
+      type: Boolean,
+      default: true,
+    },
     cubes: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const routes = require("./routes");
 const passport = require("passport");
-require("./utils/passportConfig");
+require("./utils/passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const path = require("path");
@@ -45,6 +45,7 @@ app.use(
       ttl: 14 * 24 * 60 * 60,
       autoRemove: "native",
     }),
+    unset: 'destroy',
     cookie: {
       secure: process.env.NODE_ENV === "production" ? true : false,
       maxAge: 1000 * 60 * 60 * 24 * 3,

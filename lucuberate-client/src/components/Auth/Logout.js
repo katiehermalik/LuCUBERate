@@ -9,6 +9,7 @@ import {
   QuestionsContext,
   CategoryListContext,
 } from "../../context/ContextProvider";
+import AuthAPI from "../../utils/api/auth";
 
 const Logout = ({ setShowUserMenu }) => {
   const navigate = useNavigate();
@@ -19,15 +20,18 @@ const Logout = ({ setShowUserMenu }) => {
   const { setQuestionsAreVisible } = useContext(QuestionsContext);
   const { setShowCategoryList } = useContext(CategoryListContext);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
+    const data = await AuthAPI.logout();
+    console.log(data);
     setTheme("dark");
-    setCurrentUserInfo(null);
+    setCurrentUserInfo(data.user);
     setCurrentCategory(null);
     setCurrentCubeId(null);
     setQuestionsAreVisible(false);
     setShowCategoryList(true);
     setShowUserMenu(false);
     sessionStorage.clear();
+    localStorage.clear();
     navigate("/");
   };
 

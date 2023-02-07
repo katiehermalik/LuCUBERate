@@ -93,19 +93,12 @@ const login = async (req, res) => {
   }
 };
 
-const logout = (req, res) => {
-  if (req.session.currentUser) {
-    req.logout(function (err) {
-      if (err) {
-        return next(err);
-      }
-    });
-    req.session.destroy(err => {
-      if (err) return console.log("Error destroying session");
-      res.clearCookie("connect.sid");
-      res.redirect("/");
-    });
-  }
+const logout = (req, res, next) => {
+  req.logout(req.user, err => {
+    if (err) return next(err);
+  });
+  // res.clearCookie("connect.sid");
+  res.send({ isAuth: req.isAuthenticated(), user: req.user });
 };
 
 module.exports = {
