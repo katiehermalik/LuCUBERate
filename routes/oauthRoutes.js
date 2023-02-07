@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
-// const ctrl = require("../controllers");
-const db = require("../models");
+const ctrl = require("../controllers");
 
 let successLoginUrl;
 let errorLoginURL;
@@ -28,16 +27,6 @@ router.get(
   })
 );
 
-router.get("/user", async (req, res) => {
-  try {
-    const populatedUser = await db.User.findById(req.user._id)
-      .populate("categories")
-      .populate("cubes");
-    res.json(populatedUser);
-  } catch (err) {
-    console.log("Unable to populate user in oauth/user", err);
-    res.json({ Error: "Unable to populate user in oauth/user" });
-  }
-});
+router.get("/user", ctrl.oauth.user);
 
 module.exports = router;
