@@ -55,7 +55,6 @@ const CubeEdit = () => {
   const [currentCubeCategory, setCurrentCubeCategory] = useState({});
 
   const updateCube = async formData => {
-    console.log("MADE IT TO UPDATING THE CUBE");
     await CubeAPI.update(formData, cubeId);
     setUserDataUpdating(true);
     setIsLoadingButton(false);

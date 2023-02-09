@@ -112,7 +112,6 @@ const ContextProvider = ({ children }) => {
       setTheme(userData.theme);
       setUserDataUpdating(false);
       setShowGuide(userData.showGuideModal);
-      setShowCategoryList(!userData.showGuideModal);
     }
   }, [user_Id, userDataUpdating]);
 
