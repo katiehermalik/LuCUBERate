@@ -6,7 +6,7 @@ import {
   useReducer,
 } from "react";
 import { useLocation } from "react-router-dom";
-import UserAPI from "../utils/api/user";
+import OauthAPI from "../utils/api/oauth";
 import CubeAPI from "../utils/api/cube";
 
 export const UserContext = createContext(null);
@@ -20,8 +20,7 @@ export const DeleteModalContext = createContext(null);
 export const CurrentPathContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
-  const { user_Id, isLoggedIn } =
-    JSON.parse(sessionStorage.getItem("user")) || "";
+  const { isLoggedIn } = JSON.parse(sessionStorage.getItem("user")) || "";
   const { pathname } = useLocation();
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
   const [userDataUpdating, setUserDataUpdating] = useState(true);
@@ -107,13 +106,14 @@ const ContextProvider = ({ children }) => {
 
   const findUserInfo = useCallback(async () => {
     if (userDataUpdating) {
-      const userData = await UserAPI.allCubesAndCategories(user_Id);
+      const userData = await OauthAPI.oauthUserData();
+      // const userData = await UserAPI.allCubesAndCategories(user_Id);
       setCurrentUserInfo(userData);
       setTheme(userData.theme);
       setUserDataUpdating(false);
       setShowGuide(userData.showGuideModal);
     }
-  }, [user_Id, userDataUpdating]);
+  }, [userDataUpdating]);
 
   const loadCube = useCallback(async () => {
     if (currentPath[0] === "show" || currentPath[0] === "edit") {

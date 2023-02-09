@@ -65,7 +65,6 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
       sessionStorage.setItem(
         "user",
         JSON.stringify({
-          user_Id: data.user_Id,
           isLoggedIn: data.isLoggedIn,
         })
       );
@@ -93,7 +92,6 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
       sessionStorage.setItem(
         "user",
         JSON.stringify({
-          user_Id: data._id,
           isLoggedIn: true,
         })
       );

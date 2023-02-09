@@ -1,19 +1,21 @@
 import { useContext, useEffect } from "react";
-import { ThemeContext } from "../context/ContextProvider";
+import { ThemeContext, UserContext } from "../context/ContextProvider";
 import { MoonIcon, SunIcon } from "@primer/octicons-react";
 import UserAPI from "../utils/api/user";
 
 const ThemeSwitch = () => {
+  const {
+    currentUserInfo: { _id: userId },
+  } = useContext(UserContext);
   const { theme, setTheme } = useContext(ThemeContext);
-  const { user_Id } = JSON.parse(sessionStorage.getItem("user")) || "";
 
   const handleClick = async () => {
     setTheme(prevState => (prevState === "dark" ? "light" : "dark"));
   };
 
   useEffect(() => {
-    UserAPI.update({ theme: theme }, user_Id);
-  }, [theme, user_Id]);
+    UserAPI.update({ theme: theme }, userId);
+  }, [userId, theme]);
 
   return (
     <div className="switch-container">
