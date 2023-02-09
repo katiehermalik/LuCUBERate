@@ -1744,7 +1744,7 @@ section.about {
 }
 
 .face-content {
-  padding: 0 5vmin 3vmin 5vmin;
+  margin: 0 5vmin 3vmin 5vmin;
   font-size: 3.1vmin;
   word-break: break-word;
   overflow-y: auto;
