@@ -9,7 +9,7 @@ import UserAPI from "../utils/api/user";
 import { SmileyIcon } from "@primer/octicons-react";
 
 const GuideModal = () => {
-  const { currentUserInfo, setCurrentUserInfo } = useContext(UserContext);
+  const { setCurrentUserInfo } = useContext(UserContext);
   const {
     currentUserInfo: { newUser },
   } = useContext(UserContext);
@@ -33,10 +33,7 @@ const GuideModal = () => {
         }
       });
     if (tourStep === 4 && guideDecision.current?.checked) {
-      await UserAPI.update(
-        { newUser: false, showGuideModal: false },
-        currentUserInfo._id
-      );
+      await UserAPI.update({ newUser: false, showGuideModal: false });
       setCurrentUserInfo(prevState => ({
         ...prevState,
         newUser: false,
@@ -44,7 +41,7 @@ const GuideModal = () => {
       }));
       setShowGuide(false);
     } else if (tourStep === 4) {
-      await UserAPI.update({ newUser: false }, currentUserInfo._id);
+      await UserAPI.update({ newUser: false });
       setShowGuide(false);
       localStorage.setItem(
         "completedGuide",

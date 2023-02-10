@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import OauthAPI from "../../utils/api/oauth";
+import UserAPI from "../../utils/api/user";
 import AuthAPI from "../../utils/api/auth";
 import { MailIcon, LockIcon } from "@primer/octicons-react";
 import {
@@ -23,6 +23,13 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
     matchError: "",
   });
 
+  let googleLoginUrl;
+  if (process.env.NODE_ENV === "production") {
+    googleLoginUrl = "https://lucuberate.com/api/v1/oauth/google";
+  } else {
+    googleLoginUrl = "http://localhost:4000/api/v1/oauth/google";
+  }
+
   const closeModal = e => {
     e.stopPropagation();
     setUserInput({
@@ -44,6 +51,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    userInput.isLoggingIn = true;
     const data = await AuthAPI.login(userInput);
     if (data.userError) {
       setUserInput(prevState => ({
@@ -65,17 +73,17 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
       sessionStorage.setItem(
         "user",
         JSON.stringify({
-          isLoggedIn: data.isLoggedIn,
+          isLoggedIn: true,
         })
       );
-      setCurrentUserInfo(data.currentUser);
-      setTheme(data.currentUser.theme === "dark" ? "dark" : "light");
+      setCurrentUserInfo(data);
+      setTheme(data.theme === "dark" ? "dark" : "light");
       setShowLoginModal(false);
-      if (data.currentUser.showGuideModal) {
+      if (data.showGuideModal) {
         setShowGuide(true);
         setShowCategoryList(false);
-        if (data.currentUser.cubes.length !== 0) {
-          navigate(`/dashboard/${data.currentUser.categories[0].cubes[0]}`);
+        if (data.cubes.length !== 0) {
+          navigate(`/dashboard/${data.categories[0].cubes[0]}`);
         } else {
           navigate("/dashboard");
         }
@@ -86,8 +94,8 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   };
 
   const fetchOAuthUser = async () => {
-    const data = await OauthAPI.oauthUserData();
-    console.log({ data });
+    const userInfo = await UserAPI.userData();
+    const { userData: data } = userInfo;
     if (data._id) {
       sessionStorage.setItem(
         "user",
@@ -113,8 +121,6 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   };
 
   const loginWithGoogle = async () => {
-    const googleLoginUrl = "http://localhost:4000/api/v1/oauth/google";
-
     function popupWindow(url, windowName, win, w, h) {
       const y = win.top.outerHeight / 2 + win.top.screenY - h / 2;
       const x = win.top.outerWidth / 2 + win.top.screenX - w / 2;

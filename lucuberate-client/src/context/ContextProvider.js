@@ -6,7 +6,7 @@ import {
   useReducer,
 } from "react";
 import { useLocation } from "react-router-dom";
-import OauthAPI from "../utils/api/oauth";
+import UserAPI from "../utils/api/user";
 import CubeAPI from "../utils/api/cube";
 
 export const UserContext = createContext(null);
@@ -106,8 +106,8 @@ const ContextProvider = ({ children }) => {
 
   const findUserInfo = useCallback(async () => {
     if (userDataUpdating) {
-      const userData = await OauthAPI.oauthUserData();
-      // const userData = await UserAPI.allCubesAndCategories(user_Id);
+      const data = await UserAPI.userData();
+      const { userData } = data;
       setCurrentUserInfo(userData);
       setTheme(userData.theme);
       setUserDataUpdating(false);

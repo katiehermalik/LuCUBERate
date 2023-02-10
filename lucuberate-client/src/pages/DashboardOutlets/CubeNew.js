@@ -13,7 +13,6 @@ import {
   CubeContext,
 } from "../../context/ContextProvider";
 import CubeAPI from "../../utils/api/cube";
-// import UserAPI from "../../models/user";
 import CategoryAPI from "../../utils/api/category";
 
 const CubeNew = () => {
@@ -84,8 +83,6 @@ const CubeNew = () => {
   const createCube = async formData => {
     const data = await CubeAPI.create(formData);
     setUserDataUpdating(true);
-    // const userData = await UserAPI.allCubesAndCategories(currentUserInfo._id);
-    // setCurrentUserInfo(userData);
     setIsLoadingButton(false);
     setCurrentCubeId(data.cube._id);
     navigate(`/dashboard/${data.cube._id}`);

@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { SignOutIcon } from "@primer/octicons-react";
 import {
   UserContext,
@@ -12,7 +11,6 @@ import {
 import AuthAPI from "../../utils/api/auth";
 
 const Logout = ({ setShowUserMenu }) => {
-  const navigate = useNavigate();
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setTheme } = useContext(ThemeContext);
   const { setCurrentCategory } = useContext(CategoryContext);
@@ -22,7 +20,6 @@ const Logout = ({ setShowUserMenu }) => {
 
   const handleSubmit = async e => {
     const data = await AuthAPI.logout();
-    console.log(data);
     setTheme("dark");
     setCurrentUserInfo(data.user);
     setCurrentCategory(null);
@@ -32,7 +29,6 @@ const Logout = ({ setShowUserMenu }) => {
     setShowUserMenu(false);
     sessionStorage.clear();
     localStorage.clear();
-    navigate("/");
   };
 
   return (

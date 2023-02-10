@@ -14,7 +14,7 @@ const ThemeSwitch = () => {
   };
 
   useEffect(() => {
-    UserAPI.update({ theme: theme }, userId);
+    UserAPI.update({ theme: theme });
   }, [userId, theme]);
 
   return (

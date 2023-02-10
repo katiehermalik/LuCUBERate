@@ -50,6 +50,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     if (newUserInfo.password === newUserInfo.password_confirmation) {
+      newUserInfo.isRegistering = true;
       const data = await AuthAPI.signup(newUserInfo);
       if (data.emailError) {
         setNewUserInfo(prevState => ({
@@ -64,15 +65,15 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
           sessionStorage.setItem(
             "user",
             JSON.stringify({
-              isLoggedIn: data.isLoggedIn,
+              isLoggedIn: true,
             })
           );
-          setCurrentUserInfo(data.currentUser);
-          setCurrentCubeId(data.currentUser.categories[2].cubes[0]);
+          setCurrentUserInfo(data);
+          setCurrentCubeId(data.categories[2].cubes[0]);
           setShowSignUpModal(false);
           setShowGuide(true);
           setShowCategoryList(false);
-          navigate(`/dashboard/${data.currentUser.categories[2].cubes[0]}`);
+          navigate(`/dashboard/${data.categories[2].cubes[0]}`);
         }
       }
     } else {

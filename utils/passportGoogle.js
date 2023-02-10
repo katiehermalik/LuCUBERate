@@ -3,21 +3,6 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const db = require("../models");
 const seedData = require("../data.json");
 
-passport.serializeUser((user, done) => {
-  console.log("------------------ SERIALIZING ---------------");
-  console.log("Storing serialized ID in session --------> ", user.id);
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  console.log("------------------ DESERIALIZING ---------------");
-  console.log("Looking up user via deserialized id --------> ", id);
-  user = await db.User.findById(id).catch(err => {
-    done(err, null);
-  });
-  if (user) done(null, user);
-});
-
 passport.use(
   new GoogleStrategy(
     {

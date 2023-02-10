@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const passport = require("passport");
-const ctrl = require("../controllers");
 
 let successLoginUrl;
 let errorLoginURL;
@@ -26,7 +25,5 @@ router.get(
     failureMessage: "Cannot login with Goggle, please try again.",
   })
 );
-
-router.get("/user", ctrl.oauth.user);
 
 module.exports = router;

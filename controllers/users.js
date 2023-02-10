@@ -1,56 +1,38 @@
 const db = require("../models");
 
-const show = async (req, res) => {
+const userData = async (req, res) => {
   try {
-    const populatedUser = await db.User.findById(req.params.id)
+    const populatedUser = await db.User.findById(req.user._id)
       .populate("categories")
       .populate("cubes");
-    res.json(populatedUser);
+    res.json({
+      userData: populatedUser,
+      isAuth: req.isAuthenticated(),
+      session: req.session,
+    });
   } catch (err) {
-    console.log("Unable to populate cubes for user in cubes.create:", err);
-    res.json({ Error: "Unable to populate cubes for user" });
+    console.log("Unable to populate user in users.userData:", err);
+    res.json({ Error: "Unable to populate user" });
   }
 };
-
-// const index = (req, res) => {
-//   db.User.find({})
-//     .then(foundUsers => {
-//       res.json({ cubes: foundUsers });
-//     })
-//     .catch(err => {
-//       console.log("Error in users.index:", err);
-//       res.json({ Error: "Unable to get data" });
-//     });
-// };
-
-// const create = (req, res) => {
-//   db.User.create(req.body)
-//     .then(savedUser => {
-//       res.json({ user: savedUser });
-//     })
-//     .catch(err => {
-//       console.log("Error in users.create:", err);
-//       res.json({ Error: "Unable to create user" });
-//     });
-// };
 
 const update = async (req, res) => {
   try {
     const updatedUser = await db.User.findByIdAndUpdate(
-      req.params.id,
+      req.user._id,
       { $set: { ...req.body } },
       { new: true }
     );
     res.json(updatedUser);
   } catch (err) {
-    console.log("Error in users.updatee:", err);
+    console.log("Error in users.update:", err);
     res.json({ Error: "Unable to get data in users.update" });
   }
 };
 
 // const destroy = async (req, res) => {
 //   try {
-//     const deletedUser = await db.User.findByIdAndDelete(req.params.id);
+//     const deletedUser = await db.User.findByIdAndDelete(req.user._id);
 //     res.json({ user: deletedUser });
 //   } catch (err) {
 //     console.log("Error in users.destroy:", err);
@@ -59,9 +41,7 @@ const update = async (req, res) => {
 // };
 
 module.exports = {
-  // index,
-  show,
-  // create,
+  userData,
   update,
   // destroy,
 };
