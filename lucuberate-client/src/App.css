@@ -813,12 +813,19 @@ hr {
   display: flex;
   justify-content: center;
 }
-
-.password-visibilty-btn {
+.input-icons-container {
   position: absolute;
   right: 0;
-  margin-top: 40px;
-  margin-right: 50px;
+  margin-top: 35px;
+  margin-right: 30px;
+}
+
+input[name="password"] {
+  padding-right: 4rem;
+}
+
+.password-visibilty-btn {
+  margin-right: 10px;
   background: none;
   opacity: 0.5;
   color: white;
@@ -826,6 +833,14 @@ hr {
 
 .password-visibilty-btn:hover {
   opacity: 0.9;
+}
+
+.caps-lock-warning {
+  display: block;
+}
+
+.caps-lock-hide {
+  display: none;
 }
 
 .oauth-container {
@@ -843,36 +858,6 @@ hr {
     transparent 5px 50% no-repeat;
   background-size: auto 50px;
 }
-/* ------------------------------- */
-/* #customBtn {
-      display: inline-block;
-      background: white;
-      color: #444;
-      width: 190px;
-      border-radius: 5px;
-      border: thin solid #888;
-      box-shadow: 1px 1px 1px grey;
-      white-space: nowrap;
-    }
-    #customBtn:hover {
-      cursor: pointer;
-    }
-    span.icon {
-      background: url('images/btn_google_signin_light_normal_web@2x.png') transparent 5px 50% no-repeat;
-      display: inline-block;
-      vertical-align: middle;
-      width: 42px;
-      height: 42px;
-    }
-    span.buttonText {
-      display: inline-block;
-      vertical-align: middle;
-      padding-left: 42px;
-      padding-right: 42px;
-      font-size: 14px;
-      font-weight: bold;
-      font-family: 'Roboto', sans-serif;
-    } */
 
 /* ------------------------------- Guide Modal */
 
@@ -2461,9 +2446,13 @@ input[type="radio"]:checked + label {
     margin-top: 0;
   }
 
+  .input-icons-container {
+    margin-top: 27px;
+    margin-right: 15px;
+  }
+
   .password-visibilty-btn {
-    margin-top: 25px;
-    margin-right: 30px;
+    margin-right: 0;
   }
 
   .oauth-btn {

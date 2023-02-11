@@ -8,6 +8,7 @@ import {
   LockIcon,
   EyeIcon,
   EyeClosedIcon,
+  ArrowUpIcon,
 } from "@primer/octicons-react";
 import {
   UserContext,
@@ -24,6 +25,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
   const { setShowGuide } = useContext(GuideContext);
   const { setShowCategoryList } = useContext(CategoryListContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [capsLock, setCapsLock] = useState(null);
   const [newUserInfo, setNewUserInfo] = useState({
     username: "",
     email: "",
@@ -154,6 +156,15 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
     }, 1000);
   };
 
+  const checkForCapsLock = e => {
+    console.log({ capsLock: e.getModifierState("CapsLock") });
+    if (e.getModifierState("CapsLock")) {
+      setCapsLock(true);
+    } else {
+      setCapsLock(false);
+    }
+  };
+
   const errorStyle = {
     color: "red",
     fontSize: "12px",
@@ -251,23 +262,29 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       className="form-control validate"
                       value={newUserInfo.password}
                       onChange={handleChange}
+                      onKeyUp={checkForCapsLock}
+                      onKeyDown={checkForCapsLock}
+                      onClick={checkForCapsLock}
                       required
                       autoComplete="off"
                     />
-                    <button
-                      className="password-visibilty-btn"
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      title={showPassword ? "Hide Password" : "Show Password"}
-                      aria-label={
-                        showPassword ? "Hide Password" : "Show Password"
-                      }>
-                      {showPassword ? (
-                        <EyeIcon size={16} />
-                      ) : (
-                        <EyeClosedIcon size={16} />
-                      )}
-                    </button>
+                    <div className="input-icons-container">
+                      <button
+                        className="password-visibilty-btn"
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        title={showPassword ? "Hide Password" : "Show Password"}
+                        aria-label={
+                          showPassword ? "Hide Password" : "Show Password"
+                        }>
+                        {showPassword ? (
+                          <EyeIcon size={16} />
+                        ) : (
+                          <EyeClosedIcon size={16} />
+                        )}
+                      </button>
+                      {capsLock ? <ArrowUpIcon size={16} /> : <></>}
+                    </div>
                   </div>
                   <div className="btn-container">
                     <button
