@@ -734,6 +734,7 @@ footer {
   font-weight: 500;
   margin: 0 1rem;
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: 60vh;
 }
 
@@ -782,14 +783,98 @@ footer {
   flex-wrap: wrap-reverse;
 }
 
-.signup-login .modal-footer p {
-  text-align: center;
-  font-size: 12px;
-}
-
 .modal a {
   color: var(--accent-color);
 }
+
+.hr-container {
+  display: flex;
+}
+
+hr {
+  margin: 1rem auto;
+  height: 1px;
+  background: var(--hr-color);
+}
+
+/* ------------------------------- Login / Signup Modal */
+.signup-login .modal-footer p {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 1rem;
+}
+
+.signup-login .form-btn {
+  width: 202px;
+  margin: 0 auto 1rem;
+  padding: 0.8rem;
+}
+.signup-login .btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.password-visibilty-btn {
+  position: absolute;
+  right: 0;
+  margin-top: 40px;
+  margin-right: 50px;
+  background: none;
+  opacity: 0.5;
+  color: white;
+}
+
+.password-visibilty-btn:hover {
+  opacity: 0.9;
+}
+
+.oauth-container {
+  padding: 1rem;
+  margin: 0 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.oauth-btn {
+  width: 218px;
+  height: 50px;
+  margin-top: 1rem;
+  background: url("images/btn_google_signin_light_normal_web@2x.png")
+    transparent 5px 50% no-repeat;
+  background-size: auto 50px;
+}
+/* ------------------------------- */
+/* #customBtn {
+      display: inline-block;
+      background: white;
+      color: #444;
+      width: 190px;
+      border-radius: 5px;
+      border: thin solid #888;
+      box-shadow: 1px 1px 1px grey;
+      white-space: nowrap;
+    }
+    #customBtn:hover {
+      cursor: pointer;
+    }
+    span.icon {
+      background: url('images/btn_google_signin_light_normal_web@2x.png') transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+    }
+    span.buttonText {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 42px;
+      padding-right: 42px;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: 'Roboto', sans-serif;
+    } */
+
+/* ------------------------------- Guide Modal */
 
 #deleteConfirmModal .modal-footer {
   -webkit-box-orient: horizontal;
@@ -800,13 +885,6 @@ footer {
 
 #deleteConfirmModal .modal-title {
   text-align: left;
-}
-
-hr {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  height: 1px;
-  background: var(--hr-color);
 }
 
 /* ------------------------------- Guide Modal */
@@ -2351,7 +2429,7 @@ input[type="radio"]:checked + label {
   .signup-login .modal-footer p,
   .signup-login .modal-footer {
     margin-bottom: 0;
-    padding-bottom: 0.5rem;
+    padding: 0.5rem 0;
   }
 
   .signup-login hr {
@@ -2360,14 +2438,38 @@ input[type="radio"]:checked + label {
   }
 
   .signup-login .modal-header,
-  .signup-login .modal-body,
   .signup-login .modal-footer {
     padding: 0.5rem;
+  }
+
+  .signup-login .modal-body {
+    padding: 0;
   }
 
   .signup-login .modal-header {
     padding-left: 1rem;
   }
+
+  .signup-login .form-btn {
+    height: 42px;
+    margin: 0.5rem auto 1rem;
+  }
+
+  .signup-login .modal-footer p {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 0;
+  }
+
+  .password-visibilty-btn {
+    margin-top: 25px;
+    margin-right: 30px;
+  }
+
+  .oauth-btn {
+    margin-top: 0;
+  }
+
   /* ================================ Guide Modal */
 
   .modal-guide {

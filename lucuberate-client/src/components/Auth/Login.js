@@ -2,7 +2,12 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserAPI from "../../utils/api/user";
 import AuthAPI from "../../utils/api/auth";
-import { MailIcon, LockIcon } from "@primer/octicons-react";
+import {
+  MailIcon,
+  LockIcon,
+  EyeIcon,
+  EyeClosedIcon,
+} from "@primer/octicons-react";
 import {
   UserContext,
   ThemeContext,
@@ -16,6 +21,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setShowGuide } = useContext(GuideContext);
   const { setShowCategoryList } = useContext(CategoryListContext);
+  const [showPassword, setShowPassword] = useState(false);
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
@@ -70,25 +76,33 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
         }));
       }
     } else {
-      sessionStorage.setItem(
-        "user",
-        JSON.stringify({
-          isLoggedIn: true,
-        })
-      );
-      setCurrentUserInfo(data);
-      setTheme(data.theme === "dark" ? "dark" : "light");
-      setShowLoginModal(false);
-      if (data.showGuideModal) {
-        setShowGuide(true);
-        setShowCategoryList(false);
-        if (data.cubes.length !== 0) {
-          navigate(`/dashboard/${data.categories[0].cubes[0]}`);
+      if (data._id) {
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify({
+            isLoggedIn: true,
+          })
+        );
+        setCurrentUserInfo(data);
+        setTheme(data.theme === "dark" ? "dark" : "light");
+        setShowLoginModal(false);
+        setUserInput({
+          email: "",
+          password: "",
+          userError: "",
+          matchError: "",
+        });
+        if (data.showGuideModal) {
+          setShowGuide(true);
+          setShowCategoryList(false);
+          if (data.cubes.length !== 0) {
+            navigate(`/dashboard/${data.categories[0].cubes[0]}`);
+          } else {
+            navigate("/dashboard");
+          }
         } else {
           navigate("/dashboard");
         }
-      } else {
-        navigate("/dashboard");
       }
     }
   };
@@ -177,6 +191,16 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
+              <div className="oauth-container">
+                <button
+                  className="oauth-btn google-btn"
+                  onClick={loginWithGoogle}></button>
+              </div>
+              <div className="hr-container">
+                <hr size="2" width="30%" />
+                <h6>or</h6>
+                <hr size="2" width="30%" />
+              </div>
               <form onSubmit={handleSubmit}>
                 <div className="modal-body">
                   <div className="md-form">
@@ -209,7 +233,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                       Password
                     </label>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="password"
                       id="login-pass"
                       className="form-control validate"
@@ -218,17 +242,33 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                       required
                       autoComplete="off"
                     />
+                    <button
+                      className="password-visibilty-btn"
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      title={showPassword ? "Hide Password" : "Show Password"}
+                      aria-label={
+                        showPassword ? "Hide Password" : "Show Password"
+                      }>
+                      {showPassword ? (
+                        <EyeIcon size={16} />
+                      ) : (
+                        <EyeClosedIcon size={16} />
+                      )}
+                    </button>
                     {userInput.matchError && (
                       <p style={errorStyle}>{userInput.matchError}</p>
                     )}
                   </div>
+                  <div className="btn-container">
+                    <button
+                      type="submit"
+                      className="btn form-btn btn-secondary">
+                      Login
+                    </button>
+                  </div>
                 </div>
                 <div className="modal-footer">
-                  <hr size="2" width="90%" />
-                  <button type="submit" className="btn form-btn btn-secondary">
-                    Login
-                  </button>
-                  <hr size="2" width="70%" />
                   <p>
                     Need an account?{" "}
                     <Link
@@ -243,7 +283,6 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                   </p>
                 </div>
               </form>
-              <button onClick={loginWithGoogle}>Google</button>
             </div>
           </div>
         </div>

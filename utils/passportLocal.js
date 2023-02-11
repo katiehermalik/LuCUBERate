@@ -27,14 +27,14 @@ passport.use(
           .populate("categories")
           .populate("cubes");
         if (!populatedUser) {
-          done({ userError: "User email not found" }, false);
+          done(null, false, { userError: "User email not found" });
         } else {
           const isMatch = await bcrypt.compare(
             password,
             populatedUser.password
           );
           if (!isMatch) {
-            done({ matchError: "Incorrect password" }, false);
+            done(null, false, { matchError: "Incorrect password" });
           } else {
             done(null, populatedUser);
           }
@@ -79,7 +79,7 @@ passport.use(
         const { username } = req.body;
         const foundUser = await db.User.findOne({ email: email });
         if (foundUser) {
-          done({ emailError: "Email already exists" }, false);
+          done(null, false, { emailError: "Email already exists" });
         } else {
           bcrypt.hash(password, 10, async (err, hash) => {
             if (err) throw err;
