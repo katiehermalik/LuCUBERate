@@ -33,10 +33,13 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
   });
 
   let googleLoginUrl;
+  let googleSuccessUrl;
   if (process.env.NODE_ENV === "production") {
     googleLoginUrl = "https://lucuberate.com/api/v1/oauth/google";
+    googleSuccessUrl = "https://lucuberate.com/login/success";
   } else {
     googleLoginUrl = "http://localhost:4000/api/v1/oauth/google";
+    googleSuccessUrl = "http://localhost:3000/login/success";
   }
 
   const validateUsername = () => {
@@ -71,26 +74,27 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     newUserInfo.isRegistering = true;
-    const data = await AuthAPI.signup(newUserInfo);
-    if (data.emailError) {
+    const userInfo = await AuthAPI.signup(newUserInfo);
+    const { userData, isAuth, emailError } = userInfo;
+    if (emailError) {
       setNewUserInfo(prevState => ({
         ...prevState,
-        emailError: data.emailError,
+        emailError: emailError,
       }));
       validateUsername();
     } else {
       if (newUserInfo.username?.length < 3) {
         validateUsername();
       } else {
-        if (data._id) {
+        if (isAuth) {
           sessionStorage.setItem(
             "user",
             JSON.stringify({
               isLoggedIn: true,
             })
           );
-          setCurrentUserInfo(data);
-          setCurrentCubeId(data.categories[2].cubes[0]);
+          setCurrentUserInfo(userData);
+          setCurrentCubeId(userData.categories[2].cubes[0]);
           setShowSignUpModal(false);
           setShowGuide(true);
           setShowCategoryList(false);
@@ -101,7 +105,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
             emailError: "",
             usernameError: "",
           });
-          navigate(`/dashboard/${data.categories[2].cubes[0]}`);
+          navigate(`/dashboard/${userData.categories[2].cubes[0]}`);
         }
       }
     }
@@ -109,25 +113,25 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
 
   const fetchOAuthUser = async () => {
     const userInfo = await UserAPI.userData();
-    const { userData: data } = userInfo;
-    if (data._id) {
+    const { userData, isAuth } = userInfo;
+    if (isAuth) {
       sessionStorage.setItem(
         "user",
         JSON.stringify({
           isLoggedIn: true,
         })
       );
-      setCurrentUserInfo(data);
-      setCurrentCubeId(data.categories[2].cubes[0]);
+      setCurrentUserInfo(userData);
+      setCurrentCubeId(userData.categories[2].cubes[0]);
       setShowSignUpModal(false);
       setShowGuide(true);
       setShowCategoryList(false);
-      navigate(`/dashboard/${data.categories[2].cubes[0]}`);
+      navigate(`/dashboard/${userData.categories[2].cubes[0]}`);
     }
   };
 
   const signUpWithGoogle = async () => {
-    function popupWindow(url, windowName, win, w, h) {
+    const newWindow = (url, windowName, win, w, h) => {
       const y = win.top.outerHeight / 2 + win.top.screenY - h / 2;
       const x = win.top.outerWidth / 2 + win.top.screenX - w / 2;
       return win.open(
@@ -135,24 +139,19 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
         windowName,
         `width=${w}, height=${h}, top=${y}, left=${x}`
       );
-    }
-    const newWindow = popupWindow(
-      googleLoginUrl,
-      "Login with Google",
-      window,
-      500,
-      600
-    );
-    if (newWindow) {
-      const timer = setInterval(() => {
-        if (newWindow.closed) {
-          fetchOAuthUser();
-          if (timer) {
-            clearInterval(timer);
-          }
-        }
-      }, 500);
-    }
+    };
+    const popup = newWindow(googleLoginUrl, "popup", window, 500, 600);
+    const checkPopup = setInterval(() => {
+      if (
+        !popup.closed &&
+        popup.window.location.href.includes(googleSuccessUrl)
+      ) {
+        popup.close();
+        fetchOAuthUser();
+      }
+      if (!popup || !popup.closed) return;
+      clearInterval(checkPopup);
+    }, 1000);
   };
 
   const errorStyle = {

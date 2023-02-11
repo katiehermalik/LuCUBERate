@@ -30,10 +30,13 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   });
 
   let googleLoginUrl;
+  let googleSuccessUrl;
   if (process.env.NODE_ENV === "production") {
     googleLoginUrl = "https://lucuberate.com/api/v1/oauth/google";
+    googleSuccessUrl = "https://lucuberate.com/login/success";
   } else {
     googleLoginUrl = "http://localhost:4000/api/v1/oauth/google";
+    googleSuccessUrl = "http://localhost:3000/login/success";
   }
 
   const closeModal = e => {
@@ -58,33 +61,34 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     userInput.isLoggingIn = true;
-    const data = await AuthAPI.login(userInput);
-    if (data.userError) {
+    const userInfo = await AuthAPI.login(userInput);
+    const { userData, isAuth, userError, matchError } = userInfo;
+    if (userError) {
       setUserInput(prevState => ({
         ...prevState,
-        userError: data.userError,
+        userError: userError,
       }));
-    } else if (data.matchError) {
+    } else if (matchError) {
       setUserInput(prevState => ({
         ...prevState,
-        matchError: data.matchError,
+        matchError: matchError,
       }));
-      if (data.userError === undefined) {
+      if (!userError) {
         setUserInput(prevState => ({
           ...prevState,
           userError: "",
         }));
       }
     } else {
-      if (data._id) {
+      if (isAuth) {
         sessionStorage.setItem(
           "user",
           JSON.stringify({
             isLoggedIn: true,
           })
         );
-        setCurrentUserInfo(data);
-        setTheme(data.theme === "dark" ? "dark" : "light");
+        setCurrentUserInfo(userData);
+        setTheme(userData.theme === "dark" ? "dark" : "light");
         setShowLoginModal(false);
         setUserInput({
           email: "",
@@ -92,11 +96,11 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
           userError: "",
           matchError: "",
         });
-        if (data.showGuideModal) {
+        if (userData.showGuideModal) {
           setShowGuide(true);
           setShowCategoryList(false);
-          if (data.cubes.length !== 0) {
-            navigate(`/dashboard/${data.categories[0].cubes[0]}`);
+          if (userData.cubes.length !== 0) {
+            navigate(`/dashboard/${userData.categories[0].cubes[0]}`);
           } else {
             navigate("/dashboard");
           }
@@ -109,22 +113,22 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
 
   const fetchOAuthUser = async () => {
     const userInfo = await UserAPI.userData();
-    const { userData: data } = userInfo;
-    if (data._id) {
+    const { userData, isAuth } = userInfo;
+    if (isAuth) {
       sessionStorage.setItem(
         "user",
         JSON.stringify({
           isLoggedIn: true,
         })
       );
-      setCurrentUserInfo(data);
-      setTheme(data.theme === "dark" ? "dark" : "light");
+      setCurrentUserInfo(userData);
+      setTheme(userData.theme === "dark" ? "dark" : "light");
       setShowLoginModal(false);
-      if (data.showGuideModal) {
+      if (userData.showGuideModal) {
         setShowGuide(true);
         setShowCategoryList(false);
-        if (data.cubes.length !== 0) {
-          navigate(`/dashboard/${data.categories[0].cubes[0]}`);
+        if (userData.cubes.length !== 0) {
+          navigate(`/dashboard/${userData.categories[0].cubes[0]}`);
         } else {
           navigate("/dashboard");
         }
@@ -135,7 +139,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   };
 
   const loginWithGoogle = async () => {
-    function popupWindow(url, windowName, win, w, h) {
+    const newWindow = (url, windowName, win, w, h) => {
       const y = win.top.outerHeight / 2 + win.top.screenY - h / 2;
       const x = win.top.outerWidth / 2 + win.top.screenX - w / 2;
       return win.open(
@@ -143,24 +147,19 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
         windowName,
         `width=${w}, height=${h}, top=${y}, left=${x}`
       );
-    }
-    const newWindow = popupWindow(
-      googleLoginUrl,
-      "Login with Google",
-      window,
-      500,
-      600
-    );
-    if (newWindow) {
-      const timer = setInterval(() => {
-        if (newWindow.closed) {
-          fetchOAuthUser();
-          if (timer) {
-            clearInterval(timer);
-          }
-        }
-      }, 500);
-    }
+    };
+    const popup = newWindow(googleLoginUrl, "popup", window, 500, 600);
+    const checkPopup = setInterval(() => {
+      if (
+        !popup.closed &&
+        popup.window.location.href.includes(googleSuccessUrl)
+      ) {
+        popup.close();
+        fetchOAuthUser();
+      }
+      if (!popup || !popup.closed) return;
+      clearInterval(checkPopup);
+    }, 1000);
   };
 
   const errorStyle = {

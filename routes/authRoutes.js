@@ -15,7 +15,11 @@ router.post("/login", (req, res, next) => {
       }
       req.logIn(user, err => {
         if (err) next(err);
-        return res.json(req.user);
+        return res.json({
+          userData: req.user,
+          isAuth: req.isAuthenticated(),
+          session: req.session,
+        });
       });
     }
   )(req, res, next);
@@ -32,7 +36,11 @@ router.post("/signup", (req, res, next) => {
       }
       req.logIn(user, err => {
         if (err) next(err);
-        return res.json(req.user);
+        return res.json({
+          userData: req.user,
+          isAuth: req.isAuthenticated(),
+          session: req.session,
+        });
       });
     }
   )(req, res, next);

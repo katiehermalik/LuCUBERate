@@ -106,8 +106,8 @@ const ContextProvider = ({ children }) => {
 
   const findUserInfo = useCallback(async () => {
     if (userDataUpdating) {
-      const data = await UserAPI.userData();
-      const { userData } = data;
+      const userInfo = await UserAPI.userData();
+      const { userData } = userInfo;
       setCurrentUserInfo(userData);
       setTheme(userData.theme);
       setUserDataUpdating(false);
