@@ -228,7 +228,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       <p style={errorStyle}>{newUserInfo.usernameError}</p>
                     )}
                     <small className="input-criteria">
-                      *Username must be 3-20 alphanumeric characters in length
+                      *Username must be 3-20 alphanumeric characters
                     </small>
                   </div>
                   <div className="md-form">
@@ -294,7 +294,11 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                           <EyeClosedIcon size={16} />
                         )}
                       </button>
-                      {capsLock ? <ArrowUpIcon size={16} /> : <></>}
+                      {capsLock ? (
+                        <ArrowUpIcon size={16} className="caps-lock-warning" />
+                      ) : (
+                        <></>
+                      )}
                     </div>
                     {newUserInfo.passwordError && (
                       <p style={errorStyle}>{newUserInfo.passwordError}</p>
