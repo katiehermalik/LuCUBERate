@@ -65,50 +65,37 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
     userInput.isLoggingIn = true;
     const userInfo = await AuthAPI.login(userInput);
     const { userData, isAuth, userError, matchError } = userInfo;
-    if (userError) {
-      setUserInput(prevState => ({
-        ...prevState,
-        userError: userError,
-      }));
-    } else if (matchError) {
-      setUserInput(prevState => ({
-        ...prevState,
-        matchError: matchError,
-      }));
-      if (!userError) {
-        setUserInput(prevState => ({
-          ...prevState,
-          userError: "",
-        }));
-      }
-    } else {
-      if (isAuth) {
-        sessionStorage.setItem(
-          "user",
-          JSON.stringify({
-            isLoggedIn: true,
-          })
-        );
-        setCurrentUserInfo(userData);
-        setTheme(userData.theme === "dark" ? "dark" : "light");
-        setShowLoginModal(false);
-        setUserInput({
-          email: "",
-          password: "",
-          userError: "",
-          matchError: "",
-        });
-        if (userData.showGuideModal) {
-          setShowGuide(true);
-          setShowCategoryList(false);
-          if (userData.cubes.length !== 0) {
-            navigate(`/dashboard/${userData.categories[0].cubes[0]}`);
-          } else {
-            navigate("/dashboard");
-          }
+    setUserInput(prevState => ({
+      ...prevState,
+      userError: userError ? userError : "",
+      matchError: matchError ? matchError : "",
+    }));
+    if (!userError && !matchError && isAuth) {
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify({
+          isLoggedIn: true,
+        })
+      );
+      setCurrentUserInfo(userData);
+      setTheme(userData.theme === "dark" ? "dark" : "light");
+      setShowLoginModal(false);
+      setUserInput({
+        email: "",
+        password: "",
+        userError: "",
+        matchError: "",
+      });
+      if (userData.showGuideModal) {
+        setShowGuide(true);
+        setShowCategoryList(false);
+        if (userData.cubes.length !== 0) {
+          navigate(`/dashboard/${userData.categories[0].cubes[0]}`);
         } else {
           navigate("/dashboard");
         }
+      } else {
+        navigate("/dashboard");
       }
     }
   };
@@ -165,7 +152,6 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   };
 
   const checkForCapsLock = e => {
-    console.log({ capsLock: e.getModifierState("CapsLock") });
     if (e.getModifierState("CapsLock")) {
       setCapsLock(true);
     } else {

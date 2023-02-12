@@ -9,6 +9,8 @@ import {
   EyeIcon,
   EyeClosedIcon,
   ArrowUpIcon,
+  ChevronRightIcon,
+  ChevronDownIcon,
 } from "@primer/octicons-react";
 import {
   UserContext,
@@ -24,14 +26,17 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
   const { setCurrentCubeId } = useContext(CubeContext);
   const { setShowGuide } = useContext(GuideContext);
   const { setShowCategoryList } = useContext(CategoryListContext);
+  const [showCriteria, setShowCriteria] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(null);
   const [newUserInfo, setNewUserInfo] = useState({
     username: "",
     email: "",
     password: "",
-    emailError: "",
     usernameError: "",
+    emailExistsError: "",
+    emailValidationError: "",
+    passwordError: "",
   });
 
   let googleLoginUrl;
@@ -44,23 +49,16 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
     googleSuccessUrl = "http://localhost:3000/login/success";
   }
 
-  const validateUsername = () => {
-    if (newUserInfo.username?.length < 3) {
-      setNewUserInfo(prevState => ({
-        ...prevState,
-        usernameError: "Username must be 3 or more characters long",
-      }));
-    }
-  };
-
   const closeModal = e => {
     e.stopPropagation();
     setNewUserInfo({
       username: "",
       email: "",
       password: "",
-      emailError: "",
       usernameError: "",
+      emailExistsError: "",
+      emailValidationError: "",
+      passwordError: "",
     });
     setShowSignUpModal(false);
     e.target.name === "Login" && setShowLoginModal(true);
@@ -77,39 +75,43 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
     e.preventDefault();
     newUserInfo.isRegistering = true;
     const userInfo = await AuthAPI.signup(newUserInfo);
-    const { userData, isAuth, emailError } = userInfo;
-    if (emailError) {
-      setNewUserInfo(prevState => ({
-        ...prevState,
-        emailError: emailError,
-      }));
-      validateUsername();
-    } else {
-      if (newUserInfo.username?.length < 3) {
-        validateUsername();
-      } else {
-        if (isAuth) {
-          sessionStorage.setItem(
-            "user",
-            JSON.stringify({
-              isLoggedIn: true,
-            })
-          );
-          setCurrentUserInfo(userData);
-          setCurrentCubeId(userData.categories[2].cubes[0]);
-          setShowSignUpModal(false);
-          setShowGuide(true);
-          setShowCategoryList(false);
-          setNewUserInfo({
-            username: "",
-            email: "",
-            password: "",
-            emailError: "",
-            usernameError: "",
-          });
-          navigate(`/dashboard/${userData.categories[2].cubes[0]}`);
-        }
-      }
+    const {
+      userData,
+      isAuth,
+      emailExistsError,
+      emailValidationError,
+      passwordError,
+      usernameError,
+    } = userInfo;
+    setNewUserInfo(prevState => ({
+      ...prevState,
+      usernameError: usernameError ? usernameError : "",
+      emailExistsError: emailExistsError ? emailExistsError : "",
+      emailValidationError: emailValidationError ? emailValidationError : "",
+      passwordError: passwordError ? passwordError : "",
+    }));
+    if (isAuth) {
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify({
+          isLoggedIn: true,
+        })
+      );
+      setCurrentUserInfo(userData);
+      setCurrentCubeId(userData.categories[2].cubes[0]);
+      setShowSignUpModal(false);
+      setShowGuide(true);
+      setShowCategoryList(false);
+      setNewUserInfo({
+        username: "",
+        email: "",
+        password: "",
+        usernameError: "",
+        emailExistsError: "",
+        emailValidationError: "",
+        passwordError: "",
+      });
+      navigate(`/dashboard/${userData.categories[2].cubes[0]}`);
     }
   };
 
@@ -157,7 +159,6 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
   };
 
   const checkForCapsLock = e => {
-    console.log({ capsLock: e.getModifierState("CapsLock") });
     if (e.getModifierState("CapsLock")) {
       setCapsLock(true);
     } else {
@@ -220,11 +221,15 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       className="form-control validate"
                       value={newUserInfo.username}
                       onChange={handleChange}
+                      maxLength="20"
                       required
                     />
                     {newUserInfo.usernameError && (
                       <p style={errorStyle}>{newUserInfo.usernameError}</p>
                     )}
+                    <small className="input-criteria">
+                      *Username must be 3-20 alphanumeric characters in length
+                    </small>
                   </div>
                   <div className="md-form">
                     <label
@@ -235,7 +240,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       Email
                     </label>
                     <input
-                      type="email"
+                      type="text"
                       name="email"
                       id="signup-email"
                       className="form-control validate"
@@ -243,8 +248,13 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       onChange={handleChange}
                       required
                     />
-                    {newUserInfo.emailError && (
-                      <p style={errorStyle}>{newUserInfo.emailError}</p>
+                    {newUserInfo.emailExistsError && (
+                      <p style={errorStyle}>{newUserInfo.emailExistsError}</p>
+                    )}
+                    {newUserInfo.emailValidationError && (
+                      <p style={errorStyle}>
+                        {newUserInfo.emailValidationError}
+                      </p>
                     )}
                   </div>
                   <div className="md-form">
@@ -265,6 +275,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       onKeyUp={checkForCapsLock}
                       onKeyDown={checkForCapsLock}
                       onClick={checkForCapsLock}
+                      maxLength="15"
                       required
                       autoComplete="off"
                     />
@@ -285,6 +296,43 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       </button>
                       {capsLock ? <ArrowUpIcon size={16} /> : <></>}
                     </div>
+                    {newUserInfo.passwordError && (
+                      <p style={errorStyle}>{newUserInfo.passwordError}</p>
+                    )}
+
+                    <small className="input-criteria password-criteria">
+                      {showCriteria ? (
+                        <>
+                          <div onClick={() => setShowCriteria(!showCriteria)}>
+                            Hide password criteria
+                            <ChevronDownIcon size={16} />
+                          </div>
+                          <ul>
+                            <li>
+                              Should have at least one numerical digit(0-9)
+                            </li>
+                            <li>
+                              Length should be in between 8 to 15 characters
+                            </li>
+                            <li>
+                              Should have at least one lowercase letter(a-z)
+                            </li>
+                            <li>
+                              Should have at least one uppercase letter(A-Z)
+                            </li>
+                            <li>
+                              Should have at least one special character ( @, #,
+                              %, &, !, $, *)
+                            </li>
+                          </ul>
+                        </>
+                      ) : (
+                        <div onClick={() => setShowCriteria(!showCriteria)}>
+                          View password criteria
+                          <ChevronRightIcon size={16} />
+                        </div>
+                      )}
+                    </small>
                   </div>
                   <div className="btn-container">
                     <button
@@ -295,12 +343,12 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <p>
+                  <small>
                     Already have an account?{" "}
                     <Link to="/" name="Login" onClick={closeModal}>
                       Login Here
                     </Link>
-                  </p>
+                  </small>
                 </div>
               </form>
             </div>

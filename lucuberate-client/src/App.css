@@ -798,10 +798,9 @@ hr {
 }
 
 /* ------------------------------- Login / Signup Modal */
-.signup-login .modal-footer p {
+.signup-login .modal-footer small {
   text-align: center;
-  font-size: 12px;
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 
 .signup-login .form-btn {
@@ -809,10 +808,12 @@ hr {
   margin: 0 auto 1rem;
   padding: 0.8rem;
 }
+
 .signup-login .btn-container {
   display: flex;
   justify-content: center;
 }
+
 .input-icons-container {
   position: absolute;
   right: 0;
@@ -833,6 +834,19 @@ input[name="password"] {
 
 .password-visibilty-btn:hover {
   opacity: 0.9;
+}
+
+.input-criteria {
+  margin-left: 3px;
+}
+
+.password-criteria div {
+  cursor: pointer;
+}
+
+.password-criteria li {
+  list-style: none;
+  margin-left: 10px;
 }
 
 .caps-lock-warning {
@@ -2155,6 +2169,10 @@ input[type="radio"]:checked + label {
 @media screen and (max-width: 720px) {
   /* ================================ Cube Show Page */
 
+  small {
+    font-size: 12px;
+  }
+
   .list-footer {
     border-right: none;
   }
@@ -2411,9 +2429,8 @@ input[type="radio"]:checked + label {
     margin: 0.5rem 0;
   }
 
-  .signup-login .modal-footer p,
+  .signup-login .modal-footer small,
   .signup-login .modal-footer {
-    margin-bottom: 0;
     padding: 0.5rem 0;
   }
 
@@ -2442,7 +2459,6 @@ input[type="radio"]:checked + label {
 
   .signup-login .modal-footer p {
     text-align: center;
-    font-size: 12px;
     margin-top: 0;
   }
 

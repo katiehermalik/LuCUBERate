@@ -15,6 +15,22 @@ passport.deserializeUser(async (id, done) => {
   if (user) done(null, user);
 });
 
+const checkUsername = str => {
+  const criteria = /^[A-Za-z0-9]{3,20}$/;
+  return criteria.test(str);
+};
+
+const checkPassword = str => {
+  const criteria = /^(?=.*\d)(?=.*[@#%&!$*])(?=.*[a-z])(?=.*[A-Z]).{8,15}$/;
+  return criteria.test(str);
+};
+
+const checkEmail = str => {
+  const criteria =
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  return criteria.test(str);
+};
+
 passport.use(
   new LocalStrategy(
     {
@@ -41,7 +57,6 @@ passport.use(
         }
       } else if (req.body.isRegistering) {
         let signupData = {};
-
         const addNewUserCategories = async newUser => {
           const newCategories = seedData.categories.map(category => ({
             ...category,
@@ -79,19 +94,36 @@ passport.use(
         const { username } = req.body;
         const foundUser = await db.User.findOne({ email: email });
         if (foundUser) {
-          done(null, false, { emailError: "Email already exists" });
+          done(null, false, { emailExistsError: "Email already exists" });
         } else {
-          bcrypt.hash(password, 10, async (err, hash) => {
-            if (err) throw err;
-            const user = new db.User({
-              username: username,
-              email: email,
-              password: hash,
+          const usernameIsValid = checkUsername(username);
+          const emailIsValid = checkEmail(email);
+          const passwordIsValid = checkPassword(password);
+          if (usernameIsValid && emailIsValid && passwordIsValid) {
+            bcrypt.hash(password, 10, async (err, hash) => {
+              if (err) throw err;
+              const user = new db.User({
+                username: username,
+                email: email,
+                password: hash,
+              });
+              const newUser = await user.save();
+              const completedUser = await addNewUserCategories(newUser);
+              done(null, completedUser);
             });
-            const newUser = await user.save();
-            const completedUser = await addNewUserCategories(newUser);
-            done(null, completedUser);
-          });
+          } else {
+            done(null, false, {
+              usernameError: usernameIsValid
+                ? null
+                : "Please enter a valid username",
+              passwordError: passwordIsValid
+                ? null
+                : "Please enter a valid password",
+              emailValidationError: emailIsValid
+                ? null
+                : "Please enter a valid email address",
+            });
+          }
         }
       }
     }
