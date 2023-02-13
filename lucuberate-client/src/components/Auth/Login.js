@@ -1,7 +1,5 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import UserAPI from "../../utils/api/user";
-import AuthAPI from "../../utils/api/auth";
 import {
   MailIcon,
   LockIcon,
@@ -15,6 +13,12 @@ import {
   GuideContext,
   CategoryListContext,
 } from "../../context/ContextProvider";
+import UserAPI from "../../utils/api/user";
+import AuthAPI from "../../utils/api/auth";
+import {
+  googleLoginUrl,
+  googleSuccessUrl,
+} from "../../config/multi-environment";
 
 const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   const navigate = useNavigate();
@@ -30,16 +34,6 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
     userError: "",
     matchError: "",
   });
-
-  let googleLoginUrl;
-  let googleSuccessUrl;
-  if (process.env.NODE_ENV === "production") {
-    googleLoginUrl = "https://lucuberate.com/api/v1/oauth/google";
-    googleSuccessUrl = "https://lucuberate.com/login/success";
-  } else {
-    googleLoginUrl = "http://localhost:4000/api/v1/oauth/google";
-    googleSuccessUrl = "http://localhost:3000/login/success";
-  }
 
   const closeModal = e => {
     e.stopPropagation();
@@ -137,7 +131,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
         `width=${w}, height=${h}, top=${y}, left=${x}`
       );
     };
-    const popup = newWindow(googleLoginUrl, "popup", window, 500, 600);
+    const popup = newWindow(googleLoginUrl, "popup", window, 600, 700);
     const checkPopup = setInterval(() => {
       if (
         !popup.closed &&

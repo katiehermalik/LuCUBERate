@@ -1,21 +1,8 @@
-let url;
-if (process.env.NODE_ENV === "production") {
-  url = `https://lucuberate.com/api/v1/categories`;
-} else {
-  url = "http://localhost:4000/api/v1/categories";
-}
+import { categoriesUrl } from "../../config/multi-environment";
 
 class CategoryAPI {
-  // static all() {
-  //   return fetch(url)
-  //     .then(res => res.json())
-  //     .catch(err => {
-  //       console.log("Error fetching data in CategoryAPI.all", err);
-  //     });
-  // }
-
   static create(newCategory) {
-    return fetch(url, {
+    return fetch(categoriesUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newCategory),
@@ -27,29 +14,8 @@ class CategoryAPI {
       });
   }
 
-  // static getOne(id) {
-  //   return fetch(`${url}/${id}`)
-  //     .then(res => res.json())
-  //     .catch(err => {
-  //       console.log("Error fetching data in CategoryAPI.getOne", err);
-  //       return { category: {} };
-  //     });
-  // }
-
-  // static update(updatedCategory, id) {
-  //   return fetch(`${url}/${id}`, {
-  //     method: "PUT",
-  //     body: updatedCategory,
-  //   })
-  //     .then(res => res.json())
-  //     .catch(err => {
-  //       console.log("Error fetching data in CategoryAPI.update", err);
-  //       return { message: "Error fetching data in CategoryAPI.update" };
-  //     });
-  // }
-
   static delete(id) {
-    return fetch(`${url}/${id}`, {
+    return fetch(`${categoriesUrl}/${id}`, {
       method: "DELETE",
     })
       .then(res => res.json())
@@ -60,7 +26,7 @@ class CategoryAPI {
   }
 
   static shuffle(id) {
-    return fetch(`${url}/${id}`, {
+    return fetch(`${categoriesUrl}/${id}`, {
       method: "PUT",
     })
       .then(res => res.json())

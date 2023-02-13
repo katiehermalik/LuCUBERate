@@ -1,7 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const db = require("../models");
-const seedData = require("../data.json");
+const seedData = require("../data/seed-data.json");
 
 passport.use(
   new GoogleStrategy(
