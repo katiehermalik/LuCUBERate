@@ -138,7 +138,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
         `width=${w}, height=${h}, top=${y}, left=${x}`
       );
     };
-    const popup = newWindow(googleLoginUrl, "popup", window, 500, 600);
+    const popup = newWindow(googleLoginUrl, "popup", window, 600, 700);
     const checkPopup = setInterval(() => {
       if (
         !popup.closed &&
