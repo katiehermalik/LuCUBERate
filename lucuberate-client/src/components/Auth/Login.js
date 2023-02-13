@@ -1,7 +1,14 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserAPI from "../../utils/api/user";
-import { MailIcon, LockIcon } from "@primer/octicons-react";
+import AuthAPI from "../../utils/api/auth";
+import {
+  MailIcon,
+  LockIcon,
+  EyeIcon,
+  EyeClosedIcon,
+  ArrowUpIcon,
+} from "@primer/octicons-react";
 import {
   UserContext,
   ThemeContext,
@@ -15,12 +22,24 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setShowGuide } = useContext(GuideContext);
   const { setShowCategoryList } = useContext(CategoryListContext);
+  const [showPassword, setShowPassword] = useState(false);
+  const [capsLock, setCapsLock] = useState(null);
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
     userError: "",
     matchError: "",
   });
+
+  let googleLoginUrl;
+  let googleSuccessUrl;
+  if (process.env.NODE_ENV === "production") {
+    googleLoginUrl = "https://lucuberate.com/api/v1/oauth/google";
+    googleSuccessUrl = "https://lucuberate.com/login/success";
+  } else {
+    googleLoginUrl = "http://localhost:4000/api/v1/oauth/google";
+    googleSuccessUrl = "http://localhost:3000/login/success";
+  }
 
   const closeModal = e => {
     e.stopPropagation();
@@ -43,46 +62,100 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const data = await UserAPI.login(userInput);
-    if (data.userError) {
-      setUserInput(prevState => ({
-        ...prevState,
-        userError: data.userError,
-      }));
-    } else if (data.matchError) {
-      setUserInput(prevState => ({
-        ...prevState,
-        matchError: data.matchError,
-      }));
-      if (data.userError === undefined) {
-        setUserInput(prevState => ({
-          ...prevState,
-          userError: "",
-        }));
-      }
-    } else {
+    userInput.isLoggingIn = true;
+    const userInfo = await AuthAPI.login(userInput);
+    const { userData, isAuth, userError, matchError } = userInfo;
+    setUserInput(prevState => ({
+      ...prevState,
+      userError: userError ? userError : "",
+      matchError: matchError ? matchError : "",
+    }));
+    if (!userError && !matchError && isAuth) {
       sessionStorage.setItem(
         "user",
         JSON.stringify({
-          user_Id: data.user_Id,
-          isLoggedIn: data.isLoggedIn,
-          returnUser: true,
+          isLoggedIn: true,
         })
       );
-      setCurrentUserInfo(data.currentUser);
-      setTheme(data.currentUser.theme === "dark" ? "dark" : "light");
+      setCurrentUserInfo(userData);
+      setTheme(userData.theme === "dark" ? "dark" : "light");
       setShowLoginModal(false);
-      if (data.currentUser.newUser) {
+      setUserInput({
+        email: "",
+        password: "",
+        userError: "",
+        matchError: "",
+      });
+      if (userData.showGuideModal) {
         setShowGuide(true);
         setShowCategoryList(false);
-        if (data.currentUser.cubes.length !== 0) {
-          navigate(`/dashboard/${data.currentUser.categories[0].cubes[0]}`);
+        if (userData.cubes.length !== 0) {
+          navigate(`/dashboard/${userData.categories[0].cubes[0]}`);
         } else {
           navigate("/dashboard");
         }
       } else {
         navigate("/dashboard");
       }
+    }
+  };
+
+  const fetchOAuthUser = async () => {
+    const userInfo = await UserAPI.userData();
+    const { userData, isAuth } = userInfo;
+    if (isAuth) {
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify({
+          isLoggedIn: true,
+        })
+      );
+      setCurrentUserInfo(userData);
+      setTheme(userData.theme === "dark" ? "dark" : "light");
+      setShowLoginModal(false);
+      if (userData.showGuideModal) {
+        setShowGuide(true);
+        setShowCategoryList(false);
+        if (userData.cubes.length !== 0) {
+          navigate(`/dashboard/${userData.categories[0].cubes[0]}`);
+        } else {
+          navigate("/dashboard");
+        }
+      } else {
+        navigate("/dashboard");
+      }
+    }
+  };
+
+  const loginWithGoogle = async () => {
+    const newWindow = (url, windowName, win, w, h) => {
+      const y = win.top.outerHeight / 2 + win.top.screenY - h / 2;
+      const x = win.top.outerWidth / 2 + win.top.screenX - w / 2;
+      return win.open(
+        url,
+        windowName,
+        `width=${w}, height=${h}, top=${y}, left=${x}`
+      );
+    };
+    const popup = newWindow(googleLoginUrl, "popup", window, 500, 600);
+    const checkPopup = setInterval(() => {
+      if (
+        !popup.closed &&
+        popup.window.location.href.includes(googleSuccessUrl)
+      ) {
+        popup.close();
+        fetchOAuthUser();
+      }
+      if (!popup || !popup.closed) return;
+      clearInterval(checkPopup);
+    }, 1000);
+  };
+
+  const checkForCapsLock = e => {
+    if (e.getModifierState("CapsLock")) {
+      setCapsLock(true);
+    } else {
+      setCapsLock(false);
     }
   };
 
@@ -113,6 +186,16 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                   aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
+              </div>
+              <div className="oauth-container">
+                <button
+                  className="oauth-btn google-btn"
+                  onClick={loginWithGoogle}></button>
+              </div>
+              <div className="hr-container">
+                <hr size="2" width="30%" />
+                <h6>or</h6>
+                <hr size="2" width="30%" />
               </div>
               <form onSubmit={handleSubmit}>
                 <div className="modal-body">
@@ -146,27 +229,50 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                       Password
                     </label>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="password"
                       id="login-pass"
                       className="form-control validate"
                       value={userInput.password}
                       onChange={handleChange}
+                      onKeyUp={checkForCapsLock}
+                      onKeyDown={checkForCapsLock}
+                      onClick={checkForCapsLock}
                       required
                       autoComplete="off"
                     />
+                    <div className="input-icons-container">
+                      <button
+                        className="password-visibilty-btn"
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        title={showPassword ? "Hide Password" : "Show Password"}
+                        aria-label={
+                          showPassword ? "Hide Password" : "Show Password"
+                        }>
+                        {showPassword ? (
+                          <EyeIcon size={16} />
+                        ) : (
+                          <EyeClosedIcon size={16} />
+                        )}
+                      </button>
+                      {capsLock ? <ArrowUpIcon size={16} /> : <></>}
+                    </div>
                     {userInput.matchError && (
                       <p style={errorStyle}>{userInput.matchError}</p>
                     )}
                   </div>
+                  <div className="btn-container">
+                    <button
+                      type="submit"
+                      className="btn form-btn btn-secondary">
+                      Login
+                    </button>
+                  </div>
                 </div>
                 <div className="modal-footer">
-                  <button type="submit" className="btn form-btn btn-secondary">
-                    Login
-                  </button>
-                  <hr size="2" width="70%" />
                   <p>
-                    Don't yet have an account?{" "}
+                    Need an account?{" "}
                     <Link
                       to="/"
                       name="SignUp"
@@ -174,7 +280,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                       data-dismiss="modal"
                       data-toggle="modal"
                       data-target="#modalRegisterForm">
-                      Sign up
+                      Sign Up Here
                     </Link>
                   </p>
                 </div>

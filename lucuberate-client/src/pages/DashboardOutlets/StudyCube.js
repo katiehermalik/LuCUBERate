@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef, useContext } from "react";  
+import React, { useState, useEffect, useRef, useContext } from "react";
 import {
-  UserContext,
   GuideContext,
   CurrentPathContext,
 } from "../../context/ContextProvider";
@@ -13,18 +12,16 @@ const StudyCube = () => {
   const {
     cubeData: { cube },
   } = useContext(CurrentPathContext);
-  const { currentUserInfo } = useContext(UserContext);
   const { showGuide, setShowGuide } = useContext(GuideContext);
   const [side, setSide] = useState("");
   const [isLoadingCube] = useState(false);
-  const sessionData = JSON.parse(sessionStorage.getItem("user")) || "";
+  const { completedGuide } =
+    JSON.parse(localStorage.getItem("completedGuide")) || "";
   const sideRefs = useRef([]);
 
   useEffect(() => {
     document.title = "Lucuberate | Study Cube";
-    currentUserInfo?.newUser &&
-      !sessionData.completedGuide &&
-      setShowGuide(true);
+    showGuide && !completedGuide && setShowGuide(true);
     setSide("Question");
     if (sideRefs.current.length !== 0) {
       sideRefs.current.forEach((ref, i) => {
@@ -32,13 +29,7 @@ const StudyCube = () => {
         else ref.checked = false;
       });
     }
-  }, [
-    cube,
-    currentUserInfo?.newUser,
-    sessionData.completedGuide,
-    setShowGuide,
-    isLoadingCube,
-  ]);
+  }, [cube, showGuide, completedGuide, setShowGuide, isLoadingCube]);
 
   return (
     <>
@@ -76,9 +67,11 @@ const StudyCube = () => {
                 </ul>
               </fieldset>
             </div>
-            {showGuide && <div className="guide-background"></div>}
+            {showGuide && !completedGuide && (
+              <div className="guide-background"></div>
+            )}
             <div className="cube-area-container">
-              {currentUserInfo?.newUser && showGuide && <GuideModal />}
+              {showGuide && !completedGuide && <GuideModal />}
               <div className="cube-area">
                 <div className="cube-container">
                   <div className={`study-cube ${side}`}>

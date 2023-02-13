@@ -1,61 +1,31 @@
 let url;
-let signupUrl;
-let loginUrl;
-let logoutUrl;
 
 if (process.env.NODE_ENV === "production") {
-  url = `https://lucuberate.com/api/v1/users`;
-  signupUrl = `https://lucuberate.com/api/signup`;
-  loginUrl = `https://lucuberate.com/api/login`;
-  logoutUrl = `https://lucuberate.com/api/logout`;
+  url = `https://lucuberate.com/api/v1/users/currentuser`;
 } else {
-  url = `http://localhost:4000/api/v1/users`;
-  signupUrl = `http://localhost:4000/api/signup`;
-  loginUrl = `http://localhost:4000/api/login`;
-  logoutUrl = `http://localhost:4000/api/logout`;
+  url = `http://localhost:4000/api/v1/users/currentuser`;
 }
 
 class UserAPI {
-  static create(newUser) {
-    return fetch(signupUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
+  static userData() {
+    return fetch(url, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then(res => res.json())
       .catch(err => {
-        console.log("Error fetching data in UserAPI.create", err);
-        return { message: "Error fetching data in UserAPI.create" };
+        console.log("Error fetching data in UserAPI.userData", err);
+        return { message: "Error fetching data in UserAPI.userData" };
       });
   }
 
-  static login(user) {
-    return fetch(loginUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    })
-      .then(res => res.json())
-      .catch(err => {
-        console.log("Error fetching data in UserAPI.findOne", err);
-        return { message: "Error fetching data in UserAPI.findOne" };
-      });
-  }
-
-  static logout() {
-    return fetch(logoutUrl, {
-      method: "DELETE",
-    })
-      .then(res => res.json())
-      .catch(err => {
-        console.log("Error fetching data in UserAPI.logout", err);
-        return { message: "Error fetching data in UserAPI.logout" };
-      });
-  }
-
-  static update(updatedUserProperties, id) {
-    return fetch(`${url}/${id}`, {
+  static update(updatedUserProperties) {
+    return fetch(`${url}/update`, {
       method: "PUT",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedUserProperties),
     })
@@ -63,17 +33,6 @@ class UserAPI {
       .catch(err => {
         console.log("Error fetching data in UserAPI.update", err);
         return { message: "Error fetching data in UserAPI.update" };
-      });
-  }
-
-  static allCubesAndCategories(id) {
-    return fetch(`${url}/${id}`, {
-      method: "GET",
-    })
-      .then(res => res.json())
-      .catch(err => {
-        console.log("Error fetching data in UserAPI.allCubes", err);
-        return { cubes: [] }; // something back as well as error
       });
   }
 }

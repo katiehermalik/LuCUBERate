@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { SignOutIcon } from "@primer/octicons-react";
 import {
   UserContext,
@@ -9,9 +8,9 @@ import {
   QuestionsContext,
   CategoryListContext,
 } from "../../context/ContextProvider";
+import AuthAPI from "../../utils/api/auth";
 
 const Logout = ({ setShowUserMenu }) => {
-  const navigate = useNavigate();
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setTheme } = useContext(ThemeContext);
   const { setCurrentCategory } = useContext(CategoryContext);
@@ -19,16 +18,17 @@ const Logout = ({ setShowUserMenu }) => {
   const { setQuestionsAreVisible } = useContext(QuestionsContext);
   const { setShowCategoryList } = useContext(CategoryListContext);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
+    const data = await AuthAPI.logout();
     setTheme("dark");
-    setCurrentUserInfo(null);
+    setCurrentUserInfo(data.user);
     setCurrentCategory(null);
     setCurrentCubeId(null);
     setQuestionsAreVisible(false);
     setShowCategoryList(true);
     setShowUserMenu(false);
     sessionStorage.clear();
-    navigate("/");
+    localStorage.clear();
   };
 
   return (

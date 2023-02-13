@@ -20,8 +20,7 @@ export const DeleteModalContext = createContext(null);
 export const CurrentPathContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
-  const { user_Id, isLoggedIn } =
-    JSON.parse(sessionStorage.getItem("user")) || "";
+  const { isLoggedIn } = JSON.parse(sessionStorage.getItem("user")) || "";
   const { pathname } = useLocation();
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
   const [userDataUpdating, setUserDataUpdating] = useState(true);
@@ -107,12 +106,14 @@ const ContextProvider = ({ children }) => {
 
   const findUserInfo = useCallback(async () => {
     if (userDataUpdating) {
-      const userData = await UserAPI.allCubesAndCategories(user_Id);
+      const userInfo = await UserAPI.userData();
+      const { userData } = userInfo;
       setCurrentUserInfo(userData);
       setTheme(userData.theme);
       setUserDataUpdating(false);
+      setShowGuide(userData.showGuideModal);
     }
-  }, [user_Id, userDataUpdating]);
+  }, [userDataUpdating]);
 
   const loadCube = useCallback(async () => {
     if (currentPath[0] === "show" || currentPath[0] === "edit") {

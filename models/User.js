@@ -17,11 +17,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    googleId: {
+      type: String
+    },
     theme: {
       type: String,
       default: "dark",
     },
     newUser: {
+      type: Boolean,
+      default: true,
+    },
+    showGuideModal: {
       type: Boolean,
       default: true,
     },

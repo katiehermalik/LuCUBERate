@@ -7,7 +7,6 @@ import {
 } from "../context/ContextProvider";
 import CubeAPI from "../utils/api/cube";
 import CategoryAPI from "../utils/api/category";
-// import UserAPI from "../models/user";
 
 const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
   const navigate = useNavigate();
@@ -49,15 +48,8 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
     navigate("/dashboard");
     await CategoryAPI.delete(categoryId);
     setUserDataUpdating(true);
-    // const categoriesAndCubes = await UserAPI.allCubesAndCategories(
-    //   currentUserInfo._id
-    // );
     setCurrentCubeId("");
     setCurrentCategory(null);
-    // setCurrentUserInfo({
-    //   ...categoriesAndCubes,
-    //   user_id: currentUserInfo._id,
-    // });
     setDeleteModalInfo({ showModal: false });
   };
 
@@ -67,16 +59,9 @@ const DeleteModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
     setCurrentCubeId("");
     const deletedCube = await CubeAPI.delete(cubeId);
     setUserDataUpdating(true);
-    // const categoriesAndCubes = await UserAPI.allCubesAndCategories(
-    //   currentUserInfo._id
-    // );
     if (deletedCube.categoryDeleted) {
       setCurrentCategory(null);
     }
-    // setCurrentUserInfo({
-    //   ...categoriesAndCubes,
-    //   user_id: currentUserInfo._id,
-    // });
     setDeleteModalInfo({ showModal: false });
   };
 

@@ -1,6 +1,7 @@
 import LandingBackground from "../components/LandingPage/LandingBackground";
 
 const Landing = () => {
+  
   return (
     <div className="landing">
       <div id="title-container" className="title-container">
