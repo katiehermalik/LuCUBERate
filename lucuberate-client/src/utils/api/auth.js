@@ -1,16 +1,4 @@
-let loginUrl;
-let logoutUrl;
-let signupUrl;
-
-if (process.env.NODE_ENV === "production") {
-  loginUrl = `https://lucuberate.com/api/v1/auth/login`;
-  logoutUrl = `https://lucuberate.com/api/v1/auth/logout`;
-  signupUrl = `https://lucuberate.com/api/v1/auth/signup`;
-} else {
-  loginUrl = `http://localhost:4000/api/v1/auth/login`;
-  logoutUrl = `http://localhost:4000/api/v1/auth/logout`;
-  signupUrl = `http://localhost:4000/api/v1/auth/signup`;
-}
+import { loginUrl, logoutUrl, signupUrl } from "../../config/multi-environment";
 
 class AuthAPI {
   static signup(newUser) {

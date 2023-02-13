@@ -28,6 +28,4 @@ router.post("/", upload.single("visual_aid"), ctrl.cubes.create);
 router.put("/:id", upload.single("visual_aid"), ctrl.cubes.update);
 router.delete("/:id", ctrl.cubes.destroy);
 
-module.exports = {
-  router,
-};
+module.exports = router;

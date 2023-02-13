@@ -1,21 +1,8 @@
-let url;
-if (process.env.NODE_ENV === "production") {
-  url = `https://lucuberate.com/api/v1/cubes`;
-} else {
-  url = "http://localhost:4000/api/v1/cubes";
-}
+import { cubesUrl } from "../../config/multi-environment";
 
 class CubeAPI {
-  // static all() {
-  //   return fetch(url)
-  //     .then(res => res.json())
-  //     .catch(err => {
-  //       console.log("Error fetching data in CubeAPI.all", err);
-  //     });
-  // }
-
   static create(newCube) {
-    return fetch(url, {
+    return fetch(cubesUrl, {
       method: "POST",
       body: newCube,
     })
@@ -27,7 +14,7 @@ class CubeAPI {
   }
 
   static getOne(id) {
-    return fetch(`${url}/${id}`)
+    return fetch(`${cubesUrl}/${id}`)
       .then(res => res.json())
       .catch(err => {
         console.log("Error fetching data in CubeAPI.getOne", err);
@@ -36,7 +23,7 @@ class CubeAPI {
   }
 
   static update(updatedCube, id) {
-    return fetch(`${url}/${id}`, {
+    return fetch(`${cubesUrl}/${id}`, {
       method: "PUT",
       body: updatedCube,
     })
@@ -48,7 +35,7 @@ class CubeAPI {
   }
 
   static delete(id) {
-    return fetch(`${url}/${id}`, {
+    return fetch(`${cubesUrl}/${id}`, {
       method: "DELETE",
     })
       .then(res => res.json())

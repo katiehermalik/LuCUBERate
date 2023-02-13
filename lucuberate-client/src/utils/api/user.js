@@ -1,14 +1,8 @@
-let url;
-
-if (process.env.NODE_ENV === "production") {
-  url = `https://lucuberate.com/api/v1/users/currentuser`;
-} else {
-  url = `http://localhost:4000/api/v1/users/currentuser`;
-}
+import { userUrl } from "../../config/multi-environment";
 
 class UserAPI {
   static userData() {
-    return fetch(url, {
+    return fetch(userUrl, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -23,7 +17,7 @@ class UserAPI {
   }
 
   static update(updatedUserProperties) {
-    return fetch(`${url}/update`, {
+    return fetch(`${userUrl}/update`, {
       method: "PUT",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
