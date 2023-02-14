@@ -3,6 +3,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const db = require("../models");
 const seedData = require("../data/seed-data.json");
 const bcrypt = require("bcryptjs");
+const { checkUsername, checkPassword, checkEmail } = require("./validationChecks")
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -14,22 +15,6 @@ passport.deserializeUser(async (id, done) => {
   });
   if (user) done(null, user);
 });
-
-const checkUsername = str => {
-  const criteria = /^[A-Za-z0-9]{3,20}$/;
-  return criteria.test(str);
-};
-
-const checkPassword = str => {
-  const criteria = /^(?=.*\d)(?=.*[@#%&!$*])(?=.*[a-z])(?=.*[A-Z]).{8,15}$/;
-  return criteria.test(str);
-};
-
-const checkEmail = str => {
-  const criteria =
-    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  return criteria.test(str);
-};
 
 passport.use(
   new LocalStrategy(
