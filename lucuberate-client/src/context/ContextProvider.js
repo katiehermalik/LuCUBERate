@@ -32,7 +32,7 @@ const ContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
   const [theme, setTheme] = useState("dark");
-  const [showCategoryList, setShowCategoryList] = useState(true);
+  const [showSidePanel, setShowSidePanel] = useState(true);
   const [showGuide, setShowGuide] = useState(false);
   const [deleteModalInfo, setDeleteModalInfo] = useState({});
 
@@ -169,7 +169,7 @@ const ContextProvider = ({ children }) => {
               value={{ deleteModalInfo, setDeleteModalInfo }}>
               <GuideContext.Provider value={{ showGuide, setShowGuide }}>
                 <CategoryListContext.Provider
-                  value={{ showCategoryList, setShowCategoryList }}>
+                  value={{ showSidePanel, setShowSidePanel }}>
                   <CategoryContext.Provider
                     value={{ currentCategory, setCurrentCategory }}>
                     <CubeContext.Provider
