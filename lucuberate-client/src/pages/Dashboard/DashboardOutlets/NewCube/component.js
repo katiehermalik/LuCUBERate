@@ -201,7 +201,7 @@ const NewCube = () => {
         <div className="form-row">
           <div
             className={`form-group ${
-              categoryIsNew ? "col-md-5" : "col-md-11"
+              categoryIsNew ? "columns-2" : "columns-1"
             }`}>
             <label htmlFor="category-dropdown">
               Category&nbsp;<span style={required}>*</span>
@@ -211,7 +211,7 @@ const NewCube = () => {
             </label>
             <div className="select-group">
               <select
-                className="form-control theme-transition"
+                className="form-control"
                 id="category-dropdown"
                 onChange={handleCategoryChange}
                 value={
@@ -231,13 +231,13 @@ const NewCube = () => {
                     value={`${category._id}`}>{`${category.title}`}</option>
                 ))}
               </select>
-              <div className="select-icon theme-transition">
+              <div className="dropdown-chevron-icon">
                 <ChevronDownIcon size={16} />
               </div>
             </div>
           </div>
           {categoryIsNew && (
-            <div className="form-group col-md-5">
+            <div className="form-group columns-2">
               <label htmlFor="inputCategory">
                 New Category&nbsp;<span style={required}>*</span>
                 {categoryError && !newCategory && (
@@ -246,7 +246,7 @@ const NewCube = () => {
               </label>
               <input
                 type="text"
-                className="form-control theme-transition"
+                className="form-control"
                 id="inputCategory"
                 placeholder="Create a new category"
                 maxLength="20"
@@ -266,7 +266,7 @@ const NewCube = () => {
         </div>
 
         <div className="form-row">
-          <div className="form-group col-md-5">
+          <div className="form-group columns-2">
             <label htmlFor="inputQuestion">
               Question&nbsp;<span style={required}>*</span>
               {questionError && !question && (
@@ -275,7 +275,7 @@ const NewCube = () => {
             </label>
             <textarea
               type="text"
-              className="form-control theme-transition"
+              className="form-control"
               id="inputQuestion"
               placeholder="The quetsion goes here..."
               maxLength="300"
@@ -292,7 +292,7 @@ const NewCube = () => {
               <span className="maxCount">/ 300</span>
             </div>
           </div>
-          <div className="form-group col-md-5">
+          <div className="form-group columns-2">
             <label htmlFor="inputAnswer">
               Answer&nbsp;<span style={required}>*</span>
               {answerError && !answer && (
@@ -301,7 +301,7 @@ const NewCube = () => {
             </label>
             <textarea
               type="text"
-              className="form-control theme-transition"
+              className="form-control"
               id="inputAnswer"
               placeholder="The answer goes here..."
               maxLength="300"
@@ -320,11 +320,11 @@ const NewCube = () => {
           </div>
         </div>
         <div className="form-row">
-          <div className="form-group col-md-5">
+          <div className="form-group columns-2">
             <label htmlFor="inputHint">Hint</label>
             <textarea
               type="text"
-              className="form-control theme-transition"
+              className="form-control"
               id="inputHint"
               placeholder="Give yourself a nudge in the right direction."
               maxLength="300"
@@ -340,11 +340,11 @@ const NewCube = () => {
               <span className="maxCount">/ 300</span>
             </div>
           </div>
-          <div className="form-group col-md-5">
+          <div className="form-group columns-2">
             <label htmlFor="inputNotes">Notes</label>
             <textarea
               type="text"
-              className="form-control theme-transition"
+              className="form-control"
               id="inputNotes"
               placeholder="Anything to help with memorization..."
               maxLength="300"
@@ -363,11 +363,13 @@ const NewCube = () => {
         </div>
         <div className="form-row">
           <div
-            className={link_1 ? "form-group col-md-3" : "form-group col-md-5"}>
+            className={
+              link_1 ? "form-group columns-3" : "form-group columns-2"
+            }>
             <label htmlFor="inputLink">Resource Link</label>
             <input
               type="url"
-              className="form-control theme-transition"
+              className="form-control"
               id="inputLink"
               placeholder="Link to a resource."
               name="link_1"
@@ -376,7 +378,7 @@ const NewCube = () => {
             />
           </div>
           {link_1 && (
-            <div className="form-group col-md-3">
+            <div className="form-group columns-3">
               <label htmlFor="inputAlias">
                 Link Text&nbsp;&nbsp;
                 <span
@@ -387,7 +389,7 @@ const NewCube = () => {
               </label>
               <input
                 type="text"
-                className="form-control theme-transition"
+                className="form-control"
                 id="inputAlias"
                 placeholder="ex. 'Article about education'"
                 maxLength="50"
@@ -405,12 +407,13 @@ const NewCube = () => {
             </div>
           )}
           <div
-            className={link_1 ? "form-group col-md-3" : "form-group col-md-5"}>
+            className={
+              link_1 ? "form-group columns-3" : "form-group columns-2"
+            }>
             <div htmlFor="inputVisual">Visual Aid</div>
             <input
               ref={visualAidInputRef}
               type="file"
-              className="form-control-file"
               id="inputVisual"
               placeholder="Choose file"
               name="visual_aid"
@@ -447,8 +450,8 @@ const NewCube = () => {
           </div>
         </div>
         <div className="form-buttons form-row">
-          <div className="form-group col-md-5"></div>
-          <div className="form-group col-md-5">
+          <div className="form-group columns-2"></div>
+          <div className="form-group columns-2">
             <Link tabIndex="-1" to="/dashboard">
               <button type="submit" className="btn form-btn btn-secondary">
                 Cancel

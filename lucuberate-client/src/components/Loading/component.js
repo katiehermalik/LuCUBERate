@@ -1,4 +1,5 @@
 import { PackageIcon } from "@primer/octicons-react";
+import "./style.css";
 
 const Loading = () => {
   return (

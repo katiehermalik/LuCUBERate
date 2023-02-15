@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import SidePanel from "../../layouts/SidePanel";
 import NavbarMobile from "../../layouts/NavbarMobile";
 import { CategoryListContext } from "../../context/ContextProvider";
+import "./style.css";
 
 function Dashboard({ user }) {
   const { setShowSidePanel } = useContext(CategoryListContext);

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { TrashIcon } from "@primer/octicons-react";
 import { DeleteModalContext } from "../../../../context/ContextProvider";
+import "./style.css"
 
 const DeleteBtn = ({ cubeId, categoryTitle, categoryId, cubeListLength }) => {
   const { setDeleteModalInfo } = useContext(DeleteModalContext);

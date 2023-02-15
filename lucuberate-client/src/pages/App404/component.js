@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./style.css"
 
 const App404 = () => {
   useEffect(() => {

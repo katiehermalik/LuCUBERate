@@ -1,0 +1,6 @@
+.loading-screen {
+  background-color: var(--primary-bg-color);
+  color: var(--accent-color);
+  height: 100%;
+  justify-content: center;
+}

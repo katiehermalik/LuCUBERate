@@ -1,0 +1,10 @@
+.cube-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 5px 0 5px;
+}
+
+.fa-cubes-number {
+  margin-left: 10px;
+}

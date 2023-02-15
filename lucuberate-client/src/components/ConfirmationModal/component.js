@@ -7,6 +7,7 @@ import {
 } from "../../context/ContextProvider";
 import CubeAPI from "../../utils/api/cube";
 import CategoryAPI from "../../utils/api/category";
+import "./style.css";
 
 const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
   const navigate = useNavigate();
@@ -75,8 +76,7 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
     <div
       onClick={closeModal}
       onMouseDown={closeModal}
-      className="modal"
-      id="deleteConfirmModal"
+      className="confirmation-modal modal"
       tabIndex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"

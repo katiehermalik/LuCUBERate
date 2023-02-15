@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../context/ContextProvider";
 import { MoonIcon, SunIcon } from "@primer/octicons-react";
 import UserAPI from "../../utils/api/user";
+import "./style.css";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useContext(ThemeContext);

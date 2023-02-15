@@ -1,4 +1,5 @@
 import LandingBackground from "../../features/threeJS/LandingCanvas";
+import "./style.css"
 
 const Landing = () => {
   return (

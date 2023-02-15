@@ -5,16 +5,14 @@ import {
   ChevronDownIcon,
   PersonFillIcon,
 } from "@primer/octicons-react";
-import SignUpBtn from "../../features/authentication/components/SignUpBtn/component";
-import LoginBtn from "../../features/authentication/components/LoginBtn/component";
+import AuthBtn from "../../features/authentication/components/AuthBtn";
 import Logout from "../../features/authentication/components/LogoutBtn/component";
 import ThemeSwitch from "../../components/ThemeToggle/component";
 import CategoryListToggle from "../SidePanelToggle/component";
+import "./style.css";
 
 const Navbar = ({ user }) => {
   const { pathname } = useLocation();
-  const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userBtnRef = useRef();
 
@@ -41,16 +39,8 @@ const Navbar = ({ user }) => {
     <nav className="navbar container-row theme-transition">
       {!user && (
         <div className="signup-login container-row">
-          <SignUpBtn
-            showSignUpModal={showSignUpModal}
-            setShowSignUpModal={setShowSignUpModal}
-            setShowLoginModal={setShowLoginModal}
-          />
-          <LoginBtn
-            showLoginModal={showLoginModal}
-            setShowLoginModal={setShowLoginModal}
-            setShowSignUpModal={setShowSignUpModal}
-          />
+          <AuthBtn authType={"Sign Up"} />
+          <AuthBtn authType={"Login"} />
         </div>
       )}
       {user && (

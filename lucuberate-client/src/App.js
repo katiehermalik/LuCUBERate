@@ -3,10 +3,10 @@ import {
   ThemeContext,
   UserContext,
   DeleteModalContext,
-} from "../../context/ContextProvider";
-import MainRoutes from "../../routes/MainRoutes";
-import DeleteModal from "../ConfirmationModal/component";
-import Loading from "../Loading/component";
+} from "./context/ContextProvider";
+import MainRoutes from "./routes/MainRoutes";
+import DeleteModal from "./components/ConfirmationModal/component";
+import Loading from "./components/Loading/component";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);

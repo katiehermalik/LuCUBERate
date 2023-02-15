@@ -5,6 +5,7 @@ import {
 } from "../../../../context/ContextProvider";
 import "../../../../assets/App.css";
 import GuideModal from "../../../../components/GuideModal/component";
+import "./style.css"
 
 const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
 

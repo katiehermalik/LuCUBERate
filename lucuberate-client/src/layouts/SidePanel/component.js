@@ -5,6 +5,7 @@ import {
 } from "../../context/ContextProvider";
 import NewCubeBtn from "./NewCubeBtn";
 import CategoryAndCubeList from "./CategoryAndCubeList";
+import "./style.css"
 
 function SidePanel() {
   const { showSidePanel } = useContext(CategoryListContext);

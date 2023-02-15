@@ -1,0 +1,10 @@
+.landing-canvas {
+  background-size: cover;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.landing-canvas:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}

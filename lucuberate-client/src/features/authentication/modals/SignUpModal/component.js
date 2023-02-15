@@ -22,8 +22,13 @@ import {
   googleLoginUrl,
   googleSuccessUrl,
 } from "../../../../config/multi-environment";
+import "./style.css";
 
-const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
+const SignUpModal = ({
+  showSignUpModal,
+  setShowSignUpModal,
+  setShowLoginModal,
+}) => {
   const navigate = useNavigate();
   const form = useRef(null);
   const { setCurrentUserInfo } = useContext(UserContext);
@@ -200,7 +205,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
               </div>
               <form ref={form} onSubmit={handleSubmit}>
                 <div className="modal-body">
-                  <div className="md-form">
+                  <div className="form-group">
                     <label
                       data-error="wrong"
                       data-success="right"
@@ -212,7 +217,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       type="text"
                       name="username"
                       id="signup-username"
-                      className="form-control validate"
+                      className="form-control"
                       value={newUserInfo.username}
                       onChange={handleChange}
                       maxLength="20"
@@ -225,7 +230,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       *Username must be 3-20 alphanumeric characters
                     </small>
                   </div>
-                  <div className="md-form">
+                  <div className="form-group">
                     <label
                       data-error="wrong"
                       data-success="right"
@@ -237,7 +242,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       type="text"
                       name="email"
                       id="signup-email"
-                      className="form-control validate"
+                      className="form-control"
                       value={newUserInfo.email}
                       onChange={handleChange}
                       required
@@ -251,7 +256,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       </p>
                     )}
                   </div>
-                  <div className="md-form">
+                  <div className="form-group">
                     <label
                       data-error="wrong"
                       data-success="right"
@@ -263,7 +268,7 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
                       type={showPassword ? "text" : "password"}
                       name="password"
                       id="signup-pass"
-                      className="form-control validate"
+                      className="form-control"
                       value={newUserInfo.password}
                       onChange={handleChange}
                       onKeyUp={checkForCapsLock}
@@ -357,4 +362,4 @@ const SignUp = ({ showSignUpModal, setShowSignUpModal, setShowLoginModal }) => {
   );
 };
 
-export default SignUp;
+export default SignUpModal;

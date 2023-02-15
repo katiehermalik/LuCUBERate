@@ -19,8 +19,13 @@ import {
   googleLoginUrl,
   googleSuccessUrl,
 } from "../../../../config/multi-environment";
+import "./style.css";
 
-const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
+const LoginModal = ({
+  showLoginModal,
+  setShowLoginModal,
+  setShowSignUpModal,
+}) => {
   const navigate = useNavigate();
   const { setTheme } = useContext(ThemeContext);
   const { setCurrentUserInfo } = useContext(UserContext);
@@ -193,7 +198,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
               </div>
               <form onSubmit={handleSubmit}>
                 <div className="modal-body">
-                  <div className="md-form">
+                  <div className="form-group">
                     <label
                       data-error="wrong"
                       data-success="right"
@@ -205,7 +210,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                       type="email"
                       name="email"
                       id="login-email"
-                      className="form-control validate"
+                      className="form-control"
                       value={userInput.email}
                       onChange={handleChange}
                       required
@@ -214,7 +219,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                       <p style={errorStyle}>{userInput.userError}</p>
                     )}
                   </div>
-                  <div className="md-form mb-4">
+                  <div className="form-group">
                     <label
                       data-error="wrong"
                       data-success="right"
@@ -226,7 +231,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                       type={showPassword ? "text" : "password"}
                       name="password"
                       id="login-pass"
-                      className="form-control validate"
+                      className="form-control"
                       value={userInput.password}
                       onChange={handleChange}
                       onKeyUp={checkForCapsLock}
@@ -250,7 +255,11 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                           <EyeClosedIcon size={16} />
                         )}
                       </button>
-                      {capsLock ? <ArrowUpIcon size={16} /> : <></>}
+                      {capsLock ? (
+                        <ArrowUpIcon size={16} className="caps-lock-warning" />
+                      ) : (
+                        <></>
+                      )}
                     </div>
                     {userInput.matchError && (
                       <p style={errorStyle}>{userInput.matchError}</p>
@@ -265,7 +274,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <p>
+                  <small>
                     Need an account?{" "}
                     <Link
                       to="/"
@@ -276,7 +285,7 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
                       data-target="#modalRegisterForm">
                       Sign Up Here
                     </Link>
-                  </p>
+                  </small>
                 </div>
               </form>
             </div>
@@ -287,4 +296,4 @@ const Login = ({ showLoginModal, setShowLoginModal, setShowSignUpModal }) => {
   );
 };
 
-export default Login;
+export default LoginModal;

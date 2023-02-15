@@ -9,6 +9,7 @@ import QuestionsToggle from "./QuestionsToggle";
 import CategoryShuffle from "./ShuffleCubes/component";
 import CubeCount from "./CubeCount/component";
 import DeleteBtn from "../DeleteBtn/component";
+import "./style.css";
 
 const CategoryCtrls = ({
   setCategoryWasShuffled,
@@ -33,9 +34,9 @@ const CategoryCtrls = ({
   return (
     <>
       {currentCategory === categoryId ? (
-        <div className="cat-item category-btn-cover theme-transition">
+        <div className="category-item category-btn-cover theme-transition">
           <span className="category-title">{`${categoryTitle}`}</span>
-          <div className="category-options-grp container-row pointer-disabled">
+          <div className="container-row pointer-disabled">
             <CubeCount
               categoryCubeLength={cubeListLength}
               cubeListOpened={true}
@@ -60,9 +61,9 @@ const CategoryCtrls = ({
           </div>
         </div>
       ) : (
-        <div className="cat-item category-btn-cover theme-transition">
+        <div className="category-item category-btn-cover theme-transition">
           <span className="category-title">{`${categoryTitle}`}</span>
-          <div className="category-options-grp container-row pointer-disabled">
+          <div className="container-row pointer-disabled">
             <CubeCount
               categoryCubeLength={cubeListLength}
               cubeListOpened={false}

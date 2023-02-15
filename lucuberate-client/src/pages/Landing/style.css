@@ -1,0 +1,221 @@
+.landing {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.title-container {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+}
+
+.logo {
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+section.about {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 60vh;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.landing-text {
+  color: var(--text-color-light);
+  text-align: center;
+}
+
+.side-text {
+  font-size: 90px;
+}
+
+.brand-name {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: 12vw;
+  font-weight: bold;
+  padding: 0 30px 10px;
+}
+
+.description {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: var(--category-select);
+  border-top: 8px solid var(--nav-bg-color);
+  color: var(--primary-text-color);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-top: 80px;
+  padding: 50px 80px 30px;
+}
+
+.landing aside {
+  background-color: var(--primary-bg-color);
+  border: 4px solid var(--accent-color);
+  border-radius: 24px;
+  box-shadow: rgb(237 181 50 / 40%) 5px 5px, rgb(237 181 50 / 30%) 10px 10px,
+    rgb(237 181 50 / 20%) 15px 15px, rgb(237 181 50 / 10%) 20px 20px,
+    rgb(237 181 50 / 5%) 25px 25px;
+  color: var(--text-color-light);
+  float: right;
+  margin: -100px 0 40px 20px;
+  max-width: 250px;
+  min-width: 145px;
+  padding: 20px;
+  width: 30%;
+}
+
+.description h3 {
+  text-align: left;
+}
+
+.description div {
+  max-width: 1000px;
+}
+
+/* ---------------------- Media Queries -------------------- */
+
+@media screen and (min-width: 1050px) {
+  .brand-name {
+    font-size: 136px;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .brand-name {
+    font-size: 13vw;
+  }
+}
+
+@media screen and (min-width: 1050px) {
+  .landing-text h3 {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 1050px) and (min-width: 720px) {
+  .landing-text h3 {
+    font-size: 2.25vw;
+  }
+}
+
+@media screen and (max-width: 720px) and (min-width: 400px) {
+  .landing-text h3 {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 400px) and (min-width: 325px) {
+  .landing-text h3 {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  .landing-text h3 {
+    font-size: 13px;
+  }
+}
+
+@media screen and (min-width: 1050px) {
+  .landing-text h4 {
+    font-size: 18.5px;
+  }
+}
+
+@media screen and (max-width: 1050px) and (min-width: 720px) {
+  .landing-text h4 {
+    font-size: 1.75vw;
+  }
+}
+
+@media screen and (max-width: 720px) and (min-width: 400px) {
+  .landing-text h4 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 400px) and (min-width: 366px) {
+  .landing-text h4 {
+    font-size: 3vw;
+  }
+}
+
+@media screen and (max-width: 366px) {
+  .landing-text h4 {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-height: 540px) {
+  .description {
+    margin-top: 0;
+    padding: 20px 30px 30px;
+  }
+  .landing aside {
+    margin: -35px 0 20px 20px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .landing aside {
+    margin: -67px 0 30px 20px;
+    max-width: none;
+    min-width: 0;
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .landing aside {
+    margin: -80px 0 50px;
+    max-width: none;
+    min-width: 100%;
+  }
+
+  .description {
+    padding: 50px 30px 30px;
+  }
+}

@@ -1,0 +1,11 @@
+.toggle-list-btn-container {
+  align-items: flex-end;
+  display: flex;
+  height: 32px;
+}
+
+.toggle-list-btn {
+  background-color: var(--accent-color);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}

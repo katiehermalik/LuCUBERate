@@ -11,7 +11,8 @@ import {
 import PlaceholderCube from "./CubeCtrls/PlaceholderCube";
 import CubeCtrls from "./CubeCtrls/component";
 import CategoryCtrls from "./CategoryCtrls/component";
-import Footer from "../../Footer";
+import Footer from "../../SidePanelFooter";
+import "./style.css";
 
 const CategoryAndCubeList = () => {
   const navigate = useNavigate();
@@ -341,7 +342,7 @@ const CategoryAndCubeList = () => {
                             tabIndex="0"
                             onClick={handleCategoryClick}
                             type="button"
-                            className="cat-item category-btn theme-transition"
+                            className="category-item category-btn theme-transition"
                             value={categoryTitle}
                             title={categoryTitle}
                             id={categoryId}

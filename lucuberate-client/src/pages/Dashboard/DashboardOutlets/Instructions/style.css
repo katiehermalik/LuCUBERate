@@ -1,0 +1,18 @@
+.instructions {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: var(--secondary-bg-color);
+  border-bottom: 8px solid var(--nav-bg-color);
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  min-height: 93px;
+  padding: 0 20px;
+}
+
+.instructions h1 {
+  font-size: 2rem;
+  margin-bottom: 0;
+  text-align: center;
+}

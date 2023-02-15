@@ -1,0 +1,27 @@
+.list-footer {
+  padding: 15px;
+}
+
+.list-footer {
+  background-color: var(--primary-bg-color);
+  border-right: 1px solid var(--category-select);
+  color: var(--text-color-light);
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  justify-content: flex-end;
+  white-space: nowrap;
+}
+
+.list-footer p {
+  margin-bottom: 0;
+}
+
+/* ------------------- Media Queries ------------------- */
+
+@media screen and (max-width: 720px) {
+  .list-footer {
+    border-right: none;
+  }
+}

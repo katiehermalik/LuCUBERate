@@ -1,0 +1,13 @@
+.new-cube-btn {
+  background-color: var(--primary-btn-color);
+  font-size: 14px;
+  height: 54px;
+  margin: 15px;
+  min-width: 312px;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+.new-cube-btn:hover {
+  background-color: var(--primary-btn-color-hover);
+}

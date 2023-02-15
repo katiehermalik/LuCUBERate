@@ -4,6 +4,7 @@ import CubeMesh from "../CubeMesh";
 import Lights from "../Lights";
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../../context/ContextProvider";
+import "./style.css"
 
 const LandingCanvas = () => {
   const { theme } = useContext(ThemeContext);

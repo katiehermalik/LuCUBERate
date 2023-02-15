@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "./style.css";
 
 const Login = () => {
   useEffect(() => {

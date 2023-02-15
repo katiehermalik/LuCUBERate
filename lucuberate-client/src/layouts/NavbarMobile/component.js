@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { CategoryListContext } from "../../context/ContextProvider";
 import CategoryListToggle from "../SidePanelToggle/component";
 import NewCubeBtn from "../SidePanel/NewCubeBtn/component";
+import "./style.css"
 
 const NavbarMobile = ({ user }) => {
   const { pathname } = useLocation();

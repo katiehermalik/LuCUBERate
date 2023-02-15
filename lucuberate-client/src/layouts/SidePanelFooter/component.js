@@ -1,4 +1,6 @@
-const Footer = () => {
+import "./style.css";
+
+const SidePanelFooter = () => {
   return (
     <footer className="list-footer container-column theme-transition">
       <a
@@ -12,4 +14,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default SidePanelFooter;

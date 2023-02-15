@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { PencilIcon } from "@primer/octicons-react";
 import { CurrentPathContext } from "../../../../../context/ContextProvider";
+import "./style.css";
 
 const EditCubeBtn = ({ cubeId }) => {
   const navigate = useNavigate();

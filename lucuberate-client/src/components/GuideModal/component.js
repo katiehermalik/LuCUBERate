@@ -7,6 +7,7 @@ import {
 import { ChevronLeftIcon } from "@primer/octicons-react";
 import UserAPI from "../../utils/api/user";
 import { SmileyIcon } from "@primer/octicons-react";
+import "./style.css";
 
 const GuideModal = () => {
   const { setCurrentUserInfo } = useContext(UserContext);

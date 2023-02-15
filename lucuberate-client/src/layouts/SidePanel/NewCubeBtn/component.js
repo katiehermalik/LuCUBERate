@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CubeContext } from "../../../context/ContextProvider";
+import "./style.css";
 
 const NewCubeBtn = () => {
   const { setCurrentCubeId } = useContext(CubeContext);
@@ -13,7 +14,7 @@ const NewCubeBtn = () => {
     <Link tabIndex="-1" to="/dashboard/new">
       <button
         onClick={handleClick}
-        className="btn header-btns"
+        className="btn new-cube-btn"
         type="button"
         value="Create New Cube"
         aria-label="Create New Cube">

@@ -1,0 +1,12 @@
+.input-criteria {
+  margin-left: 3px;
+}
+
+.password-criteria div {
+  cursor: pointer;
+}
+
+.password-criteria li {
+  list-style: none;
+  margin-left: 10px;
+}
