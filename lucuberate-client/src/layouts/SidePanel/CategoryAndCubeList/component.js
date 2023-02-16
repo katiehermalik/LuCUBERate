@@ -123,7 +123,7 @@ const CategoryAndCubeList = () => {
     }
   }, [categoryRefs, currentCategoryRef, currentCategory]);
 
-  //If placeholderRendered or questionsAreVisible updates, the recalculate cubeListHeight:
+  //If placeholderRendered or questionsAreVisible updates, recalculate cubeListHeight:
   const findCubeListHeight = useCallback(() => {
     let elementArray = Object.values(
       currentCategoryRef.nextElementSibling.elements
