@@ -1,4 +1,11 @@
-import { useContext, useRef, useState, useCallback, useEffect } from "react";
+import {
+  useContext,
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PackageIcon } from "@primer/octicons-react";
 import {
@@ -32,13 +39,9 @@ const CategoryAndCubeList = () => {
   const [currCategoryCubeRefs, setCurrCategoryCubeRefs] = useState([]);
   const [currentCubeCategory, setCurrentCubeCategory] = useState("");
   const [categoryWasShuffled, setCategoryWasShuffled] = useState(false);
-  const [placeholderRendered, setPlaceholderRendered] = useState(true);
+  const [placeholderRendered, setPlaceholderRendered] = useState(false);
 
   //====================================================================================//
-
-  const checkPlaceholder = cubeRendered => {
-    setPlaceholderRendered(cubeRendered);
-  };
 
   const findCurrentCubeId = useCallback(() => {
     setCurrentCubeId(currentPath[1]);
@@ -120,26 +123,28 @@ const CategoryAndCubeList = () => {
     }
   }, [categoryRefs, currentCategoryRef, currentCategory]);
 
+  //If placeholderRendered or questionsAreVisible updates, the recalculate cubeListHeight:
+  const findCubeListHeight = useCallback(() => {
+    let elementArray = Object.values(
+      currentCategoryRef.nextElementSibling.elements
+    ).filter(el => el.nodeName === "INPUT");
+    if (elementArray.length >= 4) {
+      elementArray = elementArray.slice(0, 4);
+    }
+    const cubeListHeight = elementArray.reduce((accu, curr) => {
+      return accu + curr.parentNode.clientHeight;
+    }, 0);
+    currentCategoryRef.nextElementSibling.style.height = `${cubeListHeight}px`;
+    currentCategoryRef.nextElementSibling.style.maxHeight = `${cubeListHeight}px`;
+  }, [currentCategoryRef]);
+
   const openCategoryCubeList = useCallback(() => {
     if (!currentCategoryRef.className.split(" ").includes("active")) {
       currentCategoryRef.classList.add("active");
       currentCategoryRef.parentElement.style.zIndex = "1";
-      if (
-        (currentCategoryRef.nextElementSibling.elements.length > 3 &&
-          placeholderRendered) ||
-        currentCategoryRef.nextElementSibling.elements.length > 4
-      ) {
-        currentCategoryRef.nextElementSibling.style.maxHeight = "220px";
-      } else {
-        currentCategoryRef.nextElementSibling.style.maxHeight =
-          placeholderRendered
-            ? `${
-                currentCategoryRef.nextElementSibling.elements.length * 55 + 55
-              }px`
-            : `${currentCategoryRef.nextElementSibling.elements.length * 55}px`;
-      }
+      findCubeListHeight();
     }
-  }, [currentCategoryRef, placeholderRendered]);
+  }, [currentCategoryRef, findCubeListHeight]);
 
   const scrollToCube = useCallback(
     isCurrentCubeCategory => {
@@ -266,6 +271,15 @@ const CategoryAndCubeList = () => {
     categoryWasShuffledEvents,
   ]);
 
+  useLayoutEffect(() => {
+    currentCategoryRef && findCubeListHeight();
+  }, [
+    findCubeListHeight,
+    placeholderRendered,
+    questionsAreVisible,
+    currentCategoryRef,
+  ]);
+
   //====================================================================================//
 
   const handleCategoryClick = e => {
@@ -353,16 +367,15 @@ const CategoryAndCubeList = () => {
                               }
                             }}></button>
                           <fieldset
+                            className="content container-column cube-select-group"
                             style={{
-                              overflow: "auto",
                               maxHeight: "0px",
                               transition: `all 0.${
                                 categoryCubes.length >= 4
                                   ? 4
                                   : categoryCubes.length
                               }s ease-out 0s`,
-                            }}
-                            className="content container-column cube-select-group">
+                            }}>
                             <legend
                               hidden>{`Cube list for ${categoryTitle} category: Choose a Cube`}</legend>
                             <ul>
@@ -411,16 +424,13 @@ const CategoryAndCubeList = () => {
                                   </li>
                                 </div>
                               ))}
-                            </ul>
-                            {((currentPath[0] === "edit" &&
-                              categoryId !== currentCubeCategory) ||
-                              currentPath[0] === "new") && (
                               <PlaceholderCube
-                                checkPlaceholder={checkPlaceholder}
+                                placeholderRendered={placeholderRendered}
+                                setPlaceholderRendered={setPlaceholderRendered}
                                 currentPath={currentPath}
                                 currentCubeCategory={currentCubeCategory}
                               />
-                            )}
+                            </ul>
                           </fieldset>
                         </div>
                       </div>

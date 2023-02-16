@@ -5,7 +5,7 @@ import {
 } from "../../../../context/ContextProvider";
 import "../../../../assets/App.css";
 import GuideModal from "../../../../components/GuideModal/component";
-import "./style.css"
+import "./style.css";
 
 const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
 
@@ -79,14 +79,18 @@ const StudyCube = () => {
                     <div className="face Question theme-transition">
                       <div
                         className={`face-title ${
-                          side === "Question" || side === "" ? "" : "blur"
+                          side === "Question" || side === ""
+                            ? ""
+                            : "blur pointer-disabled"
                         }`}>
                         Question
                       </div>
                       {cube.question && (
                         <div
                           className={`face-content ${
-                            side === "Question" || side === "" ? "" : "blur"
+                            side === "Question" || side === ""
+                              ? ""
+                              : "blur pointer-disabled face-not-focused"
                           }`}>
                           {cube.question}
                         </div>
@@ -95,14 +99,16 @@ const StudyCube = () => {
                     <div className="face Answer theme-transition">
                       <div
                         className={`face-title ${
-                          side === "Answer" ? "" : "blur"
+                          side === "Answer" ? "" : "blur pointer-disabled"
                         }`}>
                         Answer
                       </div>
                       {cube.answer && (
                         <div
                           className={`face-content ${
-                            side === "Answer" ? "" : "blur"
+                            side === "Answer"
+                              ? ""
+                              : "blur pointer-disabled face-not-focused"
                           }`}>
                           {cube.answer}
                         </div>
@@ -111,14 +117,16 @@ const StudyCube = () => {
                     <div className="face Hint theme-transition">
                       <div
                         className={`face-title ${
-                          side === "Hint" ? "" : "blur"
+                          side === "Hint" ? "" : "blur pointer-disabled"
                         }`}>
                         Hint
                       </div>
                       {cube.hint && (
                         <div
                           className={`face-content ${
-                            side === "Hint" ? "" : "blur"
+                            side === "Hint"
+                              ? ""
+                              : "blur pointer-disabled face-not-focused"
                           }`}>
                           {cube.hint}
                         </div>
@@ -127,14 +135,16 @@ const StudyCube = () => {
                     <div className="face Notes theme-transition">
                       <div
                         className={`face-title ${
-                          side === "Notes" ? "" : "blur"
+                          side === "Notes" ? "" : "blur pointer-disabled"
                         }`}>
                         Notes
                       </div>
                       {cube.notes && (
                         <div
                           className={`face-content ${
-                            side === "Notes" ? "" : "blur"
+                            side === "Notes"
+                              ? ""
+                              : "blur pointer-disabled face-not-focused"
                           }`}>
                           {cube.notes}
                         </div>
@@ -143,7 +153,7 @@ const StudyCube = () => {
                     <div className="face Visual theme-transition">
                       <div
                         className={`face-title ${
-                          side === "Visual Aid" ? "" : "blur"
+                          side === "Visual Aid" ? "" : "blur pointer-disabled"
                         }`}>
                         Visual Aid
                       </div>
@@ -156,7 +166,9 @@ const StudyCube = () => {
                             src={cube.visual_aid_url}
                             alt="visual aid"
                             className={`visual-aid ${
-                              side === "Visual Aid" ? "" : "blur"
+                              side === "Visual Aid"
+                                ? ""
+                                : "blur pointer-disabled face-not-focused"
                             }`}
                           />
                         </a>
@@ -165,14 +177,16 @@ const StudyCube = () => {
                     <div className="face Link theme-transition">
                       <div
                         className={`face-title ${
-                          side === "Link" ? "" : "blur"
+                          side === "Link" ? "" : "blur pointer-disabled"
                         }`}>
                         Link
                       </div>
                       {(cube.link_1 || cube.link_2 || cube.link_3) && (
                         <div
                           className={`face-content ${
-                            side === "Link" ? "" : "blur"
+                            side === "Link"
+                              ? ""
+                              : "blur pointer-disabled face-not-focused"
                           }`}>
                           {cube.link_1 && (
                             <a

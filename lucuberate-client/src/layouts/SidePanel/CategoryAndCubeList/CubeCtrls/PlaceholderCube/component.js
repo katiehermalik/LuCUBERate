@@ -8,7 +8,8 @@ import {
 } from "../../../../../context/ContextProvider";
 
 const PlaceholderCube = ({
-  checkPlaceholder,
+  placeholderRendered,
+  setPlaceholderRendered,
   currentCubeCategory,
   currentPath,
 }) => {
@@ -18,8 +19,8 @@ const PlaceholderCube = ({
   const {
     currentUserInfo: { categories },
   } = useContext(UserContext);
-  const [renderPlaceholder, setRenderPlaceholder] = useState(false);
   const [currentCategoryData, setCurrentCategoryData] = useState({});
+
   // Renders a + placeholder cube in a category cube list when considering that category for a new cube or for editing and moving an existing cube to.
   useEffect(() => {
     if (currentCategory) {
@@ -27,18 +28,16 @@ const PlaceholderCube = ({
         currentPath[0] === "new" ||
         (currentPath[0] === "edit" && currentCubeCategory !== currentCategory)
       ) {
-        setRenderPlaceholder(true);
-        checkPlaceholder(true);
+        setPlaceholderRendered(true);
         setCurrentCategoryData(
           categories.find(category => category._id === currentCategory)
         );
       } else {
-        setRenderPlaceholder(false);
-        checkPlaceholder(false);
+        setPlaceholderRendered(false);
       }
     }
   }, [
-    checkPlaceholder,
+    setPlaceholderRendered,
     currentCategory,
     categories,
     currentCubeId,
@@ -49,7 +48,7 @@ const PlaceholderCube = ({
 
   return (
     <>
-      {renderPlaceholder && (
+      {placeholderRendered && (
         <li className="radio-button">
           <input type="radio" id={"new_cube"} checked={true} readOnly={true} />
           <label className="radio-label" htmlFor={"new_cube"}>

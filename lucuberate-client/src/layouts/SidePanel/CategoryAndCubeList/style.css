@@ -1,3 +1,10 @@
+.cube-select-group > ul {
+  overflow: hidden;
+}
+.cube-select-group > ul:hover {
+  overflow: auto;
+}
+
 .cube-select-group .radio-label {
   min-width: 80px;
 }
@@ -47,7 +54,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 20px;
+}
+
+.cube-list .radio-label {
+  max-width: 220px;
 }
 
 .loading-group {

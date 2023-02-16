@@ -1,5 +1,6 @@
 import EditBtn from "./EditCubeBtn/component";
 import DeleteBtn from "../DeleteBtn/component";
+import "./style.css"
 
 const CubeCtrls = ({ cubeId, cubeListLength, categoryTitle }) => {
   return (
