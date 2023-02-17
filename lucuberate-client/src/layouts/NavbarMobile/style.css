@@ -1,0 +1,14 @@
+@media screen and (max-width: 720px) {
+  .navbar-mobile {
+    background-color: var(--secondary-bg-color);
+    border-top: 4px solid var(--accent-color);
+    justify-content: space-between;
+    padding-right: 5px;
+  }
+
+  .divider-line {
+    background-color: var(--secondary-bg-color);
+    height: 1px;
+    width: 100%;
+  }
+}

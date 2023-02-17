@@ -5,7 +5,7 @@ import {
   useCallback,
   useReducer,
 } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import UserAPI from "../utils/api/user";
 import CubeAPI from "../utils/api/cube";
 
@@ -22,87 +22,46 @@ export const CurrentPathContext = createContext(null);
 const ContextProvider = ({ children }) => {
   const { isLoggedIn } = JSON.parse(sessionStorage.getItem("user")) || "";
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
   const [userDataUpdating, setUserDataUpdating] = useState(true);
   const [currentPath, setCurrentPath] = useReducer(currentPathReducer, [""]);
   const [currentCategory, setCurrentCategory] = useState("");
   const [cubeData, setCubeData] = useState({});
   const [currentCubeId, setCurrentCubeId] = useState("");
-
   const [isLoading, setIsLoading] = useState(false);
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
   const [theme, setTheme] = useState("dark");
-  const [showCategoryList, setShowCategoryList] = useState(true);
+  const [showSidePanel, setShowSidePanel] = useState(true);
   const [showGuide, setShowGuide] = useState(false);
   const [deleteModalInfo, setDeleteModalInfo] = useState({});
+  const params = pathname.split("/");
+  const currentPage = params[2];
+  const cubeId = params[3];
 
-  function currentPathReducer(prevState, { type, cleanedPathname }) {
+  function currentPathReducer(prevState, { type, cubeId }) {
     switch (type) {
-      case "home":
+      case "instructions":
+      case "new":
         return prevState[0] !== type ? [type, null] : prevState;
       case "edit":
-        const editCubeId = cleanedPathname.split("/")[2];
-        const cubeToBeEdited = currentUserInfo.cubes.find(
-          cube => cube._id === editCubeId
+      case "cube":
+        const foundCube = currentUserInfo.cubes.find(
+          cube => cube._id === cubeId
         );
-        if (cubeToBeEdited) {
-          return !prevState ||
-            prevState[1] !== editCubeId ||
-            prevState[0] !== type
-            ? [type, editCubeId]
-            : prevState;
-        } else {
-          return !prevState || prevState[0] !== "404"
-            ? ["404", null]
-            : prevState;
-        }
-      case "new":
-      case "dashboard":
-        return prevState[0] !== type ? [type, null] : prevState;
-      default:
-        // For default value: type = :id
-        const showCubeId = cleanedPathname.match(/\b[\w]+$/g)[0];
-        let foundCube;
-        foundCube = currentUserInfo.cubes.find(cube => cube._id === showCubeId);
         if (foundCube) {
-          return !prevState ||
-            prevState[1] !== showCubeId ||
-            prevState[0] !== "show"
-            ? ["show", showCubeId]
+          return !prevState || prevState[1] !== cubeId || prevState[0] !== type
+            ? [type, cubeId]
             : prevState;
         } else {
           return !prevState || prevState[0] !== "404"
             ? ["404", null]
             : prevState;
         }
+      default:
+        return !prevState || prevState[0] !== "404" ? ["404", null] : prevState;
     }
   }
-
-  const findCurrentPath = useCallback(
-    cleanedPathname => {
-      isLoggedIn && pathname !== "/"
-        ? setCurrentPath({
-            type: cleanedPathname.match(/\b[\w]+$/g)[0],
-            cleanedPathname,
-          })
-        : setCurrentPath({
-            type: "home",
-            cleanedPathname: null,
-          });
-    },
-    [pathname, isLoggedIn]
-  );
-
-  const cleanPathname = useCallback(() => {
-    const cleanedPathname = (() => {
-      if (pathname[pathname.length - 1] === "/") {
-        return pathname.slice(0, -1);
-      } else {
-        return pathname;
-      }
-    })();
-    findCurrentPath(cleanedPathname);
-  }, [pathname, findCurrentPath]);
 
   const findUserInfo = useCallback(async () => {
     if (userDataUpdating) {
@@ -116,7 +75,7 @@ const ContextProvider = ({ children }) => {
   }, [userDataUpdating]);
 
   const loadCube = useCallback(async () => {
-    if (currentPath[0] === "show" || currentPath[0] === "edit") {
+    if (currentPath[0] === "cube" || currentPath[0] === "edit") {
       const cube = await CubeAPI.getOne(currentPath[1]);
       setCubeData(cube);
     } else {
@@ -124,29 +83,46 @@ const ContextProvider = ({ children }) => {
     }
   }, [currentPath]);
 
+  // ------------------------------ Use Effects ----------------------------------- //
+
   useEffect(() => {
+    // Remove multiple slashes from url
+    if (pathname.match(/(?<!:)\/+/gm)) {
+      let url = pathname;
+      url = url.replace(/(?<!:)\/+/gm, "/");
+      navigate(url);
+    }
     if (isLoggedIn) {
       if (!currentUserInfo || userDataUpdating === true) {
         setIsLoading(true);
         findUserInfo();
       }
     } else {
-      findCurrentPath();
+      setCurrentPath({
+        type: currentPage,
+        cubeId,
+      });
     }
   }, [
+    navigate,
+    pathname,
+    cubeId,
+    currentPage,
     userDataUpdating,
     currentUserInfo,
     isLoggedIn,
     findUserInfo,
-    findCurrentPath,
   ]);
 
   useEffect(() => {
     if (currentUserInfo && userDataUpdating === false) {
-      cleanPathname();
+      setCurrentPath({
+        type: currentPage,
+        cubeId,
+      });
     }
     setIsLoading(false);
-  }, [pathname, currentUserInfo, userDataUpdating, cleanPathname]);
+  }, [pathname, cubeId, currentPage, currentUserInfo, userDataUpdating]);
 
   useEffect(() => {
     loadCube();
@@ -169,7 +145,7 @@ const ContextProvider = ({ children }) => {
               value={{ deleteModalInfo, setDeleteModalInfo }}>
               <GuideContext.Provider value={{ showGuide, setShowGuide }}>
                 <CategoryListContext.Provider
-                  value={{ showCategoryList, setShowCategoryList }}>
+                  value={{ showSidePanel, setShowSidePanel }}>
                   <CategoryContext.Provider
                     value={{ currentCategory, setCurrentCategory }}>
                     <CubeContext.Provider

@@ -1,0 +1,7 @@
+.delete:hover {
+  background-color: var(--warning-btn-color);
+}
+
+.category-action-btn.delete {
+  margin-right: 10px;
+}

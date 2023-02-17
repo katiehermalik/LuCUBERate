@@ -1,0 +1,51 @@
+.switch-container {
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.switch-background {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: var(--nav-btn-bg-color);
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 0 1px var(--primary-bg-color);
+  box-shadow: 0 0 0 1px var(--primary-bg-color);
+  color: var(--text-color-dark);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 16px;
+  -ms-flex-pack: distribute;
+  height: 30px;
+  justify-content: space-around;
+  margin: 1px;
+  position: relative;
+  -webkit-transition: all 0.45s ease-in-out;
+  -o-transition: all 0.45s ease-in-out;
+  transition: all 0.45s ease-in-out;
+  width: 62px;
+  z-index: 11;
+}
+
+.switch-btn {
+  background-color: var(--accent-color);
+  border: 1px solid var(--primary-bg-color);
+  border-radius: 5px;
+  font-size: 16px;
+  height: 32px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: translate 0.45s ease-in-out;
+  width: 32px;
+  z-index: 12;
+}
+
+.switch-btn:hover {
+  background-color: var(--primary-btn-color-hover);
+}
+
+.activate-light {
+  translate: 100%;
+}

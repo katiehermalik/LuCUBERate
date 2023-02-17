@@ -1,12 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import {
   ThemeContext,
   UserContext,
   DeleteModalContext,
 } from "./context/ContextProvider";
-import MainRoutes from "./MainRoutes";
-import DeleteModal from "./components/DeleteModal";
-import Loading from "./components/Loading";
+import MainRoutes from "./routes/MainRoutes";
+import DeleteModal from "./components/ConfirmationModal/component";
+import Loading from "./components/Loading/component";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
@@ -16,10 +16,6 @@ const App = () => {
     deleteModalInfo: { showModal },
     setDeleteModalInfo,
   } = useContext(DeleteModalContext);
-
-  useEffect(() => {
-    console.log({ isLoggedIn });
-  }, [isLoggedIn]);
 
   return (
     <div

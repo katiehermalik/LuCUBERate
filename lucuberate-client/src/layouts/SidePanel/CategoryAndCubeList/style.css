@@ -1,0 +1,110 @@
+.cube-select-group > ul {
+  overflow: hidden;
+}
+.cube-select-group > ul:hover {
+  overflow: auto;
+}
+
+.cube-select-group .radio-label {
+  min-width: 80px;
+}
+
+.category-btn {
+  background-color: var(--nav-bg-color);
+  border-right: 1px solid var(--category-select);
+  height: 52px;
+  width: 100%;
+}
+
+.category-btn.active {
+  background-color: var(--category-select);
+  -webkit-box-shadow: 0 4px 8px -8px var(--box-shadow-color);
+  box-shadow: 0 4px 8px -8px var(--box-shadow-color);
+}
+
+.category-btn:hover {
+  background-color: var(--category-select);
+}
+
+.category-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  position: relative;
+  z-index: 0;
+}
+
+.cube-list-grp {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  height: calc(100% - 85px);
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.cube-list-grp::-webkit-scrollbar {
+  display: none;
+}
+
+.cube-list-grp .radio-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.cube-list .radio-label {
+  max-width: 220px;
+}
+
+.loading-group {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.loading-group .loading-icon {
+  height: 25%;
+  width: 40%;
+}
+
+.cube-list {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  background-color: var(--secondary-bg-color);
+  border-bottom: 1px solid var(--category-select);
+}
+
+@media screen and (max-width: 720px) {
+  .loading-group {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .loading-group .loading-icon {
+    height: 30%;
+    margin-bottom: 40px;
+    width: 40%;
+  }
+
+  .category-btn {
+    border-right: none;
+  }
+}
