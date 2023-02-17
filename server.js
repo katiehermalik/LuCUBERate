@@ -15,6 +15,7 @@ const app = express();
 // -------------------------------------- Redirect to secure https
 
 if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", true);
   app.use((req, res, next) => {
     if (req.header("x-forwarded-proto") !== "https") {
       res.redirect(`https://${req.header("host")}${req.url}`);
@@ -47,7 +48,6 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === "production",
       maxAge: 1000 * 60 * 60 * 24 * 3,
-      sameSite: "none",
     },
   })
 );
