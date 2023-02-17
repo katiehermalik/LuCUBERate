@@ -39,7 +39,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: "mongodb://127.0.0.1:27017/lucuberate",
+      mongoUrl: process.env.MONGODB_URI || "mongodb://127.0.0.1/lucuberate",
       ttl: 14 * 24 * 60 * 60,
       autoRemove: "native",
     }),
