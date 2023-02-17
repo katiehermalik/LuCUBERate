@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+
 import {
   ChevronRightIcon,
   ChevronDownIcon,
   PersonFillIcon,
 } from "@primer/octicons-react";
+// import { CurrentPathContext } from "../../context/ContextProvider";
 import AuthBtn from "../../features/authentication/components/AuthBtn";
 import Logout from "../../features/authentication/components/LogoutBtn/component";
 import ThemeSwitch from "../../components/ThemeToggle/component";
@@ -12,9 +14,10 @@ import CategoryListToggle from "../SidePanelToggle/component";
 import "./style.css";
 
 const Navbar = ({ user }) => {
-  const { pathname } = useLocation();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userBtnRef = useRef();
+  // const { currentPath } = useContext(CurrentPathContext);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const closeUserMenu = e => {
@@ -53,7 +56,7 @@ const Navbar = ({ user }) => {
           <div className="about-settings container-row">
             <Link
               className="btn navbar-item about-dash theme-transition"
-              to={pathname === "/" ? "/dashboard" : "/"}>
+              to={pathname === "/" ? "/dashboard/instructions" : "/"}>
               {pathname === "/" ? "Back to dashboard" : "About Lucuberate"}
               <ChevronRightIcon size={16} />
             </Link>

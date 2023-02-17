@@ -89,12 +89,12 @@ const LoginModal = ({
         setShowGuide(true);
         setShowSidePanel(false);
         if (userData.cubes.length !== 0) {
-          navigate(`/dashboard/${userData.categories[0].cubes[0]}`);
+          navigate(`/dashboard/cube/${userData.categories[0].cubes[0]}`);
         } else {
-          navigate("/dashboard");
+          navigate("/dashboard/instructions");
         }
       } else {
-        navigate("/dashboard");
+        navigate("/dashboard/instructions");
       }
     }
   };
@@ -116,12 +116,12 @@ const LoginModal = ({
         setShowGuide(true);
         setShowSidePanel(false);
         if (userData.cubes.length !== 0) {
-          navigate(`/dashboard/${userData.categories[0].cubes[0]}`);
+          navigate(`/dashboard/cube/${userData.categories[0].cubes[0]}`);
         } else {
-          navigate("/dashboard");
+          navigate("/dashboard/instructions");
         }
       } else {
-        navigate("/dashboard");
+        navigate("/dashboard/instructions");
       }
     }
   };

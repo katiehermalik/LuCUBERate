@@ -26,7 +26,7 @@ const App404 = () => {
       <h4>
         Your studying has taken you far... maybe too far? We aren't sure how you
         got lost out here in cyberspace, but we're happy to direct you back to
-        the <Link to="/dashboard">dashboard</Link>.
+        the <Link to="/dashboard/instructions">dashboard</Link>.
       </h4>
     </div>
   );

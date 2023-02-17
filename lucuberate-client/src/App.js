@@ -3,6 +3,7 @@ import {
   ThemeContext,
   UserContext,
   DeleteModalContext,
+  CurrentPathContext,
 } from "./context/ContextProvider";
 import MainRoutes from "./routes/MainRoutes";
 import DeleteModal from "./components/ConfirmationModal/component";
@@ -16,6 +17,9 @@ const App = () => {
     deleteModalInfo: { showModal },
     setDeleteModalInfo,
   } = useContext(DeleteModalContext);
+  const { currentPath } = useContext(CurrentPathContext);
+
+  console.log({ currentPath });
 
   return (
     <div

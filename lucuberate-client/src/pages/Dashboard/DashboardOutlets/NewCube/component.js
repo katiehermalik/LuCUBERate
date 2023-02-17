@@ -85,7 +85,7 @@ const NewCube = () => {
     setUserDataUpdating(true);
     setIsLoadingButton(false);
     setCurrentCubeId(data.cube._id);
-    navigate(`/dashboard/${data.cube._id}`);
+    navigate(`/dashboard/cube/${data.cube._id}`);
   };
 
   const collectCubeFormData = categoryId => {
@@ -452,7 +452,7 @@ const NewCube = () => {
         <div className="form-buttons form-row">
           <div className="form-group columns-2"></div>
           <div className="form-group columns-2">
-            <Link tabIndex="-1" to="/dashboard">
+            <Link tabIndex="-1" to="/dashboard/instructions">
               <button type="submit" className="btn form-btn btn-secondary">
                 Cancel
               </button>

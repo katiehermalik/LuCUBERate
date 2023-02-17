@@ -58,7 +58,7 @@ const EditCube = () => {
     await CubeAPI.update(formData, cubeId);
     setUserDataUpdating(true);
     setIsLoadingButton(false);
-    navigate(`/dashboard/${cubeId}`);
+    navigate(`/dashboard/cube/${cubeId}`);
   };
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const EditCube = () => {
         ? setCategoryIsNew(true)
         : setCategoryIsNew(false);
     } else {
-      navigate(`/dashboard/${cubeId}`);
+      navigate(`/dashboard/cube/${cubeId}`);
     }
   }, [
     cubeId,

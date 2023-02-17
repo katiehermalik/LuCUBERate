@@ -36,7 +36,7 @@ const StudyCube = () => {
     <>
       {cube && (
         <>
-          <div className="show-page-container container-column">
+          <div className="cube-page-container container-column">
             <div className="cube-ctrl-group container-row theme-transition">
               <fieldset className="radio-face-group">
                 <legend hidden>

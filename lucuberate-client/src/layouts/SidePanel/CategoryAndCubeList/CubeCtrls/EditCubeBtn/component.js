@@ -10,7 +10,7 @@ const EditCubeBtn = ({ cubeId }) => {
 
   const handleClick = e => {
     e.stopPropagation();
-    navigate(`/dashboard/${cubeId}/edit`);
+    navigate(`/dashboard/edit/${cubeId}`);
   };
 
   return (

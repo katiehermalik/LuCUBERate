@@ -49,19 +49,24 @@ const MainRoutes = () => {
                     component={<Dashboard user={currentUserInfo} />}
                   />
                 }>
-                <Route index element={<Instructions />} />
+                <Route
+                  index
+                  element={<Navigate to="/dashboard/instructions" replace />}
+                />
+                <Route path="instructions" element={<Instructions />} />
                 <Route path="new" element={<NewCube />} />
-                {currentPath[0] !== "404" ? (
-                  <>
-                    <Route path=":id/edit" element={<EditCube />} />
-                    <Route path=":id" element={<StudyCube />} />
-                  </>
-                ) : (
-                  <>
-                    <Route path=":id/edit" element={<Dashboard404 />} />
-                    <Route path=":id" element={<Dashboard404 />} />
-                  </>
-                )}
+                <Route
+                  path="edit/:id"
+                  element={
+                    currentPath[0] !== "404" ? <EditCube /> : <Dashboard404 />
+                  }
+                />
+                <Route
+                  path="cube/:id"
+                  element={
+                    currentPath[0] !== "404" ? <StudyCube /> : <Dashboard404 />
+                  }
+                />
               </Route>
               <Route path="*" element={<App404 />} />
             </Routes>

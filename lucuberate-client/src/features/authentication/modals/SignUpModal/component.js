@@ -110,7 +110,7 @@ const SignUpModal = ({
         emailValidationError: "",
         passwordError: "",
       });
-      navigate(`/dashboard/${userData.categories[2].cubes[0]}`);
+      navigate(`/dashboard/cube/${userData.categories[2].cubes[0]}`);
     }
   };
 
@@ -129,7 +129,7 @@ const SignUpModal = ({
       setShowSignUpModal(false);
       setShowGuide(true);
       setShowSidePanel(false);
-      navigate(`/dashboard/${userData.categories[2].cubes[0]}`);
+      navigate(`/dashboard/cube/${userData.categories[2].cubes[0]}`);
     }
   };
 

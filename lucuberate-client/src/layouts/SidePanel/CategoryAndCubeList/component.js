@@ -151,7 +151,7 @@ const CategoryAndCubeList = () => {
       openCategoryCubeList();
       let foundCubeRef;
       switch (true) {
-        case (currentPath[0] === "dashboard" || currentPath[0] === "show") &&
+        case (currentPath[0] === "instructions" || currentPath[0] === "cube") &&
           !isCurrentCubeCategory:
           setTimeout(function () {
             currCategoryCubeRefs[0].ref.scrollIntoView({
@@ -160,7 +160,7 @@ const CategoryAndCubeList = () => {
             });
           }, 100);
           break;
-        case (currentPath[0] === "edit" || currentPath[0] === "show") &&
+        case (currentPath[0] === "edit" || currentPath[0] === "cube") &&
           isCurrentCubeCategory:
           foundCubeRef = currCategoryCubeRefs.find(
             cube => cube.ref.value === currentCubeId
@@ -195,7 +195,7 @@ const CategoryAndCubeList = () => {
       cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCategory)
     );
     scrollToCube(true);
-    navigate(`/dashboard/${currentCubeId}`);
+    navigate(`/dashboard/cube/${currentCubeId}`);
     setCategoryWasShuffled(false);
   }, [cubeRefs, currentCategory, currentCubeId, navigate, scrollToCube]);
 
@@ -211,7 +211,7 @@ const CategoryAndCubeList = () => {
       // Gathering needed cube and category info differently depending on the path
       switch (currentPath[0]) {
         case "edit":
-        case "show":
+        case "cube":
           if (currentCubeId) {
             const { _id: currentCubeCatId } = currentUserInfo.categories.find(
               category => category.cubes.includes(currentCubeId)
@@ -231,7 +231,7 @@ const CategoryAndCubeList = () => {
               : scrollToCube(false);
           }
           break;
-        case "dashboard":
+        case "instructions":
         case "new":
         case "404":
           resetCubeId();
@@ -273,6 +273,7 @@ const CategoryAndCubeList = () => {
   useLayoutEffect(() => {
     currentCategoryRef && findCubeListHeight();
   }, [
+    currentUserInfo,
     findCubeListHeight,
     placeholderRendered,
     questionsAreVisible,
@@ -301,13 +302,13 @@ const CategoryAndCubeList = () => {
       setCurrentCategory(null);
       setCurrentCategoryRef(null);
       setCurrCategoryCubeRefs([]);
-      navigate(`/dashboard`);
+      navigate(`/dashboard/instructions`);
     }
   };
 
   const handleCubeClick = async e => {
     setCurrentCubeId(e.target.value);
-    navigate(`/dashboard/${e.target.value}`);
+    navigate(`/dashboard/cube/${e.target.value}`);
     e.target.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 

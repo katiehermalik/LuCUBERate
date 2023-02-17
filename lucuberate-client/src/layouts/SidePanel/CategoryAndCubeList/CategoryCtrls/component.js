@@ -44,7 +44,7 @@ const CategoryCtrls = ({
             <span className="container-row pointer-auto">
               <QuestionsToggle />
               {currentCubeId &&
-                currentPath[0] === "show" &&
+                currentPath[0] === "cube" &&
                 currentCubeCategory === currentCategory &&
                 cubeRefsLength > 1 && (
                   <CategoryShuffle
