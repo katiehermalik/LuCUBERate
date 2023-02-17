@@ -1,5 +1,4 @@
 let origin;
-let clientOrigin;
 let serverOrigin;
 let googleSuccessUrl;
 let googleFailedUrl;
@@ -23,10 +22,10 @@ if (process.env.NODE_ENV === "production") {
   categoriesUrl = `${origin}/api/v1/categories`;
   cubesUrl = `${origin}/api/v1/cubes`;
 } else {
-  clientOrigin = `http://localhost:3000`;
+  origin = `http://localhost:3000`;
   serverOrigin = `http://localhost:4000/api/v1`;
-  googleSuccessUrl = `${clientOrigin}/login/success`;
-  googleFailedUrl = `${clientOrigin}/login/failed`;
+  googleSuccessUrl = `${origin}/login/success`;
+  googleFailedUrl = `${origin}/login/failed`;
   googleLoginUrl = `${serverOrigin}/oauth/google`;
   loginUrl = `${serverOrigin}/auth/login`;
   logoutUrl = `${serverOrigin}/auth/logout`;
