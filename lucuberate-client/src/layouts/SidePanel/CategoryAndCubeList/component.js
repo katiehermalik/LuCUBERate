@@ -6,7 +6,7 @@ import {
   useEffect,
   useLayoutEffect,
 } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PackageIcon } from "@primer/octicons-react";
 import {
   UserContext,
@@ -23,7 +23,6 @@ import "./style.css";
 
 const CategoryAndCubeList = () => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const { currentUserInfo, isLoading } = useContext(UserContext);
   const { currentPath } = useContext(CurrentPathContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
@@ -250,7 +249,6 @@ const CategoryAndCubeList = () => {
     }
   }, [
     currentUserInfo,
-    pathname,
     cubeRefs.length,
     categoryRefs.length,
     currentCategory,
@@ -259,7 +257,6 @@ const CategoryAndCubeList = () => {
     currentCubeCategory,
     currentPath,
     closeCategoryCubeList,
-    openCategoryCubeList,
     findCurrentCategoryInfo,
     findCurrentCubeCategoryInfo,
     findCurrentCubeId,

@@ -87,9 +87,9 @@ const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     // Remove multiple slashes from url
-    if (pathname.match(/(?<!:)\/+/gm)) {
+    if (pathname.match(/\/+/gm)) {
       let url = pathname;
-      url = url.replace(/(?<!:)\/+/gm, "/");
+      url = url.replace(/\/+/gm, "/");
       navigate(url);
     }
     if (isLoggedIn) {
