@@ -62,17 +62,17 @@ app.use("/api/v1/oauth", routes.oauth);
 
 // -------------------------- Serve static assets (production vs development)
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("lucuberate-client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "lucuberate-client", "build", "index.html")
-    );
-  });
-} else {
-  app.use(
-    express.static(path.join(__dirname, "lucuberate-client", "src", "images"))
-  );
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("lucuberate-client/build"));
+//   app.get("*", (req, res) => {
+//     res.sendFile(
+//       path.resolve(__dirname, "lucuberate-client", "build", "index.html")
+//     );
+//   });
+// } else {
+//   app.use(
+//     express.static(path.join(__dirname, "lucuberate-client", "src", "assets", "images"))
+//   );
+// }
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
