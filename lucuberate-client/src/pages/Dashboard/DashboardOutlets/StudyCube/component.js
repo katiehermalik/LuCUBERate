@@ -1,24 +1,36 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import {
-  GuideContext,
-  CurrentPathContext,
-} from "../../../../context/ContextProvider";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useCallback,
+} from "react";
+import { useLocation } from "react-router-dom";
+import { GuideContext } from "../../../../context/ContextProvider";
 import "../../../../assets/App.css";
 import GuideModal from "../../../../components/GuideModal/component";
 import "./style.css";
+import CubeAPI from "../../../../utils/api/cube";
 
 const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
 
 const StudyCube = () => {
-  const {
-    cubeData: { cube },
-  } = useContext(CurrentPathContext);
   const { showGuide, setShowGuide } = useContext(GuideContext);
   const [side, setSide] = useState("");
   const [isLoadingCube] = useState(false);
   const { completedGuide } =
     JSON.parse(localStorage.getItem("completedGuide")) || "";
   const sideRefs = useRef([]);
+  const [cube, setCube] = useState(null);
+  
+  const { pathname } = useLocation();
+  const params = pathname.split("/");
+  const cubeId = params[3];
+
+  const loadCube = useCallback(async () => {
+    const { cube } = await CubeAPI.getOne(cubeId);
+    setCube(cube);
+  }, [cubeId]);
 
   useEffect(() => {
     document.title = "Lucuberate | Study Cube";
@@ -30,7 +42,8 @@ const StudyCube = () => {
         else ref.checked = false;
       });
     }
-  }, [cube, showGuide, completedGuide, setShowGuide, isLoadingCube]);
+    loadCube();
+  }, [cube, loadCube, showGuide, completedGuide, setShowGuide, isLoadingCube]);
 
   return (
     <>
