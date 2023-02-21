@@ -2,14 +2,17 @@ import { useRef, useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import SidePanel from "../../layouts/SidePanel";
 import NavbarMobile from "../../layouts/NavbarMobile";
-import { CategoryListContext } from "../../context/ContextProvider";
+import {
+  CategoryListContext,
+} from "../../context/ContextProvider";
 import "./style.css";
 
-function Dashboard({ user }) {
+function Dashboard() {
   const { setShowSidePanel } = useContext(CategoryListContext);
   const pagesRef = useRef();
 
   useEffect(() => {
+
     const mediaQuery = window.matchMedia("(max-width: 720px)");
     if (mediaQuery.matches) {
       const closeUserMenu = e => {
@@ -33,7 +36,8 @@ function Dashboard({ user }) {
         </div>
       </div>
       <div className="mobile-only-nav">
-        <NavbarMobile user={user} />
+        <NavbarMobile
+        />
       </div>
     </>
   );

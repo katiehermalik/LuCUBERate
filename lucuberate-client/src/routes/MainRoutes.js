@@ -13,7 +13,7 @@ import Dashboard404 from "../pages/Dashboard/DashboardOutlets/Dashboard404";
 import LoginSuccess from "../features/authentication/modals/LoginSuccess/component";
 
 const MainRoutes = () => {
-  const { currentUserInfo, isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn } = useContext(UserContext);
   const { currentPath } = useContext(CurrentPathContext);
 
   return (
@@ -24,31 +24,16 @@ const MainRoutes = () => {
             <Routes>
               <Route
                 index
-                element={
-                  <RoutesWithNavbar
-                    currentUserInfo={currentUserInfo}
-                    component={<Landing />}
-                  />
-                }
+                element={<RoutesWithNavbar component={<Landing />} />}
               />
               <Route
                 path="/"
-                element={
-                  <RoutesWithNavbar
-                    currentUserInfo={currentUserInfo}
-                    component={<Landing />}
-                  />
-                }
+                element={<RoutesWithNavbar component={<Landing />} />}
               />
               <Route
                 exact
                 path="/dashboard"
-                element={
-                  <RoutesWithNavbar
-                    currentUserInfo={currentUserInfo}
-                    component={<Dashboard user={currentUserInfo} />}
-                  />
-                }>
+                element={<RoutesWithNavbar component={<Dashboard />} />}>
                 <Route
                   index
                   element={<Navigate to="/dashboard/instructions" replace />}
@@ -74,21 +59,11 @@ const MainRoutes = () => {
             <Routes>
               <Route
                 index
-                element={
-                  <RoutesWithNavbar
-                    currentUserInfo={currentUserInfo}
-                    component={<Landing />}
-                  />
-                }
+                element={<RoutesWithNavbar component={<Landing />} />}
               />
               <Route
                 path="/"
-                element={
-                  <RoutesWithNavbar
-                    currentUserInfo={currentUserInfo}
-                    component={<Landing />}
-                  />
-                }
+                element={<RoutesWithNavbar component={<Landing />} />}
               />
               <Route path="/login/success" element={<LoginSuccess />} />
               <Route path="*" element={<Navigate to="/" replace />} />
