@@ -18,7 +18,7 @@ import {
 import PlaceholderCube from "./CubeCtrls/PlaceholderCube";
 import CubeCtrls from "./CubeCtrls/component";
 import CategoryCtrls from "./CategoryCtrls/component";
-import Footer from "../../SidePanelFooter";
+import SidePanelFooter from "../../SidePanelFooter";
 import "./style.css";
 
 const CategoryAndCubeList = () => {
@@ -434,7 +434,7 @@ const CategoryAndCubeList = () => {
                     )
                   )}
                 </fieldset>
-                <Footer />
+                <SidePanelFooter />
               </>
             )}
           </div>
