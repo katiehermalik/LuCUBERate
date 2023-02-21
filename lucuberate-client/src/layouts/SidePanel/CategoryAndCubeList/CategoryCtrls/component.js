@@ -37,10 +37,7 @@ const CategoryCtrls = ({
         <div className="category-item category-btn-cover theme-transition">
           <span className="category-title">{`${categoryTitle}`}</span>
           <div className="container-row pointer-disabled">
-            <CubeCount
-              categoryCubeLength={cubeListLength}
-              cubeListOpened={true}
-            />
+            <CubeCount categoryCubeLength={cubeListLength} />
             <span className="container-row pointer-auto">
               <QuestionsToggle />
               {currentCubeId &&
@@ -64,10 +61,7 @@ const CategoryCtrls = ({
         <div className="category-item category-btn-cover theme-transition">
           <span className="category-title">{`${categoryTitle}`}</span>
           <div className="container-row pointer-disabled">
-            <CubeCount
-              categoryCubeLength={cubeListLength}
-              cubeListOpened={false}
-            />
+            <CubeCount categoryCubeLength={cubeListLength} />
             <ChevronRightIcon size={16} className="pointer-disabled" />
           </div>
         </div>

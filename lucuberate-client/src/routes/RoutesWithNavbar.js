@@ -1,9 +1,10 @@
 import Navbar from "../layouts/Navbar";
 
-const RoutesWithNavbar = ({ currentUserInfo, component }) => {
+const RoutesWithNavbar = ({ component }) => {
+
   return (
     <>
-      <Navbar user={currentUserInfo} />
+      <Navbar />
       {component}
     </>
   );

@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { PackageIcon } from "@primer/octicons-react";
 import "./style.css"
 
-const CubeCount = ({ categoryCubeLength, cubeListOpened }) => {
+const CubeCount = memo(({ categoryCubeLength }) => {
   return (
     <>
       <span
@@ -17,6 +18,6 @@ const CubeCount = ({ categoryCubeLength, cubeListOpened }) => {
       <PackageIcon size={16} className="cube-icon" />
     </>
   );
-};
+});
 
 export default CubeCount;

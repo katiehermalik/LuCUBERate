@@ -18,7 +18,7 @@ import {
 import PlaceholderCube from "./CubeCtrls/PlaceholderCube";
 import CubeCtrls from "./CubeCtrls/component";
 import CategoryCtrls from "./CategoryCtrls/component";
-import Footer from "../../SidePanelFooter";
+import SidePanelFooter from "../../SidePanelFooter";
 import "./style.css";
 
 const CategoryAndCubeList = () => {
@@ -194,9 +194,9 @@ const CategoryAndCubeList = () => {
       cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCategory)
     );
     scrollToCube(true);
-    navigate(`/dashboard/cube/${currentCubeId}`);
+    // navigate(`/dashboard/cube/${currentCubeId}`);
     setCategoryWasShuffled(false);
-  }, [cubeRefs, currentCategory, currentCubeId, navigate, scrollToCube]);
+  }, [cubeRefs, currentCategory, scrollToCube]);
 
   //====================================================================================//
 
@@ -434,7 +434,7 @@ const CategoryAndCubeList = () => {
                     )
                   )}
                 </fieldset>
-                <Footer />
+                <SidePanelFooter />
               </>
             )}
           </div>
