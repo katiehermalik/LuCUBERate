@@ -1,8 +1,9 @@
+import { memo } from "react";
 import EditBtn from "./EditCubeBtn/component";
 import DeleteBtn from "../DeleteBtn/component";
-import "./style.css"
+import "./style.css";
 
-const CubeCtrls = ({ cubeId, cubeListLength, categoryTitle }) => {
+const CubeCtrls = memo(({ cubeId, cubeListLength, categoryTitle }) => {
   return (
     <div className="cube-ctrls container-row">
       <EditBtn cubeId={cubeId} />
@@ -13,6 +14,6 @@ const CubeCtrls = ({ cubeId, cubeListLength, categoryTitle }) => {
       />
     </div>
   );
-};
+});
 
 export default CubeCtrls;
