@@ -194,9 +194,9 @@ const CategoryAndCubeList = () => {
       cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCategory)
     );
     scrollToCube(true);
-    navigate(`/dashboard/cube/${currentCubeId}`);
+    // navigate(`/dashboard/cube/${currentCubeId}`);
     setCategoryWasShuffled(false);
-  }, [cubeRefs, currentCategory, currentCubeId, navigate, scrollToCube]);
+  }, [cubeRefs, currentCategory, scrollToCube]);
 
   //====================================================================================//
 

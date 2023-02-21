@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import {
   UserContext,
   CategoryContext,
@@ -13,7 +12,6 @@ const PlaceholderCube = ({
   currentCubeCategory,
   currentPath,
 }) => {
-  const { pathname } = useLocation();
   const { currentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
   const {
@@ -35,6 +33,8 @@ const PlaceholderCube = ({
       } else {
         setPlaceholderRendered(false);
       }
+    } else {
+      setPlaceholderRendered(false);
     }
   }, [
     setPlaceholderRendered,
@@ -42,7 +42,6 @@ const PlaceholderCube = ({
     categories,
     currentCubeId,
     currentPath,
-    pathname,
     currentCubeCategory,
   ]);
 
