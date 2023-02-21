@@ -4,17 +4,18 @@ import SidePanel from "../../layouts/SidePanel";
 import NavbarMobile from "../../layouts/NavbarMobile";
 import {
   CategoryListContext,
+  GuideContext,
 } from "../../context/ContextProvider";
 import "./style.css";
 
 function Dashboard() {
   const { setShowSidePanel } = useContext(CategoryListContext);
+  const { showGuide } = useContext(GuideContext);
   const pagesRef = useRef();
 
   useEffect(() => {
-
     const mediaQuery = window.matchMedia("(max-width: 720px)");
-    if (mediaQuery.matches) {
+    if (mediaQuery.matches && showGuide === false) {
       const closeUserMenu = e => {
         if (
           pagesRef.current &&
@@ -25,7 +26,7 @@ function Dashboard() {
       };
       document.addEventListener("mousedown", closeUserMenu);
     }
-  }, [setShowSidePanel]);
+  }, [setShowSidePanel, showGuide]);
 
   return (
     <>
@@ -36,8 +37,7 @@ function Dashboard() {
         </div>
       </div>
       <div className="mobile-only-nav">
-        <NavbarMobile
-        />
+        <NavbarMobile />
       </div>
     </>
   );

@@ -84,6 +84,7 @@ const StudyCube = () => {
                             : "blur pointer-disabled"
                         }`}>
                         Question
+                        <hr className="theme-transition" />
                       </div>
                       {cube.question && (
                         <div
@@ -102,6 +103,7 @@ const StudyCube = () => {
                           side === "Answer" ? "" : "blur pointer-disabled"
                         }`}>
                         Answer
+                        <hr className="theme-transition" />
                       </div>
                       {cube.answer && (
                         <div
@@ -120,6 +122,7 @@ const StudyCube = () => {
                           side === "Hint" ? "" : "blur pointer-disabled"
                         }`}>
                         Hint
+                        <hr className="theme-transition" />
                       </div>
                       {cube.hint && (
                         <div
@@ -138,6 +141,7 @@ const StudyCube = () => {
                           side === "Notes" ? "" : "blur pointer-disabled"
                         }`}>
                         Notes
+                        <hr className="theme-transition" />
                       </div>
                       {cube.notes && (
                         <div
@@ -156,6 +160,7 @@ const StudyCube = () => {
                           side === "Visual Aid" ? "" : "blur pointer-disabled"
                         }`}>
                         Visual Aid
+                        <hr className="theme-transition" />
                       </div>
                       {cube.visual_aid && (
                         <a
@@ -180,6 +185,7 @@ const StudyCube = () => {
                           side === "Link" ? "" : "blur pointer-disabled"
                         }`}>
                         Link
+                        <hr className="theme-transition" />
                       </div>
                       {(cube.link_1 || cube.link_2 || cube.link_3) && (
                         <div

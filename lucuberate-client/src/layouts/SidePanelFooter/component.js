@@ -10,7 +10,7 @@ const SidePanelFooter = memo(() => {
         href="mailto:support@lucuberate.com">
         support@lucuberate.com
       </a>
-      <p>{`Copyright \u00A9 ${new Date().getFullYear()} Lucuberate`}</p>
+      <p>{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
     </footer>
   );
 });

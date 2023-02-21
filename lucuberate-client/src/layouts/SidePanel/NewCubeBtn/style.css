@@ -11,3 +11,11 @@
 .new-cube-btn:hover {
   background-color: var(--primary-btn-color-hover);
 }
+
+@media screen and (max-width: 720px) {
+  .new-cube-btn {
+    height: 32px;
+    margin: 10px 5px;
+    min-width: auto;
+  }
+}
