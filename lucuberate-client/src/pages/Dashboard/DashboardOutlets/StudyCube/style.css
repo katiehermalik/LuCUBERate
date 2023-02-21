@@ -155,14 +155,21 @@
 }
 
 .face-title {
-  border-bottom: 1px solid var(--primary-text-color);
   font-size: 6vmin;
   font-weight: bold;
   margin: 0 2.5vmin 2.5vmin;
   line-height: 1.4;
 }
 
+.face hr {
+  width: 100%;
+  background-color: var(--primary-text-color);
+  height: 1px;
+  margin: 0;
+}
+
 .face-content {
+  position: relative;
   font-size: 3.1vmin;
   max-height: 70%;
   overflow-y: auto;
