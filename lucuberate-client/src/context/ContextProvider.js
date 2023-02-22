@@ -121,12 +121,15 @@ const ContextProvider = ({ children }) => {
         cubeId,
       });
     }
-    setIsLoading(false);
   }, [pathname, cubeId, currentPage, currentUserInfo, userDataUpdating]);
 
   useEffect(() => {
     loadCube();
   }, [currentPath, loadCube]);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [cubeData]);
 
   return (
     <>
