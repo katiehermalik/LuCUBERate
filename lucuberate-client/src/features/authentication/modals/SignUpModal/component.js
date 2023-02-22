@@ -31,7 +31,7 @@ const SignUpModal = ({
 }) => {
   const navigate = useNavigate();
   const form = useRef(null);
-  const { setCurrentUserInfo } = useContext(UserContext);
+  const { setCurrentUserInfo, setAppIsLoading } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
   const { setShowGuide } = useContext(GuideContext);
   const { setShowSidePanel } = useContext(CategoryListContext);
@@ -96,6 +96,7 @@ const SignUpModal = ({
           isLoggedIn: true,
         })
       );
+      setAppIsLoading(true);
       setCurrentUserInfo(userData);
       setCurrentCubeId(userData.categories[2].cubes[0]);
       setShowSignUpModal(false);
@@ -124,6 +125,7 @@ const SignUpModal = ({
           isLoggedIn: true,
         })
       );
+      setAppIsLoading(true);
       setCurrentUserInfo(userData);
       setCurrentCubeId(userData.categories[2].cubes[0]);
       setShowSignUpModal(false);

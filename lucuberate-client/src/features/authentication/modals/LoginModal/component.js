@@ -28,7 +28,7 @@ const LoginModal = ({
 }) => {
   const navigate = useNavigate();
   const { setTheme } = useContext(ThemeContext);
-  const { setCurrentUserInfo } = useContext(UserContext);
+  const { setCurrentUserInfo, setAppIsLoading } = useContext(UserContext);
   const { setShowGuide } = useContext(GuideContext);
   const { setShowSidePanel } = useContext(CategoryListContext);
   const [showPassword, setShowPassword] = useState(false);
@@ -76,6 +76,7 @@ const LoginModal = ({
           isLoggedIn: true,
         })
       );
+      setAppIsLoading(true);
       setCurrentUserInfo(userData);
       setTheme(userData.theme === "dark" ? "dark" : "light");
       setShowLoginModal(false);
@@ -109,6 +110,7 @@ const LoginModal = ({
           isLoggedIn: true,
         })
       );
+      setAppIsLoading(true);
       setCurrentUserInfo(userData);
       setTheme(userData.theme === "dark" ? "dark" : "light");
       setShowLoginModal(false);

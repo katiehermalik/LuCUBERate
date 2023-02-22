@@ -34,12 +34,11 @@ const GuideModal = () => {
         }
       });
     if (tourStep === 4 && guideDecision.current?.checked) {
-      await UserAPI.update({ newUser: false, showGuideModal: false });
-      setCurrentUserInfo(prevState => ({
-        ...prevState,
+      const updatedUser = await UserAPI.update({
         newUser: false,
         showGuideModal: false,
-      }));
+      });
+      setCurrentUserInfo(updatedUser);
       setShowGuide(false);
     } else if (tourStep === 4) {
       await UserAPI.update({ newUser: false });

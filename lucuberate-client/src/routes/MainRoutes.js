@@ -13,12 +13,12 @@ import Dashboard404 from "../pages/Dashboard/DashboardOutlets/Dashboard404";
 import LoginSuccess from "../features/authentication/modals/LoginSuccess/component";
 
 const MainRoutes = () => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, cubeIsLoading } = useContext(UserContext);
   const { currentPath } = useContext(CurrentPathContext);
 
   return (
     <>
-      {currentPath[0] && (
+      {currentPath && (
         <>
           {isLoggedIn ? (
             <Routes>
@@ -49,7 +49,13 @@ const MainRoutes = () => {
                 <Route
                   path="cube/:id"
                   element={
-                    currentPath[0] !== "404" ? <StudyCube /> : <Dashboard404 />
+                    cubeIsLoading ? (
+                      <StudyCube cubeIsLoading={cubeIsLoading} />
+                    ) : currentPath[0] !== "404" ? (
+                      <StudyCube />
+                    ) : (
+                      <Dashboard404 />
+                    )
                   }
                 />
               </Route>

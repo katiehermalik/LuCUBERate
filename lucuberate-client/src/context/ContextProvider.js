@@ -25,11 +25,12 @@ const ContextProvider = ({ children }) => {
   const navigate = useNavigate();
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
   const [userDataUpdating, setUserDataUpdating] = useState(true);
-  const [currentPath, setCurrentPath] = useReducer(currentPathReducer, [""]);
+  const [currentPath, setCurrentPath] = useReducer(currentPathReducer, null);
   const [currentCategory, setCurrentCategory] = useState("");
   const [cubeData, setCubeData] = useState({});
   const [currentCubeId, setCurrentCubeId] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [appIsLoading, setAppIsLoading] = useState(false);
+  const [cubeIsLoading, setCubeIsLoading] = useState(false);
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [showSidePanel, setShowSidePanel] = useState(true);
@@ -38,12 +39,19 @@ const ContextProvider = ({ children }) => {
   const params = pathname.split("/");
   const currentPage = params[2];
   const cubeId = params[3];
+  let cleanedPathname;
+  // Remove multiple slashes from url
+  if (pathname.match(/\/\/+/gm)) {
+    cleanedPathname = pathname.replace(/\/\/+/gm, "/");
+    navigate(cleanedPathname);
+  }
 
   function currentPathReducer(prevState, { type, cubeId }) {
     switch (type) {
+      case "home":
       case "instructions":
       case "new":
-        return prevState[0] !== type ? [type, null] : prevState;
+        return !prevState || prevState[0] !== type ? [type, null] : prevState;
       case "edit":
       case "cube":
         const foundCube = currentUserInfo.cubes.find(
@@ -64,71 +72,73 @@ const ContextProvider = ({ children }) => {
   }
 
   const findUserInfo = useCallback(async () => {
-    if (userDataUpdating) {
-      const userInfo = await UserAPI.userData();
-      const { userData } = userInfo;
-      setCurrentUserInfo(userData);
-      setTheme(userData.theme);
-      setUserDataUpdating(false);
-      setShowGuide(userData.showGuideModal);
-    }
-  }, [userDataUpdating]);
+    const userInfo = await UserAPI.userData();
+    const { userData } = userInfo;
+    setCurrentUserInfo(userData);
+    setTheme(userData.theme);
+    setUserDataUpdating(false);
+    setShowGuide(userData.showGuideModal);
+  }, []);
 
   const loadCube = useCallback(async () => {
-    if (currentPath[0] === "cube" || currentPath[0] === "edit") {
-      const cube = await CubeAPI.getOne(currentPath[1]);
-      setCubeData(cube);
-    } else {
-      setCubeData({});
+    if (currentPath) {
+      if (currentPath[0] === "cube" || currentPath[0] === "edit") {
+        const cube = await CubeAPI.getOne(currentPath[1]);
+        setCubeData(cube);
+      } else {
+        setCubeData({});
+      }
     }
   }, [currentPath]);
 
   // ------------------------------ Use Effects ----------------------------------- //
 
   useEffect(() => {
-    // Remove multiple slashes from url
-    if (pathname.match(/\/+/gm)) {
-      let url = pathname;
-      url = url.replace(/\/+/gm, "/");
-      navigate(url);
-    }
     if (isLoggedIn) {
-      setIsLoading(true);
-      if (!currentUserInfo || userDataUpdating === true) {
+      if (userDataUpdating) {
+        setAppIsLoading(true);
+        // This is to grab user info in the case of a browser refresh
+        // or user data updated (cubes/categories being added or deleted)
         findUserInfo();
+      } else if (!userDataUpdating) {
+        if (cleanedPathname === "/") {
+          setCurrentPath({
+            type: "home",
+            cubeId: null,
+          });
+        } else {
+          setCurrentPath({
+            type: currentPage,
+            cubeId,
+          });
+        }
       }
     } else {
       setCurrentPath({
-        type: currentPage,
-        cubeId,
+        type: "home",
+        cubeId: null,
       });
     }
   }, [
-    navigate,
-    pathname,
-    cubeId,
-    currentPage,
-    userDataUpdating,
     currentUserInfo,
+    userDataUpdating,
     isLoggedIn,
     findUserInfo,
+    cleanedPathname,
+    cubeId,
+    currentPage,
   ]);
 
   useEffect(() => {
-    if (currentUserInfo && userDataUpdating === false) {
-      setCurrentPath({
-        type: currentPage,
-        cubeId,
-      });
-    }
-  }, [pathname, cubeId, currentPage, currentUserInfo, userDataUpdating]);
-
-  useEffect(() => {
+    setCubeIsLoading(true);
     loadCube();
   }, [currentPath, loadCube]);
 
   useEffect(() => {
-    setIsLoading(false);
+    setTimeout(() => {
+      setCubeIsLoading(false);
+    }, 500);
+    setAppIsLoading(false);
   }, [cubeData]);
 
   return (
@@ -141,7 +151,10 @@ const ContextProvider = ({ children }) => {
               currentUserInfo,
               setCurrentUserInfo,
               setUserDataUpdating,
-              isLoading,
+              setAppIsLoading,
+              appIsLoading,
+              setCubeIsLoading,
+              cubeIsLoading,
               isLoggedIn,
             }}>
             <DeleteModalContext.Provider

@@ -7,7 +7,6 @@ import {
   useLayoutEffect,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { PackageIcon } from "@primer/octicons-react";
 import {
   UserContext,
   CurrentPathContext,
@@ -23,7 +22,7 @@ import "./style.css";
 
 const CategoryAndCubeList = () => {
   const navigate = useNavigate();
-  const { currentUserInfo, isLoading } = useContext(UserContext);
+  const { currentUserInfo } = useContext(UserContext);
   const { currentPath } = useContext(CurrentPathContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId, setCurrentCubeId } = useContext(CubeContext);
@@ -194,7 +193,6 @@ const CategoryAndCubeList = () => {
       cubeRefs.find(cubeRefArr => cubeRefArr[0].category_id === currentCategory)
     );
     scrollToCube(true);
-    // navigate(`/dashboard/cube/${currentCubeId}`);
     setCategoryWasShuffled(false);
   }, [cubeRefs, currentCategory, scrollToCube]);
 
@@ -314,131 +312,113 @@ const CategoryAndCubeList = () => {
   return (
     <>
       {currentUserInfo && (
-        <>
-          <div id={"cube-list-grp"} className="cube-list-grp container-column">
-            {isLoading && (
-              <div className="loading-group">
-                <PackageIcon size={24} className="loading-icon" />
-                <h3>Loading Category and Cube Lists</h3>
-              </div>
-            )}
-            {!isLoading && (
-              <>
-                <fieldset>
-                  <legend hidden>Category list: Choose a Category</legend>
-                  {currentUserInfo.categories?.map(
-                    (
-                      {
-                        cubes: categoryCubes,
-                        _id: categoryId,
-                        title: categoryTitle,
-                        cubes: { length: cubeListLength },
-                      },
-                      i
-                    ) => (
-                      <div
-                        className="cube-list theme-transition"
-                        key={categoryId}>
-                        <div className="category-container">
-                          <CategoryCtrls
-                            setCategoryWasShuffled={setCategoryWasShuffled}
-                            currentCubeCategory={currentCubeCategory}
-                            cubeRefsLength={currCategoryCubeRefs.length}
-                            currentCategoryRef={currentCategoryRef}
-                            cubeListLength={cubeListLength}
-                            categoryTitle={categoryTitle}
-                            categoryId={categoryId}
-                          />
-                          <button
-                            tabIndex="0"
-                            onClick={handleCategoryClick}
-                            type="button"
-                            className="category-item category-btn theme-transition"
-                            value={categoryTitle}
-                            title={categoryTitle}
-                            id={categoryId}
-                            ref={element => {
-                              if (element) {
-                                cubeRefs[i] = [];
-                                categoryRefs[i] = element;
-                              }
-                            }}></button>
-                          <fieldset
-                            className="content container-column cube-select-group"
-                            style={{
-                              maxHeight: "0px",
-                              transition: `all 0.${
-                                categoryCubes.length >= 4
-                                  ? 4
-                                  : categoryCubes.length
-                              }s ease-out 0s`,
-                            }}>
-                            <legend
-                              hidden>{`Cube list for ${categoryTitle} category: Choose a Cube`}</legend>
-                            <ul>
-                              {categoryCubes?.map((cube, j) => (
-                                <div key={cube}>
-                                  <li className="radio-button">
-                                    <input
-                                      tabIndex="0"
-                                      type="radio"
-                                      name="cube-select"
-                                      value={cube}
-                                      id={cube}
-                                      category={categoryId}
-                                      onClick={handleCubeClick}
-                                      ref={element => {
-                                        if (element) {
-                                          cubeRefs[i][j] = {
-                                            category_id: categoryId,
-                                            ref: element,
-                                          };
-                                        }
-                                      }}
-                                    />
-                                    <label
-                                      className="radio-label"
-                                      htmlFor={cube}>
-                                      {questionsAreVisible
-                                        ? currentUserInfo.cubes.find(
-                                            item => item._id === cube
-                                          ).question.length > 60
-                                          ? currentUserInfo.cubes
-                                              .find(item => item._id === cube)
-                                              .question.slice(0, 60) + " . . ."
-                                          : currentUserInfo.cubes.find(
-                                              item => item._id === cube
-                                            ).question
-                                        : `Cube ${j + 1}`}
-                                    </label>
-                                    {currentCubeId === cube && (
-                                      <CubeCtrls
-                                        cubeId={cube}
-                                        cubeListLength={cubeListLength}
-                                        categoryTitle={categoryTitle}
-                                      />
-                                    )}
-                                  </li>
-                                </div>
-                              ))}
-                              <PlaceholderCube
-                                placeholderRendered={placeholderRendered}
-                                setPlaceholderRendered={setPlaceholderRendered}
-                                currentPath={currentPath}
-                                currentCubeCategory={currentCubeCategory}
+        <div id={"cube-list-grp"} className="cube-list-grp container-column">
+          <fieldset>
+            <legend hidden>Category list: Choose a Category</legend>
+            {currentUserInfo.categories?.map(
+              (
+                {
+                  cubes: categoryCubes,
+                  _id: categoryId,
+                  title: categoryTitle,
+                  cubes: { length: cubeListLength },
+                },
+                i
+              ) => (
+                <div className="cube-list theme-transition" key={categoryId}>
+                  <div className="category-container">
+                    <CategoryCtrls
+                      setCategoryWasShuffled={setCategoryWasShuffled}
+                      currentCubeCategory={currentCubeCategory}
+                      cubeRefsLength={currCategoryCubeRefs.length}
+                      currentCategoryRef={currentCategoryRef}
+                      cubeListLength={cubeListLength}
+                      categoryTitle={categoryTitle}
+                      categoryId={categoryId}
+                    />
+                    <button
+                      tabIndex="0"
+                      onClick={handleCategoryClick}
+                      type="button"
+                      className="category-item category-btn theme-transition"
+                      value={categoryTitle}
+                      title={categoryTitle}
+                      id={categoryId}
+                      ref={element => {
+                        if (element) {
+                          cubeRefs[i] = [];
+                          categoryRefs[i] = element;
+                        }
+                      }}></button>
+                    <fieldset
+                      className="content container-column cube-select-group"
+                      style={{
+                        maxHeight: "0px",
+                        transition: `all 0.${
+                          categoryCubes.length >= 4 ? 4 : categoryCubes.length
+                        }s ease-out 0s`,
+                      }}>
+                      <legend
+                        hidden>{`Cube list for ${categoryTitle} category: Choose a Cube`}</legend>
+                      <ul>
+                        {categoryCubes?.map((cube, j) => (
+                          <div key={cube}>
+                            <li className="radio-button">
+                              <input
+                                tabIndex="0"
+                                type="radio"
+                                name="cube-select"
+                                value={cube}
+                                id={cube}
+                                category={categoryId}
+                                onClick={handleCubeClick}
+                                ref={element => {
+                                  if (element) {
+                                    cubeRefs[i][j] = {
+                                      category_id: categoryId,
+                                      ref: element,
+                                    };
+                                  }
+                                }}
                               />
-                            </ul>
-                          </fieldset>
-                        </div>
-                      </div>
-                    )
-                  )}
-                </fieldset>
-                <SidePanelFooter />
-              </>
+                              <label className="radio-label" htmlFor={cube}>
+                                {questionsAreVisible
+                                  ? currentUserInfo.cubes.find(
+                                      item => item._id === cube
+                                    ).question.length > 60
+                                    ? currentUserInfo.cubes
+                                        .find(item => item._id === cube)
+                                        .question.slice(0, 60) + " . . ."
+                                    : currentUserInfo.cubes.find(
+                                        item => item._id === cube
+                                      ).question
+                                  : `Cube ${j + 1}`}
+                              </label>
+                              {currentCubeId === cube && (
+                                <CubeCtrls
+                                  cubeId={cube}
+                                  cubeListLength={cubeListLength}
+                                  categoryTitle={categoryTitle}
+                                />
+                              )}
+                            </li>
+                          </div>
+                        ))}
+                        <PlaceholderCube
+                          placeholderRendered={placeholderRendered}
+                          setPlaceholderRendered={setPlaceholderRendered}
+                          currentPath={currentPath}
+                          currentCubeCategory={currentCubeCategory}
+                        />
+                      </ul>
+                    </fieldset>
+                  </div>
+                </div>
+              )
             )}
-          </div>
-        </>
+          </fieldset>
+          <SidePanelFooter />
+        </div>
       )}
     </>
   );

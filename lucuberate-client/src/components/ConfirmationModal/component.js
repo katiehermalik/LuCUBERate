@@ -47,9 +47,9 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
   const handleDeleteCategory = async e => {
     e.stopPropagation();
     navigate("/dashboard/instructions");
-    await CategoryAPI.delete(categoryId);
-    setUserDataUpdating(true);
     setCurrentCubeId("");
+    setUserDataUpdating(true);
+    await CategoryAPI.delete(categoryId);
     setCurrentCategory(null);
     setDeleteModalInfo({ showModal: false });
   };
@@ -58,8 +58,8 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
     e.stopPropagation();
     navigate("/dashboard/instructions");
     setCurrentCubeId("");
-    const deletedCube = await CubeAPI.delete(cubeId);
     setUserDataUpdating(true);
+    const deletedCube = await CubeAPI.delete(cubeId);
     if (deletedCube.categoryDeleted) {
       setCurrentCategory(null);
     }
