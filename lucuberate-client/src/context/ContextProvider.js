@@ -112,6 +112,7 @@ const ContextProvider = ({ children }) => {
             cubeId,
           });
         }
+        setAppIsLoading(false);
       }
     } else {
       setCurrentPath({
@@ -138,7 +139,6 @@ const ContextProvider = ({ children }) => {
     setTimeout(() => {
       setCubeIsLoading(false);
     }, 500);
-    setAppIsLoading(false);
   }, [cubeData]);
 
   return (
