@@ -93,8 +93,8 @@ const ContextProvider = ({ children }) => {
       navigate(url);
     }
     if (isLoggedIn) {
+      setIsLoading(true);
       if (!currentUserInfo || userDataUpdating === true) {
-        setIsLoading(true);
         findUserInfo();
       }
     } else {
