@@ -11,7 +11,8 @@ import "./style.css";
 
 const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
   const navigate = useNavigate();
-  const { currentUserInfo, setUserDataUpdating } = useContext(UserContext);
+  const { currentUserInfo, setUserDataUpdating, setCurrentPath } =
+    useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
   const { setCurrentCategory } = useContext(CategoryContext);
   const [currentCategoryInfo, setCurrentCategoryInfo] = useState({});
@@ -46,6 +47,10 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
 
   const handleDeleteCategory = async e => {
     e.stopPropagation();
+    setCurrentPath({
+      type: "instructions",
+      cubeId: null,
+    });
     setCurrentCubeId("");
     setCurrentCategory(null);
     await CategoryAPI.delete(categoryId);
@@ -56,6 +61,10 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
 
   const handleDeleteCube = async e => {
     e.stopPropagation();
+    setCurrentPath({
+      type: "instructions",
+      cubeId: null,
+    });
     setCurrentCubeId("");
     const deletedCube = await CubeAPI.delete(cubeId);
     if (deletedCube.categoryDeleted) {
