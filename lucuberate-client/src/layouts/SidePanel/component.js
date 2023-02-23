@@ -1,14 +1,11 @@
 import { useContext } from "react";
-import {
-  CategoryListContext,
-  UserContext,
-} from "../../context/ContextProvider";
+import { LayoutContext, UserContext } from "../../context/ContextProvider";
 import NewCubeBtn from "./NewCubeBtn";
 import CategoryAndCubeList from "./CategoryAndCubeList";
-import "./style.css"
+import "./style.css";
 
 function SidePanel() {
-  const { showSidePanel } = useContext(CategoryListContext);
+  const { showSidePanel } = useContext(LayoutContext);
   const { currentUserInfo } = useContext(UserContext);
 
   return (

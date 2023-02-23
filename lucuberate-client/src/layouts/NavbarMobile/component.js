@@ -1,9 +1,6 @@
 import { useContext } from "react";
 import { useLocation } from "react-router-dom";
-import {
-  CategoryListContext,
-  UserContext,
-} from "../../context/ContextProvider";
+import { LayoutContext, UserContext } from "../../context/ContextProvider";
 import CategoryListToggle from "../SidePanelToggle/component";
 import NewCubeBtn from "../SidePanel/NewCubeBtn/component";
 import "./style.css";
@@ -11,7 +8,7 @@ import "./style.css";
 const NavbarMobile = () => {
   const { pathname } = useLocation();
   const { currentUserInfo: user } = useContext(UserContext);
-  const { showSidePanel } = useContext(CategoryListContext);
+  const { showSidePanel } = useContext(LayoutContext);
 
   return (
     <>

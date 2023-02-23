@@ -8,8 +8,8 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  UserContext,
   CurrentPathContext,
+  UserContext,
   CategoryContext,
   CubeContext,
   QuestionsContext,
@@ -22,8 +22,8 @@ import "./style.css";
 
 const CategoryAndCubeList = () => {
   const navigate = useNavigate();
-  const { currentUserInfo } = useContext(UserContext);
   const { currentPath } = useContext(CurrentPathContext);
+  const { currentUserInfo } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId, setCurrentCubeId } = useContext(CubeContext);
   const { questionsAreVisible } = useContext(QuestionsContext);
@@ -285,10 +285,12 @@ const CategoryAndCubeList = () => {
       target: { parentElement: categoryContainer },
     } = e;
     if (categoryCubeList.style.maxHeight === "0px") {
+      console.log("OPENING NEW CATEGORY");
       // if opening a new category
       categoryContainer.style.zIndex = "1";
       setCurrentCategory(e.target.id);
     } else {
+      console.log("CLOSING CATEGORY");
       // if closing current category, close targeted category and go to dashboard.
       categoryContainer.style.zIndex = "0";
       currCategoryCubeRefs.forEach(cube => (cube.ref.checked = false));
@@ -311,6 +313,9 @@ const CategoryAndCubeList = () => {
 
   return (
     <>
+      {console.log({ currentCategory })}
+      {console.log({ currentCubeCategory })}
+      {console.log({ currentCubeId })}
       {currentUserInfo && (
         <div id={"cube-list-grp"} className="cube-list-grp container-column">
           <fieldset>

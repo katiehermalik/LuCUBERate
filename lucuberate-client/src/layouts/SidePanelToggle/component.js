@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { ThreeBarsIcon, XIcon } from "@primer/octicons-react";
-import { CategoryListContext } from "../../context/ContextProvider";
+import { LayoutContext } from "../../context/ContextProvider";
 import "./style.css";
 
 const SidePanelToggle = () => {
-  const { showSidePanel, setShowSidePanel } = useContext(CategoryListContext);
+  const { showSidePanel, setShowSidePanel } = useContext(LayoutContext);
 
   const handleOpenCategoryList = () => {
     setShowSidePanel(prevState => !prevState);

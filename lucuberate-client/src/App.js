@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import {
   ThemeContext,
+  LoadingContext,
   UserContext,
-  DeleteModalContext,
+  DeleteContext,
 } from "./context/ContextProvider";
 import MainRoutes from "./routes/MainRoutes";
 import DeleteModal from "./components/ConfirmationModal/component";
@@ -10,12 +11,13 @@ import Loading from "./components/Loading/component";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
-  const { isLoggedIn, appIsLoading } = useContext(UserContext);
+  const { appIsLoading } = useContext(LoadingContext);
+  const { isLoggedIn } = useContext(UserContext);
   const {
     deleteModalInfo,
     deleteModalInfo: { showModal },
     setDeleteModalInfo,
-  } = useContext(DeleteModalContext);
+  } = useContext(DeleteContext);
 
   return (
     <div
@@ -26,14 +28,14 @@ const App = () => {
         <Loading />
       ) : (
         <>
-      <MainRoutes />
-      {showModal && (
-        <DeleteModal
-          setDeleteModalInfo={setDeleteModalInfo}
-          deleteModalInfo={deleteModalInfo}
-        />
-      )}
-      </>
+          <MainRoutes />
+          {showModal && (
+            <DeleteModal
+              setDeleteModalInfo={setDeleteModalInfo}
+              deleteModalInfo={deleteModalInfo}
+            />
+          )}
+        </>
       )}
     </div>
   );

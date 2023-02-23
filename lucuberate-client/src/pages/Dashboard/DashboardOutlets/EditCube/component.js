@@ -7,11 +7,12 @@ import {
   ChevronDownIcon,
 } from "@primer/octicons-react";
 import {
+  CurrentPathContext,
+  LoadingContext,
   UserContext,
+  DeleteContext,
   CategoryContext,
   CubeContext,
-  DeleteModalContext,
-  CurrentPathContext,
 } from "../../../../context/ContextProvider";
 import CubeAPI from "../../../../utils/api/cube";
 import CategoryAPI from "../../../../utils/api/category";
@@ -19,12 +20,12 @@ import CategoryAPI from "../../../../utils/api/category";
 const EditCube = () => {
   const navigate = useNavigate();
   const { id: cubeId } = useParams();
-  const { currentUserInfo, setUserDataUpdating, setCubeIsLoading } =
-    useContext(UserContext);
+  const { cubeData } = useContext(CurrentPathContext);
+  const { setCubeIsLoading } = useContext(LoadingContext);
+  const { currentUserInfo, setUserInfoIsUpdating } = useContext(UserContext);
+  const { setDeleteModalInfo } = useContext(DeleteContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
-  const { cubeData } = useContext(CurrentPathContext);
-  const { setDeleteModalInfo } = useContext(DeleteModalContext);
 
   const visualAidInputRef = useRef(null);
 
@@ -57,7 +58,7 @@ const EditCube = () => {
 
   const updateCube = async formData => {
     await CubeAPI.update(formData, cubeId);
-    setUserDataUpdating(true);
+    setUserInfoIsUpdating(true);
     setCubeIsLoading(true);
     setIsLoadingButton(false);
     navigate(`/dashboard/cube/${cubeId}`);

@@ -9,37 +9,40 @@ import { useLocation, useNavigate } from "react-router-dom";
 import UserAPI from "../utils/api/user";
 import CubeAPI from "../utils/api/cube";
 
+export const CurrentPathContext = createContext(null);
+export const ThemeContext = createContext(null);
+export const LoadingContext = createContext(null);
 export const UserContext = createContext(null);
+export const DeleteContext = createContext(null);
+export const GuideContext = createContext(null);
+export const LayoutContext = createContext(null);
 export const CategoryContext = createContext(null);
 export const CubeContext = createContext(null);
 export const QuestionsContext = createContext(null);
-export const ThemeContext = createContext(null);
-export const CategoryListContext = createContext(null);
-export const GuideContext = createContext(null);
-export const DeleteModalContext = createContext(null);
-export const CurrentPathContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
   const { isLoggedIn } = JSON.parse(sessionStorage.getItem("user")) || "";
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [currentUserInfo, setCurrentUserInfo] = useState(null);
-  const [userDataUpdating, setUserDataUpdating] = useState(true);
   const [currentPath, setCurrentPath] = useReducer(currentPathReducer, null);
+  const [theme, setTheme] = useState("dark");
+  const [appIsLoading, setAppIsLoading] = useState(false);
+  const [cubeIsLoading, setCubeIsLoading] = useState(false);
+  const [currentUserInfo, setCurrentUserInfo] = useState(null);
+  const [userInfoIsUpdating, setUserInfoIsUpdating] = useState(true);
+  const [deleteModalInfo, setDeleteModalInfo] = useState({});
+  const [deleteLoader, setDeleteLoader] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
+  const [showSidePanel, setShowSidePanel] = useState(true);
   const [currentCategory, setCurrentCategory] = useState("");
   const [cubeData, setCubeData] = useState({});
   const [currentCubeId, setCurrentCubeId] = useState("");
-  const [appIsLoading, setAppIsLoading] = useState(false);
-  const [cubeIsLoading, setCubeIsLoading] = useState(false);
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
-  const [theme, setTheme] = useState("dark");
-  const [showSidePanel, setShowSidePanel] = useState(true);
-  const [showGuide, setShowGuide] = useState(false);
-  const [deleteModalInfo, setDeleteModalInfo] = useState({});
   const params = pathname.split("/");
   const currentPage = params[2];
   const cubeId = params[3];
   let cleanedPathname;
+
   // Remove multiple slashes from url
   if (pathname.match(/\/\/+/gm)) {
     cleanedPathname = pathname.replace(/\/\/+/gm, "/");
@@ -76,7 +79,7 @@ const ContextProvider = ({ children }) => {
     const { userData } = userInfo;
     setCurrentUserInfo(userData);
     setTheme(userData.theme);
-    setUserDataUpdating(false);
+    setUserInfoIsUpdating(false);
     setShowGuide(userData.showGuideModal);
   }, []);
 
@@ -95,11 +98,11 @@ const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      if (userDataUpdating) {
+      if (userInfoIsUpdating) {
         // This is to grab user info in the case of a browser refresh
         // or user data updated (cubes/categories being added or deleted)
         findUserInfo();
-      } else if (!userDataUpdating) {
+      } else if (!userInfoIsUpdating) {
         if (cleanedPathname === "/") {
           setCurrentPath({
             type: "home",
@@ -121,7 +124,7 @@ const ContextProvider = ({ children }) => {
     }
   }, [
     currentUserInfo,
-    userDataUpdating,
+    userInfoIsUpdating,
     isLoggedIn,
     findUserInfo,
     cleanedPathname,
@@ -135,6 +138,7 @@ const ContextProvider = ({ children }) => {
   }, [currentPath, loadCube]);
 
   useEffect(() => {
+    setDeleteLoader(false);
     setTimeout(() => {
       setCubeIsLoading(false);
     }, 500);
@@ -145,40 +149,52 @@ const ContextProvider = ({ children }) => {
       <CurrentPathContext.Provider
         value={{ currentPath, setCurrentPath, cubeData, setCubeData }}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
-          <UserContext.Provider
+          <LoadingContext.Provider
             value={{
-              currentUserInfo,
-              setCurrentUserInfo,
-              setUserDataUpdating,
-              userDataUpdating,
               setAppIsLoading,
               appIsLoading,
               setCubeIsLoading,
               cubeIsLoading,
-              isLoggedIn,
             }}>
-            <DeleteModalContext.Provider
-              value={{ deleteModalInfo, setDeleteModalInfo }}>
-              <GuideContext.Provider value={{ showGuide, setShowGuide }}>
-                <CategoryListContext.Provider
-                  value={{ showSidePanel, setShowSidePanel }}>
-                  <CategoryContext.Provider
-                    value={{ currentCategory, setCurrentCategory }}>
-                    <CubeContext.Provider
-                      value={{ currentCubeId, setCurrentCubeId }}>
-                      <QuestionsContext.Provider
+            <UserContext.Provider
+              value={{
+                currentUserInfo,
+                setCurrentUserInfo,
+                setUserInfoIsUpdating,
+                userInfoIsUpdating,
+                isLoggedIn,
+              }}>
+              <DeleteContext.Provider
+                value={{
+                  deleteModalInfo,
+                  setDeleteModalInfo,
+                  deleteLoader,
+                  setDeleteLoader,
+                }}>
+                <GuideContext.Provider value={{ showGuide, setShowGuide }}>
+                  <LayoutContext.Provider
+                    value={{ showSidePanel, setShowSidePanel }}>
+                    <CategoryContext.Provider
+                      value={{ currentCategory, setCurrentCategory }}>
+                      <CubeContext.Provider
                         value={{
-                          questionsAreVisible,
-                          setQuestionsAreVisible,
+                          currentCubeId,
+                          setCurrentCubeId,
                         }}>
-                        {children}
-                      </QuestionsContext.Provider>
-                    </CubeContext.Provider>
-                  </CategoryContext.Provider>
-                </CategoryListContext.Provider>
-              </GuideContext.Provider>
-            </DeleteModalContext.Provider>
-          </UserContext.Provider>
+                        <QuestionsContext.Provider
+                          value={{
+                            questionsAreVisible,
+                            setQuestionsAreVisible,
+                          }}>
+                          {children}
+                        </QuestionsContext.Provider>
+                      </CubeContext.Provider>
+                    </CategoryContext.Provider>
+                  </LayoutContext.Provider>
+                </GuideContext.Provider>
+              </DeleteContext.Provider>
+            </UserContext.Provider>
+          </LoadingContext.Provider>
         </ThemeContext.Provider>
       </CurrentPathContext.Provider>
     </>

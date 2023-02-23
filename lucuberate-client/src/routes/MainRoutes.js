@@ -1,6 +1,10 @@
 import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { UserContext, CurrentPathContext } from "../context/ContextProvider";
+import {
+  CurrentPathContext,
+  LoadingContext,
+  UserContext,
+} from "../context/ContextProvider";
 import RoutesWithNavbar from "./RoutesWithNavbar";
 import Dashboard from "../pages/Dashboard";
 import NewCube from "../pages/Dashboard/DashboardOutlets/NewCube";
@@ -13,8 +17,9 @@ import Dashboard404 from "../pages/Dashboard/DashboardOutlets/Dashboard404";
 import LoginSuccess from "../features/authentication/modals/LoginSuccess/component";
 
 const MainRoutes = () => {
-  const { isLoggedIn, cubeIsLoading } = useContext(UserContext);
   const { currentPath } = useContext(CurrentPathContext);
+  const { cubeIsLoading } = useContext(LoadingContext);
+  const { isLoggedIn } = useContext(UserContext);
 
   return (
     <>

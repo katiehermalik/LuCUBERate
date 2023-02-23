@@ -8,10 +8,11 @@ import {
   ArrowUpIcon,
 } from "@primer/octicons-react";
 import {
-  UserContext,
   ThemeContext,
+  LoadingContext,
+  UserContext,
   GuideContext,
-  CategoryListContext,
+  LayoutContext,
 } from "../../../../context/ContextProvider";
 import UserAPI from "../../../../utils/api/user";
 import AuthAPI from "../../../../utils/api/auth";
@@ -28,9 +29,10 @@ const LoginModal = ({
 }) => {
   const navigate = useNavigate();
   const { setTheme } = useContext(ThemeContext);
-  const { setCurrentUserInfo, setAppIsLoading } = useContext(UserContext);
+  const { setAppIsLoading } = useContext(LoadingContext);
+  const { setCurrentUserInfo } = useContext(UserContext);
   const { setShowGuide } = useContext(GuideContext);
-  const { setShowSidePanel } = useContext(CategoryListContext);
+  const { setShowSidePanel } = useContext(LayoutContext);
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(null);
   const [userInput, setUserInput] = useState({

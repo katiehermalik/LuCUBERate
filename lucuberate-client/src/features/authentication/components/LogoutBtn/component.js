@@ -7,7 +7,7 @@ import {
   CategoryContext,
   CubeContext,
   QuestionsContext,
-  CategoryListContext,
+  LayoutContext,
   // CurrentPathContext,
 } from "../../../../context/ContextProvider";
 import AuthAPI from "../../../../utils/api/auth";
@@ -19,7 +19,7 @@ const LogoutBtn = ({ setShowUserMenu }) => {
   const { setCurrentCategory } = useContext(CategoryContext);
   const { setCurrentCubeId } = useContext(CubeContext);
   const { setQuestionsAreVisible } = useContext(QuestionsContext);
-  const { setShowSidePanel } = useContext(CategoryListContext);
+  const { setShowSidePanel } = useContext(LayoutContext);
   // const { setCurrentPath } = useContext(CurrentPathContext);
 
   const handleSubmit = async e => {

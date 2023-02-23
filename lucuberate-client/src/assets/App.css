@@ -312,6 +312,9 @@ button:not(:disabled) {
 .btn-primary:disabled {
   background-color: var(--btn-primary-disabled-color);
 }
+.btn-secondary:disabled {
+  background-color: var(--secondary-btn-color-hover);
+}
 
 /* ------------------------------- Modal */
 

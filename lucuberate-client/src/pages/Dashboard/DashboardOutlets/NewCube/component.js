@@ -8,19 +8,18 @@ import {
 } from "@primer/octicons-react";
 
 import {
+  LoadingContext,
   UserContext,
   CategoryContext,
-  CubeContext,
 } from "../../../../context/ContextProvider";
 import CubeAPI from "../../../../utils/api/cube";
 import CategoryAPI from "../../../../utils/api/category";
 
 const NewCube = () => {
   const navigate = useNavigate();
-  const { currentUserInfo, setUserDataUpdating, setCubeIsLoading } =
-    useContext(UserContext);
+  const { setCubeIsLoading } = useContext(LoadingContext);
+  const { currentUserInfo, setUserInfoIsUpdating } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
-  const { setCurrentCubeId } = useContext(CubeContext);
 
   const visualAidInputRef = useRef(null);
 
@@ -83,10 +82,9 @@ const NewCube = () => {
 
   const createCube = async formData => {
     const data = await CubeAPI.create(formData);
-    setUserDataUpdating(true);
+    setUserInfoIsUpdating(true);
     setCubeIsLoading(true);
     setIsLoadingButton(false);
-    setCurrentCubeId(data.cube._id);
     navigate(`/dashboard/cube/${data.cube._id}`);
   };
 

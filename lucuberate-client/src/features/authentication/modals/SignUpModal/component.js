@@ -11,10 +11,11 @@ import {
   ChevronDownIcon,
 } from "@primer/octicons-react";
 import {
-  UserContext,
-  CubeContext,
+  LoadingContext,
   GuideContext,
-  CategoryListContext,
+  UserContext,
+  LayoutContext,
+  CubeContext,
 } from "../../../../context/ContextProvider";
 import UserAPI from "../../../../utils/api/user";
 import AuthAPI from "../../../../utils/api/auth";
@@ -31,10 +32,11 @@ const SignUpModal = ({
 }) => {
   const navigate = useNavigate();
   const form = useRef(null);
-  const { setCurrentUserInfo, setAppIsLoading } = useContext(UserContext);
-  const { setCurrentCubeId } = useContext(CubeContext);
+  const { setAppIsLoading } = useContext(LoadingContext);
+  const { setCurrentUserInfo } = useContext(UserContext);
   const { setShowGuide } = useContext(GuideContext);
-  const { setShowSidePanel } = useContext(CategoryListContext);
+  const { setShowSidePanel } = useContext(LayoutContext);
+  const { setCurrentCubeId } = useContext(CubeContext);
   const [showCriteria, setShowCriteria] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(null);
