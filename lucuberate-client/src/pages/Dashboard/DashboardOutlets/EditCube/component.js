@@ -19,7 +19,8 @@ import CategoryAPI from "../../../../utils/api/category";
 const EditCube = () => {
   const navigate = useNavigate();
   const { id: cubeId } = useParams();
-  const { currentUserInfo, setUserDataUpdating } = useContext(UserContext);
+  const { currentUserInfo, setUserDataUpdating, setCubeIsLoading } =
+    useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
   const { cubeData } = useContext(CurrentPathContext);
@@ -57,7 +58,8 @@ const EditCube = () => {
   const updateCube = async formData => {
     await CubeAPI.update(formData, cubeId);
     setUserDataUpdating(true);
-    setIsLoadingButton(false);
+    setCubeIsLoading(true);
+    // setIsLoadingButton(false);
     navigate(`/dashboard/cube/${cubeId}`);
   };
 
@@ -183,7 +185,7 @@ const EditCube = () => {
     if (question && answer) {
       if (categoryIsNew) {
         if (newCategory) {
-          setIsLoadingButton(true);
+          // setIsLoadingButton(true);
           currentCategory !== currentCubeCategory._id &&
           currentCubeCategory.cubes.length === 1
             ? setDeleteModalInfo({
@@ -203,7 +205,7 @@ const EditCube = () => {
           setCategoryError("Required");
         }
       } else {
-        setIsLoadingButton(true);
+        // setIsLoadingButton(true);
         currentCategory !== currentCubeCategory._id &&
         currentCubeCategory.cubes.length === 1
           ? setDeleteModalInfo({
