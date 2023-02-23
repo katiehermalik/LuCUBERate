@@ -1,11 +1,4 @@
-import {
-  useContext,
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-} from "react";
+import { useContext, useRef, useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CurrentPathContext,
@@ -265,7 +258,7 @@ const CategoryAndCubeList = () => {
     categoryWasShuffledEvents,
   ]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     currentCategoryRef && findCubeListHeight();
   }, [
     currentUserInfo,
@@ -313,9 +306,6 @@ const CategoryAndCubeList = () => {
 
   return (
     <>
-      {console.log({ currentCategory })}
-      {console.log({ currentCubeCategory })}
-      {console.log({ currentCubeId })}
       {currentUserInfo && (
         <div id={"cube-list-grp"} className="cube-list-grp container-column">
           <fieldset>

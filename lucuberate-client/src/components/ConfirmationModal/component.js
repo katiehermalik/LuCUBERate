@@ -15,7 +15,8 @@ import "./style.css";
 const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
   const navigate = useNavigate();
   const { setCurrentPath } = useContext(CurrentPathContext);
-  const { currentUserInfo, setUserInfoIsUpdating } = useContext(UserContext);
+  const { currentUserInfo, userInfoIsUpdating, setUserInfoIsUpdating } =
+    useContext(UserContext);
   const { deleteLoader, setDeleteLoader } = useContext(DeleteContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId, setCurrentCubeId } = useContext(CubeContext);
@@ -43,13 +44,20 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
 
   useEffect(() => {
     if (
-      (type === "cube" && !currentCubeId) ||
-      (type === "category" && !currentCategory)
+      (type === "cube" && !currentCubeId && !userInfoIsUpdating) ||
+      (type === "category" && !currentCategory && !userInfoIsUpdating)
     ) {
       navigate("/dashboard/instructions");
       setDeleteModalInfo({ showModal: false });
     }
-  }, [currentCubeId, currentCategory, navigate, setDeleteModalInfo, type]);
+  }, [
+    currentCubeId,
+    currentCategory,
+    navigate,
+    setDeleteModalInfo,
+    type,
+    userInfoIsUpdating,
+  ]);
 
   const closeModal = e => {
     e.stopPropagation();
