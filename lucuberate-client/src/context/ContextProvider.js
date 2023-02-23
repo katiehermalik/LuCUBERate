@@ -143,13 +143,14 @@ const ContextProvider = ({ children }) => {
   return (
     <>
       <CurrentPathContext.Provider
-        value={{ currentPath, cubeData, setCubeData }}>
+        value={{ currentPath, setCurrentPath, cubeData, setCubeData }}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
           <UserContext.Provider
             value={{
               currentUserInfo,
               setCurrentUserInfo,
               setUserDataUpdating,
+              userDataUpdating,
               setAppIsLoading,
               appIsLoading,
               setCubeIsLoading,

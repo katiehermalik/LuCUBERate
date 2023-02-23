@@ -4,6 +4,7 @@ import {
   UserContext,
   CubeContext,
   CategoryContext,
+  CurrentPathContext,
 } from "../../context/ContextProvider";
 import CubeAPI from "../../utils/api/cube";
 import CategoryAPI from "../../utils/api/category";
@@ -11,9 +12,9 @@ import "./style.css";
 
 const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
   const navigate = useNavigate();
-  const { currentUserInfo, setUserDataUpdating, setCurrentPath } =
-    useContext(UserContext);
+  const { currentUserInfo, setUserDataUpdating } = useContext(UserContext);
   const { setCurrentCubeId } = useContext(CubeContext);
+  const { setCurrentPath } = useContext(CurrentPathContext);
   const { setCurrentCategory } = useContext(CategoryContext);
   const [currentCategoryInfo, setCurrentCategoryInfo] = useState({});
   const {
