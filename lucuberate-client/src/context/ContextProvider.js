@@ -24,12 +24,12 @@ const ContextProvider = ({ children }) => {
   const { isLoggedIn } = JSON.parse(sessionStorage.getItem("user")) || "";
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const [currentUserInfo, setCurrentUserInfo] = useState(null);
+  const [userInfoIsUpdating, setUserInfoIsUpdating] = useState(true);
   const [currentPath, setCurrentPath] = useReducer(currentPathReducer, null);
   const [theme, setTheme] = useState("dark");
   const [appIsLoading, setAppIsLoading] = useState(false);
   const [cubeIsLoading, setCubeIsLoading] = useState(false);
-  const [currentUserInfo, setCurrentUserInfo] = useState(null);
-  const [userInfoIsUpdating, setUserInfoIsUpdating] = useState(true);
   const [deleteModalInfo, setDeleteModalInfo] = useState({});
   const [deleteLoader, setDeleteLoader] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
