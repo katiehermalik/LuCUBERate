@@ -227,10 +227,6 @@ const EditCube = () => {
     }
   };
 
-  const handleCancelClick = e => {
-    setCurrentCategory(currentCubeCategory._id);
-  };
-
   const errorStyle = {
     color: "red",
     fontSize: "12px",
@@ -540,11 +536,11 @@ const EditCube = () => {
           <div className="form-buttons form-row">
             <div className="form-group columns-2"></div>
             <div className="form-group columns-2">
-              <Link tabIndex="-1" to={`/dashboard/${cubeId}`}>
+              <Link tabIndex="-1" to={`/dashboard/cube/${cubeId}`}>
                 <button
                   type="submit"
                   className="btn form-btn btn-secondary"
-                  onClick={handleCancelClick}>
+                  onClick={() => setCurrentCategory(currentCubeCategory._id)}>
                   Cancel
                 </button>
               </Link>
