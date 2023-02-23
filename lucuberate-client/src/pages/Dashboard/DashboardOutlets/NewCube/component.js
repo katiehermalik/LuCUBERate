@@ -17,7 +17,8 @@ import CategoryAPI from "../../../../utils/api/category";
 
 const NewCube = () => {
   const navigate = useNavigate();
-  const { currentUserInfo, setUserDataUpdating } = useContext(UserContext);
+  const { currentUserInfo, setUserDataUpdating, setCubeIsLoading } =
+    useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { setCurrentCubeId } = useContext(CubeContext);
 
@@ -83,6 +84,7 @@ const NewCube = () => {
   const createCube = async formData => {
     const data = await CubeAPI.create(formData);
     setUserDataUpdating(true);
+    setCubeIsLoading(true);
     setIsLoadingButton(false);
     setCurrentCubeId(data.cube._id);
     navigate(`/dashboard/cube/${data.cube._id}`);
@@ -141,6 +143,7 @@ const NewCube = () => {
       setCurrentCategory(null);
     } else {
       setCategoryIsNew(false);
+      setCategoryError("");
       setCurrentCategory(e.target.value);
     }
   };

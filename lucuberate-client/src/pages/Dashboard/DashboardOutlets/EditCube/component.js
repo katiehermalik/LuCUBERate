@@ -59,7 +59,7 @@ const EditCube = () => {
     await CubeAPI.update(formData, cubeId);
     setUserDataUpdating(true);
     setCubeIsLoading(true);
-    // setIsLoadingButton(false);
+    setIsLoadingButton(false);
     navigate(`/dashboard/cube/${cubeId}`);
   };
 
@@ -176,6 +176,7 @@ const EditCube = () => {
       setCurrentCategory(null);
     } else {
       setCategoryIsNew(false);
+      setCategoryError("");
       setCurrentCategory(e.target.value);
     }
   };
@@ -185,7 +186,7 @@ const EditCube = () => {
     if (question && answer) {
       if (categoryIsNew) {
         if (newCategory) {
-          // setIsLoadingButton(true);
+          setIsLoadingButton(true);
           currentCategory !== currentCubeCategory._id &&
           currentCubeCategory.cubes.length === 1
             ? setDeleteModalInfo({
@@ -205,7 +206,7 @@ const EditCube = () => {
           setCategoryError("Required");
         }
       } else {
-        // setIsLoadingButton(true);
+        setIsLoadingButton(true);
         currentCategory !== currentCubeCategory._id &&
         currentCubeCategory.cubes.length === 1
           ? setDeleteModalInfo({
