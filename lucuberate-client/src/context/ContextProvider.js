@@ -96,7 +96,6 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     if (isLoggedIn) {
       if (userDataUpdating) {
-        setAppIsLoading(true);
         // This is to grab user info in the case of a browser refresh
         // or user data updated (cubes/categories being added or deleted)
         findUserInfo();
