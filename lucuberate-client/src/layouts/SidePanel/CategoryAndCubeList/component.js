@@ -330,7 +330,7 @@ const CategoryAndCubeList = () => {
                     <CategoryCtrls
                       setCategoryWasShuffled={setCategoryWasShuffled}
                       currentCubeCategory={currentCubeCategory}
-                      cubeRefsLength={currCategoryCubeRefs.length}
+                      cubeRefsLength={currCategoryCubeRefs?.length}
                       currentCategoryRef={currentCategoryRef}
                       cubeListLength={cubeListLength}
                       categoryTitle={categoryTitle}
