@@ -224,6 +224,7 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
+    const responseObj = {};
     const cubeToDelete = await db.Cube.findById(req.params.id);
     // Delete Cube Visual Aid
     if (
@@ -250,6 +251,7 @@ const destroy = async (req, res) => {
       await foundUser.save();
       // Delete Category
       await db.Category.findByIdAndDelete(foundCategory._id);
+      responseObj.categoryDeleted = true;
     } else {
       // Remove cube from category
       await foundCategory.updateOne({ $pull: { cubes: req.params.id } });
@@ -257,10 +259,8 @@ const destroy = async (req, res) => {
     }
 
     // Delete Cube
-    const deletedCube = await db.Cube.findByIdAndDelete(req.params.id);
-    res.json({
-      cube: deletedCube,
-    });
+    responseObj.deletedCube = await db.Cube.findByIdAndDelete(req.params.id);
+    res.json(responseObj);
   } catch (err) {
     console.log("Unable to delete cube in cubes.destroy:", err);
     res.json({ Error: err });
