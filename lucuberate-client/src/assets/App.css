@@ -251,6 +251,7 @@ button:not(:disabled) {
 .btn {
   border-radius: 5px;
   font-weight: bold;
+  color: var(--text-color-dark)
 }
 
 .btn:active {
