@@ -76,8 +76,8 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
 
   const handleMoveLastCube = async e => {
     e.stopPropagation();
+    setDeleteLoader(true);
     categoryIsNew ? createNewCategory() : collectCubeFormData(currentCategory);
-    setDeleteModalInfo({ showModal: false });
   };
 
   return (
