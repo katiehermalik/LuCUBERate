@@ -54,9 +54,9 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
     });
     setCurrentCubeId("");
     setCurrentCategory(null);
+    setDeleteLoader(true);
     await CategoryAPI.delete(categoryId);
     setUserInfoIsUpdating(true);
-    setDeleteLoader(true);
   };
 
   const handleDeleteCube = async e => {
@@ -66,12 +66,12 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
       cubeId: null,
     });
     setCurrentCubeId("");
+    setDeleteLoader(true);
     const deletedCube = await CubeAPI.delete(cubeId);
     if (deletedCube.categoryDeleted) {
       setCurrentCategory(null);
     }
     setUserInfoIsUpdating(true);
-    setDeleteLoader(true);
   };
 
   const handleMoveLastCube = async e => {
