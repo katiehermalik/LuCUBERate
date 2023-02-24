@@ -150,11 +150,11 @@ const SignUpModal = ({
                 </button>
               </div>
               <div className="oauth-container">
-                <a href={googleLoginUrl}>
-                  <img
-                    className="oauth-btn google-btn"
-                    alt="Sign in with Google"
-                    src="/btn_google_signin_light_normal_web@2x.png"></img>
+                <a
+                  className="oauth-btn google-btn"
+                  alt="Sign in with Google"
+                  href={googleLoginUrl}>
+                  Sign in with Google
                 </a>
               </div>
               <div className="hr-container">
