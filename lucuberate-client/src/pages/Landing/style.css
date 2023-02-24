@@ -107,6 +107,10 @@ section.about {
   width: 30%;
 }
 
+.landing aside hr {
+  margin: 0.5rem 0;
+}
+
 .description h3 {
   text-align: left;
 }
@@ -199,12 +203,16 @@ section.about {
   }
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 440px) {
   .landing aside {
-    margin: -67px 0 30px 20px;
+    margin: -90px 0 50px 20px;
     max-width: none;
     min-width: 0;
     width: 80%;
+  }
+
+  .description {
+    padding: 50px 30px 30px;
   }
 }
 
