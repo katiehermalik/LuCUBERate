@@ -219,7 +219,7 @@ const LoginModal = ({
                   <div className="btn-container">
                     <button
                       type="submit"
-                      className="btn form-btn btn-secondary">
+                      className="btn form-btn btn-primary">
                       Login
                     </button>
                   </div>

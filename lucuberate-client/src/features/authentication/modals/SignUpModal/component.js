@@ -299,7 +299,7 @@ const SignUpModal = ({
                   <div className="btn-container">
                     <button
                       type="submit"
-                      className="btn form-btn btn-secondary">
+                      className="btn form-btn btn-primary">
                       Sign up
                     </button>
                   </div>
