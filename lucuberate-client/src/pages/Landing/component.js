@@ -1,5 +1,5 @@
 import LandingBackground from "../../features/threeJS/LandingCanvas";
-import "./style.css"
+import "./style.css";
 
 const Landing = () => {
   return (
@@ -13,14 +13,15 @@ const Landing = () => {
                 <h4>
                   <span className="force-line-break">Our name is&nbsp;</span>
                   <span className="force-line-break">inspired by&nbsp;</span>
-                  <span className="force-line-break">the word:&nbsp;</span>
-                  <span className="force-line-break">
-                    lu•cu•brate&nbsp;&nbsp;/&nbsp;&nbsp;
-                  </span>
-                  <span className="force-line-break">to write or study</span>
-                  <span className="force-line-break">
-                    &#40;&nbsp;especially by night&nbsp;&#41;
-                  </span>
+                  <span className="force-line-break">the word...&nbsp;</span>
+                  <hr/>
+                  <b>
+                    <span className="force-line-break">lu•cu•brate:&nbsp;</span>
+                    <span className="force-line-break">to write or study</span>
+                    <span className="force-line-break">
+                      &#40;&nbsp;especially by night&nbsp;&#41;
+                    </span>
+                  </b>
                 </h4>
               </aside>
               <h3>
@@ -29,8 +30,8 @@ const Landing = () => {
                 space and freedom for the unique ways in which&nbsp;
                 <u>
                   <b>you</b>
-                </u>{" "}
-                learn.
+                </u>
+                &nbsp;learn.
               </h3>
             </div>
           </section>
