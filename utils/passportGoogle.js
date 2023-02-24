@@ -2,6 +2,7 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const db = require("../models");
 const seedData = require("../data/seed-data.json");
+const bcrypt = require("bcryptjs");
 
 passport.use(
   new GoogleStrategy(
@@ -49,15 +50,18 @@ passport.use(
 
       const currentUser = await db.User.findOne({ googleId: profile.id });
       if (!currentUser) {
-        const user = new db.User({
-          username: profile.displayName,
-          email: profile.emails[0].value,
-          password: profile.id,
-          googleId: profile.id,
+        bcrypt.hash(profile.id, 10, async (err, hash) => {
+          if (err) throw err;
+          const user = new db.User({
+            username: profile.displayName,
+            email: profile.emails[0].value,
+            password: hash,
+            googleId: profile.id,
+          });
+          const newUser = await user.save();
+          const completedUser = await addNewUserCategories(newUser);
+          done(null, completedUser);
         });
-        const newUser = await user.save();
-        const completedUser = await addNewUserCategories(newUser);
-        done(null, completedUser);
       } else {
         done(null, currentUser);
       }
