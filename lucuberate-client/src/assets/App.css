@@ -22,8 +22,8 @@
   --primary-bg-color: #282c34;
   --primary-btn-color: var(--accent-color);
   --primary-btn-color-hover: #d39e00;
-  --secondary-btn-color: #acb0b5;
-  --secondary-btn-color-hover: #939598;
+  --secondary-btn-color: #bdbfc0;
+  --secondary-btn-color-hover: #343537;
   --stars-bg-img: url("./images/stars.png");
   --success-color: #5c993a;
   --text-color-dark: var(--primary-bg-color);
@@ -251,7 +251,7 @@ button:not(:disabled) {
 .btn {
   border-radius: 5px;
   font-weight: bold;
-  color: var(--text-color-dark)
+  color: var(--text-color-dark);
 }
 
 .btn:active {
@@ -296,8 +296,9 @@ button:not(:disabled) {
 }
 
 .btn-secondary {
-  background-color: var(--secondary-btn-color);
-  color: var(--text-color-dark);
+  border: 1px solid var(--secondary-btn-color);
+  background-color: transparent;
+  color: var(--secondary-btn-color);
 }
 .btn-secondary:hover {
   background-color: var(--secondary-btn-color-hover);
@@ -457,8 +458,8 @@ button:not(:disabled) {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-wrap: wrap-reverse;
-  flex-wrap: wrap-reverse;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
@@ -539,9 +540,9 @@ input[name="password"] {
   margin-top: 1rem;
   width: 218px;
   height: 50px;
-  line-height: 0; 
+  line-height: 0;
   font-size: 0;
-  color: transparent; 
+  color: transparent;
 }
 
 /* ------------ 404  */
@@ -687,8 +688,8 @@ select.form-control {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap-reverse;
-  flex-wrap: wrap-reverse;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
