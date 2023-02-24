@@ -532,10 +532,6 @@ input[name="password"] {
 }
 
 .oauth-btn {
-  background: url("images/btn_google_signin_light_normal_web@2x.png")
-    transparent 5px 50% no-repeat;
-  background-size: auto 50px;
-  height: 50px;
   margin-top: 1rem;
   width: 218px;
 }
