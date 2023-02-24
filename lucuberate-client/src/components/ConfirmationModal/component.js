@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { PackageIcon } from "@primer/octicons-react";
 import {
   CurrentPathContext,
@@ -13,13 +12,11 @@ import CategoryAPI from "../../utils/api/category";
 import "./style.css";
 
 const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
-  const navigate = useNavigate();
   const { setCurrentPath } = useContext(CurrentPathContext);
-  const { currentUserInfo, userInfoIsUpdating, setUserInfoIsUpdating } =
-    useContext(UserContext);
+  const { currentUserInfo, setUserInfoIsUpdating } = useContext(UserContext);
   const { deleteLoader, setDeleteLoader } = useContext(DeleteContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
-  const { currentCubeId, setCurrentCubeId } = useContext(CubeContext);
+  const { setCurrentCubeId } = useContext(CubeContext);
   const [currentCategoryInfo, setCurrentCategoryInfo] = useState({});
   const {
     cubeId,
@@ -41,23 +38,6 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
       )
     );
   }, [currentCategory, currentUserInfo]);
-
-  useEffect(() => {
-    if (
-      (type === "cube" && !currentCubeId && !userInfoIsUpdating) ||
-      (type === "category" && !currentCategory && !userInfoIsUpdating)
-    ) {
-      navigate("/dashboard/instructions");
-      setDeleteModalInfo({ showModal: false });
-    }
-  }, [
-    currentCubeId,
-    currentCategory,
-    navigate,
-    setDeleteModalInfo,
-    type,
-    userInfoIsUpdating,
-  ]);
 
   const closeModal = e => {
     e.stopPropagation();

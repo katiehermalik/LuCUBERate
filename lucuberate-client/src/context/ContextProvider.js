@@ -80,8 +80,17 @@ const ContextProvider = ({ children }) => {
     setCurrentUserInfo(userData);
     setTheme(userData.theme);
     setUserInfoIsUpdating(false);
+    setDeleteModalInfo(prevState => {
+      if (
+        prevState.showModal === true &&
+        (prevState.type === "cube" || prevState.type === "category")
+      ) {
+        navigate("/dashboard/instructions");
+        return { showModal: false };
+      } else return { showModal: false };
+    });
     setShowGuide(userData.showGuideModal);
-  }, []);
+  }, [navigate]);
 
   const loadCube = useCallback(async () => {
     if (currentPath) {
