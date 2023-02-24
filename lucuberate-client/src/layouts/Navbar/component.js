@@ -65,10 +65,9 @@ const Navbar = () => {
               className="container-row dropdown theme-transition">
               <button
                 onClick={toggleUserMenu}
-                title={`${user.username}'s settings`}
+                title="Settings"
                 className="btn navbar-item username theme-transition dropbtn">
                 <PersonFillIcon size={16} />
-                &nbsp;{user.username}
                 {showUserMenu ? (
                   <ChevronDownIcon size={16} />
                 ) : (
@@ -77,6 +76,11 @@ const Navbar = () => {
               </button>
               {showUserMenu && (
                 <div className="dropdown-content theme-transition">
+                  <div className="dropdown-item theme-transition">
+                    Signed in as
+                    <br />
+                    &nbsp;&nbsp;&nbsp;{user.username}
+                  </div>
                   <div className="dropdown-item theme-transition">
                     <label htmlFor="theme-switch">Theme</label>
                     <ThemeSwitch />
