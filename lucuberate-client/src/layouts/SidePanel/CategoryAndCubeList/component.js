@@ -278,12 +278,10 @@ const CategoryAndCubeList = () => {
       target: { parentElement: categoryContainer },
     } = e;
     if (categoryCubeList.style.maxHeight === "0px") {
-      console.log("OPENING NEW CATEGORY");
       // if opening a new category
       categoryContainer.style.zIndex = "1";
       setCurrentCategory(e.target.id);
     } else {
-      console.log("CLOSING CATEGORY");
       // if closing current category, close targeted category and go to dashboard.
       categoryContainer.style.zIndex = "0";
       currCategoryCubeRefs.forEach(cube => (cube.ref.checked = false));
