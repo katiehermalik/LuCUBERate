@@ -17,12 +17,8 @@ import {
   LayoutContext,
   CubeContext,
 } from "../../../../context/ContextProvider";
-import UserAPI from "../../../../utils/api/user";
 import AuthAPI from "../../../../utils/api/auth";
-import {
-  googleLoginUrl,
-  googleSuccessUrl,
-} from "../../../../config/multi-environment";
+import { googleLoginUrl } from "../../../../config/multi-environment";
 import "./style.css";
 
 const SignUpModal = ({
@@ -117,50 +113,6 @@ const SignUpModal = ({
     }
   };
 
-  const fetchOAuthUser = async () => {
-    const userInfo = await UserAPI.userData();
-    const { userData, isAuth } = userInfo;
-    if (isAuth) {
-      sessionStorage.setItem(
-        "user",
-        JSON.stringify({
-          isLoggedIn: true,
-        })
-      );
-      setAppIsLoading(true);
-      setCurrentUserInfo(userData);
-      setCurrentCubeId(userData.categories[2].cubes[0]);
-      setShowSignUpModal(false);
-      setShowGuide(true);
-      setShowSidePanel(false);
-      navigate(`/dashboard/cube/${userData.categories[2].cubes[0]}`);
-    }
-  };
-
-  const signUpWithGoogle = async () => {
-    const newWindow = (url, windowName, win, w, h) => {
-      const y = win.top.outerHeight / 2 + win.top.screenY - h / 2;
-      const x = win.top.outerWidth / 2 + win.top.screenX - w / 2;
-      return win.open(
-        url,
-        windowName,
-        `width=${w}, height=${h}, top=${y}, left=${x}`
-      );
-    };
-    const popup = newWindow(googleLoginUrl, "popup", window, 600, 700);
-    const checkPopup = setInterval(() => {
-      if (
-        !popup.closed &&
-        popup.window.location.href.includes(googleSuccessUrl)
-      ) {
-        popup.close();
-        fetchOAuthUser();
-      }
-      if (!popup || !popup.closed) return;
-      clearInterval(checkPopup);
-    }, 1000);
-  };
-
   const checkForCapsLock = e => {
     if (e.getModifierState("CapsLock")) {
       setCapsLock(true);
@@ -198,9 +150,12 @@ const SignUpModal = ({
                 </button>
               </div>
               <div className="oauth-container">
-                <button
-                  className="oauth-btn google-btn"
-                  onClick={signUpWithGoogle}></button>
+                <a href={googleLoginUrl}>
+                  <img
+                    className="oauth-btn google-btn"
+                    alt="Sign in with Google"
+                    src="/btn_google_signin_light_normal_web@2x.png"></img>
+                </a>
               </div>
               <div className="hr-container">
                 <hr size="2" width="30%" />
