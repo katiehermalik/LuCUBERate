@@ -20,7 +20,7 @@ const AuthBtn = ({ authType }) => {
       <button
         type="button"
         onClick={handleOpenModal}
-        className="btn navbar-item nav-link"
+        className="btn navbar-item"
         aria-label={authType}>
         {authType}
       </button>

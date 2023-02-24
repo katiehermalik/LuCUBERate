@@ -15,7 +15,7 @@ const SidePanelToggle = () => {
       <button
         type="button"
         onClick={handleOpenCategoryList}
-        className="btn navbar-item nav-link toggle-list-btn theme-transition"
+        className="btn navbar-item toggle-list-btn theme-transition"
         title={showSidePanel ? "Hide side panel" : "Show side panel"}
         aria-label={showSidePanel ? "Hide side panel" : "Show side panel"}>
         {showSidePanel ? <XIcon size={16} /> : <ThreeBarsIcon size={16} />}
