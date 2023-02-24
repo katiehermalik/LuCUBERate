@@ -1,5 +1,5 @@
 .loading-screen {
-  background-color: var(--primary-bg-color);
+  background-image: var(--stars-bg-img);
   color: var(--accent-color);
   height: 100%;
   justify-content: center;
