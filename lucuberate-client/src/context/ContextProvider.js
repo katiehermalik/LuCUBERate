@@ -89,6 +89,7 @@ const ContextProvider = ({ children }) => {
         return { showModal: false };
       } else return { showModal: false };
     });
+    setDeleteLoader(false);
     setShowGuide(userData.showGuideModal);
   }, [navigate]);
 
@@ -147,10 +148,9 @@ const ContextProvider = ({ children }) => {
   }, [currentPath, loadCube]);
 
   useEffect(() => {
-    setDeleteLoader(false);
     setTimeout(() => {
       setCubeIsLoading(false);
-    }, 500);
+    }, 300);
   }, [cubeData]);
 
   return (
