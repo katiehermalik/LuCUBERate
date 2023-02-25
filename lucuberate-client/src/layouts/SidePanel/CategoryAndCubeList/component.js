@@ -8,8 +8,8 @@ import {
   QuestionsContext,
 } from "../../../context/ContextProvider";
 import PlaceholderCube from "./CubeCtrls/PlaceholderCube";
-import CubeCtrls from "./CubeCtrls/component";
-import CategoryCtrls from "./CategoryCtrls/component";
+import CubeCtrls from "./CubeCtrls";
+import CategoryCtrls from "./CategoryCtrls";
 import SidePanelFooter from "../../SidePanelFooter";
 import "./style.css";
 

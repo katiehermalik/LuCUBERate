@@ -6,9 +6,9 @@ import {
   CubeContext,
 } from "../../../../context/ContextProvider";
 import QuestionsToggle from "./QuestionsToggle";
-import CategoryShuffle from "./ShuffleCubes/component";
-import CubeCount from "./CubeCount/component";
-import DeleteBtn from "../DeleteBtn/component";
+import CategoryShuffle from "./ShuffleCubes";
+import CubeCount from "./CubeCount";
+import DeleteBtn from "../DeleteBtn";
 import "./style.css";
 
 const CategoryCtrls = ({

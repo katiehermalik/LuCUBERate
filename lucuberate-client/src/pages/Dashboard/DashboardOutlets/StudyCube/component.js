@@ -4,8 +4,8 @@ import {
   GuideContext,
 } from "../../../../context/ContextProvider";
 import "../../../../assets/App.css";
-import GuideModal from "../../../../components/GuideModal/component";
-import Loading from "../../../../components/Loading/component";
+import GuideModal from "../../../../components/GuideModal";
+import Loading from "../../../../components/Loading";
 import "./style.css";
 
 const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
