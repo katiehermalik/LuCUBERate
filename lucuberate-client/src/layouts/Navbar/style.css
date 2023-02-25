@@ -81,7 +81,7 @@
 }
 
 .signup-login .btn:hover {
-  color: var(--accent-color)
+  color: var(--accent-color);
 }
 
 /* ------------------------------- Dropdown Menu Item */
@@ -147,6 +147,11 @@
   .navbar-item {
     font-size: 14px;
     padding: 8px 12px;
+  }
+
+  .btn.navbar-item {
+    height: 30px;
+    padding: 0px 10px;
   }
 
   .navbar-item.about-dash {
