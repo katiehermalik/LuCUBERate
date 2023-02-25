@@ -1,23 +1,28 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
   ChevronRightIcon,
   ChevronDownIcon,
   PersonFillIcon,
+  PackageIcon,
+  HomeIcon,
 } from "@primer/octicons-react";
 import { UserContext } from "../../context/ContextProvider";
 import AuthBtn from "../../features/authentication/components/AuthBtn";
-import Logout from "../../features/authentication/components/LogoutBtn/component";
-import ThemeSwitch from "../../components/ThemeToggle/component";
-import CategoryListToggle from "../SidePanelToggle/component";
+import Logout from "../../features/authentication/components/LogoutBtn";
+import ThemeSwitch from "../../components/ThemeToggle";
+import SidePanelToggle from "../SidePanelToggle";
 import "./style.css";
 
 const Navbar = () => {
   const { currentUserInfo: user } = useContext(UserContext);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const navigate = useNavigate();
   const userBtnRef = useRef();
   const { pathname } = useLocation();
+  const params = pathname.split("/");
+  const currentPage = params[1];
 
   useEffect(() => {
     const closeUserMenu = e => {
@@ -42,24 +47,33 @@ const Navbar = () => {
     <nav className="navbar container-row theme-transition">
       {!user && (
         <div className="signup-login container-row">
-          <AuthBtn authType={"Sign Up"} />
           <AuthBtn authType={"Login"} />
+          <AuthBtn authType={"Sign Up"} />
         </div>
       )}
       {user && (
         <>
-          {pathname !== "/" && (
-            <div className="mobile-hidden">
-              <CategoryListToggle />
-            </div>
-          )}
+          {pathname !== "/" && <SidePanelToggle mobileHidden={true} />}
           <div className="about-settings container-row">
-            <Link
-              className="btn navbar-item about-dash theme-transition"
-              to={pathname === "/" ? "/dashboard/instructions" : "/"}>
-              {pathname === "/" ? "Back to dashboard" : "About Lucuberate"}
-              <ChevronRightIcon size={16} />
-            </Link>
+            <button
+              onClick={() => navigate("/")}
+              title="Settings"
+              className={`btn navbar-item theme-transition mobile-hidden ${
+                pathname === "/" ? "selected" : ""
+              }`}>
+              <HomeIcon size={16} />
+              &nbsp;About
+            </button>
+            <button
+              disabled={currentPage === "dashboard"}
+              onClick={() => navigate("/dashboard")}
+              title="Settings"
+              className={`btn navbar-item theme-transition mobile-hidden ${
+                currentPage === "dashboard" ? "selected" : ""
+              }`}>
+              <PackageIcon size={16} />
+              &nbsp;Dashboard
+            </button>
             <div
               ref={userBtnRef}
               className="container-row dropdown theme-transition">

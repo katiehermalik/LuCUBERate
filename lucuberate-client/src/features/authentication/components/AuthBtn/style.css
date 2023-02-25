@@ -1,0 +1,10 @@
+.sign-up-btn {
+  border: 1px solid var(--secondary-btn-color);
+  background-color: transparent;
+  color: var(--secondary-btn-color);
+}
+
+.sign-up-btn:hover,
+.sign-up-btn:active {
+  border: 1px solid var(--accent-color);
+}

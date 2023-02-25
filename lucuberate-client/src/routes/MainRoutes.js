@@ -14,7 +14,8 @@ import Instructions from "../pages/Dashboard/DashboardOutlets/Instructions";
 import Landing from "../pages/Landing";
 import App404 from "../pages/App404";
 import Dashboard404 from "../pages/Dashboard/DashboardOutlets/Dashboard404";
-import LoginSuccess from "../features/authentication/modals/LoginSuccess/component";
+import LoginSuccess from "../features/authentication/modals/LoginSuccess";
+import NavbarMobile from "../layouts/NavbarMobile";
 
 const MainRoutes = () => {
   const { currentPath } = useContext(CurrentPathContext);
@@ -29,16 +30,49 @@ const MainRoutes = () => {
             <Routes>
               <Route
                 index
-                element={<RoutesWithNavbar component={<Landing />} />}
+                element={
+                  <RoutesWithNavbar
+                    component={
+                      <>
+                        <Landing />
+                        <div className="mobile-only-nav">
+                          <NavbarMobile />
+                        </div>
+                      </>
+                    }
+                  />
+                }
               />
               <Route
                 path="/"
-                element={<RoutesWithNavbar component={<Landing />} />}
+                element={
+                  <RoutesWithNavbar
+                    component={
+                      <>
+                        <Landing />
+                        <div className="mobile-only-nav">
+                          <NavbarMobile />
+                        </div>
+                      </>
+                    }
+                  />
+                }
               />
               <Route
                 exact
                 path="/dashboard"
-                element={<RoutesWithNavbar component={<Dashboard />} />}>
+                element={
+                  <RoutesWithNavbar
+                    component={
+                      <>
+                        <Dashboard />
+                        <div className="mobile-only-nav">
+                          <NavbarMobile />
+                        </div>
+                      </>
+                    }
+                  />
+                }>
                 <Route
                   index
                   element={<Navigate to="/dashboard/instructions" replace />}

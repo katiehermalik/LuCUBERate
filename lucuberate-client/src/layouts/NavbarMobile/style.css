@@ -2,8 +2,38 @@
   .navbar-mobile {
     background-color: var(--secondary-bg-color);
     border-top: 4px solid var(--accent-color);
-    justify-content: space-between;
-    padding-right: 5px;
+    box-shadow: 10px 6px 4px -7px var(--box-shadow-color);
+    color: var(--text-color-light);
+    font-weight: 700;
+    justify-content: space-around;
+    min-height: 60px;
+    padding: 0 20px;
+    width: 100%;
+    z-index: 6;
+  }
+
+  .mobile-navbar-item {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 0;
+    color: var(--accent-color);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0 5px;
+    min-width: calc(100% / 4);
+    padding: 4px 16px;
+    white-space: nowrap;
+  }
+
+  .mobile-navbar-item svg {
+    margin-bottom: 2px;
   }
 
   .divider-line {

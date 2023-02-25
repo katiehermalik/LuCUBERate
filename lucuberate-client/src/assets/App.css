@@ -23,7 +23,7 @@
   --primary-btn-color: var(--accent-color);
   --primary-btn-color-hover: #d39e00;
   --secondary-btn-color: #bdbfc0;
-  --secondary-btn-color-hover: #343537;
+  --secondary-btn-color-hover: var(--form-input-background-color);
   --stars-bg-img: url("./images/stars.png");
   --success-color: #5c993a;
   --text-color-dark: var(--primary-bg-color);
@@ -41,6 +41,7 @@
   --hr-color: #3e424a;
   --nav-bg-color: #324d60;
   --nav-btn-bg-color: #a2c1d7;
+  --nav-item-select: var(--accent-color);
   --overlay-color: rgba(0, 0, 0, 0.8);
   --primary-text-color: var(--text-color-light);
   --secondary-bg-color: #1e1f23;
@@ -56,6 +57,7 @@
   --hr-color: #5f6062;
   --nav-bg-color: #d2e5f3;
   --nav-btn-bg-color: var(--nav-bg-color);
+  --nav-item-select: #1a609d;
   --overlay-color: rgba(0, 0, 0, 0.9);
   --primary-text-color: var(--text-color-dark);
   --secondary-bg-color: #3e424a;
@@ -254,19 +256,9 @@ button:not(:disabled) {
   color: var(--text-color-dark);
 }
 
-.btn:active {
+/* .btn:active {
   box-shadow: rgb(9 30 66 / 40%) 0px 1px 1px, rgb(9 30 66 / 20%) 0px 0px 1px 1px;
-}
-
-.btn:active:not(
-    .new-cube-btn,
-    .signup-login .btn,
-    .modal-guide .btn,
-    .form-btn,
-    [for="inputVisual"]
-  ) {
-  height: 29px;
-}
+} */
 
 .form-btn {
   border: 1px solid var(--primary-bg-color);
@@ -897,7 +889,7 @@ input[type="radio"]:checked + label {
   }
 
   .mobile-hidden {
-    display: none;
+    display: none !important;
   }
 
   .form-container {
@@ -979,7 +971,7 @@ input[type="radio"]:checked + label {
   }
 
   .instructions {
-    padding: 20px;
+    padding: 20px !important;
   }
 
   .form-row {
