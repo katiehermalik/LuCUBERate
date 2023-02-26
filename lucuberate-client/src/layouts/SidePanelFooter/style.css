@@ -10,6 +10,8 @@
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-size: 14px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
   white-space: nowrap;
 }

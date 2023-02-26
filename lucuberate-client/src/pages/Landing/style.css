@@ -96,6 +96,9 @@ section.about {
   background-color: var(--primary-bg-color);
   border: 4px solid var(--accent-color);
   border-radius: 24px;
+  -webkit-box-shadow: rgb(237 181 50 / 40%) 5px 5px,
+    rgb(237 181 50 / 30%) 10px 10px, rgb(237 181 50 / 20%) 15px 15px,
+    rgb(237 181 50 / 10%) 20px 20px, rgb(237 181 50 / 5%) 25px 25px;
   box-shadow: rgb(237 181 50 / 40%) 5px 5px, rgb(237 181 50 / 30%) 10px 10px,
     rgb(237 181 50 / 20%) 15px 15px, rgb(237 181 50 / 10%) 20px 20px,
     rgb(237 181 50 / 5%) 25px 25px;

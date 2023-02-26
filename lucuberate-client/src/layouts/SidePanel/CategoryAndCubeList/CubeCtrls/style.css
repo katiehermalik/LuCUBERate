@@ -1,5 +1,6 @@
-
 .cube-ctrls {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
   align-items: flex-end;
   -webkit-box-flex: 1;
   -ms-flex: 1;

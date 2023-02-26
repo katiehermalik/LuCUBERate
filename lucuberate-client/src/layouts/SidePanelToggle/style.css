@@ -1,5 +1,9 @@
 .toggle-list-btn-container {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
   align-items: flex-end;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   height: 32px;
 }

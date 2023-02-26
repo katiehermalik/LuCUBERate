@@ -16,7 +16,6 @@ import {
 } from "../../../../context/ContextProvider";
 import AuthAPI from "../../../../utils/api/auth";
 import { googleLoginUrl } from "../../../../config/multi-environment";
-import "./style.css";
 
 const LoginModal = ({
   showLoginModal,
@@ -217,9 +216,7 @@ const LoginModal = ({
                     )}
                   </div>
                   <div className="btn-container">
-                    <button
-                      type="submit"
-                      className="btn form-btn btn-primary">
+                    <button type="submit" className="btn form-btn btn-primary">
                       Login
                     </button>
                   </div>

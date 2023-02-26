@@ -250,6 +250,8 @@
     -webkit-transform 0.5s ease;
   transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
     -webkit-transform 0.5s ease;
+  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
+    -webkit-transform 0.5s ease;
 }
 
 /* ----------------------------------- Cube Face Radio Btns */

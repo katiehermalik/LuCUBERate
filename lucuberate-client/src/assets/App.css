@@ -243,11 +243,33 @@ button:not(:disabled) {
     :focus-visible
   ),
 .theme-transition::after {
+  -webkit-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
+    min-width 0.45s ease-in-out, -webkit-flex-basis 0.45s ease-in-out;
+  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
+    min-width 0.45s ease-in-out, -webkit-flex-basis 0.45s ease-in-out;
+  -o-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
+    width 0.45s ease-in-out, min-width 0.45s ease-in-out;
   transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
     background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
     outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
     opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
     width 0.45s ease-in-out, min-width 0.45s ease-in-out;
+  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
+    width 0.45s ease-in-out, min-width 0.45s ease-in-out,
+    -webkit-flex-basis 0.45s ease-in-out,
+    -ms-flex-preferred-size 0.45s ease-in-out;
 }
 
 /* ----------- Cube New Edit Delete Btns */
@@ -465,6 +487,8 @@ button:not(:disabled) {
 }
 
 .hr-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -488,7 +512,11 @@ hr {
 }
 
 .signup-login .btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 
@@ -521,7 +549,11 @@ input[name="password"] {
 }
 
 .oauth-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin: 0 1rem;
   padding: 1rem;
@@ -542,10 +574,19 @@ input[name="password"] {
 /* ------------ 404  */
 
 .page-not-found {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   height: 100%;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
   padding: 50px 50px;
   width: 100%;
@@ -563,6 +604,8 @@ input[name="password"] {
   -ms-flex-align: center;
   align-items: center;
   border: 1px solid var(--primary-bg-color);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   display: -webkit-box;
@@ -732,10 +775,14 @@ input[type="file"] {
 [type="file"] + label {
   background-color: #6c757d;
   border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   color: #fff;
   cursor: pointer;
   height: 36px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin-top: 3px;
   text-align: center;
@@ -793,6 +840,17 @@ img.visual-aid-preview {
 [title="Delete Visual Aid"] {
   background-color: transparent;
   color: var(--accent-color);
+}
+
+@-webkit-keyframes loading {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes loading {
@@ -932,6 +990,8 @@ input[type="radio"]:checked + label {
   }
 
   .signup-login .hr-container {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
   }
 
