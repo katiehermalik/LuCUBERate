@@ -6,8 +6,10 @@ import SidePanelToggle from "../SidePanelToggle";
 import "./style.css";
 
 const NavbarMobile = () => {
-  const { pathname } = useLocation();
   const { currentUserInfo: user } = useContext(UserContext);
+  const { pathname } = useLocation();
+  const params = pathname.split("/");
+  const currentPage = params[1];
 
   return (
     <>
@@ -18,18 +20,27 @@ const NavbarMobile = () => {
             <SidePanelToggle disable={pathname === "/"} mobileHidden={false} />
             <Link
               alt="Create Cube"
-              className="btn mobile-navbar-item theme-transition"
+              className={`btn mobile-navbar-item theme-transition ${
+                pathname === "/dashboard/new" ? "selected" : ""
+              }`}
               to="/dashboard/new">
               <PlusIcon size={16} />
               Create Cube
             </Link>
-            <Link alt="About" className="btn mobile-navbar-item theme-transition" to="/">
+            <Link
+              alt="About"
+              className={`btn mobile-navbar-item theme-transition ${
+                pathname === "/" ? "selected" : ""
+              }`}
+              to="/">
               <HomeIcon size={16} />
               About
             </Link>
             <Link
               alt="Dashboard"
-              className="btn mobile-navbar-item theme-transition"
+              className={`btn mobile-navbar-item theme-transition ${
+                pathname === "/dashboard/instructions" ? "selected" : ""
+              }`}
               to="/dashboard/instructions">
               <PackageIcon size={16} />
               Dashboard

@@ -16,7 +16,7 @@
     align-items: center;
     background-color: transparent;
     border-radius: 0;
-    color: var(--accent-color);
+    color: var(--text-color-light);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -30,6 +30,10 @@
     min-width: calc(100% / 4);
     padding: 4px 16px;
     white-space: nowrap;
+  }
+
+  .mobile-navbar-item.selected {
+    color: var(--nav-item-select);
   }
 
   .mobile-navbar-item svg {
