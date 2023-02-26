@@ -8,8 +8,6 @@ import "./style.css";
 const NavbarMobile = () => {
   const { currentUserInfo: user } = useContext(UserContext);
   const { pathname } = useLocation();
-  const params = pathname.split("/");
-  const currentPage = params[1];
 
   return (
     <>
