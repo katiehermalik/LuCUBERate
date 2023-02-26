@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import {
-  GuideContext,
   CurrentPathContext,
+  GuideContext,
 } from "../../../../context/ContextProvider";
 import "../../../../assets/App.css";
-import GuideModal from "../../../../components/GuideModal/component";
+import GuideModal from "../../../../components/GuideModal";
+import Loading from "../../../../components/Loading";
 import "./style.css";
 
 const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
 
-const StudyCube = () => {
+const StudyCube = ({ cubeIsLoading }) => {
   const {
     cubeData: { cube },
   } = useContext(CurrentPathContext);
   const { showGuide, setShowGuide } = useContext(GuideContext);
   const [side, setSide] = useState("");
-  const [isLoadingCube] = useState(false);
   const { completedGuide } =
     JSON.parse(localStorage.getItem("completedGuide")) || "";
   const sideRefs = useRef([]);
@@ -30,11 +30,13 @@ const StudyCube = () => {
         else ref.checked = false;
       });
     }
-  }, [cube, showGuide, completedGuide, setShowGuide, isLoadingCube]);
+  }, [cube, showGuide, completedGuide, setShowGuide]);
 
   return (
     <>
-      {cube && (
+      {!cube || cubeIsLoading ? (
+        <Loading />
+      ) : (
         <>
           <div className="cube-page-container container-column">
             <div className="cube-ctrl-group container-row theme-transition">

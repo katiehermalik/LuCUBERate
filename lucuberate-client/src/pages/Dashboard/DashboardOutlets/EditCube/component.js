@@ -7,11 +7,12 @@ import {
   ChevronDownIcon,
 } from "@primer/octicons-react";
 import {
+  CurrentPathContext,
+  LoadingContext,
   UserContext,
+  DeleteContext,
   CategoryContext,
   CubeContext,
-  DeleteModalContext,
-  CurrentPathContext,
 } from "../../../../context/ContextProvider";
 import CubeAPI from "../../../../utils/api/cube";
 import CategoryAPI from "../../../../utils/api/category";
@@ -19,11 +20,12 @@ import CategoryAPI from "../../../../utils/api/category";
 const EditCube = () => {
   const navigate = useNavigate();
   const { id: cubeId } = useParams();
-  const { currentUserInfo, setUserDataUpdating } = useContext(UserContext);
+  const { cubeData } = useContext(CurrentPathContext);
+  const { setCubeIsLoading } = useContext(LoadingContext);
+  const { currentUserInfo, setUserInfoIsUpdating } = useContext(UserContext);
+  const { setDeleteModalInfo } = useContext(DeleteContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { currentCubeId } = useContext(CubeContext);
-  const { cubeData } = useContext(CurrentPathContext);
-  const { setDeleteModalInfo } = useContext(DeleteModalContext);
 
   const visualAidInputRef = useRef(null);
 
@@ -56,7 +58,8 @@ const EditCube = () => {
 
   const updateCube = async formData => {
     await CubeAPI.update(formData, cubeId);
-    setUserDataUpdating(true);
+    setUserInfoIsUpdating(true);
+    setCubeIsLoading(true);
     setIsLoadingButton(false);
     navigate(`/dashboard/cube/${cubeId}`);
   };
@@ -174,6 +177,7 @@ const EditCube = () => {
       setCurrentCategory(null);
     } else {
       setCategoryIsNew(false);
+      setCategoryError("");
       setCurrentCategory(e.target.value);
     }
   };
@@ -225,10 +229,6 @@ const EditCube = () => {
       !answer && setAnswerError("Required");
       categoryIsNew && !newCategory && setCategoryError("Required");
     }
-  };
-
-  const handleCancelClick = e => {
-    setCurrentCategory(currentCubeCategory._id);
   };
 
   const errorStyle = {
@@ -540,11 +540,11 @@ const EditCube = () => {
           <div className="form-buttons form-row">
             <div className="form-group columns-2"></div>
             <div className="form-group columns-2">
-              <Link tabIndex="-1" to={`/dashboard/${cubeId}`}>
+              <Link tabIndex="-1" to={`/dashboard/cube/${cubeId}`}>
                 <button
                   type="submit"
                   className="btn form-btn btn-secondary"
-                  onClick={handleCancelClick}>
+                  onClick={() => setCurrentCategory(currentCubeCategory._id)}>
                   Cancel
                 </button>
               </Link>

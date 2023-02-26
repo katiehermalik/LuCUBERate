@@ -24,13 +24,18 @@
   max-width: 600px;
 }
 
-.navbar-item {
+.btn.navbar-item {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: transparent;
+  color: var(--primary-text-color);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   font-weight: bold;
   font-size: 14px;
   height: 32px;
@@ -42,17 +47,14 @@
   white-space: nowrap;
 }
 
-.about-settings .navbar-item,
-.signup-login .navbar-item {
-  background-color: var(--nav-color);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  color: var(--primary-text-color);
+.btn.navbar-item.selected {
+  color: var(--nav-item-select);
 }
 
-.navbar-item.about-dash {
-  padding: 4px 16px 4px 20px;
-  width: 183px;
+.btn.navbar-item.toggle-list-btn {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
 }
 
 .navbar-item.logout-btn {
@@ -79,11 +81,13 @@
 }
 
 .signup-login {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
 }
 
-.navbar .mobile-hidden {
-  flex: 1;
+.signup-login .btn:hover {
+  color: var(--nav-item-select);
 }
 
 /* ------------------------------- Dropdown Menu Item */
@@ -94,7 +98,7 @@
   display: -ms-flexbox;
   display: flex;
   margin-left: 11px;
-  padding: 0 5px 0 16px;
+  padding: 0 5px 0 10px;
 }
 
 .dropdown-content {
@@ -142,12 +146,20 @@
 
 @media screen and (max-width: 720px) {
   .navbar:not(.navbar-mobile) {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
     justify-content: flex-end;
+    min-height: 40px;
   }
 
   .navbar-item {
-    font-size: 12px;
+    font-size: 14px;
     padding: 8px 12px;
+  }
+
+  .btn.navbar-item {
+    height: 30px;
+    padding: 0px 10px;
   }
 
   .navbar-item.about-dash {
@@ -155,12 +167,20 @@
   }
 
   .navbar-item.username {
-    padding: 0 12px;
+    padding: 0 5px 0 10px;
   }
 
   .about-settings {
-    justify-content: space-between;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
     width: 100%;
+  }
+
+  .dropdown {
+    border: none;
+    margin: 0;
+    padding: 0;
   }
 
   .dropdown-item {
@@ -168,6 +188,6 @@
   }
 
   .dropdown-content {
-    margin-top: 49px;
+    margin-top: 40px;
   }
 }

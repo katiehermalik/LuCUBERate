@@ -37,6 +37,8 @@
   left: 0;
   position: absolute;
   top: 0;
+  -webkit-transition: translate 0.45s ease-in-out;
+  -o-transition: translate 0.45s ease-in-out;
   transition: translate 0.45s ease-in-out;
   width: 32px;
   z-index: 12;

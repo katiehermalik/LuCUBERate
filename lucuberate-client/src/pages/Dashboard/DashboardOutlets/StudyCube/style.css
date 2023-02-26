@@ -250,6 +250,8 @@
     -webkit-transform 0.5s ease;
   transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
     -webkit-transform 0.5s ease;
+  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
+    -webkit-transform 0.5s ease;
 }
 
 /* ----------------------------------- Cube Face Radio Btns */
@@ -297,7 +299,7 @@
   }
 
   .radio-face-group .radio-label {
-    font-size: 10px;
+    font-size: 12px;
     padding: 5px;
   }
 

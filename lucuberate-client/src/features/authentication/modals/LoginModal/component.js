@@ -8,18 +8,14 @@ import {
   ArrowUpIcon,
 } from "@primer/octicons-react";
 import {
-  UserContext,
   ThemeContext,
+  LoadingContext,
+  UserContext,
   GuideContext,
-  CategoryListContext,
+  LayoutContext,
 } from "../../../../context/ContextProvider";
-import UserAPI from "../../../../utils/api/user";
 import AuthAPI from "../../../../utils/api/auth";
-import {
-  googleLoginUrl,
-  googleSuccessUrl,
-} from "../../../../config/multi-environment";
-import "./style.css";
+import { googleLoginUrl } from "../../../../config/multi-environment";
 
 const LoginModal = ({
   showLoginModal,
@@ -28,9 +24,10 @@ const LoginModal = ({
 }) => {
   const navigate = useNavigate();
   const { setTheme } = useContext(ThemeContext);
+  const { setAppIsLoading } = useContext(LoadingContext);
   const { setCurrentUserInfo } = useContext(UserContext);
   const { setShowGuide } = useContext(GuideContext);
-  const { setShowSidePanel } = useContext(CategoryListContext);
+  const { setShowSidePanel } = useContext(LayoutContext);
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(null);
   const [userInput, setUserInput] = useState({
@@ -76,6 +73,7 @@ const LoginModal = ({
           isLoggedIn: true,
         })
       );
+      setAppIsLoading(true);
       setCurrentUserInfo(userData);
       setTheme(userData.theme === "dark" ? "dark" : "light");
       setShowLoginModal(false);
@@ -97,57 +95,6 @@ const LoginModal = ({
         navigate("/dashboard/instructions");
       }
     }
-  };
-
-  const fetchOAuthUser = async () => {
-    const userInfo = await UserAPI.userData();
-    const { userData, isAuth } = userInfo;
-    if (isAuth) {
-      sessionStorage.setItem(
-        "user",
-        JSON.stringify({
-          isLoggedIn: true,
-        })
-      );
-      setCurrentUserInfo(userData);
-      setTheme(userData.theme === "dark" ? "dark" : "light");
-      setShowLoginModal(false);
-      if (userData.showGuideModal) {
-        setShowGuide(true);
-        setShowSidePanel(false);
-        if (userData.cubes.length !== 0) {
-          navigate(`/dashboard/cube/${userData.categories[0].cubes[0]}`);
-        } else {
-          navigate("/dashboard/instructions");
-        }
-      } else {
-        navigate("/dashboard/instructions");
-      }
-    }
-  };
-
-  const loginWithGoogle = async () => {
-    const newWindow = (url, windowName, win, w, h) => {
-      const y = win.top.outerHeight / 2 + win.top.screenY - h / 2;
-      const x = win.top.outerWidth / 2 + win.top.screenX - w / 2;
-      return win.open(
-        url,
-        windowName,
-        `width=${w}, height=${h}, top=${y}, left=${x}`
-      );
-    };
-    const popup = newWindow(googleLoginUrl, "popup", window, 600, 700);
-    const checkPopup = setInterval(() => {
-      if (
-        !popup.closed &&
-        popup.window.location.href.includes(googleSuccessUrl)
-      ) {
-        popup.close();
-        fetchOAuthUser();
-      }
-      if (!popup || !popup.closed) return;
-      clearInterval(checkPopup);
-    }, 1000);
   };
 
   const checkForCapsLock = e => {
@@ -187,9 +134,12 @@ const LoginModal = ({
                 </button>
               </div>
               <div className="oauth-container">
-                <button
+                <a
                   className="oauth-btn google-btn"
-                  onClick={loginWithGoogle}></button>
+                  alt="Sign in with Google"
+                  href={googleLoginUrl}>
+                  Sign in with Google
+                </a>
               </div>
               <div className="hr-container">
                 <hr size="2" width="30%" />
@@ -266,9 +216,7 @@ const LoginModal = ({
                     )}
                   </div>
                   <div className="btn-container">
-                    <button
-                      type="submit"
-                      className="btn form-btn btn-secondary">
+                    <button type="submit" className="btn form-btn btn-primary">
                       Login
                     </button>
                   </div>

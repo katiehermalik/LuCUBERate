@@ -3,8 +3,10 @@
 }
 
 .checkmark {
+  -webkit-animation: scale 0.15s ease-in-out 0.2s both;
   animation: scale 0.15s ease-in-out 0.2s both;
   border-radius: 50%;
+  -webkit-box-shadow: inset 0px 0px 0px var(--success-color);
   box-shadow: inset 0px 0px 0px var(--success-color);
   display: block;
   height: 300px;
@@ -18,6 +20,7 @@
   width: 300px;
 }
 .checkmark__circle {
+  -webkit-animation: stroke 0.15s cubic-bezier(0.65, 0, 0.45, 1) forwards;
   animation: stroke 0.15s cubic-bezier(0.65, 0, 0.45, 1) forwards;
   fill: none;
   stroke: var(--success-color);
@@ -28,10 +31,19 @@
 }
 
 .checkmark__check {
+  -webkit-animation: stroke 0.15s cubic-bezier(0.65, 0, 0.45, 1) 0.15s forwards;
   animation: stroke 0.15s cubic-bezier(0.65, 0, 0.45, 1) 0.15s forwards;
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
+  -webkit-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
+}
+
+@-webkit-keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes stroke {
@@ -40,19 +52,42 @@
   }
 }
 
-@keyframes scale {
+@-webkit-keyframes scale {
   0%,
   100% {
+    -webkit-transform: none;
     transform: none;
   }
 
   50% {
+    -webkit-transform: scale3d(1.1, 1.1, 1);
     transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes scale {
+  0%,
+  100% {
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.1, 1.1, 1);
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@-webkit-keyframes fill {
+  100% {
+    -webkit-box-shadow: inset 0px 0px 0px 30px var(--accent-color);
+    box-shadow: inset 0px 0px 0px 30px var(--accent-color);
   }
 }
 
 @keyframes fill {
   100% {
+    -webkit-box-shadow: inset 0px 0px 0px 30px var(--accent-color);
     box-shadow: inset 0px 0px 0px 30px var(--accent-color);
   }
 }

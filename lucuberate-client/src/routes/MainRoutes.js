@@ -1,6 +1,10 @@
 import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { UserContext, CurrentPathContext } from "../context/ContextProvider";
+import {
+  CurrentPathContext,
+  LoadingContext,
+  UserContext,
+} from "../context/ContextProvider";
 import RoutesWithNavbar from "./RoutesWithNavbar";
 import Dashboard from "../pages/Dashboard";
 import NewCube from "../pages/Dashboard/DashboardOutlets/NewCube";
@@ -10,30 +14,65 @@ import Instructions from "../pages/Dashboard/DashboardOutlets/Instructions";
 import Landing from "../pages/Landing";
 import App404 from "../pages/App404";
 import Dashboard404 from "../pages/Dashboard/DashboardOutlets/Dashboard404";
-import LoginSuccess from "../features/authentication/modals/LoginSuccess/component";
+import LoginSuccess from "../features/authentication/modals/LoginSuccess";
+import NavbarMobile from "../layouts/NavbarMobile";
 
 const MainRoutes = () => {
-  const { isLoggedIn } = useContext(UserContext);
   const { currentPath } = useContext(CurrentPathContext);
+  const { cubeIsLoading } = useContext(LoadingContext);
+  const { isLoggedIn } = useContext(UserContext);
 
   return (
     <>
-      {currentPath[0] && (
+      {currentPath && (
         <>
           {isLoggedIn ? (
             <Routes>
               <Route
                 index
-                element={<RoutesWithNavbar component={<Landing />} />}
+                element={
+                  <RoutesWithNavbar
+                    component={
+                      <>
+                        <Landing />
+                        <div className="mobile-only-nav">
+                          <NavbarMobile />
+                        </div>
+                      </>
+                    }
+                  />
+                }
               />
               <Route
                 path="/"
-                element={<RoutesWithNavbar component={<Landing />} />}
+                element={
+                  <RoutesWithNavbar
+                    component={
+                      <>
+                        <Landing />
+                        <div className="mobile-only-nav">
+                          <NavbarMobile />
+                        </div>
+                      </>
+                    }
+                  />
+                }
               />
               <Route
                 exact
                 path="/dashboard"
-                element={<RoutesWithNavbar component={<Dashboard />} />}>
+                element={
+                  <RoutesWithNavbar
+                    component={
+                      <>
+                        <Dashboard />
+                        <div className="mobile-only-nav">
+                          <NavbarMobile />
+                        </div>
+                      </>
+                    }
+                  />
+                }>
                 <Route
                   index
                   element={<Navigate to="/dashboard/instructions" replace />}
@@ -49,7 +88,13 @@ const MainRoutes = () => {
                 <Route
                   path="cube/:id"
                   element={
-                    currentPath[0] !== "404" ? <StudyCube /> : <Dashboard404 />
+                    cubeIsLoading ? (
+                      <StudyCube cubeIsLoading={cubeIsLoading} />
+                    ) : currentPath[0] !== "404" ? (
+                      <StudyCube />
+                    ) : (
+                      <Dashboard404 />
+                    )
                   }
                 />
               </Route>

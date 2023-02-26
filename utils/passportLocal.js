@@ -3,7 +3,11 @@ const LocalStrategy = require("passport-local").Strategy;
 const db = require("../models");
 const seedData = require("../data/seed-data.json");
 const bcrypt = require("bcryptjs");
-const { checkUsername, checkPassword, checkEmail } = require("./validationChecks")
+const {
+  checkUsername,
+  checkPassword,
+  checkEmail,
+} = require("./validationChecks");
 
 passport.serializeUser((user, done) => {
   done(null, user.id);

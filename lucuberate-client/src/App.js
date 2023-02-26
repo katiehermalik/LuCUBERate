@@ -1,28 +1,30 @@
 import { useContext } from "react";
 import {
   ThemeContext,
+  LoadingContext,
   UserContext,
-  DeleteModalContext,
+  DeleteContext,
 } from "./context/ContextProvider";
 import MainRoutes from "./routes/MainRoutes";
-import DeleteModal from "./components/ConfirmationModal/component";
-import Loading from "./components/Loading/component";
+import DeleteModal from "./components/ConfirmationModal";
+import Loading from "./components/Loading";
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
-  const { isLoggedIn, isLoading } = useContext(UserContext);
+  const { appIsLoading } = useContext(LoadingContext);
+  const { isLoggedIn } = useContext(UserContext);
   const {
     deleteModalInfo,
     deleteModalInfo: { showModal },
     setDeleteModalInfo,
-  } = useContext(DeleteModalContext);
+  } = useContext(DeleteContext);
 
   return (
     <div
       className={`app theme-transition container-column ${
         theme === "dark" ? "dark" : "light"
       }`}>
-      {isLoggedIn && isLoading ? (
+      {isLoggedIn && appIsLoading ? (
         <Loading />
       ) : (
         <>

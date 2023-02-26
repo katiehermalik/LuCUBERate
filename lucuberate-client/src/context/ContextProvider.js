@@ -9,41 +9,52 @@ import { useLocation, useNavigate } from "react-router-dom";
 import UserAPI from "../utils/api/user";
 import CubeAPI from "../utils/api/cube";
 
+export const CurrentPathContext = createContext(null);
+export const ThemeContext = createContext(null);
+export const LoadingContext = createContext(null);
 export const UserContext = createContext(null);
+export const DeleteContext = createContext(null);
+export const GuideContext = createContext(null);
+export const LayoutContext = createContext(null);
 export const CategoryContext = createContext(null);
 export const CubeContext = createContext(null);
 export const QuestionsContext = createContext(null);
-export const ThemeContext = createContext(null);
-export const CategoryListContext = createContext(null);
-export const GuideContext = createContext(null);
-export const DeleteModalContext = createContext(null);
-export const CurrentPathContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
   const { isLoggedIn } = JSON.parse(sessionStorage.getItem("user")) || "";
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
-  const [userDataUpdating, setUserDataUpdating] = useState(true);
-  const [currentPath, setCurrentPath] = useReducer(currentPathReducer, [""]);
+  const [userInfoIsUpdating, setUserInfoIsUpdating] = useState(true);
+  const [currentPath, setCurrentPath] = useReducer(currentPathReducer, null);
+  const [theme, setTheme] = useState("dark");
+  const [appIsLoading, setAppIsLoading] = useState(false);
+  const [cubeIsLoading, setCubeIsLoading] = useState(false);
+  const [deleteModalInfo, setDeleteModalInfo] = useState({});
+  const [deleteLoader, setDeleteLoader] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
+  const [showSidePanel, setShowSidePanel] = useState(true);
   const [currentCategory, setCurrentCategory] = useState("");
   const [cubeData, setCubeData] = useState({});
   const [currentCubeId, setCurrentCubeId] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [questionsAreVisible, setQuestionsAreVisible] = useState(false);
-  const [theme, setTheme] = useState("dark");
-  const [showSidePanel, setShowSidePanel] = useState(true);
-  const [showGuide, setShowGuide] = useState(false);
-  const [deleteModalInfo, setDeleteModalInfo] = useState({});
   const params = pathname.split("/");
   const currentPage = params[2];
   const cubeId = params[3];
+  let cleanedPathname;
+
+  // Remove multiple slashes from url
+  if (pathname.match(/\/\/+/gm)) {
+    cleanedPathname = pathname.replace(/\/\/+/gm, "/");
+    navigate(cleanedPathname);
+  }
 
   function currentPathReducer(prevState, { type, cubeId }) {
     switch (type) {
+      case "home":
       case "instructions":
       case "new":
-        return prevState[0] !== type ? [type, null] : prevState;
+        return !prevState || prevState[0] !== type ? [type, null] : prevState;
       case "edit":
       case "cube":
         const foundCube = currentUserInfo.cubes.find(
@@ -64,105 +75,135 @@ const ContextProvider = ({ children }) => {
   }
 
   const findUserInfo = useCallback(async () => {
-    if (userDataUpdating) {
-      const userInfo = await UserAPI.userData();
-      const { userData } = userInfo;
-      setCurrentUserInfo(userData);
-      setTheme(userData.theme);
-      setUserDataUpdating(false);
-      setShowGuide(userData.showGuideModal);
-    }
-  }, [userDataUpdating]);
+    const userInfo = await UserAPI.userData();
+    const { userData } = userInfo;
+    setCurrentUserInfo(userData);
+    setTheme(userData.theme);
+    setUserInfoIsUpdating(false);
+    setDeleteModalInfo(prevState => {
+      if (
+        prevState.showModal === true &&
+        (prevState.type === "cube" || prevState.type === "category")
+      ) {
+        navigate("/dashboard/instructions");
+        return { showModal: false };
+      } else return { showModal: false };
+    });
+    setDeleteLoader(false);
+    setShowGuide(userData.showGuideModal);
+  }, [navigate]);
 
   const loadCube = useCallback(async () => {
-    if (currentPath[0] === "cube" || currentPath[0] === "edit") {
-      const cube = await CubeAPI.getOne(currentPath[1]);
-      setCubeData(cube);
-    } else {
-      setCubeData({});
+    if (currentPath) {
+      if (currentPath[0] === "cube" || currentPath[0] === "edit") {
+        const cube = await CubeAPI.getOne(currentPath[1]);
+        setCubeData(cube);
+      } else {
+        setCubeData({});
+      }
     }
   }, [currentPath]);
 
   // ------------------------------ Use Effects ----------------------------------- //
 
   useEffect(() => {
-    // Remove multiple slashes from url
-    if (pathname.match(/\/+/gm)) {
-      let url = pathname;
-      url = url.replace(/\/+/gm, "/");
-      navigate(url);
-    }
     if (isLoggedIn) {
-      if (!currentUserInfo || userDataUpdating === true) {
-        setIsLoading(true);
+      if (userInfoIsUpdating) {
+        // This is to grab user info in the case of a browser refresh
+        // or user data updated (cubes/categories being added or deleted)
         findUserInfo();
+      } else if (!userInfoIsUpdating) {
+        if (cleanedPathname === "/") {
+          setCurrentPath({
+            type: "home",
+            cubeId: null,
+          });
+        } else {
+          setCurrentPath({
+            type: currentPage,
+            cubeId,
+          });
+        }
+        setAppIsLoading(false);
       }
     } else {
       setCurrentPath({
-        type: currentPage,
-        cubeId,
+        type: "home",
+        cubeId: null,
       });
     }
   }, [
-    navigate,
-    pathname,
-    cubeId,
-    currentPage,
-    userDataUpdating,
     currentUserInfo,
+    userInfoIsUpdating,
     isLoggedIn,
     findUserInfo,
+    cleanedPathname,
+    cubeId,
+    currentPage,
   ]);
 
   useEffect(() => {
-    if (currentUserInfo && userDataUpdating === false) {
-      setCurrentPath({
-        type: currentPage,
-        cubeId,
-      });
-    }
-    setIsLoading(false);
-  }, [pathname, cubeId, currentPage, currentUserInfo, userDataUpdating]);
-
-  useEffect(() => {
+    setCubeIsLoading(true);
     loadCube();
   }, [currentPath, loadCube]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCubeIsLoading(false);
+    }, 300);
+  }, [cubeData]);
 
   return (
     <>
       <CurrentPathContext.Provider
-        value={{ currentPath, cubeData, setCubeData }}>
+        value={{ currentPath, setCurrentPath, cubeData, setCubeData }}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
-          <UserContext.Provider
+          <LoadingContext.Provider
             value={{
-              currentUserInfo,
-              setCurrentUserInfo,
-              setUserDataUpdating,
-              isLoading,
-              isLoggedIn,
+              setAppIsLoading,
+              appIsLoading,
+              setCubeIsLoading,
+              cubeIsLoading,
             }}>
-            <DeleteModalContext.Provider
-              value={{ deleteModalInfo, setDeleteModalInfo }}>
-              <GuideContext.Provider value={{ showGuide, setShowGuide }}>
-                <CategoryListContext.Provider
-                  value={{ showSidePanel, setShowSidePanel }}>
-                  <CategoryContext.Provider
-                    value={{ currentCategory, setCurrentCategory }}>
-                    <CubeContext.Provider
-                      value={{ currentCubeId, setCurrentCubeId }}>
-                      <QuestionsContext.Provider
+            <UserContext.Provider
+              value={{
+                currentUserInfo,
+                setCurrentUserInfo,
+                setUserInfoIsUpdating,
+                userInfoIsUpdating,
+                isLoggedIn,
+              }}>
+              <DeleteContext.Provider
+                value={{
+                  deleteModalInfo,
+                  setDeleteModalInfo,
+                  deleteLoader,
+                  setDeleteLoader,
+                }}>
+                <GuideContext.Provider value={{ showGuide, setShowGuide }}>
+                  <LayoutContext.Provider
+                    value={{ showSidePanel, setShowSidePanel }}>
+                    <CategoryContext.Provider
+                      value={{ currentCategory, setCurrentCategory }}>
+                      <CubeContext.Provider
                         value={{
-                          questionsAreVisible,
-                          setQuestionsAreVisible,
+                          currentCubeId,
+                          setCurrentCubeId,
                         }}>
-                        {children}
-                      </QuestionsContext.Provider>
-                    </CubeContext.Provider>
-                  </CategoryContext.Provider>
-                </CategoryListContext.Provider>
-              </GuideContext.Provider>
-            </DeleteModalContext.Provider>
-          </UserContext.Provider>
+                        <QuestionsContext.Provider
+                          value={{
+                            questionsAreVisible,
+                            setQuestionsAreVisible,
+                          }}>
+                          {children}
+                        </QuestionsContext.Provider>
+                      </CubeContext.Provider>
+                    </CategoryContext.Provider>
+                  </LayoutContext.Provider>
+                </GuideContext.Provider>
+              </DeleteContext.Provider>
+            </UserContext.Provider>
+          </LoadingContext.Provider>
         </ThemeContext.Provider>
       </CurrentPathContext.Provider>
     </>

@@ -35,7 +35,8 @@ if (process.env.NODE_ENV === "production") {
   cubesUrl = `${serverOrigin}/cubes`;
 }
 
-module.exports = {
+export {
+  
   googleSuccessUrl,
   googleFailedUrl,
   googleLoginUrl,

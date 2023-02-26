@@ -2,7 +2,7 @@ import { useState, useRef, useContext, useEffect } from "react";
 import {
   UserContext,
   GuideContext,
-  CategoryListContext,
+  LayoutContext,
 } from "../../context/ContextProvider";
 import { ChevronLeftIcon } from "@primer/octicons-react";
 import UserAPI from "../../utils/api/user";
@@ -15,7 +15,7 @@ const GuideModal = () => {
     currentUserInfo: { newUser },
   } = useContext(UserContext);
   const { setShowGuide } = useContext(GuideContext);
-  const { setShowSidePanel } = useContext(CategoryListContext);
+  const { setShowSidePanel } = useContext(LayoutContext);
   const guideDecision = useRef();
   const [tourStep, setTourStep] = useState(1);
 
@@ -34,12 +34,11 @@ const GuideModal = () => {
         }
       });
     if (tourStep === 4 && guideDecision.current?.checked) {
-      await UserAPI.update({ newUser: false, showGuideModal: false });
-      setCurrentUserInfo(prevState => ({
-        ...prevState,
+      const updatedUser = await UserAPI.update({
         newUser: false,
         showGuideModal: false,
-      }));
+      });
+      setCurrentUserInfo(updatedUser);
       setShowGuide(false);
     } else if (tourStep === 4) {
       await UserAPI.update({ newUser: false });

@@ -1,6 +1,6 @@
 import { memo } from "react";
-import EditBtn from "./EditCubeBtn/component";
-import DeleteBtn from "../DeleteBtn/component";
+import EditBtn from "./EditCubeBtn";
+import DeleteBtn from "../DeleteBtn";
 import "./style.css";
 
 const CubeCtrls = memo(({ cubeId, cubeListLength, categoryTitle }) => {

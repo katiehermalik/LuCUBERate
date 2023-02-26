@@ -20,6 +20,8 @@
 
 .cube-header a {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -29,7 +31,6 @@
   background-color: var(--secondary-bg-color);
   border-bottom: 1px solid var(--cube-ctrl-header-border-color);
   overflow: hidden;
-  justify-content: center;
 }
 
 @media screen and (max-width: 720px) {

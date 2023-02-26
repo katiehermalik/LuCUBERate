@@ -15,8 +15,8 @@ const CubeMesh = ({ theme }) => {
       className="theme-transition"
       onPointerOver={() => setHover(true)}
       onPointerOut={() => setHover(false)}
-      scale={[0.6, 0.6, 0.6]}
-      position={[0, 1.5, 0]}
+      scale={[1, 1, 1]}
+      position={[0, 1.2, 0]}
       ref={mesh}>
       <boxGeometry attach="geometry" />
       <meshStandardMaterial

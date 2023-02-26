@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Login from "../../modals/LoginModal/component";
 import SignUp from "../../modals/SignUpModal/component";
+import "./style.css"
 
 const AuthBtn = ({ authType }) => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
@@ -20,7 +21,9 @@ const AuthBtn = ({ authType }) => {
       <button
         type="button"
         onClick={handleOpenModal}
-        className="btn navbar-item nav-link"
+        className={`btn navbar-item ${
+          authType === "Sign Up" ? "sign-up-btn" : ""
+        }`}
         aria-label={authType}>
         {authType}
       </button>

@@ -1,16 +1,12 @@
 import { useRef, useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import SidePanel from "../../layouts/SidePanel";
-import NavbarMobile from "../../layouts/NavbarMobile";
-import {
-  CategoryListContext,
-  GuideContext,
-} from "../../context/ContextProvider";
+import { GuideContext, LayoutContext } from "../../context/ContextProvider";
 import "./style.css";
 
 function Dashboard() {
-  const { setShowSidePanel } = useContext(CategoryListContext);
   const { showGuide } = useContext(GuideContext);
+  const { setShowSidePanel } = useContext(LayoutContext);
   const pagesRef = useRef();
 
   useEffect(() => {
@@ -29,17 +25,12 @@ function Dashboard() {
   }, [setShowSidePanel, showGuide]);
 
   return (
-    <>
-      <div className="dashboard container-row theme-transition">
-        <SidePanel />
-        <div ref={pagesRef} className="pages">
-          <Outlet />
-        </div>
+    <div className="dashboard container-row theme-transition">
+      <SidePanel />
+      <div ref={pagesRef} className="pages">
+        <Outlet />
       </div>
-      <div className="mobile-only-nav">
-        <NavbarMobile />
-      </div>
-    </>
+    </div>
   );
 }
 

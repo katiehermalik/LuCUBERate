@@ -91,7 +91,7 @@
 }
 
 .modal-guide [title="Back"] {
-  height: 37px;
+  height: 36px;
   padding: 8px 16px;
 }
 
@@ -182,7 +182,11 @@
   }
 
   .modal-guide .modal-footer-buttons {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
   }
 

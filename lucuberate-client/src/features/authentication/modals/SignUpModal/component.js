@@ -11,17 +11,14 @@ import {
   ChevronDownIcon,
 } from "@primer/octicons-react";
 import {
-  UserContext,
-  CubeContext,
+  LoadingContext,
   GuideContext,
-  CategoryListContext,
+  UserContext,
+  LayoutContext,
+  CubeContext,
 } from "../../../../context/ContextProvider";
-import UserAPI from "../../../../utils/api/user";
 import AuthAPI from "../../../../utils/api/auth";
-import {
-  googleLoginUrl,
-  googleSuccessUrl,
-} from "../../../../config/multi-environment";
+import { googleLoginUrl } from "../../../../config/multi-environment";
 import "./style.css";
 
 const SignUpModal = ({
@@ -31,10 +28,11 @@ const SignUpModal = ({
 }) => {
   const navigate = useNavigate();
   const form = useRef(null);
+  const { setAppIsLoading } = useContext(LoadingContext);
   const { setCurrentUserInfo } = useContext(UserContext);
-  const { setCurrentCubeId } = useContext(CubeContext);
   const { setShowGuide } = useContext(GuideContext);
-  const { setShowSidePanel } = useContext(CategoryListContext);
+  const { setShowSidePanel } = useContext(LayoutContext);
+  const { setCurrentCubeId } = useContext(CubeContext);
   const [showCriteria, setShowCriteria] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(null);
@@ -96,6 +94,7 @@ const SignUpModal = ({
           isLoggedIn: true,
         })
       );
+      setAppIsLoading(true);
       setCurrentUserInfo(userData);
       setCurrentCubeId(userData.categories[2].cubes[0]);
       setShowSignUpModal(false);
@@ -112,49 +111,6 @@ const SignUpModal = ({
       });
       navigate(`/dashboard/cube/${userData.categories[2].cubes[0]}`);
     }
-  };
-
-  const fetchOAuthUser = async () => {
-    const userInfo = await UserAPI.userData();
-    const { userData, isAuth } = userInfo;
-    if (isAuth) {
-      sessionStorage.setItem(
-        "user",
-        JSON.stringify({
-          isLoggedIn: true,
-        })
-      );
-      setCurrentUserInfo(userData);
-      setCurrentCubeId(userData.categories[2].cubes[0]);
-      setShowSignUpModal(false);
-      setShowGuide(true);
-      setShowSidePanel(false);
-      navigate(`/dashboard/cube/${userData.categories[2].cubes[0]}`);
-    }
-  };
-
-  const signUpWithGoogle = async () => {
-    const newWindow = (url, windowName, win, w, h) => {
-      const y = win.top.outerHeight / 2 + win.top.screenY - h / 2;
-      const x = win.top.outerWidth / 2 + win.top.screenX - w / 2;
-      return win.open(
-        url,
-        windowName,
-        `width=${w}, height=${h}, top=${y}, left=${x}`
-      );
-    };
-    const popup = newWindow(googleLoginUrl, "popup", window, 600, 700);
-    const checkPopup = setInterval(() => {
-      if (
-        !popup.closed &&
-        popup.window.location.href.includes(googleSuccessUrl)
-      ) {
-        popup.close();
-        fetchOAuthUser();
-      }
-      if (!popup || !popup.closed) return;
-      clearInterval(checkPopup);
-    }, 1000);
   };
 
   const checkForCapsLock = e => {
@@ -194,9 +150,12 @@ const SignUpModal = ({
                 </button>
               </div>
               <div className="oauth-container">
-                <button
+                <a
                   className="oauth-btn google-btn"
-                  onClick={signUpWithGoogle}></button>
+                  alt="Sign in with Google"
+                  href={googleLoginUrl}>
+                  Sign in with Google
+                </a>
               </div>
               <div className="hr-container">
                 <hr size="2" width="30%" />
@@ -340,7 +299,7 @@ const SignUpModal = ({
                   <div className="btn-container">
                     <button
                       type="submit"
-                      className="btn form-btn btn-secondary">
+                      className="btn form-btn btn-primary">
                       Sign up
                     </button>
                   </div>

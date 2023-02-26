@@ -1,30 +1,53 @@
 import { useContext } from "react";
-import { useLocation } from "react-router-dom";
-import {
-  CategoryListContext,
-  UserContext,
-} from "../../context/ContextProvider";
-import CategoryListToggle from "../SidePanelToggle/component";
-import NewCubeBtn from "../SidePanel/NewCubeBtn/component";
+import { Link, useLocation } from "react-router-dom";
+import { PlusIcon, PackageIcon, HomeIcon } from "@primer/octicons-react";
+import { UserContext } from "../../context/ContextProvider";
+import SidePanelToggle from "../SidePanelToggle";
 import "./style.css";
 
 const NavbarMobile = () => {
-  const { pathname } = useLocation();
   const { currentUserInfo: user } = useContext(UserContext);
-  const { showSidePanel } = useContext(CategoryListContext);
+  const { pathname } = useLocation();
+  const params = pathname.split("/");
+  const currentPage = params[1];
 
   return (
     <>
-      {user && pathname !== "/" && (
+      {user && (
         <>
+          {console.log(currentPage)}
           <div className="divider-line theme-transition"></div>
-          <nav className="navbar navbar-mobile container-row theme-transition">
-            <CategoryListToggle />
-            {showSidePanel && (
-              <div className="container-row">
-                <NewCubeBtn />
-              </div>
-            )}
+          <nav className="navbar-mobile container-row theme-transition">
+            <SidePanelToggle disable={pathname === "/"} mobileHidden={false} />
+            <Link
+              alt="Create Cube"
+              className={`btn mobile-navbar-item theme-transition ${
+                pathname === "/dashboard/new" ? "selected" : ""
+              }`}
+              to="/dashboard/new">
+              <PlusIcon size={16} />
+              Create Cube
+            </Link>
+            <Link
+              alt="About"
+              className={`btn mobile-navbar-item theme-transition ${
+                pathname === "/" ? "selected" : ""
+              }`}
+              to="/">
+              <HomeIcon size={16} />
+              About
+            </Link>
+            <Link
+              alt="Dashboard"
+              className={`btn mobile-navbar-item theme-transition ${
+                currentPage === "dashboard" && pathname !== "/dashboard/new"
+                  ? "selected"
+                  : ""
+              }`}
+              to="/dashboard/instructions">
+              <PackageIcon size={16} />
+              Dashboard
+            </Link>
           </nav>
         </>
       )}

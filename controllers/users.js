@@ -22,7 +22,9 @@ const update = async (req, res) => {
       req.user._id,
       { $set: { ...req.body } },
       { new: true }
-    );
+    )
+      .populate("categories")
+      .populate("cubes");
     res.json(updatedUser);
   } catch (err) {
     console.log("Error in users.update:", err);

@@ -1,19 +1,22 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { PackageIcon } from "@primer/octicons-react";
 import {
+  CurrentPathContext,
   UserContext,
-  CubeContext,
+  DeleteContext,
   CategoryContext,
+  CubeContext,
 } from "../../context/ContextProvider";
 import CubeAPI from "../../utils/api/cube";
 import CategoryAPI from "../../utils/api/category";
 import "./style.css";
 
 const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
-  const navigate = useNavigate();
-  const { currentUserInfo, setUserDataUpdating } = useContext(UserContext);
+  const { setCurrentPath } = useContext(CurrentPathContext);
+  const { currentUserInfo, setUserInfoIsUpdating } = useContext(UserContext);
+  const { deleteLoader, setDeleteLoader } = useContext(DeleteContext);
+  const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
   const { setCurrentCubeId } = useContext(CubeContext);
-  const { setCurrentCategory } = useContext(CategoryContext);
   const [currentCategoryInfo, setCurrentCategoryInfo] = useState({});
   const {
     cubeId,
@@ -22,7 +25,6 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
     categoryTitle,
     cubeListLength,
     categoryIsNew,
-    currentCategory,
     newCategory,
     setIsLoadingButton,
     collectCubeFormData,
@@ -46,30 +48,36 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
 
   const handleDeleteCategory = async e => {
     e.stopPropagation();
-    navigate("/dashboard/instructions");
-    await CategoryAPI.delete(categoryId);
-    setUserDataUpdating(true);
+    setCurrentPath({
+      type: "instructions",
+      cubeId: null,
+    });
     setCurrentCubeId("");
     setCurrentCategory(null);
-    setDeleteModalInfo({ showModal: false });
+    setDeleteLoader(true);
+    await CategoryAPI.delete(categoryId);
+    setUserInfoIsUpdating(true);
   };
 
   const handleDeleteCube = async e => {
     e.stopPropagation();
-    navigate("/dashboard/instructions");
+    setCurrentPath({
+      type: "instructions",
+      cubeId: null,
+    });
     setCurrentCubeId("");
+    setDeleteLoader(true);
     const deletedCube = await CubeAPI.delete(cubeId);
-    setUserDataUpdating(true);
     if (deletedCube.categoryDeleted) {
       setCurrentCategory(null);
     }
-    setDeleteModalInfo({ showModal: false });
+    setUserInfoIsUpdating(true);
   };
 
   const handleMoveLastCube = async e => {
     e.stopPropagation();
+    setDeleteLoader(true);
     categoryIsNew ? createNewCategory() : collectCubeFormData(currentCategory);
-    setDeleteModalInfo({ showModal: false });
   };
 
   return (
@@ -150,6 +158,7 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
             <button
               value="Cancel"
               onClick={closeModal}
+              disabled={deleteLoader ? true : false}
               className="btn form-btn btn-secondary">
               Cancel
             </button>
@@ -159,6 +168,7 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
                 (type === "cube" && handleDeleteCube) ||
                 (type === "warning" && handleMoveLastCube)
               }
+              disabled={deleteLoader ? true : false}
               value={
                 (type === "cube" &&
                   cubeListLength === 1 &&
@@ -171,13 +181,17 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
                 type === "category" || type === "cube"
                   ? "btn-danger"
                   : "btn-primary"
-              }`}>
-              {(type === "cube" &&
-                cubeListLength === 1 &&
-                "Delete Cube & Category") ||
+              } ${deleteLoader ? "loading" : ""}`}>
+              {deleteLoader ? (
+                <PackageIcon size={24} className="loading-icon" />
+              ) : (
+                (type === "cube" &&
+                  cubeListLength === 1 &&
+                  "Delete Cube & Category") ||
                 (type === "category" || type === "cube"
                   ? "Delete"
-                  : "Save Cube & Delete Category")}
+                  : "Save Cube & Delete Category")
+              )}
             </button>
           </section>
         </div>

@@ -22,8 +22,8 @@
   --primary-bg-color: #282c34;
   --primary-btn-color: var(--accent-color);
   --primary-btn-color-hover: #d39e00;
-  --secondary-btn-color: #acb0b5;
-  --secondary-btn-color-hover: #939598;
+  --secondary-btn-color: #bdbfc0;
+  --secondary-btn-color-hover: var(--form-input-background-color);
   --stars-bg-img: url("./images/stars.png");
   --success-color: #5c993a;
   --text-color-dark: var(--primary-bg-color);
@@ -39,8 +39,10 @@
   --cube-face-color-2: #3f4850;
   --cube-face-color-3: #394a56;
   --hr-color: #3e424a;
+  --mobile-nav-item-select: #ffbd24;
   --nav-bg-color: #324d60;
   --nav-btn-bg-color: #a2c1d7;
+  --nav-item-select: #ffbd24;
   --overlay-color: rgba(0, 0, 0, 0.8);
   --primary-text-color: var(--text-color-light);
   --secondary-bg-color: #1e1f23;
@@ -54,8 +56,10 @@
   --cube-face-color-2: #acb0b5;
   --cube-face-color-3: #cde6f5;
   --hr-color: #5f6062;
+  --mobile-nav-item-select: #7ec3ff;
   --nav-bg-color: #d2e5f3;
   --nav-btn-bg-color: var(--nav-bg-color);
+  --nav-item-select: #1a609d;
   --overlay-color: rgba(0, 0, 0, 0.9);
   --primary-text-color: var(--text-color-dark);
   --secondary-bg-color: #3e424a;
@@ -239,11 +243,33 @@ button:not(:disabled) {
     :focus-visible
   ),
 .theme-transition::after {
+  -webkit-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
+    min-width 0.45s ease-in-out, -webkit-flex-basis 0.45s ease-in-out;
+  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
+    min-width 0.45s ease-in-out, -webkit-flex-basis 0.45s ease-in-out;
+  -o-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
+    width 0.45s ease-in-out, min-width 0.45s ease-in-out;
   transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
     background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
     outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
     opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
     width 0.45s ease-in-out, min-width 0.45s ease-in-out;
+  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
+    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
+    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
+    width 0.45s ease-in-out, min-width 0.45s ease-in-out,
+    -webkit-flex-basis 0.45s ease-in-out,
+    -ms-flex-preferred-size 0.45s ease-in-out;
 }
 
 /* ----------- Cube New Edit Delete Btns */
@@ -251,21 +277,12 @@ button:not(:disabled) {
 .btn {
   border-radius: 5px;
   font-weight: bold;
+  color: var(--text-color-dark);
 }
 
-.btn:active {
+/* .btn:active {
   box-shadow: rgb(9 30 66 / 40%) 0px 1px 1px, rgb(9 30 66 / 20%) 0px 0px 1px 1px;
-}
-
-.btn:active:not(
-    .new-cube-btn,
-    .signup-login .btn,
-    .modal-guide .btn,
-    .form-btn,
-    [for="inputVisual"]
-  ) {
-  height: 29px;
-}
+} */
 
 .form-btn {
   border: 1px solid var(--primary-bg-color);
@@ -295,8 +312,9 @@ button:not(:disabled) {
 }
 
 .btn-secondary {
-  background-color: var(--secondary-btn-color);
-  color: var(--text-color-dark);
+  border: 1px solid var(--secondary-btn-color);
+  background-color: transparent;
+  color: var(--secondary-btn-color);
 }
 .btn-secondary:hover {
   background-color: var(--secondary-btn-color-hover);
@@ -311,6 +329,9 @@ button:not(:disabled) {
 }
 .btn-primary:disabled {
   background-color: var(--btn-primary-disabled-color);
+}
+.btn-secondary:disabled {
+  background-color: var(--secondary-btn-color-hover);
 }
 
 /* ------------------------------- Modal */
@@ -453,8 +474,8 @@ button:not(:disabled) {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-wrap: wrap-reverse;
-  flex-wrap: wrap-reverse;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
@@ -466,6 +487,8 @@ button:not(:disabled) {
 }
 
 .hr-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -489,7 +512,11 @@ hr {
 }
 
 .signup-login .btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 
@@ -522,28 +549,44 @@ input[name="password"] {
 }
 
 .oauth-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin: 0 1rem;
   padding: 1rem;
 }
 
 .oauth-btn {
-  background: url("images/btn_google_signin_light_normal_web@2x.png")
-    transparent 5px 50% no-repeat;
-  background-size: auto 50px;
-  height: 50px;
+  background: url("./images/btn_google_signin_light_normal_web@2x.png");
+  background-size: 218px 50px;
+  display: block;
   margin-top: 1rem;
   width: 218px;
+  height: 50px;
+  line-height: 0;
+  font-size: 0;
+  color: transparent;
 }
 
 /* ------------ 404  */
 
 .page-not-found {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   height: 100%;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
   padding: 50px 50px;
   width: 100%;
@@ -561,6 +604,8 @@ input[name="password"] {
   -ms-flex-align: center;
   align-items: center;
   border: 1px solid var(--primary-bg-color);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   display: -webkit-box;
@@ -680,8 +725,8 @@ select.form-control {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap-reverse;
-  flex-wrap: wrap-reverse;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
@@ -730,10 +775,14 @@ input[type="file"] {
 [type="file"] + label {
   background-color: #6c757d;
   border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   color: #fff;
   cursor: pointer;
   height: 36px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin-top: 3px;
   text-align: center;
@@ -791,6 +840,17 @@ img.visual-aid-preview {
 [title="Delete Visual Aid"] {
   background-color: transparent;
   color: var(--accent-color);
+}
+
+@-webkit-keyframes loading {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes loading {
@@ -889,7 +949,7 @@ input[type="radio"]:checked + label {
   }
 
   .mobile-hidden {
-    display: none;
+    display: none !important;
   }
 
   .form-container {
@@ -930,6 +990,8 @@ input[type="radio"]:checked + label {
   }
 
   .signup-login .hr-container {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
   }
 
@@ -949,6 +1011,7 @@ input[type="radio"]:checked + label {
   .signup-login .form-btn {
     height: 42px;
     margin: 0.5rem auto 1rem;
+    width: 181px;
   }
 
   .signup-login .modal-footer p {
@@ -961,7 +1024,10 @@ input[type="radio"]:checked + label {
   }
 
   .oauth-btn {
+    background-size: auto 43px;
+    height: 43px;
     margin-top: 0;
+    width: 181px;
   }
 
   /* ================================ Cube Form */
@@ -971,7 +1037,7 @@ input[type="radio"]:checked + label {
   }
 
   .instructions {
-    padding: 20px;
+    padding: 20px !important;
   }
 
   .form-row {
