@@ -33,7 +33,7 @@
   }
 
   .mobile-navbar-item.selected {
-    color: var(--nav-item-select);
+    color: var(--mobile-nav-item-select);
   }
 
   .mobile-navbar-item svg {
