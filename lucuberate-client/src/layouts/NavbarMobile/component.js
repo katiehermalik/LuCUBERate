@@ -8,11 +8,14 @@ import "./style.css";
 const NavbarMobile = () => {
   const { currentUserInfo: user } = useContext(UserContext);
   const { pathname } = useLocation();
+  const params = pathname.split("/");
+  const currentPage = params[1];
 
   return (
     <>
       {user && (
         <>
+          {console.log(currentPage)}
           <div className="divider-line theme-transition"></div>
           <nav className="navbar-mobile container-row theme-transition">
             <SidePanelToggle disable={pathname === "/"} mobileHidden={false} />
@@ -37,7 +40,9 @@ const NavbarMobile = () => {
             <Link
               alt="Dashboard"
               className={`btn mobile-navbar-item theme-transition ${
-                pathname === "/dashboard/instructions" ? "selected" : ""
+                currentPage === "dashboard" && pathname !== "/dashboard/new"
+                  ? "selected"
+                  : ""
               }`}
               to="/dashboard/instructions">
               <PackageIcon size={16} />
