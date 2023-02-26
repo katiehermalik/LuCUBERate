@@ -81,7 +81,7 @@
 }
 
 .signup-login .btn:hover {
-  color: var(--accent-color);
+  color: var(--nav-item-select);
 }
 
 /* ------------------------------- Dropdown Menu Item */
