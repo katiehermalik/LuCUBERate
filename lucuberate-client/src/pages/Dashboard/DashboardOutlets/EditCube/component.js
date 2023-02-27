@@ -5,6 +5,8 @@ import {
   PackageIcon,
   InfoIcon,
   ChevronDownIcon,
+  PlusCircleIcon,
+  NoEntryIcon,
 } from "@primer/octicons-react";
 import {
   CurrentPathContext,
@@ -34,11 +36,8 @@ const EditCube = () => {
   const [hint, setHint] = useState("");
   const [notes, setNotes] = useState("");
   const [link_1, setLinkOne] = useState({});
-  // const [link_alias_1, setLinkAliasOne] = useState("");
   const [link_2, setLinkTwo] = useState({});
-  // const [link_alias_2, setLinkAliasTwo] = useState("");
   const [link_3, setLinkThree] = useState({});
-  // const [link_alias_3, setLinkAliasThree] = useState("");
   const [visual_aid, setVisualAid] = useState("");
   const [new_visual_aid, setNewVisualAid] = useState("");
   const [removingVisualAid, setRemovingVisualAid] = useState(false);
@@ -73,7 +72,6 @@ const EditCube = () => {
 
   useEffect(() => {
     document.title = "Lucuberate | Edit Cube";
-    console.log(cubeData.cube);
     if (cubeData.cube) {
       const {
         cube: {
@@ -82,11 +80,8 @@ const EditCube = () => {
           hint,
           notes,
           link_1,
-          // link_alias_1,
           link_2,
-          // link_alias_2,
           link_3,
-          // link_alias_3,
           visual_aid_url,
         },
       } = cubeData;
@@ -97,9 +92,6 @@ const EditCube = () => {
       setLinkOne(link_1);
       setLinkTwo(link_2);
       setLinkThree(link_3);
-      // setLinkAliasOne(link_alias_1);
-      // setLinkAliasTwo(link_alias_2);
-      // setLinkAliasThree(link_alias_3);
       setVisualAid(visual_aid_url);
       setQuestionCount(question.length);
       setAnswerCount(answer.length);
@@ -136,7 +128,6 @@ const EditCube = () => {
 
   const collectCubeFormData = categoryId => {
     const links = [link_1, link_2, link_3].filter(link => link.url !== "");
-    console.log({ links });
     const formData = new FormData(document.getElementById("cube-edit-form"));
     formData.set("link_1", JSON.stringify(links[0]));
     formData.set("link_2", JSON.stringify(links[1]));
@@ -271,7 +262,6 @@ const EditCube = () => {
 
   return (
     <>
-      {console.log(linksAmount)}
       <div className="form-container container-column">
         <div className="instructions container-column theme-transition">
           <h1 className="form-title">
@@ -458,7 +448,6 @@ const EditCube = () => {
           </div>
           <div className="form-row">
             {/* TODO - validate url using URL Constructor */}
-
             <div className="form-group columns-2">
               <div className="form-group columns-2 resource-group">
                 <div
@@ -483,12 +472,12 @@ const EditCube = () => {
                   {linksAmount === 1 && (
                     <button
                       onClick={() => setLinksAmount(prevState => prevState + 1)}
-                      className="add-resource">
-                      + add another link
+                      className="add-remove-resource">
+                      <PlusCircleIcon size={16} />
+                      &nbsp;&nbsp;add another link
                     </button>
                   )}
                 </div>
-                {/* TODO - add multiple resource links functionality */}
                 {link_1.url && (
                   <div className="form-group columns-2">
                     <label htmlFor="inputAlias">
@@ -546,16 +535,31 @@ const EditCube = () => {
                       }
                     />
                     {linksAmount === 2 && (
-                      <button
-                        onClick={() =>
-                          setLinksAmount(prevState => prevState + 1)
-                        }
-                        className="add-resource">
-                        + add another link
-                      </button>
+                      <>
+                        <button
+                          onClick={() =>
+                            setLinksAmount(prevState => prevState + 1)
+                          }
+                          className="add-remove-resource">
+                          <PlusCircleIcon size={16} />
+                          &nbsp;&nbsp;add another link
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button
+                          onClick={() => {
+                            setLinkTwo(prevState => ({
+                              alias: "",
+                              url: "",
+                            }));
+                            setLinksAmount(prevState => prevState - 1);
+                          }}
+                          className="add-remove-resource">
+                          <NoEntryIcon size={16} />
+                          &nbsp;&nbsp;remove link
+                        </button>
+                      </>
                     )}
                   </div>
-                  {/* TODO - add multiple resource links functionality */}
                   {link_2.url && (
                     <div className="form-group columns-2">
                       <label htmlFor="inputAlias">
@@ -617,8 +621,21 @@ const EditCube = () => {
                         }));
                       }}
                     />
+                    {linksAmount === 3 && (
+                      <button
+                        onClick={() => {
+                          setLinkThree(prevState => ({
+                            alias: "",
+                            url: "",
+                          }));
+                          setLinksAmount(prevState => prevState - 1);
+                        }}
+                        className="add-remove-resource">
+                        <NoEntryIcon size={16} />
+                        &nbsp;&nbsp;remove link
+                      </button>
+                    )}
                   </div>
-                  {/* TODO - add multiple resource links functionality */}
                   {link_3.url && (
                     <div className="form-group columns-2">
                       <label htmlFor="inputAlias">

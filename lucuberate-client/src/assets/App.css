@@ -918,9 +918,9 @@ input[type="radio"]:checked + label {
   margin: 0;
 }
 
-.add-resource {
+.add-remove-resource {
   background-color: transparent;
-  color: var(--accent-color);
+  color: var(--nav-item-select);
   cursor: pointer;
   font-size: 0.8rem;
   margin-left: 3px;
