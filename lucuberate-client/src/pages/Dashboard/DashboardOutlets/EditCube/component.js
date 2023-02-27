@@ -22,6 +22,7 @@ import CategoryAPI from "../../../../utils/api/category";
 const EditCube = () => {
   const navigate = useNavigate();
   const { id: cubeId } = useParams();
+  
   const { cubeData } = useContext(CurrentPathContext);
   const { setCubeIsLoading } = useContext(LoadingContext);
   const { currentUserInfo, setUserInfoIsUpdating } = useContext(UserContext);
@@ -41,7 +42,6 @@ const EditCube = () => {
   const [visual_aid, setVisualAid] = useState("");
   const [new_visual_aid, setNewVisualAid] = useState("");
   const [removingVisualAid, setRemovingVisualAid] = useState(false);
-  const [linksAmount, setLinksAmount] = useState(1);
 
   const [questionCount, setQuestionCount] = useState(0);
   const [answerCount, setAnswerCount] = useState(0);
@@ -49,6 +49,7 @@ const EditCube = () => {
   const [notesCount, setNotesCount] = useState(0);
   const [linkAliasOneCount, setLinkAliasOneCount] = useState(0);
   const [linkAliasTwoCount, setLinkAliasTwoCount] = useState(0);
+  const [linksAmount, setLinksAmount] = useState(1);
   const [linkAliasThreeCount, setLinkAliasThreeCount] = useState(0);
 
   const [categoryError, setCategoryError] = useState("");
@@ -261,227 +262,306 @@ const EditCube = () => {
   };
 
   return (
-    <>
-      <div className="form-container container-column">
-        <div className="instructions container-column theme-transition">
-          <h1 className="form-title">
-            <span className="force-line-break">Edit this&nbsp;</span>
-            <span className="force-line-break">Study Cube</span>
-          </h1>
-          <h2 className="required-warning">
-            <span className="force-line-break">
-              &#40; Fields marked with&nbsp;
-            </span>
-            <span className="force-line-break">
-              a <span style={required}>*</span> are required &#41;
-            </span>
-          </h2>
-        </div>
-        <form
-          onSubmit={handleSubmit}
-          encType="multipart/form-data"
-          id="cube-edit-form"
-          className="cube-form">
-          <div className="form-row">
-            <div
-              className={`form-group ${
-                categoryIsNew ? "columns-2" : "columns-1"
-              }`}>
-              <label htmlFor="category-dropdown">
-                Category&nbsp;<span style={required}>*</span>
-                {categoryError && !categoryIsNew && !currentCategory && (
+    <div className="form-container container-column">
+      <div className="instructions container-column theme-transition">
+        <h1 className="form-title">
+          <span className="force-line-break">Edit this&nbsp;</span>
+          <span className="force-line-break">Study Cube</span>
+        </h1>
+        <h2 className="required-warning">
+          <span className="force-line-break">
+            &#40; Fields marked with&nbsp;
+          </span>
+          <span className="force-line-break">
+            a <span style={required}>*</span> are required &#41;
+          </span>
+        </h2>
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+        id="cube-edit-form"
+        className="cube-form">
+        <div className="form-row">
+          <div
+            className={`form-group ${
+              categoryIsNew ? "columns-2" : "columns-1"
+            }`}>
+            <label htmlFor="category-dropdown">
+              Category&nbsp;<span style={required}>*</span>
+              {categoryError && !categoryIsNew && !currentCategory && (
+                <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
+              )}
+            </label>
+            <div className="select-group">
+              <select
+                className="form-control"
+                id="category-dropdown"
+                onChange={handleCategoryChange}
+                value={
+                  currentCategory
+                    ? currentCategory
+                    : categoryIsNew
+                    ? "New Category"
+                    : ""
+                }>
+                <option value="" disabled>
+                  {" "}
+                  -- select an option --{" "}
+                </option>
+                <option value="New Category">New Category</option>
+                {currentUserInfo?.categories?.map(category => (
+                  <option
+                    key={`${category._id}`}
+                    value={`${category._id}`}>{`${category.title}`}</option>
+                ))}
+              </select>
+              <div className="dropdown-chevron-icon">
+                <ChevronDownIcon size={16} />
+              </div>
+            </div>
+          </div>
+          {categoryIsNew && (
+            <div className="form-group columns-2">
+              <label htmlFor="inputCategory">
+                New Category&nbsp;<span style={required}>*</span>
+                {categoryError && !newCategory && (
                   <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
                 )}
               </label>
-              <div className="select-group">
-                <select
-                  className="form-control"
-                  id="category-dropdown"
-                  onChange={handleCategoryChange}
-                  value={
-                    currentCategory
-                      ? currentCategory
-                      : categoryIsNew
-                      ? "New Category"
-                      : ""
-                  }>
-                  <option value="" disabled>
-                    {" "}
-                    -- select an option --{" "}
-                  </option>
-                  <option value="New Category">New Category</option>
-                  {currentUserInfo?.categories?.map(category => (
-                    <option
-                      key={`${category._id}`}
-                      value={`${category._id}`}>{`${category.title}`}</option>
-                  ))}
-                </select>
-                <div className="dropdown-chevron-icon">
-                  <ChevronDownIcon size={16} />
-                </div>
+              <input
+                type="text"
+                className="form-control"
+                id="inputCategory"
+                placeholder="Create a new category"
+                maxLength="20"
+                value={newCategory}
+                onChange={e => {
+                  setCategoryError("");
+                  setNewCategory(e.target.value);
+                  setNewCategoryCount(e.target.value.length);
+                }}
+              />
+              <div className="character-count" style={{ float: "right" }}>
+                <span className="currentCount">{newCategoryCount}</span>
+                <span className="maxCount">/ 20</span>
               </div>
             </div>
-            {categoryIsNew && (
-              <div className="form-group columns-2">
-                <label htmlFor="inputCategory">
-                  New Category&nbsp;<span style={required}>*</span>
-                  {categoryError && !newCategory && (
-                    <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
-                  )}
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputCategory"
-                  placeholder="Create a new category"
-                  maxLength="20"
-                  value={newCategory}
-                  onChange={e => {
-                    setCategoryError("");
-                    setNewCategory(e.target.value);
-                    setNewCategoryCount(e.target.value.length);
-                  }}
-                />
-                <div className="character-count" style={{ float: "right" }}>
-                  <span className="currentCount">{newCategoryCount}</span>
-                  <span className="maxCount">/ 20</span>
-                </div>
-              </div>
-            )}
-          </div>
+          )}
+        </div>
 
-          <div className="form-row">
-            <div className="form-group columns-2">
-              <label htmlFor="inputQuestion">
-                Question&nbsp;<span style={required}>*</span>
-                {questionError && !question && (
-                  <span style={errorStyle}>&nbsp;{`${questionError}`}</span>
-                )}
-              </label>
-              <textarea
-                type="text"
-                className="form-control"
-                id="inputQuestion"
-                placeholder="The quetsion goes here..."
-                maxLength="300"
-                name="question"
-                value={question}
-                onChange={e => {
-                  setQuestionError("");
-                  setQuestion(e.target.value);
-                  setQuestionCount(e.target.value.length);
-                }}
-              />
-              <div className="character-count" style={{ float: "right" }}>
-                <span className="currentCount">{questionCount}</span>
-                <span className="maxCount">/ 300</span>
-              </div>
-            </div>
-            <div className="form-group columns-2">
-              <label htmlFor="inputAnswer">
-                Answer&nbsp;<span style={required}>*</span>
-                {answerError && !answer && (
-                  <span style={errorStyle}>&nbsp;{`${answerError}`}</span>
-                )}
-              </label>
-              <textarea
-                type="text"
-                className="form-control"
-                id="inputAnswer"
-                placeholder="The answer goes here..."
-                maxLength="300"
-                name="answer"
-                value={answer}
-                onChange={e => {
-                  setAnswerError("");
-                  setAnswer(e.target.value);
-                  setAnswerCount(e.target.value.length);
-                }}
-              />
-              <div className="character-count" style={{ float: "right" }}>
-                <span className="currentCount">{answerCount}</span>
-                <span className="maxCount">/ 300</span>
-              </div>
+        <div className="form-row">
+          <div className="form-group columns-2">
+            <label htmlFor="inputQuestion">
+              Question&nbsp;<span style={required}>*</span>
+              {questionError && !question && (
+                <span style={errorStyle}>&nbsp;{`${questionError}`}</span>
+              )}
+            </label>
+            <textarea
+              type="text"
+              className="form-control"
+              id="inputQuestion"
+              placeholder="The quetsion goes here..."
+              maxLength="300"
+              name="question"
+              value={question}
+              onChange={e => {
+                setQuestionError("");
+                setQuestion(e.target.value);
+                setQuestionCount(e.target.value.length);
+              }}
+            />
+            <div className="character-count" style={{ float: "right" }}>
+              <span className="currentCount">{questionCount}</span>
+              <span className="maxCount">/ 300</span>
             </div>
           </div>
-          <div className="form-row">
-            <div className="form-group columns-2">
-              <label htmlFor="inputHint">Hint</label>
-              <textarea
-                type="text"
-                className="form-control"
-                id="inputHint"
-                placeholder="Give yourself a nudge in the right direction."
-                maxLength="300"
-                name="hint"
-                value={hint || ""}
-                onChange={e => {
-                  setHint(e.target.value);
-                  setHintCount(e.target.value.length);
-                }}
-              />
-              <div className="character-count" style={{ float: "right" }}>
-                <span className="currentCount">{hintCount}</span>
-                <span className="maxCount">/ 300</span>
-              </div>
-            </div>
-            <div className="form-group columns-2">
-              <label htmlFor="inputNotes">Notes</label>
-              <textarea
-                type="text"
-                className="form-control"
-                id="inputNotes"
-                placeholder="Anything to help with memorization..."
-                maxLength="300"
-                name="notes"
-                value={notes || ""}
-                onChange={e => {
-                  setNotes(e.target.value);
-                  setNotesCount(e.target.value.length);
-                }}
-              />
-              <div className="character-count" style={{ float: "right" }}>
-                <span className="currentCount">{notesCount}</span>
-                <span className="maxCount">/ 300</span>
-              </div>
+          <div className="form-group columns-2">
+            <label htmlFor="inputAnswer">
+              Answer&nbsp;<span style={required}>*</span>
+              {answerError && !answer && (
+                <span style={errorStyle}>&nbsp;{`${answerError}`}</span>
+              )}
+            </label>
+            <textarea
+              type="text"
+              className="form-control"
+              id="inputAnswer"
+              placeholder="The answer goes here..."
+              maxLength="300"
+              name="answer"
+              value={answer}
+              onChange={e => {
+                setAnswerError("");
+                setAnswer(e.target.value);
+                setAnswerCount(e.target.value.length);
+              }}
+            />
+            <div className="character-count" style={{ float: "right" }}>
+              <span className="currentCount">{answerCount}</span>
+              <span className="maxCount">/ 300</span>
             </div>
           </div>
-          <div className="form-row">
-            {/* TODO - validate url using URL Constructor */}
-            <div className="form-group columns-2">
+        </div>
+        <div className="form-row">
+          <div className="form-group columns-2">
+            <label htmlFor="inputHint">Hint</label>
+            <textarea
+              type="text"
+              className="form-control"
+              id="inputHint"
+              placeholder="Give yourself a nudge in the right direction."
+              maxLength="300"
+              name="hint"
+              value={hint || ""}
+              onChange={e => {
+                setHint(e.target.value);
+                setHintCount(e.target.value.length);
+              }}
+            />
+            <div className="character-count" style={{ float: "right" }}>
+              <span className="currentCount">{hintCount}</span>
+              <span className="maxCount">/ 300</span>
+            </div>
+          </div>
+          <div className="form-group columns-2">
+            <label htmlFor="inputNotes">Notes</label>
+            <textarea
+              type="text"
+              className="form-control"
+              id="inputNotes"
+              placeholder="Anything to help with memorization..."
+              maxLength="300"
+              name="notes"
+              value={notes || ""}
+              onChange={e => {
+                setNotes(e.target.value);
+                setNotesCount(e.target.value.length);
+              }}
+            />
+            <div className="character-count" style={{ float: "right" }}>
+              <span className="currentCount">{notesCount}</span>
+              <span className="maxCount">/ 300</span>
+            </div>
+          </div>
+        </div>
+        <div className="form-row">
+          {/* TODO - validate url using URL Constructor */}
+          <div className="form-group columns-2">
+            <div className="form-group columns-2 resource-group">
+              <div
+                className={
+                  link_1.url ? "form-group columns-2" : "form-group columns-1"
+                }>
+                <label htmlFor="inputLink">Resource Link 1</label>
+                <input
+                  type="url"
+                  className="form-control"
+                  id="inputLink"
+                  placeholder="Link to a resource."
+                  name="link_1"
+                  value={link_1.url || ""}
+                  onChange={e =>
+                    setLinkOne(prevState => ({
+                      alias: e.target.value === "" ? "" : prevState.alias,
+                      url: e.target.value,
+                    }))
+                  }
+                />
+                {linksAmount === 1 && (
+                  <button
+                    onClick={() => setLinksAmount(prevState => prevState + 1)}
+                    className="add-remove-resource">
+                    <PlusCircleIcon size={16} />
+                    &nbsp;&nbsp;add another link
+                  </button>
+                )}
+              </div>
+              {link_1.url && (
+                <div className="form-group columns-2">
+                  <label htmlFor="inputAlias">
+                    Link 1 Text&nbsp;&nbsp;
+                    <span
+                      className="info-icon"
+                      title="Use a descriptive phrase that provides context for the material you are linking to.">
+                      <InfoIcon size={16} />
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputAlias"
+                    placeholder="ex. 'Article about ...'"
+                    maxLength="50"
+                    name="link_alias_1"
+                    value={link_1.alias || ""}
+                    onChange={e => {
+                      setLinkOne(prevState => ({
+                        ...prevState,
+                        alias: e.target.value,
+                      }));
+                      setLinkAliasOneCount(e.target.value.length);
+                    }}
+                  />
+                  <div className="character-count" style={{ float: "right" }}>
+                    <span className="currentCount">{linkAliasOneCount}</span>
+                    <span className="maxCount">/ 50</span>
+                  </div>
+                </div>
+              )}
+            </div>
+            {linksAmount >= 2 && (
               <div className="form-group columns-2 resource-group">
                 <div
                   className={
-                    link_1.url ? "form-group columns-2" : "form-group columns-1"
+                    link_2.url ? "form-group columns-2" : "form-group columns-1"
                   }>
-                  <label htmlFor="inputLink">Resource Link 1</label>
+                  <label htmlFor="inputLink">Resource Link 2</label>
                   <input
                     type="url"
                     className="form-control"
                     id="inputLink"
                     placeholder="Link to a resource."
-                    name="link_1"
-                    value={link_1.url || ""}
+                    name="link_2"
+                    value={link_2.url || ""}
                     onChange={e =>
-                      setLinkOne(prevState => ({
+                      setLinkTwo(prevState => ({
                         alias: e.target.value === "" ? "" : prevState.alias,
                         url: e.target.value,
                       }))
                     }
                   />
-                  {linksAmount === 1 && (
-                    <button
-                      onClick={() => setLinksAmount(prevState => prevState + 1)}
-                      className="add-remove-resource">
-                      <PlusCircleIcon size={16} />
-                      &nbsp;&nbsp;add another link
-                    </button>
+                  {linksAmount === 2 && (
+                    <>
+                      <button
+                        onClick={() =>
+                          setLinksAmount(prevState => prevState + 1)
+                        }
+                        className="add-remove-resource">
+                        <PlusCircleIcon size={16} />
+                        &nbsp;&nbsp;add another link
+                      </button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button
+                        onClick={() => {
+                          setLinkTwo(prevState => ({
+                            alias: "",
+                            url: "",
+                          }));
+                          setLinksAmount(prevState => prevState - 1);
+                        }}
+                        className="add-remove-resource">
+                        <NoEntryIcon size={16} />
+                        &nbsp;&nbsp;remove link
+                      </button>
+                    </>
                   )}
                 </div>
-                {link_1.url && (
+                {link_2.url && (
                   <div className="form-group columns-2">
                     <label htmlFor="inputAlias">
-                      Link 1 Text&nbsp;&nbsp;
+                      Link 2 Text&nbsp;&nbsp;
                       <span
                         className="info-icon"
                         title="Use a descriptive phrase that provides context for the material you are linking to.">
@@ -494,280 +574,189 @@ const EditCube = () => {
                       id="inputAlias"
                       placeholder="ex. 'Article about ...'"
                       maxLength="50"
-                      name="link_alias_1"
-                      value={link_1.alias || ""}
+                      name="link_alias_2"
+                      value={link_2.alias || ""}
                       onChange={e => {
-                        setLinkOne(prevState => ({
+                        setLinkTwo(prevState => ({
                           ...prevState,
                           alias: e.target.value,
                         }));
-                        setLinkAliasOneCount(e.target.value.length);
+                        setLinkAliasTwoCount(e.target.value.length);
                       }}
                     />
                     <div className="character-count" style={{ float: "right" }}>
-                      <span className="currentCount">{linkAliasOneCount}</span>
+                      <span className="currentCount">{linkAliasTwoCount}</span>
                       <span className="maxCount">/ 50</span>
                     </div>
                   </div>
                 )}
               </div>
-              {linksAmount >= 2 && (
-                <div className="form-group columns-2 resource-group">
-                  <div
-                    className={
-                      link_2.url
-                        ? "form-group columns-2"
-                        : "form-group columns-1"
-                    }>
-                    <label htmlFor="inputLink">Resource Link 2</label>
-                    <input
-                      type="url"
-                      className="form-control"
-                      id="inputLink"
-                      placeholder="Link to a resource."
-                      name="link_2"
-                      value={link_2.url || ""}
-                      onChange={e =>
-                        setLinkTwo(prevState => ({
-                          alias: e.target.value === "" ? "" : prevState.alias,
-                          url: e.target.value,
-                        }))
-                      }
-                    />
-                    {linksAmount === 2 && (
-                      <>
-                        <button
-                          onClick={() =>
-                            setLinksAmount(prevState => prevState + 1)
-                          }
-                          className="add-remove-resource">
-                          <PlusCircleIcon size={16} />
-                          &nbsp;&nbsp;add another link
-                        </button>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button
-                          onClick={() => {
-                            setLinkTwo(prevState => ({
-                              alias: "",
-                              url: "",
-                            }));
-                            setLinksAmount(prevState => prevState - 1);
-                          }}
-                          className="add-remove-resource">
-                          <NoEntryIcon size={16} />
-                          &nbsp;&nbsp;remove link
-                        </button>
-                      </>
-                    )}
-                  </div>
-                  {link_2.url && (
-                    <div className="form-group columns-2">
-                      <label htmlFor="inputAlias">
-                        Link 2 Text&nbsp;&nbsp;
-                        <span
-                          className="info-icon"
-                          title="Use a descriptive phrase that provides context for the material you are linking to.">
-                          <InfoIcon size={16} />
-                        </span>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="inputAlias"
-                        placeholder="ex. 'Article about ...'"
-                        maxLength="50"
-                        name="link_alias_2"
-                        value={link_2.alias || ""}
-                        onChange={e => {
-                          setLinkTwo(prevState => ({
-                            ...prevState,
-                            alias: e.target.value,
-                          }));
-                          setLinkAliasTwoCount(e.target.value.length);
-                        }}
-                      />
-                      <div
-                        className="character-count"
-                        style={{ float: "right" }}>
-                        <span className="currentCount">
-                          {linkAliasTwoCount}
-                        </span>
-                        <span className="maxCount">/ 50</span>
-                      </div>
-                    </div>
+            )}
+            {linksAmount === 3 && (
+              <div className="form-group columns-2 resource-group">
+                <div
+                  className={
+                    link_3.url ? "form-group columns-2" : "form-group columns-1"
+                  }>
+                  <label htmlFor="inputLink">Resource Link 3</label>
+                  <input
+                    type="url"
+                    className="form-control"
+                    id="inputLink"
+                    placeholder="Link to a resource."
+                    name="link_3"
+                    value={link_3.url || ""}
+                    onChange={e => {
+                      setLinkThree(prevState => ({
+                        alias: e.target.value === "" ? "" : prevState.alias,
+                        url: e.target.value,
+                      }));
+                    }}
+                  />
+                  {linksAmount === 3 && (
+                    <button
+                      onClick={() => {
+                        setLinkThree(prevState => ({
+                          alias: "",
+                          url: "",
+                        }));
+                        setLinksAmount(prevState => prevState - 1);
+                      }}
+                      className="add-remove-resource">
+                      <NoEntryIcon size={16} />
+                      &nbsp;&nbsp;remove link
+                    </button>
                   )}
                 </div>
-              )}
-              {linksAmount === 3 && (
-                <div className="form-group columns-2 resource-group">
-                  <div
-                    className={
-                      link_3.url
-                        ? "form-group columns-2"
-                        : "form-group columns-1"
-                    }>
-                    <label htmlFor="inputLink">Resource Link 3</label>
+                {link_3.url && (
+                  <div className="form-group columns-2">
+                    <label htmlFor="inputAlias">
+                      Link 3 Text&nbsp;&nbsp;
+                      <span
+                        className="info-icon"
+                        title="Use a descriptive phrase that provides context for the material you are linking to.">
+                        <InfoIcon size={16} />
+                      </span>
+                    </label>
                     <input
-                      type="url"
+                      type="text"
                       className="form-control"
-                      id="inputLink"
-                      placeholder="Link to a resource."
-                      name="link_3"
-                      value={link_3.url || ""}
+                      id="inputAlias"
+                      placeholder="ex. 'Article about ...'"
+                      maxLength="50"
+                      name="link_alias_3"
+                      value={link_3.alias || ""}
                       onChange={e => {
                         setLinkThree(prevState => ({
-                          alias: e.target.value === "" ? "" : prevState.alias,
-                          url: e.target.value,
+                          ...prevState,
+                          alias: e.target.value,
                         }));
+                        setLinkAliasThreeCount(e.target.value.length);
                       }}
                     />
-                    {linksAmount === 3 && (
-                      <button
-                        onClick={() => {
-                          setLinkThree(prevState => ({
-                            alias: "",
-                            url: "",
-                          }));
-                          setLinksAmount(prevState => prevState - 1);
-                        }}
-                        className="add-remove-resource">
-                        <NoEntryIcon size={16} />
-                        &nbsp;&nbsp;remove link
-                      </button>
-                    )}
-                  </div>
-                  {link_3.url && (
-                    <div className="form-group columns-2">
-                      <label htmlFor="inputAlias">
-                        Link 3 Text&nbsp;&nbsp;
-                        <span
-                          className="info-icon"
-                          title="Use a descriptive phrase that provides context for the material you are linking to.">
-                          <InfoIcon size={16} />
-                        </span>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="inputAlias"
-                        placeholder="ex. 'Article about ...'"
-                        maxLength="50"
-                        name="link_alias_3"
-                        value={link_3.alias || ""}
-                        onChange={e => {
-                          setLinkThree(prevState => ({
-                            ...prevState,
-                            alias: e.target.value,
-                          }));
-                          setLinkAliasThreeCount(e.target.value.length);
-                        }}
-                      />
-                      <div
-                        className="character-count"
-                        style={{ float: "right" }}>
-                        <span className="currentCount">
-                          {linkAliasThreeCount}
-                        </span>
-                        <span className="maxCount">/ 50</span>
-                      </div>
+                    <div className="character-count" style={{ float: "right" }}>
+                      <span className="currentCount">
+                        {linkAliasThreeCount}
+                      </span>
+                      <span className="maxCount">/ 50</span>
                     </div>
-                  )}
-                </div>
-              )}
-            </div>
-            <div className="form-group columns-2">
-              <div htmlFor="inputVisual">Visual Aid</div>
-              <input
-                ref={visualAidInputRef}
-                type="file"
-                id="inputVisual"
-                placeholder="Choose file"
-                name="visual_aid"
-                onChange={checkFileExtention}
-              />
-              <label className="btn theme-transition" htmlFor="inputVisual">
-                {visual_aid ? "Upload New" : "Upload"}
-              </label>
-              {new_visual_aid && visualAidError && (
-                <div style={errorStyle}>{`${visualAidError}`}</div>
-              )}
-              {new_visual_aid ? (
-                <>
-                  {new_visual_aid.name.length > 15 ? (
-                    <span className="visual-aid-file-name">
-                      {new_visual_aid.name.slice(0, 6)}&hellip;
-                      {new_visual_aid.name.slice(-7)}{" "}
-                    </span>
-                  ) : (
-                    <span className="visual-aid-file-name">
-                      {new_visual_aid.name}{" "}
-                    </span>
-                  )}
-                  <button
-                    className="delete-visual-aid"
-                    type="button"
-                    onClick={removeVisualAid}
-                    title="Delete Visual Aid"
-                    aria-label="Delete Visual Aid">
-                    <XCircleFillIcon size={16} />
-                  </button>
-                </>
-              ) : visual_aid ? (
-                <div className="visual-aid-preview-container">
-                  <img
-                    src={visual_aid}
-                    alt="visual aid"
-                    className="visual-aid-preview"
-                  />
-                  <button
-                    className="delete-saved-visual-aid"
-                    type="button"
-                    onClick={removeSavedVisualAid}
-                    title="Delete Visual Aid"
-                    aria-label="Delete Visual Aid">
-                    <XCircleFillIcon size={24} />
-                  </button>
-                </div>
-              ) : null}
-              {/* TODO - compress visual aid size */}
-            </div>
-          </div>
-          <div className="form-buttons form-row">
-            <div className="form-group columns-2"></div>
-            <div className="form-group columns-2">
-              <Link tabIndex="-1" to={`/dashboard/cube/${cubeId}`}>
-                <button
-                  type="submit"
-                  className="btn form-btn btn-secondary"
-                  onClick={() => setCurrentCategory(currentCubeCategory._id)}>
-                  Cancel
-                </button>
-              </Link>
-              <button
-                disabled={
-                  questionError ||
-                  answerError ||
-                  categoryError ||
-                  visualAidError ||
-                  isLoadingButton
-                    ? true
-                    : false
-                }
-                type="submit"
-                className={`btn form-btn btn-primary ${
-                  isLoadingButton ? "loading" : ""
-                }`}>
-                {isLoadingButton ? (
-                  <PackageIcon size={24} className="loading-icon" />
-                ) : (
-                  "Save Changes"
+                  </div>
                 )}
-              </button>
-            </div>
+              </div>
+            )}
           </div>
-        </form>
-      </div>
-    </>
+          <div className="form-group columns-2">
+            <div htmlFor="inputVisual">Visual Aid</div>
+            <input
+              ref={visualAidInputRef}
+              type="file"
+              id="inputVisual"
+              placeholder="Choose file"
+              name="visual_aid"
+              onChange={checkFileExtention}
+            />
+            <label className="btn theme-transition" htmlFor="inputVisual">
+              {visual_aid ? "Upload New" : "Upload"}
+            </label>
+            {new_visual_aid && visualAidError && (
+              <div style={errorStyle}>{`${visualAidError}`}</div>
+            )}
+            {new_visual_aid ? (
+              <>
+                {new_visual_aid.name.length > 15 ? (
+                  <span className="visual-aid-file-name">
+                    {new_visual_aid.name.slice(0, 6)}&hellip;
+                    {new_visual_aid.name.slice(-7)}{" "}
+                  </span>
+                ) : (
+                  <span className="visual-aid-file-name">
+                    {new_visual_aid.name}{" "}
+                  </span>
+                )}
+                <button
+                  className="delete-visual-aid"
+                  type="button"
+                  onClick={removeVisualAid}
+                  title="Delete Visual Aid"
+                  aria-label="Delete Visual Aid">
+                  <XCircleFillIcon size={16} />
+                </button>
+              </>
+            ) : visual_aid ? (
+              <div className="visual-aid-preview-container">
+                <img
+                  src={visual_aid}
+                  alt="visual aid"
+                  className="visual-aid-preview"
+                />
+                <button
+                  className="delete-saved-visual-aid"
+                  type="button"
+                  onClick={removeSavedVisualAid}
+                  title="Delete Visual Aid"
+                  aria-label="Delete Visual Aid">
+                  <XCircleFillIcon size={24} />
+                </button>
+              </div>
+            ) : null}
+            {/* TODO - compress visual aid size */}
+          </div>
+        </div>
+        <div className="form-buttons form-row">
+          <div className="form-group columns-2"></div>
+          <div className="form-group columns-2">
+            <Link tabIndex="-1" to={`/dashboard/cube/${cubeId}`}>
+              <button
+                type="submit"
+                className="btn form-btn btn-secondary"
+                onClick={() => setCurrentCategory(currentCubeCategory._id)}>
+                Cancel
+              </button>
+            </Link>
+            <button
+              disabled={
+                questionError ||
+                answerError ||
+                categoryError ||
+                visualAidError ||
+                isLoadingButton
+                  ? true
+                  : false
+              }
+              type="submit"
+              className={`btn form-btn btn-primary ${
+                isLoadingButton ? "loading" : ""
+              }`}>
+              {isLoadingButton ? (
+                <PackageIcon size={24} className="loading-icon" />
+              ) : (
+                "Save Changes"
+              )}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 
