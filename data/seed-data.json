@@ -11,10 +11,15 @@
       "answer": "Any number of equal parts of a whole.",
       "hint": "Think of cutting a pizza or a pie!",
       "visual_aid": "seedData_fractions.png",
-      "link_1": "https://www.youtube.com/watch?v=362JVVvgYPE",
-      "link_alias_1": "Scratch Garden video on fractions",
-      "link_2": "https://www.etsy.com/sg-en/listing/861525502/math-poster-fractions-chart-fractions",
-      "link_alias_2": "Source of the Visual Aid",
+      "link_1": {
+        "url": "https://www.youtube.com/watch?v=362JVVvgYPE",
+        "alias": "Scratch Garden video on fractions"
+      },
+      "link_2": {
+        "url": "https://www.etsy.com/sg-en/listing/861525502/math-poster-fractions-chart-fractions",
+        "alias": "Source of the Visual Aid"
+      },
+      "link_3": { "url": "", "alias": "" },
       "notes": "You can also have fractions that add up to more than a whole. These are called improper fractions.",
       "user": "",
       "category": "2nd Grade Math"
@@ -24,10 +29,15 @@
       "answer": "12",
       "hint": "The answer rhymes with 'shelve'...",
       "visual_aid": "seedData_multiplication.jpg",
-      "link_1": "https://www.youtube.com/watch?v=h-CC6jDDahQ",
-      "link_alias_1": "Periwinkle video for practicing multiplication tables",
-      "link_2": "https://www.2nd-grade-math-salamanders.com/beginning-multiplication-worksheets.html",
-      "link_alias_2": "Source of the Visual Aid",
+      "link_1": {
+        "url": "https://www.youtube.com/watch?v=h-CC6jDDahQ",
+        "alias": "Periwinkle video for practicing multiplication"
+      },
+      "link_2": {
+        "url": "https://www.2nd-grade-math-salamanders.com/beginning-multiplication-worksheets.html",
+        "alias": "Source of the Visual Aid"
+      },
+      "link_3": { "url": "", "alias": "" },
       "notes": "It could be helpful to think of 3 x 4 to mean:\n3 groups of 4,\nor 4 groups of 3.",
       "user": "",
       "category": "2nd Grade Math"
@@ -37,10 +47,15 @@
       "answer": "Always hoisted to the top of it's scope (the current execution context), var can be used before it is declared. It can also be redeclared and reassigned. let and const must be declared only once and before they are used. Let can be reassigned, but const cannot. let and const are both block scoped.",
       "hint": "'const' stands for constant",
       "visual_aid": "seedData_letConstVar.jpeg",
-      "link_1": "https://medium.com/nerd-for-tech/var-let-and-const-in-javascript-15e41cf90f01",
-      "link_alias_1": "Medium article about the differences",
-      "link_2": "https://medium.com/swlh/the-difference-of-var-vs-let-vs-const-in-javascript-abe37e214d66",
-      "link_alias_2": "Source of the Visual Aid",
+      "link_1": {
+        "url": "https://medium.com/nerd-for-tech/var-let-and-const-in-javascript-15e41cf90f01",
+        "alias": "Medium article about the differences"
+      },
+      "link_2": {
+        "url": "https://medium.com/swlh/the-difference-of-var-vs-let-vs-const-in-javascript-abe37e214d66",
+        "alias": "Source of the Visual Aid"
+      },
+      "link_3": { "url": "", "alias": "" },
       "notes": "Const cannot be reassigned, but that does not mean it is immutable.",
       "user": "",
       "category": "Programming"
@@ -50,10 +65,15 @@
       "answer": "The browsers internal representation of a webpage. Represented in a tree-like structure of objects that make up the elements and the content of each site.",
       "hint": "DOM stands for Document Object Model",
       "visual_aid": "seedData_dom.png",
-      "link_1": "https://www.codecademy.com/resources/blog/what-is-dom/",
-      "link_alias_1": "Codecademy article about the DOM",
-      "link_2": "https://cs.wellesley.edu/~cs110/reading/DOM-JQ.html",
-      "link_alias_2": "Source of the Visual Aid",
+      "link_1": {
+        "url": "https://www.codecademy.com/resources/blog/what-is-dom/",
+        "alias": "Codecademy article about the DOM"
+      },
+      "link_2": {
+        "url": "https://cs.wellesley.edu/~cs110/reading/DOM-JQ.html",
+        "alias": "Source of the Visual Aid"
+      },
+      "link_3": { "url": "", "alias": "" },
       "notes": "React uses a virtual DOM to compare any changes as data is updated. By updating the virtual DOM first and then comparing it with the actual DOM, React only needs to update the parts that changed in the actual DOM (which is a faster and more efficient experience).",
       "user": "",
       "category": "Programming"
@@ -63,10 +83,15 @@
       "answer": "Null is a way of explicitly declaring that a variable has no value. Undefined is implicit if a variable has not been given a value.",
       "hint": "Undefined means no value has been given",
       "visual_aid": "seedData_nullUndefined.jpeg",
-      "link_1": "https://dev.to/zahrakhadijha/the-difference-between-null-and-undefined-in-javascript-51gc",
-      "link_alias_1": "Dev article about the differences",
-      "link_2": "https://medium.com/weekly-webtips/null-and-undefined-in-javascript-d9bc18acdaff",
-      "link_alias_2": "Source of the Visual Aid",
+      "link_1": {
+        "url": "https://dev.to/zahrakhadijha/the-difference-between-null-and-undefined-in-javascript-51gc",
+        "alias": "Dev article about the differences"
+      },
+      "link_2": {
+        "url": "https://medium.com/weekly-webtips/null-and-undefined-in-javascript-d9bc18acdaff",
+        "alias": "Source of the Visual Aid"
+      },
+      "link_3": { "url": "", "alias": "" },
       "notes": "Other FALSY values include:\nfalse\nNAN\n0\n'' (empty string)",
       "user": "",
       "category": "Programming"
@@ -76,10 +101,15 @@
       "answer": "A principle created by German physicist Werner Heisenberg in 1927 that states position and momentum of an electron cannot be determined simultaneously with absolute accuracy.",
       "hint": "Everything in the universe behaves like both a particle and a wave at the same time.",
       "visual_aid": "seedData_uncertainty.gif",
-      "link_1": "https://www.youtube.com/watch?v=TQKELOE9eY4",
-      "link_alias_1": "TED-Ed video on this principle",
-      "link_2": "https://chem.libretexts.org/Courses/Pacific_Union_College/Quantum_Chemistry/01%3A_The_Dawn_of_the_Quantum_Theory/1.09%3A_The_Heisenberg_Uncertainty_Principle",
-      "link_alias_2": "Source of the Visual Aid",
+      "link_1": {
+        "url": "https://www.youtube.com/watch?v=TQKELOE9eY4",
+        "alias": "TED-Ed video on this principle"
+      },
+      "link_2": {
+        "url": "https://chem.libretexts.org/Courses/Pacific_Union_College/Quantum_Chemistry/01%3A_The_Dawn_of_the_Quantum_Theory/1.09%3A_The_Heisenberg_Uncertainty_Principle",
+        "alias": "Source of the Visual Aid"
+      },
+      "link_3": { "url": "", "alias": "" },
       "notes": "This is the formula:\nΔx Δp >= h / 4π\nΔx = uncertainty in position\nΔp = uncertainty of momentum\nh = Planck's constant\nπ = pi",
       "user": "",
       "category": "Quantum Physics"

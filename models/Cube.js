@@ -17,22 +17,16 @@ const cubeSchema = new mongoose.Schema(
       type: String,
     },
     link_1: {
-      type: String,
-    },
-    link_alias_1: {
-      type: String,
+      url: { type: String },
+      alias: { type: String },
     },
     link_2: {
-      type: String,
-    },
-    link_alias_2: {
-      type: String,
+      url: { type: String },
+      alias: { type: String },
     },
     link_3: {
-      type: String,
-    },
-    link_alias_3: {
-      type: String,
+      url: { type: String },
+      alias: { type: String },
     },
     notes: {
       type: String,
