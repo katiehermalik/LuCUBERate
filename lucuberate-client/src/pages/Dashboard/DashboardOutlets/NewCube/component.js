@@ -5,6 +5,8 @@ import {
   PackageIcon,
   InfoIcon,
   ChevronDownIcon,
+  PlusCircleIcon,
+  NoEntryIcon,
 } from "@primer/octicons-react";
 
 import {
@@ -18,6 +20,7 @@ import CategoryAPI from "../../../../utils/api/category";
 
 const NewCube = () => {
   const navigate = useNavigate();
+
   const { setCubeIsLoading } = useContext(LoadingContext);
   const { currentUserInfo, setUserInfoIsUpdating } = useContext(UserContext);
   const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
@@ -25,45 +28,25 @@ const NewCube = () => {
 
   const visualAidInputRef = useRef(null);
 
-  // const initialState = {
-  //   newCategory: '',
-  //   question: '',
-  //   answer: '',
-  //   hint: '',
-  //   notes: '',
-  //   link_1: '',
-  //   link_alias_1: '',
-  //   visual_aid: '',
-  //   newCategoryCount: 0,
-  //   questionCount: 0,
-  //   answerCount: 0,
-  //   hintCount: 0,
-  //   notesCount: 0,
-  //   linkAliasCount: 0,
-  //   categoryError: '',
-  //   questionError: '',
-  //   answerError: '',
-  //   visualAidError: '',
-  //   categoryIsNew: false,
-  //   isLoadingButton: false,
-  // };
-
-  // const [state, dispatch] = useReducer(reducer, initialState);
-
   const [newCategory, setNewCategory] = useState("");
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [hint, setHint] = useState("");
   const [notes, setNotes] = useState("");
-  const [link_1, setLinkOne] = useState("");
-  const [link_alias_1, setLinkAliasOne] = useState("");
+  const [link_1, setLinkOne] = useState({});
+  const [link_2, setLinkTwo] = useState({});
+  const [link_3, setLinkThree] = useState({});
   const [visual_aid, setVisualAid] = useState("");
+
   const [newCategoryCount, setNewCategoryCount] = useState(0);
   const [questionCount, setQuestionCount] = useState(0);
   const [answerCount, setAnswerCount] = useState(0);
   const [hintCount, setHintCount] = useState(0);
   const [notesCount, setNotesCount] = useState(0);
-  const [linkAliasCount, setLinkAliasCount] = useState(0);
+  const [linksAmount, setLinksAmount] = useState(1);
+  const [linkAliasOneCount, setLinkAliasOneCount] = useState(0);
+  const [linkAliasTwoCount, setLinkAliasTwoCount] = useState(0);
+  const [linkAliasThreeCount, setLinkAliasThreeCount] = useState(0);
 
   const [categoryError, setCategoryError] = useState("");
   const [questionError, setQuestionError] = useState("");
@@ -92,7 +75,11 @@ const NewCube = () => {
   };
 
   const collectCubeFormData = categoryId => {
+    const links = [link_1, link_2, link_3].filter(link => link.url !== "");
     const formData = new FormData(document.getElementById("cube-new-form"));
+    formData.set("link_1", JSON.stringify(links[0]));
+    formData.set("link_2", JSON.stringify(links[1]));
+    formData.set("link_3", JSON.stringify(links[2]));
     formData.append("user", currentUserInfo._id);
     formData.append("category", categoryId);
     !visualAidError && createCube(formData);
@@ -366,54 +353,224 @@ const NewCube = () => {
           </div>
         </div>
         <div className="form-row">
-          <div
-            className={
-              link_1 ? "form-group columns-3" : "form-group columns-2"
-            }>
-            <label htmlFor="inputLink">Resource Link</label>
-            <input
-              type="url"
-              className="form-control"
-              id="inputLink"
-              placeholder="Link to a resource."
-              name="link_1"
-              value={link_1}
-              onChange={e => setLinkOne(e.target.value)}
-            />
-          </div>
-          {link_1 && (
-            <div className="form-group columns-3">
-              <label htmlFor="inputAlias">
-                Link Text&nbsp;&nbsp;
-                <span
-                  className="info-icon"
-                  title="Use a descriptive phrase that provides context for the material you are linking to.">
-                  <InfoIcon size={16} />
-                </span>
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="inputAlias"
-                placeholder="ex. 'Article about education'"
-                maxLength="50"
-                name="link_alias_1"
-                value={link_alias_1}
-                onChange={e => {
-                  setLinkAliasOne(e.target.value);
-                  setLinkAliasCount(e.target.value.length);
-                }}
-              />
-              <div className="character-count" style={{ float: "right" }}>
-                <span className="currentCount">{linkAliasCount}</span>
-                <span className="maxCount">/ 50</span>
+          <div className="form-group columns-2">
+            <div className="form-group columns-2 resource-group">
+              <div
+                className={
+                  link_1.url ? "form-group columns-2" : "form-group columns-1"
+                }>
+                <label htmlFor="inputLink">Resource Link 1</label>
+                <input
+                  type="url"
+                  className="form-control"
+                  id="inputLink"
+                  placeholder="Link to a resource."
+                  name="link_1"
+                  value={link_1.url || ""}
+                  onChange={e =>
+                    setLinkOne(prevState => ({
+                      alias: e.target.value === "" ? "" : prevState.alias,
+                      url: e.target.value,
+                    }))
+                  }
+                />
+                {linksAmount === 1 && (
+                  <button
+                    onClick={() => setLinksAmount(prevState => prevState + 1)}
+                    className="add-remove-resource">
+                    <PlusCircleIcon size={16} />
+                    &nbsp;&nbsp;add another link
+                  </button>
+                )}
               </div>
+              {link_1.url && (
+                <div className="form-group columns-2">
+                  <label htmlFor="inputAlias">
+                    Link 1 Text&nbsp;&nbsp;
+                    <span
+                      className="info-icon"
+                      title="Use a descriptive phrase that provides context for the material you are linking to.">
+                      <InfoIcon size={16} />
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputAlias"
+                    placeholder="ex. 'Article about ...'"
+                    maxLength="50"
+                    name="link_alias_1"
+                    value={link_1.alias || ""}
+                    onChange={e => {
+                      setLinkOne(prevState => ({
+                        ...prevState,
+                        alias: e.target.value,
+                      }));
+                      setLinkAliasOneCount(e.target.value.length);
+                    }}
+                  />
+                  <div className="character-count" style={{ float: "right" }}>
+                    <span className="currentCount">{linkAliasOneCount}</span>
+                    <span className="maxCount">/ 50</span>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-          <div
-            className={
-              link_1 ? "form-group columns-3" : "form-group columns-2"
-            }>
+            {linksAmount >= 2 && (
+              <div className="form-group columns-2 resource-group">
+                <div
+                  className={
+                    link_2.url ? "form-group columns-2" : "form-group columns-1"
+                  }>
+                  <label htmlFor="inputLink">Resource Link 2</label>
+                  <input
+                    type="url"
+                    className="form-control"
+                    id="inputLink"
+                    placeholder="Link to a resource."
+                    name="link_2"
+                    value={link_2.url || ""}
+                    onChange={e =>
+                      setLinkTwo(prevState => ({
+                        alias: e.target.value === "" ? "" : prevState.alias,
+                        url: e.target.value,
+                      }))
+                    }
+                  />
+                  {linksAmount === 2 && (
+                    <>
+                      <button
+                        onClick={() =>
+                          setLinksAmount(prevState => prevState + 1)
+                        }
+                        className="add-remove-resource">
+                        <PlusCircleIcon size={16} />
+                        &nbsp;&nbsp;add another link
+                      </button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button
+                        onClick={() => {
+                          setLinkTwo(prevState => ({
+                            alias: "",
+                            url: "",
+                          }));
+                          setLinksAmount(prevState => prevState - 1);
+                        }}
+                        className="add-remove-resource">
+                        <NoEntryIcon size={16} />
+                        &nbsp;&nbsp;remove link
+                      </button>
+                    </>
+                  )}
+                </div>
+                {link_2.url && (
+                  <div className="form-group columns-2">
+                    <label htmlFor="inputAlias">
+                      Link 2 Text&nbsp;&nbsp;
+                      <span
+                        className="info-icon"
+                        title="Use a descriptive phrase that provides context for the material you are linking to.">
+                        <InfoIcon size={16} />
+                      </span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputAlias"
+                      placeholder="ex. 'Article about ...'"
+                      maxLength="50"
+                      name="link_alias_2"
+                      value={link_2.alias || ""}
+                      onChange={e => {
+                        setLinkTwo(prevState => ({
+                          ...prevState,
+                          alias: e.target.value,
+                        }));
+                        setLinkAliasTwoCount(e.target.value.length);
+                      }}
+                    />
+                    <div className="character-count" style={{ float: "right" }}>
+                      <span className="currentCount">{linkAliasTwoCount}</span>
+                      <span className="maxCount">/ 50</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+            {linksAmount === 3 && (
+              <div className="form-group columns-2 resource-group">
+                <div
+                  className={
+                    link_3.url ? "form-group columns-2" : "form-group columns-1"
+                  }>
+                  <label htmlFor="inputLink">Resource Link 3</label>
+                  <input
+                    type="url"
+                    className="form-control"
+                    id="inputLink"
+                    placeholder="Link to a resource."
+                    name="link_3"
+                    value={link_3.url || ""}
+                    onChange={e => {
+                      setLinkThree(prevState => ({
+                        alias: e.target.value === "" ? "" : prevState.alias,
+                        url: e.target.value,
+                      }));
+                    }}
+                  />
+                  {linksAmount === 3 && (
+                    <button
+                      onClick={() => {
+                        setLinkThree(prevState => ({
+                          alias: "",
+                          url: "",
+                        }));
+                        setLinksAmount(prevState => prevState - 1);
+                      }}
+                      className="add-remove-resource">
+                      <NoEntryIcon size={16} />
+                      &nbsp;&nbsp;remove link
+                    </button>
+                  )}
+                </div>
+                {link_3.url && (
+                  <div className="form-group columns-2">
+                    <label htmlFor="inputAlias">
+                      Link 3 Text&nbsp;&nbsp;
+                      <span
+                        className="info-icon"
+                        title="Use a descriptive phrase that provides context for the material you are linking to.">
+                        <InfoIcon size={16} />
+                      </span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputAlias"
+                      placeholder="ex. 'Article about ...'"
+                      maxLength="50"
+                      name="link_alias_3"
+                      value={link_3.alias || ""}
+                      onChange={e => {
+                        setLinkThree(prevState => ({
+                          ...prevState,
+                          alias: e.target.value,
+                        }));
+                        setLinkAliasThreeCount(e.target.value.length);
+                      }}
+                    />
+                    <div className="character-count" style={{ float: "right" }}>
+                      <span className="currentCount">
+                        {linkAliasThreeCount}
+                      </span>
+                      <span className="maxCount">/ 50</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          <div className="form-group columns-2">
             <div htmlFor="inputVisual">Visual Aid</div>
             <input
               ref={visualAidInputRef}
