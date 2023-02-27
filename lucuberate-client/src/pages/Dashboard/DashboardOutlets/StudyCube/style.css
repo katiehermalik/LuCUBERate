@@ -97,7 +97,7 @@
   -webkit-transform: rotateX(-90deg);
   transform: rotateX(-90deg);
 }
-.study-cube.Link {
+.study-cube.Links {
   -webkit-transform: rotateX(90deg);
   transform: rotateX(90deg);
 }
@@ -195,7 +195,7 @@
   -webkit-transform: rotateX(90deg) translateZ(34vmin);
   transform: rotateX(90deg) translateZ(34vmin);
 }
-.face.Link {
+.face.Links {
   background-color: var(--cube-face-color-2);
   -webkit-transform: rotateX(-90deg) translateZ(34vmin);
   transform: rotateX(-90deg) translateZ(34vmin);
@@ -212,10 +212,15 @@
   transform: rotateY(90deg) translateZ(34vmin);
 }
 
+ul.face-content {
+  list-style: none;
+}
+
 .face-content a {
   color: var(--face-cube-text-color);
   text-decoration: underline;
 }
+
 .face-content a:hover {
   text-decoration: none;
 }

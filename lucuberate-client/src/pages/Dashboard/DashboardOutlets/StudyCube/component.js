@@ -8,7 +8,7 @@ import GuideModal from "../../../../components/GuideModal";
 import Loading from "../../../../components/Loading";
 import "./style.css";
 
-const sides = ["Question", "Answer", "Visual Aid", "Link", "Notes", "Hint"];
+const sides = ["Question", "Answer", "Visual Aid", "Links", "Notes", "Hint"];
 
 const StudyCube = ({ cubeIsLoading }) => {
   const {
@@ -181,54 +181,58 @@ const StudyCube = ({ cubeIsLoading }) => {
                         </a>
                       )}
                     </div>
-                    <div className="face Link theme-transition">
+                    <div className="face Links theme-transition">
                       <div
                         className={`face-title ${
-                          side === "Link" ? "" : "blur pointer-disabled"
+                          side === "Links" ? "" : "blur pointer-disabled"
                         }`}>
-                        Link
+                        Links
                         <hr className="theme-transition" />
                       </div>
-                      {(cube.link_1 || cube.link_2 || cube.link_3) && (
-                        <div
+                      {(cube.link_1.url ||
+                        cube.link_2.url ||
+                        cube.link_3.url) && (
+                        <ul
                           className={`face-content ${
-                            side === "Link"
+                            side === "Links"
                               ? ""
                               : "blur pointer-disabled face-not-focused"
                           }`}>
-                          {cube.link_1 && (
-                            <a
-                              rel="noreferrer"
-                              target="_blank"
-                              href={cube.link_1}>
-                              {cube.link_alias_1}
-                            </a>
-                          )}
-                          {cube.link_2 && (
-                            <>
-                              <br />
-                              <br />
-                              <a
-                                style={{ fontSize: "12px" }}
-                                rel="noreferrer"
-                                target="_blank"
-                                href={cube.link_2}>
-                                {cube.link_alias_2}
-                              </a>
-                            </>
-                          )}
-                          {cube.link_3 && (
-                            <>
-                              <br />
+                          {cube.link_1.url && (
+                            <li>
                               <a
                                 rel="noreferrer"
                                 target="_blank"
-                                href={cube.link_3}>
-                                {cube.link_alias_3}
+                                href={cube.link_1.url}>
+                                {cube.link_1.alias}
                               </a>
-                            </>
+                              <br />
+                              <br />
+                            </li>
                           )}
-                        </div>
+                          {cube.link_2.url && (
+                            <li>
+                              <a
+                                rel="noreferrer"
+                                target="_blank"
+                                href={cube.link_2.url}>
+                                {cube.link_2.alias}
+                              </a>
+                              <br />
+                              <br />
+                            </li>
+                          )}
+                          {cube.link_3.url && (
+                            <li>
+                              <a
+                                rel="noreferrer"
+                                target="_blank"
+                                href={cube.link_3.url}>
+                                {cube.link_3.alias}
+                              </a>
+                            </li>
+                          )}
+                        </ul>
                       )}
                     </div>
                   </div>
