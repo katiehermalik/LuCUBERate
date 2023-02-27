@@ -15,7 +15,6 @@ const NavbarMobile = () => {
     <>
       {user && (
         <>
-          {console.log(currentPage)}
           <div className="divider-line theme-transition"></div>
           <nav className="navbar-mobile container-row theme-transition">
             <SidePanelToggle disable={pathname === "/"} mobileHidden={false} />

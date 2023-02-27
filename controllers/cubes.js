@@ -65,7 +65,7 @@ const show = async (req, res) => {
 // Creates New Cube and saves cube Id to current user
 const create = async (req, res) => {
   try {
-    const {
+    let {
       body: {
         question,
         answer,
@@ -78,7 +78,9 @@ const create = async (req, res) => {
         category,
       },
     } = req;
-
+    if (link_1 !== "undefined") link_1 = JSON.parse(link_1);
+    if (link_2 !== "undefined") link_2 = JSON.parse(link_2);
+    if (link_3 !== "undefined") link_3 = JSON.parse(link_3);
     const newCube = {
       question: question,
       answer: answer,
@@ -150,8 +152,6 @@ const update = async (req, res) => {
     if (link_1 !== "undefined") link_1 = JSON.parse(link_1);
     if (link_2 !== "undefined") link_2 = JSON.parse(link_2);
     if (link_3 !== "undefined") link_3 = JSON.parse(link_3);
-
-    console.log(link_1, link_2, link_3);
     const changedCube = {
       question: question,
       answer: answer,
