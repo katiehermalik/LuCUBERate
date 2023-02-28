@@ -1,16 +1,30 @@
-import LandingBackground from "../../features/threeJS/LandingCanvas";
+import { useState, useEffect } from "react";
+import { ChevronDownIcon } from "@primer/octicons-react";
+import LandingCanvas from "../../features/threeJS/LandingCanvas";
 import "./style.css";
 
 const Landing = () => {
+  const [showLearnMore, setShowLearnMore] = useState(true);
+  const controlLearnMore = () => {
+    window.scrollY > 100 ? setShowLearnMore(false) : setShowLearnMore(true);
+  };
+
+  useEffect(() => {
+    document.addEventListener("scroll", controlLearnMore);
+    return () => {
+      document.removeEventListener("scroll", controlLearnMore);
+    };
+  }, []);
+
   return (
     <>
       <div className="landing">
         <div id="title-container" className="title-container">
-          <section className="about landing-text">
+          <section className="landing-text">
             <h1 className="brand-name">LUCUBERATE</h1>
           </section>
         </div>
-        <LandingBackground />
+        <LandingCanvas />
       </div>
       <section className="description theme-transition">
         <div>
@@ -39,7 +53,12 @@ const Landing = () => {
             &nbsp;learn.
           </h3>
         </div>
+        <div className={`learn-more bounce ${!showLearnMore && "hide"}`}>
+          <h3>Learn more</h3>
+          <ChevronDownIcon size={24} />
+        </div>
       </section>
+      <section className="more-info"></section>
     </>
   );
 };

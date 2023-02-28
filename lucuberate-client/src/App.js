@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useLocation } from "react-router-dom";
 import {
   ThemeContext,
   LoadingContext,
@@ -10,6 +11,7 @@ import DeleteModal from "./components/ConfirmationModal";
 import Loading from "./components/Loading";
 
 const App = () => {
+  const { pathname } = useLocation();
   const { theme } = useContext(ThemeContext);
   const { appIsLoading } = useContext(LoadingContext);
   const { isLoggedIn } = useContext(UserContext);
@@ -23,7 +25,10 @@ const App = () => {
     <div
       className={`app theme-transition container-column ${
         theme === "dark" ? "dark" : "light"
-      }`}>
+      }`}
+      style={{
+        height: `${pathname === "/" ? "" : "100%"}`,
+      }}>
       {isLoggedIn && appIsLoading ? (
         <Loading />
       ) : (

@@ -8,3 +8,13 @@
   cursor: -webkit-grabbing;
   cursor: grabbing;
 }
+
+.landing-canvas div {
+  height: calc((100vh - 50px) * 0.6) !important;
+}
+
+@media screen and (max-width: 720px) {
+  .landing-canvas div {
+    height: calc((100vh - 100px) * 0.5) !important;
+  }
+}
