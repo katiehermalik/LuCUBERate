@@ -21,6 +21,9 @@ function Dashboard() {
         }
       };
       document.addEventListener("mousedown", closeUserMenu);
+      return () => {
+        document.removeEventListener("mousedown", closeUserMenu);
+      };
     }
   }, [setShowSidePanel, showGuide]);
 

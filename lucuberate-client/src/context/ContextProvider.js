@@ -22,6 +22,8 @@ export const QuestionsContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
   const { isLoggedIn } = JSON.parse(sessionStorage.getItem("user")) || "";
+  const { completedGuide } =
+    JSON.parse(localStorage.getItem("completedGuide")) || "";
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
@@ -90,8 +92,8 @@ const ContextProvider = ({ children }) => {
       } else return { showModal: false };
     });
     setDeleteLoader(false);
-    setShowGuide(userData.showGuideModal);
-  }, [navigate]);
+    if (userData.showGuideModal && !completedGuide) setShowGuide(true);
+  }, [navigate, completedGuide]);
 
   const loadCube = useCallback(async () => {
     if (currentPath) {
