@@ -28,6 +28,7 @@ const App = () => {
       }`}
       style={{
         height: `${pathname === "/" ? "" : "100%"}`,
+        overflowY: `${pathname === "/" ? "" : "hidden"}`,
       }}>
       {isLoggedIn && appIsLoading ? (
         <Loading />
