@@ -51,6 +51,9 @@ const Navbar = () => {
       style={{
         position: `${pathname === "/" ? "fixed" : ""}`,
         top: `${pathname === "/" ? "0" : ""}`,
+        justifyContent: `${pathname === "/" ? "flex-end" : "space-between"}`,
+        webkitBoxPack: `${pathname === "/" ? "end" : "justify"}`,
+        msFlexPack: `${pathname === "/" ? "end" : "justify"}`,
       }}>
       {!user && (
         <div className="signup-login container-row">

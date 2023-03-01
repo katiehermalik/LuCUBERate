@@ -7,9 +7,6 @@
   box-shadow: 10px 6px 4px -7px var(--box-shadow-color);
   color: var(--text-color-light);
   font-weight: bold;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
   -ms-flex-preferred-size: 50px;
   min-height: 50px;
   padding: 0 5px;
@@ -33,9 +30,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
   font-weight: bold;
   font-size: 14px;
   height: 32px;
@@ -49,12 +43,6 @@
 
 .btn.navbar-item.selected {
   color: var(--nav-item-select);
-}
-
-.btn.navbar-item.toggle-list-btn {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
 }
 
 .navbar-item.logout-btn {
