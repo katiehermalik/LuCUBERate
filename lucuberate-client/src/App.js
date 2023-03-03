@@ -5,9 +5,12 @@ import {
   LoadingContext,
   UserContext,
   DeleteContext,
+  AuthModalContext,
 } from "./context/ContextProvider";
 import MainRoutes from "./routes/MainRoutes";
 import DeleteModal from "./components/ConfirmationModal";
+import LoginModal from "./features/authentication/modals/LoginModal/component";
+import SignUpModal from "./features/authentication/modals/SignUpModal/component";
 import Loading from "./components/Loading";
 
 const App = () => {
@@ -17,9 +20,15 @@ const App = () => {
   const { isLoggedIn } = useContext(UserContext);
   const {
     deleteModalInfo,
-    deleteModalInfo: { showModal },
+    deleteModalInfo: { showDeleteModal },
     setDeleteModalInfo,
   } = useContext(DeleteContext);
+  const {
+    showLoginModal,
+    setShowLoginModal,
+    showSignUpModal,
+    setShowSignUpModal,
+  } = useContext(AuthModalContext);
 
   return (
     <div
@@ -35,10 +44,24 @@ const App = () => {
       ) : (
         <>
           <MainRoutes />
-          {showModal && (
+          {showDeleteModal && (
             <DeleteModal
               setDeleteModalInfo={setDeleteModalInfo}
               deleteModalInfo={deleteModalInfo}
+            />
+          )}
+          {showLoginModal && (
+            <LoginModal
+              showLoginModal={showLoginModal}
+              setShowLoginModal={setShowLoginModal}
+              setShowSignUpModal={setShowSignUpModal}
+            />
+          )}
+          {showSignUpModal && (
+            <SignUpModal
+              showSignUpModal={showSignUpModal}
+              setShowSignUpModal={setShowSignUpModal}
+              setShowLoginModal={setShowLoginModal}
             />
           )}
         </>
