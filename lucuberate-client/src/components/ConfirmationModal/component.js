@@ -43,7 +43,7 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
     e.stopPropagation();
     e.preventDefault();
     type === "warning" && setIsLoadingButton(false);
-    setDeleteModalInfo({ showModal: false });
+    setDeleteModalInfo({ showDeleteModal: false });
   };
 
   const handleDeleteCategory = async e => {
