@@ -4,9 +4,9 @@ import CubeMesh from "../CubeMesh";
 import Lights from "../Lights";
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../../context/ContextProvider";
-import "./style.css"
+import "./style.css";
 
-const LandingCanvas = () => {
+const LandingCanvas = ({ user }) => {
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const LandingCanvas = () => {
 
   return (
     <Canvas
-      className="landing-canvas"
+      className={`landing-canvas ${user ? "mobile-nav-is-shown" : ""}`}
       camera={{ position: [5, 5, -5], fov: 30 }}>
       <CubeMesh theme={theme} />
       <Lights />
@@ -23,14 +23,14 @@ const LandingCanvas = () => {
         radius={25}
         depth={50}
         count={4000}
-        factor={3}
+        factor={2}
         saturation={2}
         fade
       />
       <OrbitControls
         enableZoom={false}
-        autoRotate={true}
-        autoRotateSpeed={0.3}
+        autoRotate={false}
+        autoRotateSpeed={0.02}
       />
     </Canvas>
   );
