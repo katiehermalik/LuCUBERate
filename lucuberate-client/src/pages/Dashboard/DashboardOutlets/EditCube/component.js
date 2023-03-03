@@ -209,7 +209,7 @@ const EditCube = () => {
           currentCategory !== currentCubeCategory._id &&
           currentCubeCategory.cubes.length === 1
             ? setDeleteModalInfo({
-                showModal: true,
+                showDeleteModal: true,
                 type: "warning",
                 cubeId: cubeId || "",
                 newCategory: newCategory || "",
@@ -229,7 +229,7 @@ const EditCube = () => {
         currentCategory !== currentCubeCategory._id &&
         currentCubeCategory.cubes.length === 1
           ? setDeleteModalInfo({
-              showModal: true,
+              showDeleteModal: true,
               type: "warning",
               cubeId: cubeId || "",
               newCategory: newCategory || "",
