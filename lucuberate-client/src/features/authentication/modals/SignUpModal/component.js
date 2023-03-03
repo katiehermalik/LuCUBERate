@@ -130,7 +130,7 @@ const SignUpModal = ({
     <>
       {showSignUpModal && (
         <div
-          className="modal"
+          className="modal signup-login"
           id="modalRegisterForm"
           tabIndex="-1"
           role="dialog"
@@ -297,9 +297,7 @@ const SignUpModal = ({
                     </small>
                   </div>
                   <div className="btn-container">
-                    <button
-                      type="submit"
-                      className="btn form-btn btn-primary">
+                    <button type="submit" className="btn form-btn btn-primary">
                       Sign up
                     </button>
                   </div>

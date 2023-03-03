@@ -114,7 +114,7 @@ const LoginModal = ({
     <>
       {showLoginModal && (
         <div
-          className="modal"
+          className="modal signup-login"
           id="modalLoginForm"
           tabIndex="-1"
           role="dialog"
