@@ -47,6 +47,7 @@
   --primary-text-color: var(--text-color-light);
   --secondary-bg-color: #1e1f23;
   --secondary-text-color: var(--text-color-dark);
+  --social-link-color: var(--accent-color);
 }
 
 .light {
@@ -64,6 +65,7 @@
   --primary-text-color: var(--text-color-dark);
   --secondary-bg-color: #3e424a;
   --secondary-text-color: var(--text-color-light);
+  --social-link-color: var(--text-color-light);
 }
 
 /* ------------------------------------- CSS reset */
@@ -106,6 +108,7 @@ body {
 
 #root {
   height: 100%;
+  position: relative;
 }
 
 p {
@@ -197,6 +200,16 @@ button:not(:disabled) {
   pointer-events: auto;
 }
 
+/* ------------------------------- Visibility */
+
+.hide {
+  opacity: 0 !important;
+}
+
+.desktop-hidden {
+  display: none;
+}
+
 /* ------------------------------- Parent Containers */
 
 .app {
@@ -206,10 +219,9 @@ button:not(:disabled) {
   color: var(--text-color-light);
   -webkit-box-pack: start;
   -ms-flex-pack: start;
-  height: 100%;
   justify-content: flex-start;
-  overflow: hidden;
   position: relative;
+  overflow-x: hidden;
 }
 
 .container-row {
@@ -988,6 +1000,10 @@ input[type="radio"]:checked + label {
 
   .mobile-hidden {
     display: none !important;
+  }
+
+  .desktop-hidden {
+    display: block;
   }
 
   .form-container {

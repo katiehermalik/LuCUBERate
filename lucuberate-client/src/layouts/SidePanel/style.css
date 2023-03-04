@@ -36,6 +36,7 @@
 @media screen and (max-width: 720px) {
   .cube-list-ctrl {
     border-top: 4px solid var(--accent-color);
+    margin-bottom: 60px;
     border-right: none;
     min-height: 0;
     -ms-flex-preferred-size: 0;

@@ -3,13 +3,8 @@
   -ms-flex-align: center;
   align-items: center;
   background-color: var(--nav-bg-color);
-  -webkit-box-shadow: 10px 6px 4px -7px var(--box-shadow-color);
-  box-shadow: 10px 6px 4px -7px var(--box-shadow-color);
   color: var(--text-color-light);
   font-weight: bold;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
   -ms-flex-preferred-size: 50px;
   min-height: 50px;
   padding: 0 5px;
@@ -33,28 +28,13 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  font-weight: bold;
   font-size: 14px;
-  height: 32px;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
   margin: 0 5px;
   padding: 4px 16px;
-  white-space: nowrap;
 }
 
 .btn.navbar-item.selected {
   color: var(--nav-item-select);
-}
-
-.btn.navbar-item.toggle-list-btn {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
 }
 
 .navbar-item.logout-btn {
@@ -80,14 +60,27 @@
   margin-top: 1px;
 }
 
-.signup-login {
+.signup-login .btn:hover {
+  color: var(--nav-item-select);
+}
+
+.auth-btns-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.auth-btns-container div {
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
-}
-
-.signup-login .btn:hover {
-  color: var(--nav-item-select);
+  margin-right: 55px;
+  max-width: 1440px;
+  width: 100%;
 }
 
 /* ------------------------------- Dropdown Menu Item */
@@ -149,7 +142,6 @@
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
-    min-height: 40px;
   }
 
   .navbar-item {
@@ -187,7 +179,7 @@
     font-size: 12px;
   }
 
-  .dropdown-content {
-    margin-top: 40px;
+  .auth-btns-container div {
+    margin-right: 15px;
   }
 }

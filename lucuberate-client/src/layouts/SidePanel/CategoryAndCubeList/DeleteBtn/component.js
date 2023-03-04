@@ -9,7 +9,7 @@ const DeleteBtn = ({ cubeId, categoryTitle, categoryId, cubeListLength }) => {
   const handleOpenModal = e => {
     e.stopPropagation();
     setDeleteModalInfo({
-      showModal: true,
+      showDeleteModal: true,
       type: cubeId ? "cube" : "category",
       cubeId: cubeId || "",
       categoryId: categoryId || "",

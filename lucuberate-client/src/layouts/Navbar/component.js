@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
 import {
   ChevronRightIcon,
   ChevronDownIcon,
@@ -35,6 +34,9 @@ const Navbar = () => {
       }
     };
     document.addEventListener("mousedown", closeUserMenu);
+    return () => {
+      document.addEventListener("mousedown", closeUserMenu);
+    };
   }, []);
 
   const toggleUserMenu = e => {
@@ -44,11 +46,24 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar container-row theme-transition">
+    <nav
+      className="navbar container-row theme-transition"
+      style={{
+        position: `${pathname === "/" ? "absolute" : ""}`,
+        top: `${pathname === "/" ? "0" : ""}`,
+        backgroundColor: `${
+          pathname === "/" && !user ? "transparent" : "var(--nav-bg-color)"
+        }`,
+        justifyContent: `${pathname === "/" ? "flex-end" : "space-between"}`,
+        webkitBoxPack: `${pathname === "/" ? "end" : "justify"}`,
+        msFlexPack: `${pathname === "/" ? "end" : "justify"}`,
+      }}>
       {!user && (
-        <div className="signup-login container-row">
-          <AuthBtn authType={"Login"} />
-          <AuthBtn authType={"Sign Up"} />
+        <div className="auth-btns-container">
+          <div className="container-row">
+            <AuthBtn authType={"Login"} />
+            <AuthBtn authType={"Sign Up"} />
+          </div>
         </div>
       )}
       {user && (

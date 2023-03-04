@@ -14,6 +14,7 @@ export const ThemeContext = createContext(null);
 export const LoadingContext = createContext(null);
 export const UserContext = createContext(null);
 export const DeleteContext = createContext(null);
+export const AuthModalContext = createContext(null);
 export const GuideContext = createContext(null);
 export const LayoutContext = createContext(null);
 export const CategoryContext = createContext(null);
@@ -22,6 +23,8 @@ export const QuestionsContext = createContext(null);
 
 const ContextProvider = ({ children }) => {
   const { isLoggedIn } = JSON.parse(sessionStorage.getItem("user")) || "";
+  const { completedGuide } =
+    JSON.parse(localStorage.getItem("completedGuide")) || "";
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
@@ -32,6 +35,8 @@ const ContextProvider = ({ children }) => {
   const [cubeIsLoading, setCubeIsLoading] = useState(false);
   const [deleteModalInfo, setDeleteModalInfo] = useState({});
   const [deleteLoader, setDeleteLoader] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const [showSidePanel, setShowSidePanel] = useState(true);
   const [currentCategory, setCurrentCategory] = useState("");
@@ -82,16 +87,16 @@ const ContextProvider = ({ children }) => {
     setUserInfoIsUpdating(false);
     setDeleteModalInfo(prevState => {
       if (
-        prevState.showModal === true &&
+        prevState.showDeleteModal === true &&
         (prevState.type === "cube" || prevState.type === "category")
       ) {
         navigate("/dashboard/instructions");
-        return { showModal: false };
-      } else return { showModal: false };
+        return { showDeleteModal: false };
+      } else return { showDeleteModal: false };
     });
     setDeleteLoader(false);
-    setShowGuide(userData.showGuideModal);
-  }, [navigate]);
+    if (userData.showGuideModal && !completedGuide) setShowGuide(true);
+  }, [navigate, completedGuide]);
 
   const loadCube = useCallback(async () => {
     if (currentPath) {
@@ -180,27 +185,35 @@ const ContextProvider = ({ children }) => {
                   deleteLoader,
                   setDeleteLoader,
                 }}>
-                <GuideContext.Provider value={{ showGuide, setShowGuide }}>
-                  <LayoutContext.Provider
-                    value={{ showSidePanel, setShowSidePanel }}>
-                    <CategoryContext.Provider
-                      value={{ currentCategory, setCurrentCategory }}>
-                      <CubeContext.Provider
-                        value={{
-                          currentCubeId,
-                          setCurrentCubeId,
-                        }}>
-                        <QuestionsContext.Provider
+                <AuthModalContext.Provider
+                  value={{
+                    showLoginModal,
+                    setShowLoginModal,
+                    showSignUpModal,
+                    setShowSignUpModal,
+                  }}>
+                  <GuideContext.Provider value={{ showGuide, setShowGuide }}>
+                    <LayoutContext.Provider
+                      value={{ showSidePanel, setShowSidePanel }}>
+                      <CategoryContext.Provider
+                        value={{ currentCategory, setCurrentCategory }}>
+                        <CubeContext.Provider
                           value={{
-                            questionsAreVisible,
-                            setQuestionsAreVisible,
+                            currentCubeId,
+                            setCurrentCubeId,
                           }}>
-                          {children}
-                        </QuestionsContext.Provider>
-                      </CubeContext.Provider>
-                    </CategoryContext.Provider>
-                  </LayoutContext.Provider>
-                </GuideContext.Provider>
+                          <QuestionsContext.Provider
+                            value={{
+                              questionsAreVisible,
+                              setQuestionsAreVisible,
+                            }}>
+                            {children}
+                          </QuestionsContext.Provider>
+                        </CubeContext.Provider>
+                      </CategoryContext.Provider>
+                    </LayoutContext.Provider>
+                  </GuideContext.Provider>
+                </AuthModalContext.Provider>
               </DeleteContext.Provider>
             </UserContext.Provider>
           </LoadingContext.Provider>

@@ -26,6 +26,7 @@
 
 @media screen and (max-width: 720px) {
   .mobile-only-nav {
+    bottom: 0;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -35,8 +36,9 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+    position: fixed;
     width: 100%;
-    z-index: 5;
+    z-index: 20;
   }
 
   .mobile-only-nav .header-btns {

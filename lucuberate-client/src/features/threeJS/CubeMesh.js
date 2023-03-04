@@ -6,8 +6,9 @@ const CubeMesh = ({ theme }) => {
   const mesh = useRef(null);
   const [hover, setHover] = useState(false);
 
-  useFrame(() => {
-    mesh.current.rotation.x = mesh.current.rotation.y;
+  useFrame(({ clock }) => {
+    mesh.current.rotation.x = clock.getElapsedTime() * 0.25;
+    mesh.current.rotation.y = clock.getElapsedTime() * 0.25;
   });
 
   return (
@@ -15,8 +16,10 @@ const CubeMesh = ({ theme }) => {
       className="theme-transition"
       onPointerOver={() => setHover(true)}
       onPointerOut={() => setHover(false)}
-      scale={[1, 1, 1]}
-      position={[0, 1.2, 0]}
+      scale={[1.5, 1.5, 1.5]}
+      position={[-0.5, 0.5, -1]}
+      rotation-y={40}
+
       ref={mesh}>
       <boxGeometry attach="geometry" />
       <meshStandardMaterial
@@ -25,11 +28,11 @@ const CubeMesh = ({ theme }) => {
         color={
           theme === "dark"
             ? hover
-              ? "#51636f"
-              : "#3e5260"
+              ? "#193142"
+              : "#263e4f"
             : hover
-            ? "#6a859c"
-            : "#5a7892"
+            ? "#30475c"
+            : "#405e78"
         }
       />
     </a.mesh>
