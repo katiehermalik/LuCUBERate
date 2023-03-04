@@ -47,6 +47,7 @@
   --primary-text-color: var(--text-color-light);
   --secondary-bg-color: #1e1f23;
   --secondary-text-color: var(--text-color-dark);
+  --social-link-color: var(--accent-color);
 }
 
 .light {
@@ -64,6 +65,7 @@
   --primary-text-color: var(--text-color-dark);
   --secondary-bg-color: #3e424a;
   --secondary-text-color: var(--text-color-light);
+  --social-link-color: var(--text-color-light);
 }
 
 /* ------------------------------------- CSS reset */
