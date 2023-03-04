@@ -70,6 +70,25 @@
   color: var(--nav-item-select);
 }
 
+.auth-btns-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.auth-btns-container div {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  margin-right: 55px;
+  max-width: 1440px;
+  width: 100%;
+}
+
 /* ------------------------------- Dropdown Menu Item */
 
 .dropdown {
@@ -164,5 +183,9 @@
 
   .dropdown-item {
     font-size: 12px;
+  }
+
+  .auth-btns-container div {
+    margin-right: 15px;
   }
 }

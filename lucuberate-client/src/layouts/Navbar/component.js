@@ -59,9 +59,11 @@ const Navbar = () => {
         msFlexPack: `${pathname === "/" ? "end" : "justify"}`,
       }}>
       {!user && (
-        <div className="container-row">
-          <AuthBtn authType={"Login"} />
-          <AuthBtn authType={"Sign Up"} />
+        <div className="auth-btns-container">
+          <div className="container-row">
+            <AuthBtn authType={"Login"} />
+            <AuthBtn authType={"Sign Up"} />
+          </div>
         </div>
       )}
       {user && (
