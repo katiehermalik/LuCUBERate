@@ -70,11 +70,17 @@ const Landing = () => {
           </div>
         </section>
       </section>
-      <section className="diverse-learning section">
+      <section className="celebrate section">
         <div className="section-content">
           <div>
             <h3>
-              We celebrate the fact that everyone learns in different ways!
+              <span className="force-line-break">
+                We celebrate the fact&nbsp;
+              </span>
+              <span className="force-line-break">
+                that everyone learns&nbsp;
+              </span>
+              <span className="force-line-break">in different ways!</span>
             </h3>
             <p>
               Traditional flash cards can be monotonous and difficult to
@@ -85,19 +91,24 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <section className="custom-cubes section theme-transition">
+      <section className="about-app section theme-transition">
         <div className="section-content">
           <img
             src="/sneak_peek.png"
             alt="A look inside the app with a study cube in mid-spin."
           />
-          <div className="copy">
-            <h3>Tailor your study materials to your specific needs.</h3>
+          <div className="copy-container ">
+            <h3>
+              <span className="force-line-break">
+                Tailor your study materials&nbsp;
+              </span>
+              <span className="force-line-break">to your specific needs.</span>
+            </h3>
             <p>
               Our flash cubes are designed to help you remember information
-              better by making learning more individual and interative. Create
-              as many of your own custom cubes and categories as you need. With
-              six sides to each cube, you'll be able to add notes, hints, visual
+              better by making learning more personal and interative. Create as
+              many of your own custom cubes and categories as you need. With six
+              sides to each cube, you'll be able to add notes, hints, visual
               aids, and links to resources, providing a more complete and
               immersive learning experience.
             </p>
@@ -108,7 +119,15 @@ const Landing = () => {
         <div className="section-content">
           {!user ? (
             <>
-              <h3>Ready to take your studying to another dimension?</h3>
+              <h3>
+                <span className="force-line-break">
+                  Ready to take your&nbsp;
+                </span>
+                <span className="force-line-break">
+                  studying to another&nbsp;
+                </span>
+                <span className="force-line-break">dimension?</span>
+              </h3>
               <p>
                 Sign up now and start studying smarter with Lucuberate flash
                 cubes!
@@ -123,7 +142,7 @@ const Landing = () => {
           )}
         </div>
       </section>
-      <section className="about section theme-transition">
+      <section className="about-developer section theme-transition">
         <div className="section-content">
           <h3>About the developer</h3>
           <p>
@@ -155,7 +174,7 @@ const Landing = () => {
         }`}>
         <div className="section-content">
           <h3>Contact us</h3>
-          <div className="copy">
+          <div className="copy-container ">
             <div>
               <p>
                 Lucuberate is a passion project. We hope everyone finds the
@@ -164,7 +183,7 @@ const Landing = () => {
               </p>
               <p className="mobile-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
             </div>
-            <div>
+            <div className="contact-info">
               <p>
                 Questions about Lucuberate
                 <br />
@@ -198,7 +217,7 @@ const Landing = () => {
                       viewBox="0,0,256,256"
                       style={{ fill: "#000000;" }}>
                       <g
-                        fill="#edb532"
+                        fill="var(--social-link-color)"
                         fill-rule="nonzero"
                         stroke="none"
                         stroke-width="1"
@@ -231,7 +250,7 @@ const Landing = () => {
                       viewBox="0,0,256,256"
                       style={{ fill: "#000000" }}>
                       <g
-                        fill="#edb532"
+                        fill="var(--social-link-color)"
                         fill-rule="nonzero"
                         stroke="none"
                         stroke-width="1"
