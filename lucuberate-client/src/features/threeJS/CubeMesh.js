@@ -28,11 +28,11 @@ const CubeMesh = ({ theme }) => {
         color={
           theme === "dark"
             ? hover
-              ? "#51636f"
-              : "#3e5260"
+              ? "#193142"
+              : "#263e4f"
             : hover
-            ? "#6a859c"
-            : "#5a7892"
+            ? "#30475c"
+            : "#405e78"
         }
       />
     </a.mesh>
