@@ -204,6 +204,10 @@ button:not(:disabled) {
   opacity: 0 !important;
 }
 
+.desktop-hidden {
+  display: none;
+}
+
 /* ------------------------------- Parent Containers */
 
 .app {
@@ -994,6 +998,10 @@ input[type="radio"]:checked + label {
 
   .mobile-hidden {
     display: none !important;
+  }
+
+  .desktop-hidden {
+    display: block;
   }
 
   .form-container {
