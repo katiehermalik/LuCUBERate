@@ -18,6 +18,7 @@ const GuideModal = () => {
   const { setShowSidePanel } = useContext(LayoutContext);
   const guideDecision = useRef();
   const [tourStep, setTourStep] = useState(1);
+  const mediaQuery = window.matchMedia("(max-width: 720px)");
 
   useEffect(() => {
     setShowSidePanel(false);
@@ -26,7 +27,9 @@ const GuideModal = () => {
   const handleStepForwardClick = async () => {
     tourStep !== 4 &&
       setTourStep(prevState => {
-        prevState === 1 && setShowSidePanel(true);
+        if (!mediaQuery.matches) {
+          prevState === 1 && setShowSidePanel(true);
+        }
         if (prevState === 2 && !newUser) {
           return (prevState += 2);
         } else {
@@ -57,7 +60,9 @@ const GuideModal = () => {
       if (prevState === 4 && !newUser) {
         return (prevState -= 2);
       } else {
-        prevState === 2 && setShowSidePanel(false);
+        if (!mediaQuery.matches) {
+          prevState === 2 && setShowSidePanel(false);
+        }
         return (prevState -= 1);
       }
     });

@@ -170,7 +170,7 @@
   .modal-guide.tour-step-2:before,
   .modal-guide.tour-step-3:before {
     bottom: 0;
-    left: 20px;
+    left: 3px;
     top: auto;
     -webkit-transform: translatey(100%) rotate(-90deg);
     -ms-transform: translatey(100%) rotate(-90deg);
