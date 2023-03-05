@@ -316,3 +316,10 @@ ul.face-content {
     border-bottom: 2px solid var(--accent-color);
   }
 }
+
+  @media screen and (max-width: 280px) {
+    .radio-face-group .radio-label {
+      font-size: 8px;
+    }
+  }
+
