@@ -1102,3 +1102,20 @@ input[type="radio"]:checked + label {
     margin-bottom: 40px;
   }
 }
+
+@media screen and (max-width: 280px) {
+  .oauth-btn {
+    background-size: auto 38px;
+    height: 38px;
+  }
+  .signup-login .modal-body {
+    padding: 0;
+  }
+  .signup-login .modal-footer small {
+    display: flex;
+    flex-direction: column;
+  }
+  .signup-login .modal-footer small a{
+    margin-top: 5px;
+  }
+}
