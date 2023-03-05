@@ -388,6 +388,11 @@
 }
 
 @media screen and (max-width: 720px) {
+  .splash.mobile-nav-is-shown {
+    height: calc(100vh - 60px);
+    height: calc(100svh - 60px);
+  }
+
   .section-content {
     padding: 40px 20px;
   }
@@ -400,8 +405,12 @@
     font-size: 16px;
   }
 
+  .cube-scene.mobile-nav-is-shown {
+    height: 65%;
+  }
+
   .learn-more.mobile-nav-is-shown {
-    height: calc((100vh - 60px) * 0.35);
+    height: 35%;
   }
 
   .learn-more .section-content {

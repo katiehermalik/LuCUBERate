@@ -15,7 +15,7 @@ const LandingCanvas = ({ user }) => {
 
   return (
     <Canvas
-      className={`landing-canvas ${user ? "mobile-nav-is-shown" : ""}`}
+      className="landing-canvas"
       camera={{ position: [5, 5, -5], fov: 30 }}>
       <CubeMesh theme={theme} />
       <Lights />

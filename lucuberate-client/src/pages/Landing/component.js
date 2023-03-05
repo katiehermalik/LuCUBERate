@@ -21,8 +21,8 @@ const Landing = () => {
 
   return (
     <>
-      <section className="splash">
-        <div className="cube-scene">
+      <section className={`splash ${user ? "mobile-nav-is-shown" : ""}`}>
+        <div className={`cube-scene ${user ? "mobile-nav-is-shown" : ""}`}>
           <div className="copy-container">
             <header className="headline">
               <h1 className="brand-name">LUCUBERATE</h1>
