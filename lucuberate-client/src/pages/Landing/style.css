@@ -1,3 +1,8 @@
+.splash {
+  height: 100vh;
+  height: 100dvh;
+}
+
 .section {
   color: var(--primary-text-color);
   display: -webkit-box;
@@ -40,6 +45,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  height: 60%;
   position: relative;
 }
 
@@ -119,7 +125,7 @@
   -ms-flex-align: center;
   align-items: center;
   border-top: 8px solid var(--nav-bg-color);
-  height: 40vh;
+  height: 40%;
 }
 
 .learn-more .section-content {
