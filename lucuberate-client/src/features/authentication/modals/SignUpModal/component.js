@@ -36,6 +36,7 @@ const SignUpModal = ({
   const [showCriteria, setShowCriteria] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(null);
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
   const [newUserInfo, setNewUserInfo] = useState({
     username: "",
     email: "",
@@ -70,6 +71,7 @@ const SignUpModal = ({
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setIsLoadingButton(true);
     newUserInfo.isRegistering = true;
     const userInfo = await AuthAPI.signup(newUserInfo);
     const {
@@ -109,6 +111,7 @@ const SignUpModal = ({
         emailValidationError: "",
         passwordError: "",
       });
+      setIsLoadingButton(false);
       navigate(`/dashboard/cube/${userData.categories[2].cubes[0]}`);
     }
   };
@@ -297,7 +300,11 @@ const SignUpModal = ({
                     </small>
                   </div>
                   <div className="btn-container">
-                    <button type="submit" className="btn form-btn btn-primary">
+                    <button
+                      type="submit"
+                      className={`btn form-btn btn-primary ${
+                        isLoadingButton ? "loading" : ""
+                      }`}>
                       Sign up
                     </button>
                   </div>

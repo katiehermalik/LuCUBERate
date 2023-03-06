@@ -30,6 +30,7 @@ const LoginModal = ({
   const { setShowSidePanel } = useContext(LayoutContext);
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(null);
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
@@ -58,6 +59,7 @@ const LoginModal = ({
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setIsLoadingButton(true);
     userInput.isLoggingIn = true;
     const userInfo = await AuthAPI.login(userInput);
     const { userData, isAuth, userError, matchError } = userInfo;
@@ -83,6 +85,7 @@ const LoginModal = ({
         userError: "",
         matchError: "",
       });
+      setIsLoadingButton(false);
       if (userData.showGuideModal) {
         setShowGuide(true);
         setShowSidePanel(false);
@@ -216,7 +219,11 @@ const LoginModal = ({
                     )}
                   </div>
                   <div className="btn-container">
-                    <button type="submit" className="btn form-btn btn-primary">
+                    <button
+                      type="submit"
+                      className={`btn form-btn btn-primary ${
+                        isLoadingButton ? "loading" : ""
+                      }`}>
                       Login
                     </button>
                   </div>
