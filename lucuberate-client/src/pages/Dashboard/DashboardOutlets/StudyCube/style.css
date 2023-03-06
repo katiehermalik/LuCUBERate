@@ -90,24 +90,24 @@
   transform: rotateY(0deg);
 }
 .study-cube.Answer {
-  -webkit-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
+  -webkit-transform: rotateY(-179.999deg);
+  transform: rotateY(-179.999deg);
 }
 .study-cube.Visual {
-  -webkit-transform: rotateX(-90deg);
-  transform: rotateX(-90deg);
+  -webkit-transform: rotateX(-89.999deg);
+  transform: rotateX(-89.999deg);
 }
 .study-cube.Links {
-  -webkit-transform: rotateX(90deg);
-  transform: rotateX(90deg);
+  -webkit-transform: rotateX(89.999deg);
+  transform: rotateX(89.999deg);
 }
 .study-cube.Notes {
-  -webkit-transform: rotateY(90deg);
-  transform: rotateY(90deg);
+  -webkit-transform: rotateY(89.999deg);
+  transform: rotateY(89.999deg);
 }
 .study-cube.Hint {
-  -webkit-transform: rotateY(-90deg);
-  transform: rotateY(-90deg);
+  -webkit-transform: rotateY(-89.999deg);
+  transform: rotateY(-89.999deg);
 }
 
 /* ----------------------------------------------- Cube Faces */
@@ -187,29 +187,29 @@
 }
 .face.Answer {
   background-color: var(--cube-face-color-1);
-  -webkit-transform: rotateY(180deg) translateZ(34vmin);
-  transform: rotateY(180deg) translateZ(34vmin);
+  -webkit-transform: rotateY(179.999deg) translateZ(34vmin);
+  transform: rotateY(179.999deg) translateZ(34vmin);
 }
 .face.Visual {
   background-color: var(--cube-face-color-2);
-  -webkit-transform: rotateX(90deg) translateZ(34vmin);
-  transform: rotateX(90deg) translateZ(34vmin);
+  -webkit-transform: rotateX(89.999deg) translateZ(34vmin);
+  transform: rotateX(89.999deg) translateZ(34vmin);
 }
 .face.Links {
   background-color: var(--cube-face-color-2);
-  -webkit-transform: rotateX(-90deg) translateZ(34vmin);
-  transform: rotateX(-90deg) translateZ(34vmin);
+  -webkit-transform: rotateX(-89.999deg) translateZ(34vmin);
+  transform: rotateX(-89.999deg) translateZ(34vmin);
 }
 .face.Notes {
   background-color: var(--cube-face-color-3);
-  -webkit-transform: rotateY(-90deg) translateZ(34vmin);
-  transform: rotateY(-90deg) translateZ(34vmin);
+  -webkit-transform: rotateY(-89.999deg) translateZ(34vmin);
+  transform: rotateY(-89.999deg) translateZ(34vmin);
 }
 
 .face.Hint {
   background-color: var(--cube-face-color-3);
-  -webkit-transform: rotateY(90deg) translateZ(34vmin);
-  transform: rotateY(90deg) translateZ(34vmin);
+  -webkit-transform: rotateY(89.999deg) translateZ(34vmin);
+  transform: rotateY(89.999deg) translateZ(34vmin);
 }
 
 ul.face-content {
@@ -317,9 +317,8 @@ ul.face-content {
   }
 }
 
-  @media screen and (max-width: 280px) {
-    .radio-face-group .radio-label {
-      font-size: 8px;
-    }
+@media screen and (max-width: 280px) {
+  .radio-face-group .radio-label {
+    font-size: 8px;
   }
-
+}
