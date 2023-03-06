@@ -207,7 +207,7 @@ button:not(:disabled) {
 }
 
 .desktop-hidden {
-  display: none;
+  display: none !important;
 }
 
 /* ------------------------------- Parent Containers */
@@ -1003,7 +1003,7 @@ input[type="radio"]:checked + label {
   }
 
   .desktop-hidden {
-    display: block;
+    display: flex !important;
   }
 
   .form-container {
@@ -1115,7 +1115,27 @@ input[type="radio"]:checked + label {
     display: flex;
     flex-direction: column;
   }
-  .signup-login .modal-footer small a{
+  .signup-login .modal-footer small a {
     margin-top: 5px;
+  }
+}
+
+/* ================================================================================================ Reduce Motion */
+
+@media screen and (prefers-reduced-motion: reduce), (update: slow) {
+  /* Hat tip Nick/cssremedy (https://css-tricks.com/revisiting-prefers-reduced-motion-the-reduced-motion-media-query/#comment-1700170) */
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  .face {
+    opacity: 1 !important;
+  }
+  .blur {
+    -webkit-filter: none !important;
+    filter: none !important;
+  }
+  .face:not(:hover) {
+    opacity: 1 !important;
   }
 }

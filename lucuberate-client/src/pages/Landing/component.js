@@ -1,5 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import { ChevronDownIcon } from "@primer/octicons-react";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  AlertFillIcon,
+} from "@primer/octicons-react";
 import { UserContext } from "../../context/ContextProvider";
 import LandingCanvas from "../../features/threeJS/LandingCanvas";
 import AuthBtn from "../../features/authentication/components/AuthBtn";
@@ -8,6 +12,7 @@ import "./style.css";
 const Landing = () => {
   const { currentUserInfo: user } = useContext(UserContext);
   const [showLearnMore, setShowLearnMore] = useState(true);
+  const [showRMInfo, setShowRMInfo] = useState(false);
   const controlLearnMore = () => {
     window.scrollY > 100 ? setShowLearnMore(false) : setShowLearnMore(true);
   };
@@ -181,6 +186,37 @@ const Landing = () => {
                 flash cubes beneficial and we welcome all feedback and prospects
                 for collaboration. Please don't hesitate to get in touch!
               </p>
+              <p className="warning mobile-hidden">
+                <AlertFillIcon size={16} />
+                <p>
+                  <b>Warning: </b>This website uses spining animations that may
+                  cause discomfort in users with vestibular motion disorders.
+                  Users may wish to enable the "reduce motion" feature on their
+                  device before using any website that has animations.{" "}
+                  {showRMInfo ? (
+                    <>
+                      <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                        Show less
+                        <ChevronDownIcon size={16} />
+                      </div>
+                      <p>
+                        The "reduce motion" feature can typically be found in
+                        the accessibility settings of most devices, and it can
+                        significantly reduce the amount of motion on websites
+                        and other apps. By turning on this feature, animations
+                        are replaced with simpler, static images, which can be
+                        much easier for users with vestibular disorders to view
+                        without experiencing discormfort.
+                      </p>
+                    </>
+                  ) : (
+                    <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                      Show more
+                      <ChevronRightIcon size={16} />
+                    </div>
+                  )}
+                </p>
+              </p>
               <p className="mobile-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
             </div>
             <div className="contact-info">
@@ -273,7 +309,38 @@ const Landing = () => {
                 </a>
               </div>
               <hr className="desktop-hidden"></hr>
-              <p className="mobile-copyright desktop-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
+              <p className="warning desktop-hidden">
+                <AlertFillIcon size={16} />
+                <p>
+                  <b>Warning: </b>This website uses spinning animations that may
+                  cause discomfort in users with vestibular motion disorders.
+                  Users may wish to enable the "reduce motion" feature on their
+                  device before using any website that has animations.
+                  {showRMInfo ? (
+                    <>
+                      <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                        Show less
+                        <ChevronDownIcon size={16} />
+                      </div>
+                      <p>
+                        The "reduce motion" feature can typically be found in
+                        the accessibility settings of most devices, and it can
+                        significantly reduce the amount of motion on websites
+                        and other apps. By turning on this feature, animations
+                        are replaced with simpler, static images, which can be
+                        much easier for users with vestibular disorders to view
+                        without experiencing discomfort.
+                      </p>
+                    </>
+                  ) : (
+                    <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                      Show more
+                      <ChevronRightIcon size={16} />
+                    </div>
+                  )}
+                </p>
+              </p>
+              <p className="copyright desktop-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
             </div>
           </div>
         </div>

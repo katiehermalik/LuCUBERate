@@ -76,11 +76,11 @@
   padding-bottom: 100%;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: -webkit-transform 0.5s;
-  -webkit-transition: -webkit-transform 0.5s;
-  -o-transition: transform 0.5s;
-  transition: transform 0.5s;
-  transition: transform 0.5s, -webkit-transform 0.5s;
+  transition: -webkit-transform 1s;
+  -webkit-transition: -webkit-transform 1s;
+  -o-transition: transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
   width: 100%;
 }
 
@@ -131,11 +131,6 @@
   justify-content: center;
   opacity: 0.8;
   position: absolute;
-  -webkit-transition: opacity 0.2s linear, -webkit-filter 2s;
-  transition: opacity 0.2s linear, -webkit-filter 2s;
-  -o-transition: opacity 0.2s linear, filter 2s;
-  transition: opacity 0.2s linear, filter 2s;
-  transition: opacity 0.2s linear, filter 2s, -webkit-filter 2s;
   text-align: center;
   width: 100%;
 }
@@ -245,18 +240,6 @@ ul.face-content {
   cursor: pointer;
   max-height: 30vmin;
   max-width: 40vmin;
-  transition: -webkit-filter 0.75s, -webkit-transform 0.5s ease;
-  -webkit-transition: -webkit-filter 0.75s, -webkit-transform 0.5s ease;
-  -o-transition: filter 0.75s, transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
-    -webkit-transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
-    -webkit-transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
-    -webkit-transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
-    -webkit-transform 0.5s ease;
 }
 
 /* ----------------------------------- Cube Face Radio Btns */
