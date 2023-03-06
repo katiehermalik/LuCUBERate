@@ -146,7 +146,7 @@ const Landing = () => {
         <div className="section-content">
           <h3>About the developer</h3>
           <p>
-            Meet Katie, a talented front end developer with a passion for
+            Meet Katie, a talented frontend developer with a passion for
             community, problem solving, and creative expression. With a unique
             background in art and education, Katie has always been drawn to the
             intersection of technology and creativity, and has found a perfect
