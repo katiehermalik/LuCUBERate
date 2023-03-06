@@ -55,7 +55,7 @@ const Navbar = () => {
           pathname === "/" && !user ? "transparent" : "var(--nav-bg-color)"
         }`,
         justifyContent: `${pathname === "/" ? "flex-end" : "space-between"}`,
-        webkitBoxPack: `${pathname === "/" ? "end" : "justify"}`,
+        WebkitBoxPack: `${pathname === "/" ? "end" : "justify"}`,
         msFlexPack: `${pathname === "/" ? "end" : "justify"}`,
       }}>
       {!user && (

@@ -304,8 +304,20 @@
   min-width: 270px;
 }
 
+.contact-info hr {
+  background: var(--primary-text-color);
+}
+
+.contact-info p:nth-child(2) {
+  margin-bottom: 0;
+}
+
 .contact a {
   color: var(--social-link-color);
+}
+
+.mobile-copyright {
+  margin-bottom: 0;
 }
 
 /* ---------------------- Media Queries -------------------- */

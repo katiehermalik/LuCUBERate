@@ -203,76 +203,77 @@ const Landing = () => {
                   href="mailto:khermalik@gmail.com">
                   khermalik@gmail.com
                 </a>
-                <div>
-                  <a
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    href="https://github.com/katiehermalik">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      width="48"
-                      height="48"
-                      viewBox="0,0,256,256"
-                      style={{ fill: "#000000;" }}>
-                      <g
-                        fill="var(--social-link-color)"
-                        fill-rule="nonzero"
-                        stroke="none"
-                        stroke-width="1"
-                        stroke-linecap="butt"
-                        stroke-linejoin="miter"
-                        stroke-miterlimit="10"
-                        stroke-dasharray=""
-                        stroke-dashoffset="0"
-                        font-family="none"
-                        font-weight="none"
-                        font-size="none"
-                        text-anchor="none"
-                        style={{ mixBlendMode: "normal" }}>
-                        <g transform="scale(4,4)">
-                          <path d="M32,10c12.15,0 22,9.85 22,22c0,9.768 -6.369,18.045 -15.179,20.916c0.002,-0.008 0.006,-0.021 0.006,-0.021c0,0 -1.485,-0.696 -1.453,-1.938c0.035,-1.367 0,-4.556 0,-5.727c0,-2.01 -1.272,-3.434 -1.272,-3.434c0,0 9.977,0.112 9.977,-10.533c0,-4.107 -2.147,-6.245 -2.147,-6.245c0,0 1.128,-4.385 -0.39,-6.245c-1.701,-0.184 -4.749,1.626 -6.05,2.472c0,0 -2.062,-0.846 -5.492,-0.846c-3.43,0 -5.492,0.846 -5.492,0.846c-1.301,-0.846 -4.348,-2.656 -6.05,-2.472c-1.518,1.86 -0.39,6.245 -0.39,6.245c0,0 -2.147,2.137 -2.147,6.245c0,10.645 9.977,10.533 9.977,10.533c0,0 -1.005,1.136 -1.225,2.806c-0.696,0.236 -1.721,0.528 -2.549,0.528c-2.165,0 -3.812,-2.105 -4.416,-3.078c-0.595,-0.96 -1.815,-1.766 -2.953,-1.766c-0.749,0 -1.115,0.375 -1.115,0.803c0,0.428 1.05,0.727 1.743,1.521c1.461,1.674 1.435,5.438 6.641,5.438c0.565,0 1.719,-0.139 2.588,-0.256c-0.005,1.185 -0.007,2.436 0.012,3.167c0.031,1.242 -1.453,1.938 -1.453,1.938c0,0 0.004,0.012 0.006,0.021c-8.808,-2.873 -15.177,-11.15 -15.177,-20.918c0,-12.15 9.85,-22 22,-22z"></path>
-                        </g>
-                      </g>
-                    </svg>
-                  </a>
-                  <a
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    href="https://www.linkedin.com/in/katiehermalik/">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      width="48"
-                      height="48"
-                      viewBox="0,0,256,256"
-                      style={{ fill: "#000000" }}>
-                      <g
-                        fill="var(--social-link-color)"
-                        fill-rule="nonzero"
-                        stroke="none"
-                        stroke-width="1"
-                        stroke-linecap="butt"
-                        stroke-linejoin="miter"
-                        stroke-miterlimit="10"
-                        stroke-dasharray=""
-                        stroke-dashoffset="0"
-                        font-family="none"
-                        font-weight="none"
-                        font-size="none"
-                        text-anchor="none"
-                        style={{ mixBlendMode: "normal" }}>
-                        <g transform="scale(4,4)">
-                          <path d="M40.227,12c10.918,0 11.773,0.854 11.773,11.773v16.453c0,10.919 -0.855,11.774 -11.773,11.774h-16.454c-10.918,0 -11.773,-0.855 -11.773,-11.773v-16.454c0,-10.919 0.855,-11.773 11.773,-11.773zM25.029,43v-16.272h-5.057v16.272zM22.501,24.401c1.625,0 2.947,-1.322 2.947,-2.949c0,-1.625 -1.322,-2.947 -2.947,-2.947c-1.629,0 -2.949,1.32 -2.949,2.947c0,1.627 1.318,2.949 2.949,2.949zM44,43v-8.925c0,-4.382 -0.946,-7.752 -6.067,-7.752c-2.46,0 -4.109,1.349 -4.785,2.628h-0.068v-2.223h-4.851v16.272h5.054v-8.05c0,-2.122 0.405,-4.178 3.036,-4.178c2.594,0 2.628,2.427 2.628,4.315v7.913z"></path>
-                        </g>
-                      </g>
-                    </svg>
-                  </a>
-                </div>
               </p>
-              <p className="desktop-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
+              <div>
+                <a
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href="https://github.com/katiehermalik">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    width="48"
+                    height="48"
+                    viewBox="0,0,256,256"
+                    style={{ fill: "#000000" }}>
+                    <g
+                      fill="var(--social-link-color)"
+                      fillRule="nonzero"
+                      stroke="none"
+                      strokeWidth="1"
+                      strokeLinecap="butt"
+                      strokeLinejoin="miter"
+                      strokeMiterlimit="10"
+                      strokeDasharray=""
+                      strokeDashoffset="0"
+                      fontFamily="none"
+                      fontWeight="none"
+                      fontSize="none"
+                      textAnchor="none"
+                      style={{ mixBlendMode: "normal" }}>
+                      <g transform="scale(4,4)">
+                        <path d="M32,10c12.15,0 22,9.85 22,22c0,9.768 -6.369,18.045 -15.179,20.916c0.002,-0.008 0.006,-0.021 0.006,-0.021c0,0 -1.485,-0.696 -1.453,-1.938c0.035,-1.367 0,-4.556 0,-5.727c0,-2.01 -1.272,-3.434 -1.272,-3.434c0,0 9.977,0.112 9.977,-10.533c0,-4.107 -2.147,-6.245 -2.147,-6.245c0,0 1.128,-4.385 -0.39,-6.245c-1.701,-0.184 -4.749,1.626 -6.05,2.472c0,0 -2.062,-0.846 -5.492,-0.846c-3.43,0 -5.492,0.846 -5.492,0.846c-1.301,-0.846 -4.348,-2.656 -6.05,-2.472c-1.518,1.86 -0.39,6.245 -0.39,6.245c0,0 -2.147,2.137 -2.147,6.245c0,10.645 9.977,10.533 9.977,10.533c0,0 -1.005,1.136 -1.225,2.806c-0.696,0.236 -1.721,0.528 -2.549,0.528c-2.165,0 -3.812,-2.105 -4.416,-3.078c-0.595,-0.96 -1.815,-1.766 -2.953,-1.766c-0.749,0 -1.115,0.375 -1.115,0.803c0,0.428 1.05,0.727 1.743,1.521c1.461,1.674 1.435,5.438 6.641,5.438c0.565,0 1.719,-0.139 2.588,-0.256c-0.005,1.185 -0.007,2.436 0.012,3.167c0.031,1.242 -1.453,1.938 -1.453,1.938c0,0 0.004,0.012 0.006,0.021c-8.808,-2.873 -15.177,-11.15 -15.177,-20.918c0,-12.15 9.85,-22 22,-22z"></path>
+                      </g>
+                    </g>
+                  </svg>
+                </a>
+                <a
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href="https://www.linkedin.com/in/katiehermalik/">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    width="48"
+                    height="48"
+                    viewBox="0,0,256,256"
+                    style={{ fill: "#000000" }}>
+                    <g
+                      fill="var(--social-link-color)"
+                      fillRule="nonzero"
+                      stroke="none"
+                      strokeWidth="1"
+                      strokeLinecap="butt"
+                      strokeLinejoin="miter"
+                      strokeMiterlimit="10"
+                      strokeDasharray=""
+                      strokeDashoffset="0"
+                      fontFamily="none"
+                      fontWeight="none"
+                      fontSize="none"
+                      textAnchor="none"
+                      style={{ mixBlendMode: "normal" }}>
+                      <g transform="scale(4,4)">
+                        <path d="M40.227,12c10.918,0 11.773,0.854 11.773,11.773v16.453c0,10.919 -0.855,11.774 -11.773,11.774h-16.454c-10.918,0 -11.773,-0.855 -11.773,-11.773v-16.454c0,-10.919 0.855,-11.773 11.773,-11.773zM25.029,43v-16.272h-5.057v16.272zM22.501,24.401c1.625,0 2.947,-1.322 2.947,-2.949c0,-1.625 -1.322,-2.947 -2.947,-2.947c-1.629,0 -2.949,1.32 -2.949,2.947c0,1.627 1.318,2.949 2.949,2.949zM44,43v-8.925c0,-4.382 -0.946,-7.752 -6.067,-7.752c-2.46,0 -4.109,1.349 -4.785,2.628h-0.068v-2.223h-4.851v16.272h5.054v-8.05c0,-2.122 0.405,-4.178 3.036,-4.178c2.594,0 2.628,2.427 2.628,4.315v7.913z"></path>
+                      </g>
+                    </g>
+                  </svg>
+                </a>
+              </div>
+              <hr className="desktop-hidden"></hr>
+              <p className="mobile-copyright desktop-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
             </div>
           </div>
         </div>
