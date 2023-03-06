@@ -22,7 +22,7 @@ import CategoryAPI from "../../../../utils/api/category";
 const EditCube = () => {
   const navigate = useNavigate();
   const { id: cubeId } = useParams();
-  
+
   const { cubeData } = useContext(CurrentPathContext);
   const { setCubeIsLoading } = useContext(LoadingContext);
   const { currentUserInfo, setUserInfoIsUpdating } = useContext(UserContext);
@@ -740,8 +740,6 @@ const EditCube = () => {
                 categoryError ||
                 visualAidError ||
                 isLoadingButton
-                  ? true
-                  : false
               }
               type="submit"
               className={`btn form-btn btn-primary ${

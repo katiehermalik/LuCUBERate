@@ -158,7 +158,7 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
             <button
               value="Cancel"
               onClick={closeModal}
-              disabled={deleteLoader ? true : false}
+              disabled={deleteLoader}
               className="btn form-btn btn-secondary">
               Cancel
             </button>
@@ -168,7 +168,7 @@ const ConfirmationModal = ({ deleteModalInfo, setDeleteModalInfo }) => {
                 (type === "cube" && handleDeleteCube) ||
                 (type === "warning" && handleMoveLastCube)
               }
-              disabled={deleteLoader ? true : false}
+              disabled={deleteLoader}
               value={
                 (type === "cube" &&
                   cubeListLength === 1 &&

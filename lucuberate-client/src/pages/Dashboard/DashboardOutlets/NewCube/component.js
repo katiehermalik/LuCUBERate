@@ -625,8 +625,6 @@ const NewCube = () => {
                 categoryError ||
                 visualAidError ||
                 isLoadingButton
-                  ? true
-                  : false
               }
               type="submit"
               className={`btn form-btn btn-primary ${
