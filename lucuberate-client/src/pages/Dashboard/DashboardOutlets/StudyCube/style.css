@@ -76,11 +76,11 @@
   padding-bottom: 100%;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: -webkit-transform 1s;
-  -webkit-transition: -webkit-transform 1s;
-  -o-transition: transform 1s;
-  transition: transform 1s;
-  transition: transform 1s, -webkit-transform 1s;
+  transition: -webkit-transform 0.5s;
+  -webkit-transition: -webkit-transform 0.5s;
+  -o-transition: transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
   width: 100%;
 }
 
@@ -228,11 +228,11 @@ ul.face-content {
 .blur {
   -webkit-filter: blur(40px);
   filter: blur(40px);
-  transition: -webkit-filter 2s;
-  -webkit-transition: -webkit-filter 2s;
-  -o-transition: filter 2s;
-  transition: filter 2s;
-  transition: filter 2s, -webkit-filter 2s;
+  transition: -webkit-filter 0.5s;
+  -webkit-transition: -webkit-filter 0.5s;
+  -o-transition: filter 0.5s;
+  transition: filter 0.5s;
+  transition: filter 0.5s, -webkit-filter 0.5s;
 }
 
 .face-not-focused {
