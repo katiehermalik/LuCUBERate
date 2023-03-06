@@ -17,7 +17,11 @@ const app = express();
 if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", true);
   app.use((req, res, next) => {
-    if (req.header("x-forwarded-proto") !== "https") {
+    console.log(req.header("host"));
+    if (
+      req.header("x-forwarded-proto") !== "https" ||
+      !req.header("host").startsWith("www")
+    ) {
       res.redirect(`https://www.${req.header("host")}${req.url}`);
     } else next();
   });
