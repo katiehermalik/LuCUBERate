@@ -87,16 +87,16 @@
 
 /* Rotation need to rotate entire cube to a certain face, from the original cube position */
 .study-cube.Question {
-  -webkit-transform: rotateY(0.001deg);
-  transform: rotateY(0.001deg);
+  -webkit-transform: rotateY(359.999deg);
+  transform: rotateY(359.999deg);
 }
 .study-cube.Answer {
   -webkit-transform: rotateY(-179.999deg);
   transform: rotateY(-179.999deg);
 }
 .study-cube.Visual {
-  -webkit-transform: rotateX(-89.999deg);
-  transform: rotateX(-89.999deg);
+  -webkit-transform: rotateX(-449.999deg);
+  transform: rotateX(-449.999deg);
 }
 .study-cube.Links {
   -webkit-transform: rotateX(89.999deg);
@@ -107,8 +107,8 @@
   transform: rotateY(89.999deg);
 }
 .study-cube.Hint {
-  -webkit-transform: rotateY(-89.999deg);
-  transform: rotateY(-89.999deg);
+  -webkit-transform: rotateY(-449.999deg);
+  transform: rotateY(-449.999deg);
 }
 
 /* ----------------------------------------------- Cube Faces */
