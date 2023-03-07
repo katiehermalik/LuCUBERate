@@ -337,9 +337,7 @@
 }
 
 .warning p > p {
-  font-size: 14px !important;
-  margin-bottom: 0;
-  border-left: 1px solid var(--accent-color);
+  border-left: none;
   padding: 0 10px;
   margin: 10px;
 }
