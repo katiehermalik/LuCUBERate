@@ -1125,7 +1125,12 @@ input[type="radio"]:checked + label {
 @media screen and (prefers-reduced-motion: reduce), (update: slow) {
   /* Hat tip Nick/cssremedy (https://css-tricks.com/revisiting-prefers-reduced-motion-the-reduced-motion-media-query/#comment-1700170) */
   * {
+    -webkit-animation: none !important;
+    animation: none !important;
+    -webkit-animation-duration: 0.001ms !important;
     animation-duration: 0.001ms !important;
+    -webkit-transition-duration: 0.001ms !important;
+    -o-transition-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
   .face {
