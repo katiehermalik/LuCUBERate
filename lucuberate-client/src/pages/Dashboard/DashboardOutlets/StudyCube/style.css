@@ -300,35 +300,29 @@ ul.face-content {
   .radio-face-group input[type="radio"]:checked + label {
     border-bottom: 2px solid var(--accent-color);
   }
-
   .study-cube.Question {
-    -webkit-transform: rotateY(0deg);
-    transform: rotateY(0deg);
+    -webkit-transform: rotateY(359.999deg);
+    transform: rotateY(359.999deg);
   }
-
   .study-cube.Answer {
-    -webkit-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-179.999deg);
+    transform: rotateY(-179.999deg);
   }
-
   .study-cube.Visual {
-    -webkit-transform: rotateX(-90deg);
-    transform: rotateX(-90deg);
+    -webkit-transform: rotateX(-89.999deg);
+    transform: rotateX(-89.999deg);
   }
-
   .study-cube.Links {
-    -webkit-transform: rotateX(90deg);
-    transform: rotateX(90deg);
+    -webkit-transform: rotateX(89.999deg);
+    transform: rotateX(89.999deg);
   }
-
   .study-cube.Notes {
-    -webkit-transform: rotateY(450deg);
-    transform: rotateY(450deg);
+    -webkit-transform: rotateY(449.999deg);
+    transform: rotateY(449.999deg);
   }
-
   .study-cube.Hint {
-    -webkit-transform: rotateY(-450deg);
-    transform: rotateY(-450deg);
+    -webkit-transform: rotateY(-449.999deg);
+    transform: rotateY(-449.999deg);
   }
 }
 
