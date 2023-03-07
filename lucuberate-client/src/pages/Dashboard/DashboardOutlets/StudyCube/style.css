@@ -95,12 +95,12 @@
   transform: rotateY(-179.999deg);
 }
 .study-cube.Visual {
-  -webkit-transform: rotateX(-449.999deg);
-  transform: rotateX(-449.999deg);
+  -webkit-transform: rotateX(-809.999deg);
+  transform: rotateX(-809.999deg);
 }
 .study-cube.Links {
-  -webkit-transform: rotateX(449.999deg);
-  transform: rotateX(449.999deg);
+  -webkit-transform: rotateX(809.999deg);
+  transform: rotateX(809.999deg);
 }
 .study-cube.Notes {
   -webkit-transform: rotateY(449.999deg);
