@@ -76,18 +76,19 @@
   padding-bottom: 100%;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: -webkit-transform 1s;
   -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
   -o-transition: transform 1s;
   transition: transform 1s;
   transition: transform 1s, -webkit-transform 1s;
   width: 100%;
+  will-change: transform;
 }
 
 /* Rotation need to rotate entire cube to a certain face, from the original cube position */
 .study-cube.Question {
-  -webkit-transform: rotateY(0deg);
-  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0.001deg);
+  transform: rotateY(0.001deg);
 }
 .study-cube.Answer {
   -webkit-transform: rotateY(-179.999deg);
@@ -177,8 +178,8 @@
 /* Position of faces when moved away from origin to form cube */
 .face.Question {
   background-color: var(--cube-face-color-1);
-  -webkit-transform: rotateY(0deg) translateZ(34vmin);
-  transform: rotateY(0deg) translateZ(34vmin);
+  -webkit-transform: rotateY(0.001deg) translateZ(34vmin);
+  transform: rotateY(0.001deg) translateZ(34vmin);
 }
 .face.Answer {
   background-color: var(--cube-face-color-1);
