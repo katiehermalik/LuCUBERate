@@ -1116,8 +1116,8 @@ input[type="radio"]:checked + label {
     opacity: 1 !important;
   }
   .theme-transition {
-    -webkit-transition: none;
-    -o-transition: none;
-    transition: none;
+    -webkit-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
   }
 }
