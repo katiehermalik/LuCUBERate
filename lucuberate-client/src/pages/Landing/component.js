@@ -189,14 +189,14 @@ const Landing = () => {
               <p className="warning mobile-hidden">
                 <AlertFillIcon size={16} />
                 <p>
-                  <b>Warning: </b>This website uses spining animations that may
+                  <b>Warning: </b>This website uses spinning animations that may
                   cause discomfort in users with vestibular motion disorders.
                   Users may wish to enable the "reduce motion" feature on their
-                  device before using any website that has animations.{" "}
+                  device before using any website that has animations.
                   {showRMInfo ? (
                     <>
                       <div onClick={() => setShowRMInfo(!showRMInfo)}>
-                        Show less
+                        <b>Show less</b>
                         <ChevronDownIcon size={16} />
                       </div>
                       <p>
@@ -206,12 +206,12 @@ const Landing = () => {
                         and other apps. By turning on this feature, animations
                         are replaced with simpler, static images, which can be
                         much easier for users with vestibular disorders to view
-                        without experiencing discormfort.
+                        without experiencing discomfort.
                       </p>
                     </>
                   ) : (
                     <div onClick={() => setShowRMInfo(!showRMInfo)}>
-                      Show more
+                      <b>Show more</b>
                       <ChevronRightIcon size={16} />
                     </div>
                   )}
@@ -319,7 +319,7 @@ const Landing = () => {
                   {showRMInfo ? (
                     <>
                       <div onClick={() => setShowRMInfo(!showRMInfo)}>
-                        Show less
+                        <b>Show less</b>
                         <ChevronDownIcon size={16} />
                       </div>
                       <p>
@@ -334,7 +334,7 @@ const Landing = () => {
                     </>
                   ) : (
                     <div onClick={() => setShowRMInfo(!showRMInfo)}>
-                      Show more
+                      <b>Show more</b>
                       <ChevronRightIcon size={16} />
                     </div>
                   )}
