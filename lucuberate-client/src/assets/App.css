@@ -255,33 +255,9 @@ button:not(:disabled) {
     :focus-visible
   ),
 .theme-transition::after {
-  -webkit-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
-    min-width 0.45s ease-in-out, -webkit-flex-basis 0.45s ease-in-out;
-  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
-    min-width 0.45s ease-in-out, -webkit-flex-basis 0.45s ease-in-out;
-  -o-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
-    width 0.45s ease-in-out, min-width 0.45s ease-in-out;
-  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
-    width 0.45s ease-in-out, min-width 0.45s ease-in-out;
-  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
-    width 0.45s ease-in-out, min-width 0.45s ease-in-out,
-    -webkit-flex-basis 0.45s ease-in-out,
-    -ms-flex-preferred-size 0.45s ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
 }
 
 /* ----------- Cube New Edit Delete Btns */
@@ -291,10 +267,6 @@ button:not(:disabled) {
   font-weight: bold;
   color: var(--text-color-dark);
 }
-
-/* .btn:active {
-  box-shadow: rgb(9 30 66 / 40%) 0px 1px 1px, rgb(9 30 66 / 20%) 0px 0px 1px 1px;
-} */
 
 .form-btn {
   border: 1px solid var(--primary-bg-color);
@@ -1142,5 +1114,10 @@ input[type="radio"]:checked + label {
   }
   .face:not(:hover) {
     opacity: 1 !important;
+  }
+  .theme-transition {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
   }
 }
