@@ -87,28 +87,28 @@
 
 /* Rotation need to rotate entire cube to a certain face, from the original cube position */
 .study-cube.Question {
-  -webkit-transform: rotateY(359.999deg);
-  transform: rotateY(359.999deg);
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
 }
 .study-cube.Answer {
-  -webkit-transform: rotateY(-179.999deg);
-  transform: rotateY(-179.999deg);
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
 }
 .study-cube.Visual {
-  -webkit-transform: rotateX(-809.999deg);
-  transform: rotateX(-809.999deg);
+  -webkit-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
 }
 .study-cube.Links {
-  -webkit-transform: rotateX(809.999deg);
-  transform: rotateX(809.999deg);
+  -webkit-transform: rotateX(90deg);
+  transform: rotateX(90deg);
 }
 .study-cube.Notes {
-  -webkit-transform: rotateY(449.999deg);
-  transform: rotateY(449.999deg);
+  -webkit-transform: rotateY(90deg);
+  transform: rotateY(90deg);
 }
 .study-cube.Hint {
-  -webkit-transform: rotateY(-449.999deg);
-  transform: rotateY(-449.999deg);
+  -webkit-transform: rotateY(-90deg);
+  transform: rotateY(-90deg);
 }
 
 /* ----------------------------------------------- Cube Faces */
@@ -178,34 +178,34 @@
 /* Position of faces when moved away from origin to form cube */
 .face.Question {
   background-color: var(--cube-face-color-1);
-  -webkit-transform: rotateY(0.001deg) translateZ(34vmin);
-  transform: rotateY(0.001deg) translateZ(34vmin);
+  -webkit-transform: rotateY(0deg) translateZ(34vmin);
+  transform: rotateY(0deg) translateZ(34vmin);
 }
 .face.Answer {
   background-color: var(--cube-face-color-1);
-  -webkit-transform: rotateY(179.999deg) translateZ(34vmin);
-  transform: rotateY(179.999deg) translateZ(34vmin);
+  -webkit-transform: rotateY(180deg) translateZ(34vmin);
+  transform: rotateY(180deg) translateZ(34vmin);
 }
 .face.Visual {
   background-color: var(--cube-face-color-2);
-  -webkit-transform: rotateX(89.999deg) translateZ(34vmin);
-  transform: rotateX(89.999deg) translateZ(34vmin);
+  -webkit-transform: rotateX(90deg) translateZ(34vmin);
+  transform: rotateX(90deg) translateZ(34vmin);
 }
 .face.Links {
   background-color: var(--cube-face-color-2);
-  -webkit-transform: rotateX(-89.999deg) translateZ(34vmin);
-  transform: rotateX(-89.999deg) translateZ(34vmin);
+  -webkit-transform: rotateX(-90deg) translateZ(34vmin);
+  transform: rotateX(-90deg) translateZ(34vmin);
 }
 .face.Notes {
   background-color: var(--cube-face-color-3);
-  -webkit-transform: rotateY(-89.999deg) translateZ(34vmin);
-  transform: rotateY(-89.999deg) translateZ(34vmin);
+  -webkit-transform: rotateY(-90deg) translateZ(34vmin);
+  transform: rotateY(-90deg) translateZ(34vmin);
 }
 
 .face.Hint {
   background-color: var(--cube-face-color-3);
-  -webkit-transform: rotateY(89.999deg) translateZ(34vmin);
-  transform: rotateY(89.999deg) translateZ(34vmin);
+  -webkit-transform: rotateY(90deg) translateZ(34vmin);
+  transform: rotateY(90deg) translateZ(34vmin);
 }
 
 ul.face-content {
@@ -299,6 +299,36 @@ ul.face-content {
 
   .radio-face-group input[type="radio"]:checked + label {
     border-bottom: 2px solid var(--accent-color);
+  }
+
+  .study-cube.Question {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  .study-cube.Answer {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+
+  .study-cube.Visual {
+    -webkit-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
+  }
+
+  .study-cube.Links {
+    -webkit-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+  }
+
+  .study-cube.Notes {
+    -webkit-transform: rotateY(450deg);
+    transform: rotateY(450deg);
+  }
+
+  .study-cube.Hint {
+    -webkit-transform: rotateY(-450deg);
+    transform: rotateY(-450deg);
   }
 }
 
