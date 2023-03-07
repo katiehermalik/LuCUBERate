@@ -99,11 +99,11 @@
   transform: rotateX(-449.999deg);
 }
 .study-cube.Links {
-  -webkit-transform: rotateX(89.999deg);
+  -webkit-transform: rotateX(449.999deg);
   transform: rotateX(89.999deg);
 }
 .study-cube.Notes {
-  -webkit-transform: rotateY(89.999deg);
+  -webkit-transform: rotateY(449.999deg);
   transform: rotateY(89.999deg);
 }
 .study-cube.Hint {
