@@ -16,7 +16,7 @@
   width: 100%;
 }
 
-.category-btn.active {
+.category-btn.open {
   background-color: var(--category-select);
   -webkit-box-shadow: 0 4px 8px -8px var(--box-shadow-color);
   box-shadow: 0 4px 8px -8px var(--box-shadow-color);

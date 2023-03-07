@@ -11,7 +11,7 @@ function SidePanel() {
   return (
     <div
       className={`cube-list-ctrl container-column theme-transition ${
-        showSidePanel ? "active" : ""
+        showSidePanel ? "open" : ""
       }`}>
       <div className="cube-header container-row theme-transition mobile-hidden">
         <NewCubeBtn />

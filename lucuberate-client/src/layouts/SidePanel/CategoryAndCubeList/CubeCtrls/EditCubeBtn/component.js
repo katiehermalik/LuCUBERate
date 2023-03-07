@@ -16,7 +16,7 @@ const EditCubeBtn = ({ cubeId }) => {
   return (
     <button
       className={`btn edit-btn select-action-btn cube-action-btn ${
-        currentPath[0] === "edit" ? "active" : "theme-transition"
+        currentPath[0] === "edit" ? "open" : "theme-transition"
       }`}
       type="button"
       onClick={handleClick}
