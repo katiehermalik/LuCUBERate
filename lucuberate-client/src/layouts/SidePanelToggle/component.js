@@ -13,10 +13,22 @@ const SidePanelToggle = ({ disable, mobileHidden }) => {
   return (
     <button
       disabled={disable}
-      style={{ opacity: `${disable ? "0.2" : "1"}` }}
+      style={{
+        color: `${
+          mobileHidden
+            ? showSidePanel
+              ? "var(--nav-item-select)"
+              : "var(--primary-text-color)"
+            : disable
+            ? "var(--mobile-nav-item-disabled)"
+            : showSidePanel
+            ? "var(--mobile-nav-item-select)"
+            : "var(--text-color-light)"
+        }`,
+      }}
       type="button"
       onClick={handleOpenCategoryList}
-      className={`btn toggle-list-btn theme-transition ${
+      className={`btn toggle-list-btn ${
         mobileHidden ? "mobile-hidden navbar-item" : "mobile-navbar-item"
       } ${showSidePanel ? "selected" : ""}`}
       title={showSidePanel ? "Hide side panel" : "Show side panel"}
