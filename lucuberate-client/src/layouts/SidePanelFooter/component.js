@@ -3,7 +3,7 @@ import "./style.css";
 
 const SidePanelFooter = memo(() => {
   return (
-    <footer className="list-footer container-column theme-transition">
+    <footer className="list-footer container-column">
       <a
         rel="noopener noreferrer"
         target="_blank"

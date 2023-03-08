@@ -22,8 +22,8 @@ const DeleteBtn = ({ cubeId, categoryTitle, categoryId, cubeListLength }) => {
     <button
       className={
         cubeId
-          ? "btn delete select-action-btn cube-action-btn theme-transition"
-          : "btn delete select-action-btn category-action-btn theme-transition"
+          ? "btn delete select-action-btn cube-action-btn"
+          : "btn delete select-action-btn category-action-btn"
       }
       type="button"
       onClick={handleOpenModal}

@@ -13,7 +13,6 @@ const CubeMesh = ({ theme }) => {
 
   return (
     <a.mesh
-      className="theme-transition"
       onPointerOver={() => setHover(true)}
       onPointerOut={() => setHover(false)}
       scale={[1.5, 1.5, 1.5]}
@@ -23,7 +22,6 @@ const CubeMesh = ({ theme }) => {
       ref={mesh}>
       <boxGeometry attach="geometry" />
       <meshStandardMaterial
-        className="theme-transition"
         attach="material"
         color={
           theme === "dark"

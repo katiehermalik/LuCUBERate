@@ -70,7 +70,7 @@ const GuideModal = () => {
 
   return (
     <aside
-      className={`modal-guide theme-transition ${
+      className={`modal-guide ${
         (tourStep === 1 &&
           (newUser ? "tour-step-1" : "tour-step-1 return-user")) ||
         (tourStep === 2 &&
@@ -87,7 +87,7 @@ const GuideModal = () => {
         {tourStep === 3 && <h1>Example Categories & Cubes</h1>}
         {tourStep === 4 && <h1>Cube Controls</h1>}
       </div>
-      <hr className="theme-transition" />
+      <hr />
       <div className="modal-guide-body">
         {tourStep === 1 &&
           (newUser ? (
@@ -148,7 +148,7 @@ const GuideModal = () => {
           </>
         )}
       </div>
-      <div className="modal-footer theme-transition">
+      <div className="modal-footer">
         {tourStep === 1 && !newUser && (
           <p className="subtext">
             If you no longer need this guide, check the box at the end and we'll

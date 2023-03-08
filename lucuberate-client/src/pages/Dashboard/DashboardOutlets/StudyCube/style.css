@@ -74,40 +74,34 @@
 
 .study-cube {
   padding-bottom: 100%;
+  rotate: 0 0 0 0turn;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: -webkit-transform 0.5s;
-  -webkit-transition: -webkit-transform 0.5s;
-  -o-transition: transform 0.5s;
-  transition: transform 0.5s;
-  transition: transform 0.5s, -webkit-transform 0.5s;
+  -webkit-transition: rotate 1s;
+  -o-transition: rotate 1s;
+  transition: rotate 1s;
   width: 100%;
+  will-change: rotate;
 }
 
 /* Rotation need to rotate entire cube to a certain face, from the original cube position */
 .study-cube.Question {
-  -webkit-transform: rotateY(0deg);
-  transform: rotateY(0deg);
+  rotate: y 0turn;
 }
 .study-cube.Answer {
-  -webkit-transform: rotateY(-179.999deg);
-  transform: rotateY(-179.999deg);
+  rotate: y 0.5turn;
 }
 .study-cube.Visual {
-  -webkit-transform: rotateX(-89.999deg);
-  transform: rotateX(-89.999deg);
+  rotate: x -0.25turn;
 }
 .study-cube.Links {
-  -webkit-transform: rotateX(89.999deg);
-  transform: rotateX(89.999deg);
+  rotate: x -0.75turn;
 }
 .study-cube.Notes {
-  -webkit-transform: rotateY(89.999deg);
-  transform: rotateY(89.999deg);
+  rotate: y 0.25turn;
 }
 .study-cube.Hint {
-  -webkit-transform: rotateY(-89.999deg);
-  transform: rotateY(-89.999deg);
+  rotate: y 0.75turn;
 }
 
 /* ----------------------------------------------- Cube Faces */
@@ -129,51 +123,47 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  opacity: 0.8;
+  opacity: 1;
+  overflow: hidden;
   position: absolute;
-  -webkit-transition: opacity 0.2s linear, -webkit-filter 2s;
-  transition: opacity 0.2s linear, -webkit-filter 2s;
-  -o-transition: opacity 0.2s linear, filter 2s;
-  transition: opacity 0.2s linear, filter 2s;
-  transition: opacity 0.2s linear, filter 2s, -webkit-filter 2s;
   text-align: center;
   width: 100%;
 }
 
-.face:hover {
-  opacity: 1;
-  -webkit-transition: opacity 0.2s linear;
-  -o-transition: opacity 0.2s linear;
-  transition: opacity 0.2s linear;
-}
-
-.face:not(:hover) {
-  opacity: 0.8;
-  -webkit-transition: opacity 0.2s linear;
-  -o-transition: opacity 0.2s linear;
-  transition: opacity 0.2s linear;
-}
-
 .face-title {
+  border-bottom: 1px solid var(--primary-text-color);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   font-size: 6vmin;
   font-weight: bold;
-  margin: 0 2.5vmin 2.5vmin;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   line-height: 1.4;
+  margin: 0 0 40px;
 }
 
-.face hr {
+.face-group {
+  -webkit-filter: blur(0);
+  filter: blur(0);
+  height: 100%;
+  padding: 60px;
+  transition: -webkit-filter 1s;
+  -webkit-transition: -webkit-filter 1s;
+  -o-transition: filter 1s;
+  transition: filter 1s;
+  transition: filter 1s, -webkit-filter 1s;
   width: 100%;
-  background-color: var(--primary-text-color);
-  height: 1px;
-  margin: 0;
+  will-change: filter;
 }
 
 .face-content {
-  position: relative;
-  font-size: 3.1vmin;
+  font-size: clamp(1rem, 3.1vmin, 2rem);
   max-height: 70%;
   overflow-y: auto;
-  padding: 0 60px;
+  position: relative;
+  text-align: left;
   white-space: pre-line;
   width: 100%;
   word-break: break-word;
@@ -182,34 +172,40 @@
 /* Position of faces when moved away from origin to form cube */
 .face.Question {
   background-color: var(--cube-face-color-1);
-  -webkit-transform: rotateY(0deg) translateZ(34vmin);
-  transform: rotateY(0deg) translateZ(34vmin);
+  rotate: y 0turn;
+  -webkit-transform: translateZ(34vmin);
+  transform: translateZ(34vmin);
 }
 .face.Answer {
   background-color: var(--cube-face-color-1);
-  -webkit-transform: rotateY(179.999deg) translateZ(34vmin);
-  transform: rotateY(179.999deg) translateZ(34vmin);
+  rotate: y 0.5turn;
+  -webkit-transform: translateZ(34vmin);
+  transform: translateZ(34vmin);
 }
 .face.Visual {
   background-color: var(--cube-face-color-2);
-  -webkit-transform: rotateX(89.999deg) translateZ(34vmin);
-  transform: rotateX(89.999deg) translateZ(34vmin);
+  rotate: x 0.25turn;
+  -webkit-transform: translateZ(34vmin);
+  transform: translateZ(34vmin);
 }
 .face.Links {
   background-color: var(--cube-face-color-2);
-  -webkit-transform: rotateX(-89.999deg) translateZ(34vmin);
-  transform: rotateX(-89.999deg) translateZ(34vmin);
+  rotate: x -0.25turn;
+  -webkit-transform: translateZ(34vmin);
+  transform: translateZ(34vmin);
 }
 .face.Notes {
   background-color: var(--cube-face-color-3);
-  -webkit-transform: rotateY(-89.999deg) translateZ(34vmin);
-  transform: rotateY(-89.999deg) translateZ(34vmin);
+  rotate: y -0.25turn;
+  -webkit-transform: translateZ(34vmin);
+  transform: translateZ(34vmin);
 }
 
 .face.Hint {
   background-color: var(--cube-face-color-3);
-  -webkit-transform: rotateY(89.999deg) translateZ(34vmin);
-  transform: rotateY(89.999deg) translateZ(34vmin);
+  rotate: y 0.25turn;
+  -webkit-transform: translateZ(34vmin);
+  transform: translateZ(34vmin);
 }
 
 ul.face-content {
@@ -225,14 +221,14 @@ ul.face-content {
   text-decoration: none;
 }
 
+.Visual .face-content {
+  overflow: hidden;
+  padding: 0;
+}
+
 .blur {
-  -webkit-filter: blur(40px);
-  filter: blur(40px);
-  transition: -webkit-filter 0.5s;
-  -webkit-transition: -webkit-filter 0.5s;
-  -o-transition: filter 0.5s;
-  transition: filter 0.5s;
-  transition: filter 0.5s, -webkit-filter 0.5s;
+  -webkit-filter: blur(8px);
+  filter: blur(8px);
 }
 
 .face-not-focused {
@@ -245,18 +241,6 @@ ul.face-content {
   cursor: pointer;
   max-height: 30vmin;
   max-width: 40vmin;
-  transition: -webkit-filter 0.75s, -webkit-transform 0.5s ease;
-  -webkit-transition: -webkit-filter 0.75s, -webkit-transform 0.5s ease;
-  -o-transition: filter 0.75s, transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
-    -webkit-transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
-    -webkit-transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
-    -webkit-transform 0.5s ease;
-  transition: filter 0.75s, transform 0.5s ease, -webkit-filter 0.75s,
-    -webkit-transform 0.5s ease;
 }
 
 /* ----------------------------------- Cube Face Radio Btns */
@@ -306,6 +290,7 @@ ul.face-content {
   .radio-face-group .radio-label {
     font-size: 12px;
     padding: 5px;
+    border-bottom: 2px solid transparent;
   }
 
   .radio-face-group .radio-button {
@@ -314,6 +299,19 @@ ul.face-content {
 
   .radio-face-group input[type="radio"]:checked + label {
     border-bottom: 2px solid var(--accent-color);
+  }
+
+  .face-group {
+    padding: 20px;
+  }
+
+  .face-title {
+    margin: 0 0 20px;
+  }
+
+  .blur {
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
   }
 }
 

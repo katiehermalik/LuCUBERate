@@ -1,5 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import { ChevronDownIcon } from "@primer/octicons-react";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  AlertFillIcon,
+} from "@primer/octicons-react";
 import { UserContext } from "../../context/ContextProvider";
 import LandingCanvas from "../../features/threeJS/LandingCanvas";
 import AuthBtn from "../../features/authentication/components/AuthBtn";
@@ -8,6 +12,7 @@ import "./style.css";
 const Landing = () => {
   const { currentUserInfo: user } = useContext(UserContext);
   const [showLearnMore, setShowLearnMore] = useState(true);
+  const [showRMInfo, setShowRMInfo] = useState(false);
   const controlLearnMore = () => {
     window.scrollY > 100 ? setShowLearnMore(false) : setShowLearnMore(true);
   };
@@ -55,9 +60,7 @@ const Landing = () => {
           <LandingCanvas user={user} />
         </div>
         <section
-          className={`learn-more section theme-transition ${
-            user ? "mobile-nav-is-shown" : ""
-          }`}>
+          className={`learn-more section ${user ? "mobile-nav-is-shown" : ""}`}>
           <div className="section-content">
             <div className="sign-up-cta">
               <h3>Let us help you achieve your academic goals!</h3>
@@ -91,7 +94,7 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <section className="about-app section theme-transition">
+      <section className="about-app section">
         <div className="section-content">
           <img
             src="/sneak_peek.png"
@@ -115,7 +118,7 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <section className="start-studying section theme-transition">
+      <section className="start-studying section">
         <div className="section-content">
           {!user ? (
             <>
@@ -142,11 +145,11 @@ const Landing = () => {
           )}
         </div>
       </section>
-      <section className="about-developer section theme-transition">
+      <section className="about-developer section">
         <div className="section-content">
           <h3>About the developer</h3>
           <p>
-            Meet Katie, a talented frontend developer with a passion for
+            Meet Katie, a talented front-end developer with a passion for
             community, problem solving, and creative expression. With a unique
             background in art and education, Katie has always been drawn to the
             intersection of technology and creativity, and has found a perfect
@@ -169,9 +172,7 @@ const Landing = () => {
         </div>
       </section>
       <footer
-        className={`contact section theme-transition ${
-          user ? "mobile-nav-is-shown" : ""
-        }`}>
+        className={`contact section ${user ? "mobile-nav-is-shown" : ""}`}>
         <div className="section-content">
           <h3>Contact us</h3>
           <div className="copy-container ">
@@ -180,6 +181,37 @@ const Landing = () => {
                 Lucuberate is a passion project. We hope everyone finds the
                 flash cubes beneficial and we welcome all feedback and prospects
                 for collaboration. Please don't hesitate to get in touch!
+              </p>
+              <p className="warning mobile-hidden">
+                <AlertFillIcon size={16} />
+                <p>
+                  <b>Warning: </b>This website uses spinning animations that may
+                  cause discomfort in users with vestibular motion disorders.
+                  Users may wish to enable the "reduce motion" feature on their
+                  device before using any website that has animations.
+                  {showRMInfo ? (
+                    <>
+                      <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                        <b>Show less</b>
+                        <ChevronDownIcon size={16} />
+                      </div>
+                      <p>
+                        The "reduce motion" feature can typically be found in
+                        the accessibility settings of most devices, and it can
+                        significantly reduce the amount of motion on websites
+                        and other apps. By turning on this feature, animations
+                        are replaced with simpler, static images, which can be
+                        much easier for users with vestibular disorders to view
+                        without experiencing discomfort.
+                      </p>
+                    </>
+                  ) : (
+                    <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                      <b>Show more</b>
+                      <ChevronRightIcon size={16} />
+                    </div>
+                  )}
+                </p>
               </p>
               <p className="mobile-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
             </div>
@@ -191,7 +223,7 @@ const Landing = () => {
                   rel="noopener noreferrer"
                   target="_blank"
                   href="mailto:support@lucuberate.com">
-                  support@lucuberate.com
+                  <b>support@lucuberate.com</b>
                 </a>
               </p>
               <p>
@@ -201,7 +233,7 @@ const Landing = () => {
                   rel="noopener noreferrer"
                   target="_blank"
                   href="mailto:khermalik@gmail.com">
-                  khermalik@gmail.com
+                  <b>khermalik@gmail.com</b>
                 </a>
               </p>
               <div>
@@ -273,7 +305,38 @@ const Landing = () => {
                 </a>
               </div>
               <hr className="desktop-hidden"></hr>
-              <p className="mobile-copyright desktop-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
+              <p className="warning desktop-hidden">
+                <AlertFillIcon size={16} />
+                <p>
+                  <b>Warning: </b>This website uses spinning animations that may
+                  cause discomfort in users with vestibular motion disorders.
+                  Users may wish to enable the "reduce motion" feature on their
+                  device before using any website that has animations.
+                  {showRMInfo ? (
+                    <>
+                      <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                        <b>Show less</b>
+                        <ChevronDownIcon size={16} />
+                      </div>
+                      <p>
+                        The "reduce motion" feature can typically be found in
+                        the accessibility settings of most devices, and it can
+                        significantly reduce the amount of motion on websites
+                        and other apps. By turning on this feature, animations
+                        are replaced with simpler, static images, which can be
+                        much easier for users with vestibular disorders to view
+                        without experiencing discomfort.
+                      </p>
+                    </>
+                  ) : (
+                    <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                      <b>Show more</b>
+                      <ChevronRightIcon size={16} />
+                    </div>
+                  )}
+                </p>
+              </p>
+              <p className="copyright desktop-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
             </div>
           </div>
         </div>

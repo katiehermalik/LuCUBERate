@@ -8,7 +8,7 @@ const Instructions = () => {
   }, []);
 
   return (
-    <div className="instructions container-row theme-transition">
+    <div className="instructions container-row">
       <h1>
         <span className="force-line-break">
           Select or&nbsp;

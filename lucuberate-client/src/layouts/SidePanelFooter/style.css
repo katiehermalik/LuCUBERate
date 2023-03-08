@@ -20,6 +20,10 @@
   margin-bottom: 0;
 }
 
+.list-footer a {
+  width: max-content;
+}
+
 /* ------------------- Media Queries ------------------- */
 
 @media screen and (max-width: 720px) {

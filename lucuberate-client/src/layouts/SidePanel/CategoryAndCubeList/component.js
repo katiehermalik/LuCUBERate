@@ -96,7 +96,7 @@ const CategoryAndCubeList = () => {
   const closeCategoryCubeList = useCallback(() => {
     if (currentCategory === null) {
       categoryRefs.forEach(ref => {
-        ref.classList.remove("active");
+        ref.classList.remove("open");
         ref.parentElement.style.zIndex = "0";
         ref.nextElementSibling.style.maxHeight = "0px";
       });
@@ -104,9 +104,9 @@ const CategoryAndCubeList = () => {
       categoryRefs.forEach(ref => {
         if (
           ref.id !== currentCategoryRef?.id &&
-          ref.className.split(" ").includes("active")
+          ref.className.split(" ").includes("open")
         ) {
-          ref.classList.remove("active");
+          ref.classList.remove("open");
           ref.parentElement.style.zIndex = "0";
           ref.nextElementSibling.style.maxHeight = "0px";
         }
@@ -129,8 +129,8 @@ const CategoryAndCubeList = () => {
   }, [currentCategoryRef]);
 
   const openCategoryCubeList = useCallback(() => {
-    if (!currentCategoryRef.className.split(" ").includes("active")) {
-      currentCategoryRef.classList.add("active");
+    if (!currentCategoryRef.className.split(" ").includes("open")) {
+      currentCategoryRef.classList.add("open");
       currentCategoryRef.parentElement.style.zIndex = "1";
       findCubeListHeight();
     }
@@ -286,7 +286,7 @@ const CategoryAndCubeList = () => {
       categoryContainer.style.zIndex = "0";
       currCategoryCubeRefs.forEach(cube => (cube.ref.checked = false));
       categoryCubeList.style.maxHeight = "0px";
-      e.target.classList.remove("active");
+      e.target.classList.remove("open");
       setCurrentCategory(null);
       setCurrentCategoryRef(null);
       setCurrCategoryCubeRefs([]);
@@ -318,7 +318,7 @@ const CategoryAndCubeList = () => {
                 },
                 i
               ) => (
-                <div className="cube-list theme-transition" key={categoryId}>
+                <div className="cube-list" key={categoryId}>
                   <div className="category-container">
                     <CategoryCtrls
                       setCategoryWasShuffled={setCategoryWasShuffled}
@@ -333,7 +333,7 @@ const CategoryAndCubeList = () => {
                       tabIndex="0"
                       onClick={handleCategoryClick}
                       type="button"
-                      className="category-item category-btn theme-transition"
+                      className="category-item category-btn"
                       value={categoryTitle}
                       title={categoryTitle}
                       id={categoryId}

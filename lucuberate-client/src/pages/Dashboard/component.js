@@ -28,7 +28,7 @@ function Dashboard() {
   }, [setShowSidePanel, showGuide]);
 
   return (
-    <div className="dashboard container-row theme-transition">
+    <div className="dashboard container-row">
       <SidePanel />
       <div ref={pagesRef} className="pages">
         <Outlet />

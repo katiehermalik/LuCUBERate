@@ -16,6 +16,7 @@
   --form-input-background-color: #3e424a;
   --form-text-color: var(--text-color-light);
   --hr-color: #5f6062;
+  --mobile-nav-item-disabled: #f1f4f947;
   --modal-background-color: var(--secondary-bg-color);
   --modal-border-color: var(--accent-color);
   --modal-text-color: var(--text-color-light);
@@ -60,12 +61,12 @@
   --mobile-nav-item-select: #7ec3ff;
   --nav-bg-color: #d2e5f3;
   --nav-btn-bg-color: var(--nav-bg-color);
-  --nav-item-select: #1a609d;
+  --nav-item-select: #09467c;
   --overlay-color: rgba(0, 0, 0, 0.9);
   --primary-text-color: var(--text-color-dark);
   --secondary-bg-color: #3e424a;
   --secondary-text-color: var(--text-color-light);
-  --social-link-color: var(--text-color-light);
+  --social-link-color: #00173d;
 }
 
 /* ------------------------------------- CSS reset */
@@ -207,7 +208,7 @@ button:not(:disabled) {
 }
 
 .desktop-hidden {
-  display: none;
+  display: none !important;
 }
 
 /* ------------------------------- Parent Containers */
@@ -247,43 +248,6 @@ button:not(:disabled) {
   flex-direction: column;
 }
 
-/* ----------- Theme Transition */
-
-.theme-transition:not(
-    btn:active,
-    .button.theme-transition:hover,
-    :focus-visible
-  ),
-.theme-transition::after {
-  -webkit-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
-    min-width 0.45s ease-in-out, -webkit-flex-basis 0.45s ease-in-out;
-  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, width 0.45s ease-in-out,
-    min-width 0.45s ease-in-out, -webkit-flex-basis 0.45s ease-in-out;
-  -o-transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
-    width 0.45s ease-in-out, min-width 0.45s ease-in-out;
-  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
-    width 0.45s ease-in-out, min-width 0.45s ease-in-out;
-  transition: border 0.45s ease-in-out, color 0.45s ease-in-out,
-    background-color 0.45s ease-in-out, border-color 0.45s ease-in-out,
-    outline 0.45s ease-in-out, background-image 0.45s ease-in-out,
-    opacity 0.45s ease-in-out, flex-basis 0.45s ease-in-out,
-    width 0.45s ease-in-out, min-width 0.45s ease-in-out,
-    -webkit-flex-basis 0.45s ease-in-out,
-    -ms-flex-preferred-size 0.45s ease-in-out;
-}
-
 /* ----------- Cube New Edit Delete Btns */
 
 .btn {
@@ -291,10 +255,6 @@ button:not(:disabled) {
   font-weight: bold;
   color: var(--text-color-dark);
 }
-
-/* .btn:active {
-  box-shadow: rgb(9 30 66 / 40%) 0px 1px 1px, rgb(9 30 66 / 20%) 0px 0px 1px 1px;
-} */
 
 .form-btn {
   border: 1px solid var(--primary-bg-color);
@@ -616,10 +576,6 @@ input[name="password"] {
   -ms-flex-align: center;
   align-items: center;
   border: 1px solid var(--primary-bg-color);
-  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -932,7 +888,7 @@ input[type="radio"]:checked + label {
 
 .add-remove-resource {
   background-color: transparent;
-  color: var(--nav-item-select);
+  color: var(--accent-color);
   cursor: pointer;
   font-size: 0.8rem;
   margin-left: 3px;
@@ -1003,7 +959,7 @@ input[type="radio"]:checked + label {
   }
 
   .desktop-hidden {
-    display: block;
+    display: flex !important;
   }
 
   .form-container {
@@ -1115,7 +1071,22 @@ input[type="radio"]:checked + label {
     display: flex;
     flex-direction: column;
   }
-  .signup-login .modal-footer small a{
+  .signup-login .modal-footer small a {
     margin-top: 5px;
+  }
+}
+
+/* ================================================================================================ Reduce Motion */
+
+@media screen and (prefers-reduced-motion: reduce), (update: slow) {
+  * {
+    -webkit-animation: none !important;
+    animation: none !important;
+    -webkit-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    -webkit-filter: none !important;
+    filter: none !important;
   }
 }

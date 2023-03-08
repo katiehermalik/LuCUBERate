@@ -10,10 +10,10 @@ function SidePanel() {
 
   return (
     <div
-      className={`cube-list-ctrl container-column theme-transition ${
-        showSidePanel ? "active" : ""
+      className={`cube-list-ctrl container-column ${
+        showSidePanel ? "open" : ""
       }`}>
-      <div className="cube-header container-row theme-transition mobile-hidden">
+      <div className="cube-header container-row mobile-hidden">
         <NewCubeBtn />
       </div>
       {currentUserInfo && <CategoryAndCubeList />}
