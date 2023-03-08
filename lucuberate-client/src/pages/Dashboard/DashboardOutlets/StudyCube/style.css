@@ -131,6 +131,7 @@
   -ms-flex-pack: center;
   justify-content: center;
   opacity: 0.8;
+  overflow: hidden;
   position: absolute;
   text-align: center;
   width: 100%;
@@ -155,6 +156,12 @@
   font-weight: bold;
   margin: 0 2.5vmin 2.5vmin;
   line-height: 1.4;
+  filter: blur(0);
+  transition: -webkit-filter 1s;
+  -webkit-transition: -webkit-filter 1s;
+  -o-transition: filter 1s;
+  transition: filter 1s;
+  transition: filter 1s, -webkit-filter 1s;
 }
 
 .face hr {
@@ -166,10 +173,16 @@
 
 .face-content {
   position: relative;
+  filter: blur(0);
   font-size: 3.1vmin;
   max-height: 70%;
   overflow-y: auto;
   padding: 0 60px;
+  transition: -webkit-filter 1s;
+  -webkit-transition: -webkit-filter 1s;
+  -o-transition: filter 1s;
+  transition: filter 1s;
+  transition: filter 1s, -webkit-filter 1s;
   white-space: pre-line;
   width: 100%;
   word-break: break-word;
@@ -221,14 +234,19 @@ ul.face-content {
   text-decoration: none;
 }
 
+.Visual .face-content {
+  overflow: hidden;
+  padding: 0;
+}
+
 .blur {
   -webkit-filter: blur(40px);
   filter: blur(40px);
-  transition: -webkit-filter 0.5s;
-  -webkit-transition: -webkit-filter 0.5s;
-  -o-transition: filter 0.5s;
-  transition: filter 0.5s;
-  transition: filter 0.5s, -webkit-filter 0.5s;
+  transition: -webkit-filter 1s;
+  -webkit-transition: -webkit-filter 1s;
+  -o-transition: filter 1s;
+  transition: filter 1s;
+  transition: filter 1s, -webkit-filter 1s;
 }
 
 .face-not-focused {
