@@ -8,3 +8,9 @@
 .confirmation-modal .modal-title {
   text-align: left;
 }
+
+@media screen and (max-width: 720px) {
+  .confirmation-modal.modal {
+    z-index: 20;
+  }
+}
