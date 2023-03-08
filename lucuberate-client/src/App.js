@@ -32,12 +32,12 @@ const App = () => {
 
   return (
     <div
-      className={`app container-column ${
-        theme === "dark" ? "dark" : "light"
-      }`}
+      className={`app container-column ${theme === "dark" ? "dark" : "light"}`}
       style={{
         height: `${pathname === "/" ? "" : "100%"}`,
         overflowY: `${pathname === "/" ? "" : "hidden"}`,
+        position: `${pathname === "/" ? "" : "fixed"}`,
+        width: `${pathname === "/" ? "" : "100%"}`,
       }}>
       {isLoggedIn && appIsLoading ? (
         <Loading />
