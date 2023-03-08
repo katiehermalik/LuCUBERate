@@ -159,7 +159,7 @@
 }
 
 .face-content {
-  font-size: 3.1vmin;
+  font-size: clamp(1rem, 3.1vmin, 2rem);
   max-height: 70%;
   overflow-y: auto;
   position: relative;
