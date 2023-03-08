@@ -80,165 +80,128 @@ const StudyCube = ({ cubeIsLoading }) => {
                   <div className={`study-cube ${side}`}>
                     <div className="face Question">
                       <div
-                        className={`face-title ${
+                        className={`face-group ${
                           side === "Question" || side === ""
                             ? ""
                             : "blur pointer-disabled"
                         }`}>
-                        Question
-                        <hr />
+                        <div className="face-title">Question</div>
+                        {cube.question && (
+                          <div className="face-content">{cube.question}</div>
+                        )}
                       </div>
-                      {cube.question && (
-                        <div
-                          className={`face-content ${
-                            side === "Question" || side === ""
-                              ? ""
-                              : "blur pointer-disabled face-not-focused"
-                          }`}>
-                          {cube.question}
-                        </div>
-                      )}
                     </div>
                     <div className="face Answer">
                       <div
-                        className={`face-title ${
-                          side === "Answer" ? "" : "blur pointer-disabled"
+                        className={`face-group ${
+                          side === "Answer" || side === ""
+                            ? ""
+                            : "blur pointer-disabled"
                         }`}>
-                        Answer
-                        <hr />
+                        <div className="face-title">Answer</div>
+                        {cube.answer && (
+                          <div className="face-content">{cube.answer}</div>
+                        )}
                       </div>
-                      {cube.answer && (
-                        <div
-                          className={`face-content ${
-                            side === "Answer"
-                              ? ""
-                              : "blur pointer-disabled face-not-focused"
-                          }`}>
-                          {cube.answer}
-                        </div>
-                      )}
                     </div>
                     <div className="face Hint">
                       <div
-                        className={`face-title ${
-                          side === "Hint" ? "" : "blur pointer-disabled"
+                        className={`face-group ${
+                          side === "Hint" || side === ""
+                            ? ""
+                            : "blur pointer-disabled"
                         }`}>
-                        Hint
-                        <hr />
+                        <div className="face-title">Hint</div>
+                        {cube.hint && (
+                          <div className="face-content">{cube.hint}</div>
+                        )}
                       </div>
-                      {cube.hint && (
-                        <div
-                          className={`face-content ${
-                            side === "Hint"
-                              ? ""
-                              : "blur pointer-disabled face-not-focused"
-                          }`}>
-                          {cube.hint}
-                        </div>
-                      )}
                     </div>
                     <div className="face Notes">
                       <div
-                        className={`face-title ${
-                          side === "Notes" ? "" : "blur pointer-disabled"
+                        className={`face-group ${
+                          side === "Notes" || side === ""
+                            ? ""
+                            : "blur pointer-disabled"
                         }`}>
-                        Notes
-                        <hr />
+                        <div className="face-title">Notes</div>
+                        {cube.notes && (
+                          <div className="face-content">{cube.notes}</div>
+                        )}
                       </div>
-                      {cube.notes && (
-                        <div
-                          className={`face-content ${
-                            side === "Notes"
-                              ? ""
-                              : "blur pointer-disabled face-not-focused"
-                          }`}>
-                          {cube.notes}
-                        </div>
-                      )}
                     </div>
                     <div className="face Visual">
                       <div
-                        className={`face-title ${
-                          side === "Visual Aid" ? "" : "blur pointer-disabled"
+                        className={`face-group ${
+                          side === "Visual Aid" || side === ""
+                            ? ""
+                            : "blur pointer-disabled"
                         }`}>
-                        Visual Aid
-                        <hr />
+                        <div className="face-title">Visual Aid</div>
+                        {cube.visual_aid && (
+                          <a
+                            download={cube.visual_aid_url}
+                            href={cube.visual_aid_url}
+                            title="Download image"
+                            className="face-content">
+                            <img
+                              src={cube.visual_aid_url}
+                              alt="visual aid"
+                              className="visual-aid"
+                            />
+                          </a>
+                        )}
                       </div>
-                      {cube.visual_aid && (
-                        <a
-                          download={cube.visual_aid_url}
-                          href={cube.visual_aid_url}
-                          title="Download image"
-                          className={`face-content ${
-                            side === "Visual Aid"
-                              ? ""
-                              : "blur pointer-disabled face-not-focused"
-                          }`}>
-                          <img
-                            src={cube.visual_aid_url}
-                            alt="visual aid"
-                            className={`visual-aid ${
-                              side === "Visual Aid"
-                                ? ""
-                                : "blur pointer-disabled face-not-focused"
-                            }`}
-                          />
-                        </a>
-                      )}
                     </div>
                     <div className="face Links">
                       <div
-                        className={`face-title ${
-                          side === "Links" ? "" : "blur pointer-disabled"
+                        className={`face-group ${
+                          side === "Links" || side === ""
+                            ? ""
+                            : "blur pointer-disabled"
                         }`}>
-                        Links
-                        <hr />
+                        <div className="face-title">Links</div>
+                        {(cube.link_1.url ||
+                          cube.link_2.url ||
+                          cube.link_3.url) && (
+                          <ul className="face-content">
+                            {cube.link_1.url && (
+                              <li>
+                                <a
+                                  rel="noreferrer"
+                                  target="_blank"
+                                  href={cube.link_1.url}>
+                                  {cube.link_1.alias}
+                                </a>
+                                <br />
+                                <br />
+                              </li>
+                            )}
+                            {cube.link_2.url && (
+                              <li>
+                                <a
+                                  rel="noreferrer"
+                                  target="_blank"
+                                  href={cube.link_2.url}>
+                                  {cube.link_2.alias}
+                                </a>
+                                <br />
+                                <br />
+                              </li>
+                            )}
+                            {cube.link_3.url && (
+                              <li>
+                                <a
+                                  rel="noreferrer"
+                                  target="_blank"
+                                  href={cube.link_3.url}>
+                                  {cube.link_3.alias}
+                                </a>
+                              </li>
+                            )}
+                          </ul>
+                        )}
                       </div>
-                      {(cube.link_1.url ||
-                        cube.link_2.url ||
-                        cube.link_3.url) && (
-                        <ul
-                          className={`face-content ${
-                            side === "Links"
-                              ? ""
-                              : "blur pointer-disabled face-not-focused"
-                          }`}>
-                          {cube.link_1.url && (
-                            <li>
-                              <a
-                                rel="noreferrer"
-                                target="_blank"
-                                href={cube.link_1.url}>
-                                {cube.link_1.alias}
-                              </a>
-                              <br />
-                              <br />
-                            </li>
-                          )}
-                          {cube.link_2.url && (
-                            <li>
-                              <a
-                                rel="noreferrer"
-                                target="_blank"
-                                href={cube.link_2.url}>
-                                {cube.link_2.alias}
-                              </a>
-                              <br />
-                              <br />
-                            </li>
-                          )}
-                          {cube.link_3.url && (
-                            <li>
-                              <a
-                                rel="noreferrer"
-                                target="_blank"
-                                href={cube.link_3.url}>
-                                {cube.link_3.alias}
-                              </a>
-                            </li>
-                          )}
-                        </ul>
-                      )}
                     </div>
                   </div>
                 </div>
