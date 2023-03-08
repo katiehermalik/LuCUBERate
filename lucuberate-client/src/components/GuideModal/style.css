@@ -139,6 +139,7 @@
 @media screen and (max-width: 720px) {
   .modal-guide {
     display: block;
+    line-height: 1.3;
     padding: 0;
   }
 
@@ -177,6 +178,10 @@
     transform: translatey(100%) rotate(-90deg);
   }
 
+  .modal-guide.tour-step-3:before {
+    left: 105px;
+  }
+
   .modal-guide.return-user .subtext {
     margin-bottom: 5px;
   }
@@ -188,11 +193,6 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-  }
-
-  .modal-guide {
-    font-size: 12px;
-    line-height: 1.3;
   }
 
   .modal-guide button:not(.close),

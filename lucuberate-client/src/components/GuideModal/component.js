@@ -4,7 +4,11 @@ import {
   GuideContext,
   LayoutContext,
 } from "../../context/ContextProvider";
-import { ChevronLeftIcon } from "@primer/octicons-react";
+import {
+  ChevronLeftIcon,
+  EyeClosedIcon,
+  ArrowSwitchIcon,
+} from "@primer/octicons-react";
 import UserAPI from "../../utils/api/user";
 import { SmileyIcon } from "@primer/octicons-react";
 import "./style.css";
@@ -111,12 +115,24 @@ const GuideModal = () => {
           <>
             <p>Use the controls you'll find in this list for the following:</p>
             <ul>
+              <li className="mobile-hidden">Create a new cube.</li>
+              <li className="mobile-hidden">
+                Create a new category while creating a new cube.
+              </li>
               <li>Navigate between categories and cubes.</li>
-              <li>Create a new cube.</li>
-              <li>Create a new category while creating a new cube.</li>
               <li>
                 Edit cubes &#40;including moving them to different
                 categories&#41;.
+              </li>
+              <li>
+                Show or hide the questions.&nbsp;&#40;&nbsp;
+                <EyeClosedIcon size={16} className="label-icon" />
+                &#41;
+              </li>
+              <li>
+                Shuffle the cubes in a category.&nbsp;&#40;&nbsp;
+                <ArrowSwitchIcon size={16} className="label-icon" />
+                &#41;
               </li>
               <li>
                 Delete any cubes or categories once you become a subject matter
@@ -133,8 +149,10 @@ const GuideModal = () => {
               cubes will go with it!
             </p>
             <p>
-              Click on the 'Create New Cube' button to get started making your
-              own cubes.
+              {`Click on the '${
+                !mediaQuery.matches ? "Create New Cube" : "Create Cube"
+              }' button to get started making your
+              own cubes and categories.`}
             </p>
           </>
         )}
