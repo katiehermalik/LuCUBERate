@@ -16,6 +16,7 @@
   --form-input-background-color: #3e424a;
   --form-text-color: var(--text-color-light);
   --hr-color: #5f6062;
+  --mobile-nav-item-disabled: #f1f4f947;
   --modal-background-color: var(--secondary-bg-color);
   --modal-border-color: var(--accent-color);
   --modal-text-color: var(--text-color-light);
@@ -60,12 +61,12 @@
   --mobile-nav-item-select: #7ec3ff;
   --nav-bg-color: #d2e5f3;
   --nav-btn-bg-color: var(--nav-bg-color);
-  --nav-item-select: #1a609d;
+  --nav-item-select: #09467c;
   --overlay-color: rgba(0, 0, 0, 0.9);
   --primary-text-color: var(--text-color-dark);
   --secondary-bg-color: #3e424a;
   --secondary-text-color: var(--text-color-light);
-  --social-link-color: var(--text-color-light);
+  --social-link-color: #00173d;
 }
 
 /* ------------------------------------- CSS reset */
@@ -245,19 +246,6 @@ button:not(:disabled) {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-/* ----------- Theme Transition */
-
-.theme-transition:not(
-    btn:active,
-    .button.theme-transition:hover,
-    :focus-visible
-  ),
-.theme-transition::after {
-  -webkit-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
 }
 
 /* ----------- Cube New Edit Delete Btns */
@@ -588,10 +576,6 @@ input[name="password"] {
   -ms-flex-align: center;
   align-items: center;
   border: 1px solid var(--primary-bg-color);
-  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -904,7 +888,7 @@ input[type="radio"]:checked + label {
 
 .add-remove-resource {
   background-color: transparent;
-  color: var(--nav-item-select);
+  color: var(--accent-color);
   cursor: pointer;
   font-size: 0.8rem;
   margin-left: 3px;
