@@ -82,6 +82,8 @@
   transition: transform 1s;
   transition: transform 1s, -webkit-transform 1s;
   width: 100%;
+  will-change: -webkit-transform;
+  will-change: transform;
 }
 
 /* Rotation need to rotate entire cube to a certain face, from the original cube position */
@@ -94,16 +96,16 @@
   transform: rotateY(-180deg);
 }
 .study-cube.Visual {
-  -webkit-transform: rotateX(-90deg);
-  transform: rotateX(-90deg);
+  -webkit-transform: rotateX(270deg);
+  transform: rotateX(270deg);
 }
 .study-cube.Links {
   -webkit-transform: rotateX(90deg);
   transform: rotateX(90deg);
 }
 .study-cube.Notes {
-  -webkit-transform: rotateY(90deg);
-  transform: rotateY(90deg);
+  -webkit-transform: rotateY(-270deg);
+  transform: rotateY(-270deg);
 }
 .study-cube.Hint {
   -webkit-transform: rotateY(-90deg);
@@ -138,15 +140,20 @@
 
 .face-title {
   border-bottom: 1px solid var(--primary-text-color);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-size: 6vmin;
   font-weight: bold;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
   line-height: 1.4;
   margin: 0 0 40px;
 }
 
 .face-group {
+  -webkit-filter: blur(0);
   filter: blur(0);
   height: 100%;
   padding: 60px;
@@ -221,8 +228,8 @@ ul.face-content {
 }
 
 .blur {
-  -webkit-filter: blur(40px);
-  filter: blur(40px);
+  -webkit-filter: blur(8px);
+  filter: blur(8px);
 }
 
 .face-not-focused {
@@ -302,6 +309,12 @@ ul.face-content {
   .face-title {
     margin: 0 0 20px;
   }
+
+  .blur {
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+  }
+
   /* 
   .study-cube.Question {
     -webkit-transform: rotateY(359.999deg);
