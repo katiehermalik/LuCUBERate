@@ -92,16 +92,16 @@
   rotate: y 0.5turn;
 }
 .study-cube.Visual {
-  rotate: x 0.75turn;
+  rotate: x -0.25turn;
 }
 .study-cube.Links {
-  rotate: x 0.25turn;
+  rotate: x -0.75turn;
 }
 .study-cube.Notes {
-  rotate: y -0.75turn;
+  rotate: y 0.25turn;
 }
 .study-cube.Hint {
-  rotate: y -0.25turn;
+  rotate: y 0.75turn;
 }
 
 /* ----------------------------------------------- Cube Faces */
@@ -314,31 +314,24 @@ ul.face-content {
     filter: blur(3px);
   }
 
-  /* 
   .study-cube.Question {
-    -webkit-transform: rotateY(359.999deg);
-    transform: rotateY(359.999deg);
+    rotate: y 0turn;
   }
   .study-cube.Answer {
-    -webkit-transform: rotateY(-179.999deg);
-    transform: rotateY(-179.999deg);
+    rotate: y 0.5turn;
   }
   .study-cube.Visual {
-    -webkit-transform: rotateX(-809.999deg);
-    transform: rotateX(-809.999deg);
+    rotate: x -1.25turn;
   }
   .study-cube.Links {
-    -webkit-transform: rotateX(809.999deg);
-    transform: rotateX(809.999deg);
+    rotate: x -1.75turn;
   }
   .study-cube.Notes {
-    -webkit-transform: rotateY(449.999deg);
-    transform: rotateY(449.999deg);
+    rotate: y 0.25turn;
   }
   .study-cube.Hint {
-    -webkit-transform: rotateY(-449.999deg);
-    transform: rotateY(-449.999deg);
-  } */
+    rotate: y 0.75turn;
+  }
 }
 
 @media screen and (max-width: 280px) {
