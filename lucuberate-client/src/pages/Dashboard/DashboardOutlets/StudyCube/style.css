@@ -313,25 +313,6 @@ ul.face-content {
     -webkit-filter: blur(3px);
     filter: blur(3px);
   }
-
-  .study-cube.Question {
-    rotate: y 0turn;
-  }
-  .study-cube.Answer {
-    rotate: y 0.5turn;
-  }
-  .study-cube.Visual {
-    rotate: x -1.25turn;
-  }
-  .study-cube.Links {
-    rotate: x -1.75turn;
-  }
-  .study-cube.Notes {
-    rotate: y 0.25turn;
-  }
-  .study-cube.Hint {
-    rotate: y 0.75turn;
-  }
 }
 
 @media screen and (max-width: 280px) {
