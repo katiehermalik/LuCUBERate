@@ -329,17 +329,22 @@
   align-items: center;
 }
 
-.warning p {
+.warning span:first-of-type:not(.toggle-info) {
   font-size: 14px !important;
   margin-bottom: 0;
   border-left: 1px solid var(--accent-color);
   padding: 10px;
 }
 
-.warning p > p {
+.warning-more-info {
   border-left: none;
+  display: block;
   padding: 0 10px;
   margin: 10px;
+}
+
+.warning span {
+  display: block;
 }
 
 /* ---------------------- Media Queries -------------------- */

@@ -184,18 +184,20 @@ const Landing = () => {
               </p>
               <p className="warning mobile-hidden">
                 <AlertFillIcon size={16} />
-                <p>
+                <span>
                   <b>Warning: </b>This website uses spinning animations that may
                   cause discomfort in users with vestibular motion disorders.
                   Users may wish to enable the "reduce motion" feature on their
                   device before using any website that has animations.
                   {showRMInfo ? (
                     <>
-                      <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                      <span
+                        className="toggle-info"
+                        onClick={() => setShowRMInfo(!showRMInfo)}>
                         <b>Show less</b>
                         <ChevronDownIcon size={16} />
-                      </div>
-                      <p>
+                      </span>
+                      <span className="warning-more-info">
                         The "reduce motion" feature can typically be found in
                         the accessibility settings of most devices, and it can
                         significantly reduce the amount of motion on websites
@@ -203,15 +205,17 @@ const Landing = () => {
                         are replaced with simpler, static images, which can be
                         much easier for users with vestibular disorders to view
                         without experiencing discomfort.
-                      </p>
+                      </span>
                     </>
                   ) : (
-                    <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                    <span
+                      className="toggle-info"
+                      onClick={() => setShowRMInfo(!showRMInfo)}>
                       <b>Show more</b>
                       <ChevronRightIcon size={16} />
-                    </div>
+                    </span>
                   )}
-                </p>
+                </span>
               </p>
               <p className="mobile-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
             </div>
@@ -307,18 +311,20 @@ const Landing = () => {
               <hr className="desktop-hidden"></hr>
               <p className="warning desktop-hidden">
                 <AlertFillIcon size={16} />
-                <p>
+                <span>
                   <b>Warning: </b>This website uses spinning animations that may
                   cause discomfort in users with vestibular motion disorders.
                   Users may wish to enable the "reduce motion" feature on their
                   device before using any website that has animations.
                   {showRMInfo ? (
                     <>
-                      <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                      <span
+                        className="toggle-info"
+                        onClick={() => setShowRMInfo(!showRMInfo)}>
                         <b>Show less</b>
                         <ChevronDownIcon size={16} />
-                      </div>
-                      <p>
+                      </span>
+                      <span className="warning-more-info">
                         The "reduce motion" feature can typically be found in
                         the accessibility settings of most devices, and it can
                         significantly reduce the amount of motion on websites
@@ -326,15 +332,17 @@ const Landing = () => {
                         are replaced with simpler, static images, which can be
                         much easier for users with vestibular disorders to view
                         without experiencing discomfort.
-                      </p>
+                      </span>
                     </>
                   ) : (
-                    <div onClick={() => setShowRMInfo(!showRMInfo)}>
+                    <span
+                      className="toggle-info"
+                      onClick={() => setShowRMInfo(!showRMInfo)}>
                       <b>Show more</b>
                       <ChevronRightIcon size={16} />
-                    </div>
+                    </span>
                   )}
-                </p>
+                </span>
               </p>
               <p className="copyright desktop-hidden">{`Copyright \u00A9 ${new Date().getFullYear()} Katie Hermalik`}</p>
             </div>
