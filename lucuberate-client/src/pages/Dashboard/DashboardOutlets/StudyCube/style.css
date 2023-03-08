@@ -88,8 +88,8 @@
 
 /* Rotation need to rotate entire cube to a certain face, from the original cube position */
 .study-cube.Question {
-  -webkit-transform: rotateY(0deg);
-  transform: rotateY(0deg);
+  -webkit-transform: rotateY(-360deg);
+  transform: rotateY(-360deg);
 }
 .study-cube.Answer {
   -webkit-transform: rotateY(180deg);
