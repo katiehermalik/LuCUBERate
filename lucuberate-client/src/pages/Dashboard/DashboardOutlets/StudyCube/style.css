@@ -161,7 +161,8 @@
 .face-content {
   font-size: clamp(1rem, 3.1vmin, 2rem);
   max-height: 70%;
-  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
   position: relative;
   text-align: left;
   white-space: pre-line;
