@@ -92,8 +92,8 @@
   transform: rotateY(0deg);
 }
 .study-cube.Answer {
-  -webkit-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 .study-cube.Visual {
   -webkit-transform: rotateX(270deg);
