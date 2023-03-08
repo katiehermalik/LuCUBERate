@@ -47,7 +47,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar container-row theme-transition"
+      className="navbar container-row"
       style={{
         position: `${pathname === "/" ? "absolute" : ""}`,
         top: `${pathname === "/" ? "0" : ""}`,
@@ -73,7 +73,7 @@ const Navbar = () => {
             <button
               onClick={() => navigate("/")}
               title="Settings"
-              className={`btn navbar-item theme-transition mobile-hidden ${
+              className={`btn navbar-item mobile-hidden ${
                 pathname === "/" ? "selected" : ""
               }`}>
               <HomeIcon size={16} />
@@ -83,7 +83,7 @@ const Navbar = () => {
               disabled={currentPage === "dashboard"}
               onClick={() => navigate("/dashboard")}
               title="Settings"
-              className={`btn navbar-item theme-transition mobile-hidden ${
+              className={`btn navbar-item mobile-hidden ${
                 currentPage === "dashboard" ? "selected" : ""
               }`}>
               <PackageIcon size={16} />
@@ -91,11 +91,11 @@ const Navbar = () => {
             </button>
             <div
               ref={userBtnRef}
-              className="container-row dropdown theme-transition">
+              className="container-row dropdown">
               <button
                 onClick={toggleUserMenu}
                 title="Settings"
-                className="btn navbar-item username theme-transition dropbtn">
+                className="btn navbar-item username dropbtn">
                 <PersonFillIcon size={16} />
                 {showUserMenu ? (
                   <ChevronDownIcon size={16} />
@@ -104,17 +104,17 @@ const Navbar = () => {
                 )}
               </button>
               {showUserMenu && (
-                <div className="dropdown-content theme-transition">
-                  <div className="dropdown-item theme-transition">
+                <div className="dropdown-content">
+                  <div className="dropdown-item">
                     Signed in as
                     <br />
                     &nbsp;&nbsp;&nbsp;{user.username}
                   </div>
-                  <div className="dropdown-item theme-transition">
+                  <div className="dropdown-item">
                     <label htmlFor="theme-switch">Theme</label>
                     <ThemeSwitch />
                   </div>
-                  <div className="dropdown-item theme-transition">
+                  <div className="dropdown-item">
                     <Logout setShowUserMenu={setShowUserMenu} />
                   </div>
                 </div>

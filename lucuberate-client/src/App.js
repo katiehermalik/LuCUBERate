@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <div
-      className={`app theme-transition container-column ${
+      className={`app container-column ${
         theme === "dark" ? "dark" : "light"
       }`}
       style={{

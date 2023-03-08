@@ -263,7 +263,7 @@ const EditCube = () => {
 
   return (
     <div className="form-container container-column">
-      <div className="instructions container-column theme-transition">
+      <div className="instructions container-column">
         <h1 className="form-title">
           <span className="force-line-break">Edit this&nbsp;</span>
           <span className="force-line-break">Study Cube</span>
@@ -675,7 +675,7 @@ const EditCube = () => {
               name="visual_aid"
               onChange={checkFileExtention}
             />
-            <label className="btn theme-transition" htmlFor="inputVisual">
+            <label className="btn" htmlFor="inputVisual">
               {visual_aid ? "Upload New" : "Upload"}
             </label>
             {new_visual_aid && visualAidError && (

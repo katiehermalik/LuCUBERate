@@ -34,7 +34,7 @@ const CategoryCtrls = ({
   return (
     <>
       {currentCategory === categoryId ? (
-        <div className="category-item category-btn-cover theme-transition">
+        <div className="category-item category-btn-cover">
           <span className="category-title">{`${categoryTitle}`}</span>
           <div className="container-row pointer-disabled">
             <CubeCount categoryCubeLength={cubeListLength} />
@@ -58,7 +58,7 @@ const CategoryCtrls = ({
           </div>
         </div>
       ) : (
-        <div className="category-item category-btn-cover theme-transition">
+        <div className="category-item category-btn-cover">
           <span className="category-title">{`${categoryTitle}`}</span>
           <div className="container-row pointer-disabled">
             <CubeCount categoryCubeLength={cubeListLength} />

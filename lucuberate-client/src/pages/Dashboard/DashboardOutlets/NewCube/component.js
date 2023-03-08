@@ -170,7 +170,7 @@ const NewCube = () => {
 
   return (
     <div className="form-container container-column">
-      <div className="instructions container-column theme-transition">
+      <div className="instructions container-column">
         <h1 className="form-title">
           <span className="force-line-break">Create a New&nbsp;</span>
           <span className="force-line-break">Study Cube</span>
@@ -580,7 +580,7 @@ const NewCube = () => {
               name="visual_aid"
               onChange={checkFileExtention}
             />
-            <label className="btn theme-transition" htmlFor="inputVisual">
+            <label className="btn" htmlFor="inputVisual">
               Upload
             </label>
             {visual_aid && visualAidError && (

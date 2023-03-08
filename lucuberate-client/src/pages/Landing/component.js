@@ -60,9 +60,7 @@ const Landing = () => {
           <LandingCanvas user={user} />
         </div>
         <section
-          className={`learn-more section theme-transition ${
-            user ? "mobile-nav-is-shown" : ""
-          }`}>
+          className={`learn-more section ${user ? "mobile-nav-is-shown" : ""}`}>
           <div className="section-content">
             <div className="sign-up-cta">
               <h3>Let us help you achieve your academic goals!</h3>
@@ -96,7 +94,7 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <section className="about-app section theme-transition">
+      <section className="about-app section">
         <div className="section-content">
           <img
             src="/sneak_peek.png"
@@ -120,7 +118,7 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <section className="start-studying section theme-transition">
+      <section className="start-studying section">
         <div className="section-content">
           {!user ? (
             <>
@@ -147,7 +145,7 @@ const Landing = () => {
           )}
         </div>
       </section>
-      <section className="about-developer section theme-transition">
+      <section className="about-developer section">
         <div className="section-content">
           <h3>About the developer</h3>
           <p>
@@ -174,9 +172,7 @@ const Landing = () => {
         </div>
       </section>
       <footer
-        className={`contact section theme-transition ${
-          user ? "mobile-nav-is-shown" : ""
-        }`}>
+        className={`contact section ${user ? "mobile-nav-is-shown" : ""}`}>
         <div className="section-content">
           <h3>Contact us</h3>
           <div className="copy-container ">
@@ -227,7 +223,7 @@ const Landing = () => {
                   rel="noopener noreferrer"
                   target="_blank"
                   href="mailto:support@lucuberate.com">
-                  support@lucuberate.com
+                  <b>support@lucuberate.com</b>
                 </a>
               </p>
               <p>
@@ -237,7 +233,7 @@ const Landing = () => {
                   rel="noopener noreferrer"
                   target="_blank"
                   href="mailto:khermalik@gmail.com">
-                  khermalik@gmail.com
+                  <b>khermalik@gmail.com</b>
                 </a>
               </p>
               <div>

@@ -26,7 +26,7 @@ const ShuffleCubes = ({ changeCubeListOpacity, setCategoryWasShuffled }) => {
 
   return (
     <button
-      className="btn select-action-btn category-action-btn theme-transition"
+      className="btn select-action-btn category-action-btn"
       type="button"
       onClick={handleShuffleCubes}
       title="Shuffle Cubes"

@@ -318,7 +318,7 @@ const CategoryAndCubeList = () => {
                 },
                 i
               ) => (
-                <div className="cube-list theme-transition" key={categoryId}>
+                <div className="cube-list" key={categoryId}>
                   <div className="category-container">
                     <CategoryCtrls
                       setCategoryWasShuffled={setCategoryWasShuffled}
@@ -333,7 +333,7 @@ const CategoryAndCubeList = () => {
                       tabIndex="0"
                       onClick={handleCategoryClick}
                       type="button"
-                      className="category-item category-btn theme-transition"
+                      className="category-item category-btn"
                       value={categoryTitle}
                       title={categoryTitle}
                       id={categoryId}

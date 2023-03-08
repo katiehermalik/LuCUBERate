@@ -16,7 +16,7 @@ const ViewQuestionsToggle = () => {
 
   return (
     <button
-      className="btn select-action-btn category-action-btn theme-transition"
+      className="btn select-action-btn category-action-btn"
       type="button"
       onClick={toggleQuestions}
       title={questionsAreVisible ? "Hide Questions" : "Show Questions"}

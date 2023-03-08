@@ -39,12 +39,12 @@ const StudyCube = ({ cubeIsLoading }) => {
       ) : (
         <>
           <div className="cube-page-container container-column">
-            <div className="cube-ctrl-group container-row theme-transition">
+            <div className="cube-ctrl-group container-row">
               <fieldset className="radio-face-group">
                 <legend hidden>
                   Select wich side of the cube you would like to view
                 </legend>
-                <ul className="cube-face-list theme-transition">
+                <ul className="cube-face-list">
                   {sides.map((side, i) => (
                     <li key={`list-item${side}`} className="radio-button">
                       <input
@@ -78,7 +78,7 @@ const StudyCube = ({ cubeIsLoading }) => {
               <div className="cube-area">
                 <div className="cube-container">
                   <div className={`study-cube ${side}`}>
-                    <div className="face Question theme-transition">
+                    <div className="face Question">
                       <div
                         className={`face-title ${
                           side === "Question" || side === ""
@@ -86,7 +86,7 @@ const StudyCube = ({ cubeIsLoading }) => {
                             : "blur pointer-disabled"
                         }`}>
                         Question
-                        <hr className="theme-transition" />
+                        <hr />
                       </div>
                       {cube.question && (
                         <div
@@ -99,13 +99,13 @@ const StudyCube = ({ cubeIsLoading }) => {
                         </div>
                       )}
                     </div>
-                    <div className="face Answer theme-transition">
+                    <div className="face Answer">
                       <div
                         className={`face-title ${
                           side === "Answer" ? "" : "blur pointer-disabled"
                         }`}>
                         Answer
-                        <hr className="theme-transition" />
+                        <hr />
                       </div>
                       {cube.answer && (
                         <div
@@ -118,13 +118,13 @@ const StudyCube = ({ cubeIsLoading }) => {
                         </div>
                       )}
                     </div>
-                    <div className="face Hint theme-transition">
+                    <div className="face Hint">
                       <div
                         className={`face-title ${
                           side === "Hint" ? "" : "blur pointer-disabled"
                         }`}>
                         Hint
-                        <hr className="theme-transition" />
+                        <hr />
                       </div>
                       {cube.hint && (
                         <div
@@ -137,13 +137,13 @@ const StudyCube = ({ cubeIsLoading }) => {
                         </div>
                       )}
                     </div>
-                    <div className="face Notes theme-transition">
+                    <div className="face Notes">
                       <div
                         className={`face-title ${
                           side === "Notes" ? "" : "blur pointer-disabled"
                         }`}>
                         Notes
-                        <hr className="theme-transition" />
+                        <hr />
                       </div>
                       {cube.notes && (
                         <div
@@ -156,19 +156,24 @@ const StudyCube = ({ cubeIsLoading }) => {
                         </div>
                       )}
                     </div>
-                    <div className="face Visual theme-transition">
+                    <div className="face Visual">
                       <div
                         className={`face-title ${
                           side === "Visual Aid" ? "" : "blur pointer-disabled"
                         }`}>
                         Visual Aid
-                        <hr className="theme-transition" />
+                        <hr />
                       </div>
                       {cube.visual_aid && (
                         <a
                           download={cube.visual_aid_url}
                           href={cube.visual_aid_url}
-                          title="Download image">
+                          title="Download image"
+                          className={`face-content ${
+                            side === "Visual Aid"
+                              ? ""
+                              : "blur pointer-disabled face-not-focused"
+                          }`}>
                           <img
                             src={cube.visual_aid_url}
                             alt="visual aid"
@@ -181,13 +186,13 @@ const StudyCube = ({ cubeIsLoading }) => {
                         </a>
                       )}
                     </div>
-                    <div className="face Links theme-transition">
+                    <div className="face Links">
                       <div
                         className={`face-title ${
                           side === "Links" ? "" : "blur pointer-disabled"
                         }`}>
                         Links
-                        <hr className="theme-transition" />
+                        <hr />
                       </div>
                       {(cube.link_1.url ||
                         cube.link_2.url ||

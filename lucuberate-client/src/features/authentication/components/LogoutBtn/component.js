@@ -40,7 +40,7 @@ const LogoutBtn = ({ setShowUserMenu }) => {
   return (
     <button
       onClick={handleSubmit}
-      className="btn navbar-item logout-btn theme-transition"
+      className="btn navbar-item logout-btn"
       type="submit"
       title="log out">
       Log Out&ensp;
