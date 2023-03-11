@@ -26,10 +26,11 @@
 }
 
 .section-content h3:not(.bounce h3) {
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .cube-scene {
+  background: -o-linear-gradient(left, rgba(0, 0, 0, 0.7), rgba(255, 0, 0, 0));
   background: -webkit-gradient(
     linear,
     left top,
@@ -37,7 +38,6 @@
     from(rgba(0, 0, 0, 0.7)),
     to(rgba(255, 0, 0, 0))
   );
-  background: -o-linear-gradient(left, rgba(0, 0, 0, 0.7), rgba(255, 0, 0, 0));
   background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(255, 0, 0, 0));
   display: -webkit-box;
   display: -ms-flexbox;
@@ -84,7 +84,7 @@
 }
 
 .tagline {
-  font-size: 20px;
+  font-size: 26px;
   line-height: 40px;
 }
 
@@ -133,6 +133,9 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  height: 100%;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
 }
 
 .learn-more,
@@ -144,12 +147,6 @@
 .celebrate,
 .about-developer {
   background-color: var(--nav-bg-color);
-}
-
-.sign-up-cta {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 @-webkit-keyframes bounce {
@@ -190,6 +187,10 @@
   }
 }
 
+.section-content h3:not(.bounce h3) {
+  font-size: 28px;
+}
+
 .bounce {
   opacity: 1;
   -webkit-animation: bounce 2s infinite;
@@ -200,6 +201,10 @@
   text-align: center;
 }
 
+.bounce h3 {
+  font-size: 26px;
+}
+
 .bounce .bounce.hide {
   -webkit-animation: none;
   animation: none;
@@ -208,7 +213,7 @@
 .learn-more .sign-up-btn,
 .start-studying .sign-up-btn {
   border-radius: 50px;
-  font-size: 20px;
+  font-size: 16px;
   padding: 20px;
   height: 30px;
   display: -webkit-box;
@@ -229,7 +234,19 @@
 }
 
 .sign-up-cta {
-  margin-bottom: 60px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.sign-up-cta h3 {
+  margin-bottom: 0;
 }
 
 .about-app img {
@@ -323,9 +340,13 @@
   border-left-width: 6px;
   padding: 0 20px;
   border-radius: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-size: 14px !important;
   gap: 20px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -359,6 +380,10 @@
     padding: 60px;
   }
 
+  .section-content h3:not(.bounce h3) {
+    margin-bottom: 20px;
+  }
+
   .learn-more .section-content {
     height: 100%;
     -webkit-box-pack: space-evenly;
@@ -380,6 +405,10 @@
     justify-content: flex-start;
     margin-top: 40px;
     padding: 40px 40px 40px 60px;
+  }
+
+  .tagline {
+    font-size: 22px;
   }
 
   .fun-fact {
@@ -418,11 +447,10 @@
     margin-left: 0;
     margin-top: 40px;
   }
-
   .learn-more .sign-up-btn,
   .start-studying .sign-up-btn {
-    font-size: 16px;
     margin: 0;
+    font-size: 16px;
   }
 }
 
@@ -437,6 +465,8 @@
   }
 
   .section-content h3:not(.bounce h3) {
+    font-size: 16px;
+    margin-bottom: 20px;
     max-width: 300px;
   }
 
@@ -487,8 +517,18 @@
     height: -moz-max-content;
     height: max-content;
     padding: 10px;
-    right: 30px;
+    left: 0;
+    right: 0;
+    margin: auto;
     width: 260px;
+  }
+
+  .learn-more .sign-up-btn,
+  .start-studying .sign-up-btn {
+    margin: 0;
+    font-size: 14px;
+    height: 30px;
+    padding: 18px 15px;
   }
 
   .sign-up-cta {
