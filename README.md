@@ -2,6 +2,8 @@
 
 ( lu•cuber•ate ) is a study app that leverages the convenience of a flash card into a third dimension. We allow more space and freedom for the unique ways in which you learn. Traditional flash cards can be monotonous and difficult to remember. That's why we've created an innovative platform that uses 3D flash cubes instead of flash cards to make studying more fun and engaging. With six sides to each cube, you'll be able to add notes, hints, visual aids, and links to resources, providing a more complete and immersive learning experience for everyone.
 
+Psst... our name is inspired by the word lucubrate (lu•cu•brate), which means: to write or study, especially by night.
+
 ## Index
 - [Features](#features)
 - [Getting Started](#getting-started)
@@ -66,5 +68,3 @@ Lucuberate was built using the following technologies:
 * Aws-sdk/cloudfront-signer
 * Mongoose
 * Express-Session
-
-
