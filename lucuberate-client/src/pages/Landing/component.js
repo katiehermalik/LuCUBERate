@@ -33,7 +33,7 @@ const Landing = () => {
               <h1 className="brand-name">LUCUBERATE</h1>
               <h3 className="tagline">
                 &#40;&nbsp;lu•cuber•ate&nbsp;&#41; is a study app that leverages
-                the convience of a flash card into a third dimension. We allow
+                the convenience of a flash card into a third dimension. We allow
                 more space and freedom for the unique ways in which&nbsp;
                 <u>
                   <b>you</b>
