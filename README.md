@@ -1,69 +1,70 @@
+# Lucuberate
 
-
-# LuCUBERate
-
-LuCUBERate leverages the convenience of a flash card into a third dimension. We allow more space and freedom for the way that you learn.
-Our name LuCUBERate is a play on the word 'lucubrate', which means to write or study, especially by night.
-
-This project was bootstrapped with Create React App.
+( lu•cuber•ate ) is a study app that leverages the convenience of a flash card into a third dimension. We allow more space and freedom for the unique ways in which you learn. Traditional flash cards can be monotonous and difficult to remember. That's why we've created an innovative platform that uses 3D flash cubes instead of flash cards to make studying more fun and engaging. With six sides to each cube, you'll be able to add notes, hints, visual aids, and links to resources, providing a more complete and immersive learning experience for everyone.
 
 ## Index
-- [User Stories](#user-stories)
-- [ERD](#erd)
-- [Wireframes](#wireframes)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
 - [Technologies Used](#technologies-used)
 
-## User Stories
-* User will land on splash page and be able to sign up or login using links on nav bar in upper right hand corner of the screen.
-* User may interact with cube in 3d background. When user hovers over cube, cube will change color slightly, giving user a hint to the interactive scene. User can click and drag to move the cube around.
-* Once user has signed up or logged in, user will be directed to the dashboard and will be prompted to add a new cube (if they have no cubes saved), or to select a cube if they already have some populated in the list on the left side of the screen.
-* User can add a new cube by clicking on the 'New Cube' button in the upper left corner of the screen. This button will make a form appear on the dashboard and the input fields will have placeholders prompting the user to fill out each side of the cube.
-* Once the form has been submitted, the new cube will be added to the cube list and the user will be redirected to that cube's show page.
-* While on a cube's show page, User is able to interact with the cube by clicking on the radio button on the top of the screen in order to navigate to the different faces of the cube.
-* While on a face of a cube, user can hover on the face to make the face opaque and easier to read.
-* While on the 'Visual Aid' side of the cube, user will be able to hover over the image in order to expand it.
-* The link on the 'Link' side of the cube, will open in a new browser tab when the user clicks on it.
-* User can edit or delete the cube by clicking the buttons in the upper right corner of the page.
-* When the user clicks on the edit button, a form that is pre-populated with that cube's info will be presented. Once edits are made and the form has been submitted, the user will be redirected to that cube's show page.
-* When the user clicks on the delete button, the user will be prompted to make sure the user actually intends to delete the cube. If the user deletes the cube, the user will be redirected to the dashboard and will be prompted to select or make another cube.
-* User can navigate through the cubes using the list on the left side of the page. When a user navigates to a different cube, the cube will spin back to the face of the cube that contains the question.
-* User can navigate back to the splash page while logged in by clicking on the brand name in the upper left corner. While logged in, a 'dashboard' button will be present in the navbar on the splash page to take the user back to the dashboard.
-* User can logout with the button in the upper right corner of the page.
+## Features
 
-## ERD
-![image](lucuberate-client/src/images/erd.png)
+* Create custom flash cubes with question, answer, visual aid, links, hints, and notes
+* Organize your cubes into custom categories for easy access
+* Edit or delete cubes as needed
+* Shuffle cubes within a category
+* Show or hide cube questions in cube lists
+* Dark mode and light mode options for preference
 
-## Wireframes
+## Getting Started
+To use Lucuberate, simply visit the site [lucuberate.com](https://www.lucuberate.com) and create an account. From there, you can start creating your own flash cubes with your own information and organize your cubes into custom categories for easy access.
 
-![Landing](lucuberate-client/src/images/wireframes/01_Landing.png)
-![Login](lucuberate-client/src/images/wireframes/02_LoginModal.png)
-![Dashboard](lucuberate-client/src/images/wireframes/04_Home.png)
-![Cube](lucuberate-client/src/images/wireframes/05_index.png)
-![NewCube](lucuberate-client/src/images/wireframes/06_New.png)
-![Delete](lucuberate-client/src/images/wireframes/08_index.png)
-![DarkMode](lucuberate-client/src/images/wireframes/09_indexDarkMode.png)
+## Usage
+### Authentication
+To use Lucuberate, you need to create an account. For convenience, there is an option to authenticate with your Google account using OAuth 2.0. Just click on the "Sign in with Google'' button and follow the prompts.
+
+### Creating Flash Cubes
+To create a new flash cube, click on the "Create New Cube" button and enter your information. You can add text, links, and even images to your cubes to make them more engaging.
+
+### Organizing Cubes
+To organize your cubes, select a category for the cube while creating a new cube or editing an existing cube. In the select category dropdown, you also have the option of creating a "New Category". Simply save the cube and the new category will be created. You can then add your cubes to this category, making it easier to find them later. You can also move cubes from one category to another if needed.
+
+### Editing and Deleting Cubes
+To edit a cube, simply click on the "Edit" button to the right of the cube in the cube list while the cube is selected. Make any changes you need and save the cube. To delete a cube, click on the "Delete" button found next to the "Edit" button and confirm the deletion.
+
+### Shuffling Cubes
+To shuffle the cubes within a category, click on the "Shuffle" button on the category. This will randomize the order of the cubes within the category.
+
+### Show or Hide Cube Questions
+By default, cube questions are hidden in the cube list. To display the questions, click on the "Show/Hide Questions" button. To hide the questions again, toggle the same button.
+
+### Switching Between Dark Mode and Light Mode
+To switch between dark mode and light mode, click on the "Account" button in the upper right-hand corner and toggle the mode you prefer.
 
 ## Technologies Used
+
+Lucuberate was built using the following technologies:
 
 ### Main Stack
 * MongoDB
 * Express
 * React
-* Node.js
+* Node
 
-### Back End Dependencies
-* Mongoose
-* Express-Session
-* Bcrypt
-* Cors
-
-
-### Front End Dependencies
+### Front-end Dependencies
+* React
 * React-Router-DOM
 * Three.js
-* React-Three-Fiber
+* React-Three/Fiber
+* React-Three/Drei
 * React-Spring
-* Drei
+* primer/octicons-react
 
+### Back-end Dependencies
+* Aws-sdk/client-s3
+* Aws-sdk/cloudfront-signer
+* Mongoose
+* Express-Session
 
 
