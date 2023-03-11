@@ -6,7 +6,7 @@
   color: var(--text-color-light);
   font-weight: bold;
   -ms-flex-preferred-size: 50px;
-  min-height: 50px;
+  min-height: 60px;
   padding: 0 5px;
   width: 100%;
   z-index: 6;
@@ -24,13 +24,15 @@
   -ms-flex-align: center;
   align-items: center;
   background-color: transparent;
+  border-radius: 50px;
   color: var(--primary-text-color);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-size: 14px;
+  font-size: 16px;
+  height: 42px;
   margin: 0 5px;
-  padding: 4px 16px;
+  padding: 20px;
 }
 
 .btn.navbar-item.selected {
@@ -74,7 +76,7 @@
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
-  margin-right: 55px;
+  padding: 20px 55px 0 0;
   max-width: 1440px;
   width: 100%;
 }
@@ -96,11 +98,11 @@
   border-right: none;
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  margin-top: 50px;
+  margin-top: 60px;
   min-width: 160px;
   position: absolute;
-  right: 0;
   top: 0;
+  right: 0;
   z-index: 10;
 }
 
@@ -138,6 +140,7 @@
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
+    min-height: 50px;
   }
 
   .navbar-item {
@@ -146,8 +149,9 @@
   }
 
   .btn.navbar-item {
+    font-size: 14px;
     height: 30px;
-    padding: 0px 10px;
+    padding: 18px 15px;
   }
 
   .navbar-item.about-dash {
@@ -171,11 +175,11 @@
     padding: 0;
   }
 
-  .dropdown-item {
-    font-size: 12px;
+  .dropdown-content {
+    margin-top: 50px;
   }
 
   .auth-btns-container div {
-    margin-right: 15px;
+    padding: 10px 5px 0 0;
   }
 }
