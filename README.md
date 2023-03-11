@@ -30,7 +30,7 @@ To use Lucuberate, you need to create an account. For convenience, there is an o
 To create a new flash cube, click on the "Create New Cube" button and enter your information. You can add text, links, and even images to your cubes to make them more engaging.
 
 ### Organizing Cubes
-To organize your cubes, select a category for the cube while creating a new cube or editing an existing cube. In the select category dropdown, you also have the option of creating a "New Category". Simply save the cube and the new category will be created. You can then add your cubes to this category, making it easier to find them later. You can also move cubes from one category to another if needed.
+To organize your cubes, select a category for the cube while creating a new cube or editing an existing cube. In the select a category dropdown, you also have the option of creating a "New Category". Simply save the cube and the new category will be created. You can then add your cubes to this category, making it easier to find them later. You can also move cubes from one category to another if needed.
 
 ### Editing and Deleting Cubes
 To edit a cube, simply click on the "Edit" button to the right of the cube in the cube list while the cube is selected. Make any changes you need and save the cube. To delete a cube, click on the "Delete" button found next to the "Edit" button and confirm the deletion.
