@@ -21,6 +21,8 @@
 }
 
 .list-footer a {
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 
@@ -28,6 +30,6 @@
 
 @media screen and (max-width: 720px) {
   .list-footer {
-    border-right: none;
+    display: none !important;
   }
 }
