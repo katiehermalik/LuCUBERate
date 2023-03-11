@@ -36,13 +36,13 @@ To organize your cubes, select a category for the cube while creating a new cube
 To edit a cube, simply click on the "Edit" button to the right of the cube in the cube list while the cube is selected. Make any changes you need and save the cube. To delete a cube, click on the "Delete" button found next to the "Edit" button and confirm the deletion.
 
 ### Shuffling Cubes
-To shuffle the cubes within a category, click on the "Shuffle" button on the category. This will randomize the order of the cubes within the category.
+To shuffle the cubes within a category, click on the "Shuffle" button on any category with more than one cube in it. This will randomize the order of the cubes within the category.
 
 ### Show or Hide Cube Questions
 By default, cube questions are hidden in the cube list. To display the questions, click on the "Show/Hide Questions" button. To hide the questions again, toggle the same button.
 
 ### Switching Between Dark Mode and Light Mode
-To switch between dark mode and light mode, click on the "Account" button in the upper right-hand corner and toggle the mode you prefer.
+To switch between dark mode and light mode, click on the "Account" button in the top right-hand corner and toggle the mode you prefer.
 
 ## Technologies Used
 
