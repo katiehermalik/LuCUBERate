@@ -41,6 +41,7 @@ const SignUpModal = ({
     username: "",
     email: "",
     password: "",
+    usernameExistsError: "",
     usernameError: "",
     emailExistsError: "",
     emailValidationError: "",
@@ -53,6 +54,7 @@ const SignUpModal = ({
       username: "",
       email: "",
       password: "",
+      usernameExistsError: "",
       usernameError: "",
       emailExistsError: "",
       emailValidationError: "",
@@ -77,13 +79,15 @@ const SignUpModal = ({
     const {
       userData,
       isAuth,
+      usernameExistsError,
+      usernameError,
       emailExistsError,
       emailValidationError,
       passwordError,
-      usernameError,
     } = userInfo;
     setNewUserInfo(prevState => ({
       ...prevState,
+      usernameExistsError: usernameExistsError ? usernameExistsError : "",
       usernameError: usernameError ? usernameError : "",
       emailExistsError: emailExistsError ? emailExistsError : "",
       emailValidationError: emailValidationError ? emailValidationError : "",
@@ -106,6 +110,7 @@ const SignUpModal = ({
         username: "",
         email: "",
         password: "",
+        usernameExistsError: "",
         usernameError: "",
         emailExistsError: "",
         emailValidationError: "",
@@ -185,6 +190,11 @@ const SignUpModal = ({
                       maxLength="20"
                       required
                     />
+                    {newUserInfo.usernameExistsError && (
+                      <p style={errorStyle}>
+                        {newUserInfo.usernameExistsError}
+                      </p>
+                    )}
                     {newUserInfo.usernameError && (
                       <p style={errorStyle}>{newUserInfo.usernameError}</p>
                     )}

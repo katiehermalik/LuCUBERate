@@ -46,6 +46,7 @@ passport.use(
         }
       } else if (req.body.isRegistering) {
         let signupData = {};
+        const { username } = req.body;
         const addNewUserCategories = async newUser => {
           const newCategories = seedData.categories.map(category => ({
             ...category,
@@ -80,10 +81,13 @@ passport.use(
           return newUser;
         };
 
-        const { username } = req.body;
-        const foundUser = await db.User.findOne({ email: email });
-        if (foundUser) {
-          done(null, false, { emailExistsError: "Email already exists" });
+        const foundEmail = await db.User.findOne({ email: email });
+        const foundUsername = await db.User.findOne({ username: username });
+        if (foundEmail || foundUsername) {
+          done(null, false, {
+            emailExistsError: foundEmail ? "Email already exists" : "",
+            usernameExistsError: foundUsername ? "Username already exists" : "",
+          });
         } else {
           const usernameIsValid = checkUsername(username);
           const emailIsValid = checkEmail(email);
