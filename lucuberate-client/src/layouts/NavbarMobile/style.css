@@ -14,13 +14,16 @@
     z-index: 6;
   }
 
+  .mobile-navbar-item:not(.selected, [alt="Create Cube"], button) {
+    color: var(--text-color-light) !important;
+  }
+
   .mobile-navbar-item {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
     background-color: transparent;
     border-radius: 0;
-    color: var(--text-color-light);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
