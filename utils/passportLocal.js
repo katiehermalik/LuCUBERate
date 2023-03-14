@@ -39,7 +39,16 @@ passport.use(
             populatedUser.password
           );
           if (!isMatch) {
-            done(null, false, { matchError: "Incorrect password" });
+            if (populatedUser.googleId) {
+              done(null, false, {
+                googleMatchError:
+                  "Sorry, we couldn't sign you in. It looks like the email address you entered is already associated with the 'Sign in with Google' option, please try clicking that button to sign in. If you continue to experience issues, please contact our support team for assistance.",
+              });
+            } else {
+              done(null, false, {
+                matchError: "Incorrect password",
+              });
+            }
           } else {
             done(null, populatedUser);
           }
