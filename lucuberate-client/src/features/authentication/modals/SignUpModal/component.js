@@ -102,7 +102,7 @@ const SignUpModal = ({
       );
       setAppIsLoading(true);
       setCurrentUserInfo(userData);
-      setCurrentCubeId(userData.categories[2].cubes[0]);
+      setCurrentCubeId(userData.categories[1].cubes[0]);
       setShowSignUpModal(false);
       setShowGuide(true);
       setShowSidePanel(false);
@@ -117,7 +117,7 @@ const SignUpModal = ({
         passwordError: "",
       });
       setIsLoadingButton(false);
-      navigate(`/dashboard/cube/${userData.categories[2].cubes[0]}`);
+      navigate(`/dashboard/cube/${userData.categories[1].cubes[0]}`);
     }
   };
 
