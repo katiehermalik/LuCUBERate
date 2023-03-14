@@ -52,15 +52,21 @@ passport.use(
       if (!currentUser) {
         bcrypt.hash(profile.id, 10, async (err, hash) => {
           if (err) throw err;
-          const user = new db.User({
-            username: profile.displayName,
-            email: profile.emails[0].value,
-            password: hash,
-            googleId: profile.id,
-          });
-          const newUser = await user.save();
-          const completedUser = await addNewUserCategories(newUser);
-          done(null, completedUser);
+          try {
+            const user = new db.User({
+              username: profile.displayName,
+              email: profile.emails[0].value,
+              password: hash,
+              googleId: profile.id,
+            });
+            const newUser = await user.save();
+            const completedUser = await addNewUserCategories(newUser);
+            done(null, completedUser);
+          } catch (err) {
+            if (err.code === 11000) {
+              done(null, false);
+            }
+          }
         });
       } else {
         done(null, currentUser);
