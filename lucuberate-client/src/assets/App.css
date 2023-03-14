@@ -29,8 +29,8 @@
   --success-color: #5c993a;
   --text-color-dark: var(--primary-bg-color);
   --text-color-light: #f1f4f9;
-  --warning-btn-color: #932618;
-  --warning-btn-color-hover: #801f12;
+  --warning-btn-color: #e35447;
+  --warning-btn-color-hover: #b94439;
 }
 
 .dark {
@@ -248,6 +248,50 @@ button:not(:disabled) {
   flex-direction: column;
 }
 
+.error-message {
+  background-color: #faccc7;
+  border: 2px solid #e35447;
+  border-radius: 5px;
+  color: #282c34;
+  font-size: 12px;
+  padding: 2px 5px;
+  margin: 5px 2px;
+}
+
+/* ----------- Message Banner */
+
+.message-banner {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #faccc7;
+  border: 2px solid #e35447;
+  color: #282c34;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 14px;
+  padding: 10px;
+  position: relative;
+}
+
+.shield-icon {
+  color: #e35447;
+  margin: 0 10px;
+}
+
+.message-banner .close {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  color: #e35447;
+  opacity: 1;
+  padding: 0 10px;
+  position: relative;
+}
+
 /* ----------- Cube New Edit Delete Btns */
 
 .btn {
@@ -277,7 +321,7 @@ button:not(:disabled) {
 
 .btn-danger {
   background-color: var(--warning-btn-color);
-  color: var(--text-color-light);
+  color: var(--text-color-dark);
 }
 .btn-danger:hover {
   background-color: var(--warning-btn-color-hover);
@@ -763,6 +807,32 @@ input[type="file"] {
   color: var(--text-color-dark);
 }
 
+.visual-aid-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+.new-visual-aid-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.new-visual-aid-group .visual-aid-file-name {
+  margin-right: 5px;
+}
+
 .visual-aid-preview {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -881,9 +951,18 @@ input[type="radio"]:checked + label {
 }
 
 .resource-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   margin: 0;
+  max-width: 100%;
+  padding: 0;
 }
 
 .add-remove-resource {
@@ -894,13 +973,9 @@ input[type="radio"]:checked + label {
   margin-left: 3px;
 }
 
-.form-group.resource-group {
-  flex: 0 0 100%;
-  max-width: 100%;
-  padding: 0;
-}
-
 .resource-group .form-group.columns-2 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 48%;
   flex: 0 0 48%;
   max-width: 48%;
   padding: 0;
@@ -910,6 +985,10 @@ input[type="radio"]:checked + label {
 .resource-group .form-group:nth-child(1) {
   margin-bottom: 1.2rem;
   padding: 0;
+}
+
+.resource-group button {
+  margin-right: 5px;
 }
 
 /* ================================ */
@@ -942,6 +1021,8 @@ input[type="radio"]:checked + label {
   }
 
   .resource-group .form-group.columns-1 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%;
   }
@@ -959,6 +1040,8 @@ input[type="radio"]:checked + label {
   }
 
   .desktop-hidden {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
     display: flex !important;
   }
 
@@ -1068,7 +1151,12 @@ input[type="radio"]:checked + label {
     padding: 0;
   }
   .signup-login .modal-footer small {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
   }
   .signup-login .modal-footer small a {
