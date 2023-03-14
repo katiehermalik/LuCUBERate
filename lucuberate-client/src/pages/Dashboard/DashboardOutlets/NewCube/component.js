@@ -157,10 +157,6 @@ const NewCube = () => {
     }
   };
 
-  const errorStyle = {
-    color: "red",
-    fontSize: "12px",
-  };
   const required = {
     color: "#ffc107",
     fontSize: "24px",
@@ -195,9 +191,9 @@ const NewCube = () => {
               categoryIsNew ? "columns-2" : "columns-1"
             }`}>
             <label htmlFor="category-dropdown">
-              Category&nbsp;<span style={required}>*</span>
+              Category&nbsp;<span style={required}>*&nbsp;</span>
               {categoryError && !categoryIsNew && !currentCategory && (
-                <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
+                <span className="error-message">{`${categoryError}`}</span>
               )}
             </label>
             <div className="select-group">
@@ -230,9 +226,9 @@ const NewCube = () => {
           {categoryIsNew && (
             <div className="form-group columns-2">
               <label htmlFor="inputCategory">
-                New Category&nbsp;<span style={required}>*</span>
+                New Category&nbsp;<span style={required}>*&nbsp;</span>
                 {categoryError && !newCategory && (
-                  <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
+                  <span className="error-message">{`${categoryError}`}</span>
                 )}
               </label>
               <input
@@ -259,9 +255,9 @@ const NewCube = () => {
         <div className="form-row">
           <div className="form-group columns-2">
             <label htmlFor="inputQuestion">
-              Question&nbsp;<span style={required}>*</span>
+              Question&nbsp;<span style={required}>*&nbsp;</span>
               {questionError && !question && (
-                <span style={errorStyle}>&nbsp;{`${questionError}`}</span>
+                <span className="error-message">{`${questionError}`}</span>
               )}
             </label>
             <textarea
@@ -285,9 +281,9 @@ const NewCube = () => {
           </div>
           <div className="form-group columns-2">
             <label htmlFor="inputAnswer">
-              Answer&nbsp;<span style={required}>*</span>
+              Answer&nbsp;<span style={required}>*&nbsp;</span>
               {answerError && !answer && (
-                <span style={errorStyle}>&nbsp;{`${answerError}`}</span>
+                <span className="error-message">{`${answerError}`}</span>
               )}
             </label>
             <textarea
@@ -388,7 +384,7 @@ const NewCube = () => {
                   <label htmlFor="inputAlias">
                     Link 1 Text&nbsp;&nbsp;
                     <span
-                      className="info-icon"
+                      className="mobile-hidden info-icon"
                       title="Use a descriptive phrase that provides context for the material you are linking to.">
                       <InfoIcon size={16} />
                     </span>
@@ -447,7 +443,6 @@ const NewCube = () => {
                         <PlusCircleIcon size={16} />
                         &nbsp;&nbsp;add another link
                       </button>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
                       <button
                         onClick={() => {
                           setLinkTwo(prevState => ({
@@ -468,7 +463,7 @@ const NewCube = () => {
                     <label htmlFor="inputAlias">
                       Link 2 Text&nbsp;&nbsp;
                       <span
-                        className="info-icon"
+                        className="mobile-hidden info-icon"
                         title="Use a descriptive phrase that provides context for the material you are linking to.">
                         <InfoIcon size={16} />
                       </span>
@@ -538,7 +533,7 @@ const NewCube = () => {
                     <label htmlFor="inputAlias">
                       Link 3 Text&nbsp;&nbsp;
                       <span
-                        className="info-icon"
+                        className="mobile-hidden info-icon"
                         title="Use a descriptive phrase that provides context for the material you are linking to.">
                         <InfoIcon size={16} />
                       </span>
@@ -584,7 +579,7 @@ const NewCube = () => {
               Upload
             </label>
             {visual_aid && visualAidError && (
-              <div style={errorStyle}>{`${visualAidError}`}</div>
+              <div className="error-message">{`${visualAidError}`}</div>
             )}
             {visual_aid ? (
               <>

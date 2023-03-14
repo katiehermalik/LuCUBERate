@@ -129,11 +129,6 @@ const SignUpModal = ({
     }
   };
 
-  const errorStyle = {
-    color: "red",
-    fontSize: "12px",
-  };
-
   return (
     <>
       {showSignUpModal && (
@@ -159,6 +154,7 @@ const SignUpModal = ({
               </div>
               <div className="oauth-container">
                 <a
+                  onClick={() => sessionStorage.clear()}
                   className="oauth-btn google-btn"
                   alt="Sign in with Google"
                   href={googleLoginUrl}>
@@ -191,12 +187,14 @@ const SignUpModal = ({
                       required
                     />
                     {newUserInfo.usernameExistsError && (
-                      <p style={errorStyle}>
+                      <p className="error-message">
                         {newUserInfo.usernameExistsError}
                       </p>
                     )}
                     {newUserInfo.usernameError && (
-                      <p style={errorStyle}>{newUserInfo.usernameError}</p>
+                      <p className="error-message">
+                        {newUserInfo.usernameError}
+                      </p>
                     )}
                     <small className="input-criteria">
                       *Username must be 3-20 alphanumeric characters
@@ -215,15 +213,17 @@ const SignUpModal = ({
                       name="email"
                       id="signup-email"
                       className="form-control"
-                      value={newUserInfo.email}
+                      value={newUserInfo.email.toLowerCase()}
                       onChange={handleChange}
                       required
                     />
                     {newUserInfo.emailExistsError && (
-                      <p style={errorStyle}>{newUserInfo.emailExistsError}</p>
+                      <p className="error-message">
+                        {newUserInfo.emailExistsError}
+                      </p>
                     )}
                     {newUserInfo.emailValidationError && (
-                      <p style={errorStyle}>
+                      <p className="error-message">
                         {newUserInfo.emailValidationError}
                       </p>
                     )}
@@ -272,7 +272,9 @@ const SignUpModal = ({
                       )}
                     </div>
                     {newUserInfo.passwordError && (
-                      <p style={errorStyle}>{newUserInfo.passwordError}</p>
+                      <p className="error-message">
+                        {newUserInfo.passwordError}
+                      </p>
                     )}
 
                     <small className="input-criteria password-criteria">

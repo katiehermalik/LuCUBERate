@@ -12,7 +12,7 @@ const userData = async (req, res) => {
     });
   } catch (err) {
     console.log("Unable to populate user in users.userData:", err);
-    res.json({ Error: "Unable to populate user" });
+    res.json({ session: req.session, Error: "Unable to populate user" });
   }
 };
 

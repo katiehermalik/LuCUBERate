@@ -103,29 +103,19 @@ const EditCube = () => {
       setLinkAliasThreeCount(link_3.alias.length);
       const linksArray = [link_1, link_2, link_3];
       const actualLinks = linksArray.filter(link => link.url !== "");
-      setLinksAmount(actualLinks.length);
-
-      const currentCubeCatInfo = currentUserInfo?.categories.find(category =>
-        category.cubes.includes(currentCubeId)
-      );
-      setCurrentCubeCategory(currentCubeCatInfo);
-      currentCategory === null
-        ? setCategoryIsNew(true)
-        : setCategoryIsNew(false);
+      setLinksAmount(() => (actualLinks.length === 0 ? 1 : actualLinks.length));
     } else {
       navigate(`/dashboard/cube/${cubeId}`);
     }
-  }, [
-    cubeId,
-    currentCategory,
-    new_visual_aid,
-    categoryIsNew,
-    currentUserInfo,
-    currentCubeCategory,
-    currentCubeId,
-    navigate,
-    cubeData,
-  ]);
+  }, [cubeId, navigate, cubeData]);
+
+  useEffect(() => {
+    const currentCubeCatInfo = currentUserInfo?.categories.find(category =>
+      category.cubes.includes(currentCubeId)
+    );
+    setCurrentCubeCategory(currentCubeCatInfo);
+    currentCategory === null ? setCategoryIsNew(true) : setCategoryIsNew(false);
+  }, [currentCategory, currentCubeId, currentUserInfo]);
 
   const collectCubeFormData = categoryId => {
     const links = [link_1, link_2, link_3].filter(link => link.url !== "");
@@ -249,11 +239,6 @@ const EditCube = () => {
     }
   };
 
-  const errorStyle = {
-    color: "red",
-    fontSize: "12px",
-  };
-
   const required = {
     color: "#ffc107",
     fontSize: "24px",
@@ -288,9 +273,9 @@ const EditCube = () => {
               categoryIsNew ? "columns-2" : "columns-1"
             }`}>
             <label htmlFor="category-dropdown">
-              Category&nbsp;<span style={required}>*</span>
+              Category&nbsp;<span style={required}>*&nbsp;</span>
               {categoryError && !categoryIsNew && !currentCategory && (
-                <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
+                <span className="error-message">{`${categoryError}`}</span>
               )}
             </label>
             <div className="select-group">
@@ -324,9 +309,9 @@ const EditCube = () => {
           {categoryIsNew && (
             <div className="form-group columns-2">
               <label htmlFor="inputCategory">
-                New Category&nbsp;<span style={required}>*</span>
+                New Category&nbsp;<span style={required}>*&nbsp;</span>
                 {categoryError && !newCategory && (
-                  <span style={errorStyle}>&nbsp;{`${categoryError}`}</span>
+                  <span className="error-message">{`${categoryError}`}</span>
                 )}
               </label>
               <input
@@ -353,9 +338,9 @@ const EditCube = () => {
         <div className="form-row">
           <div className="form-group columns-2">
             <label htmlFor="inputQuestion">
-              Question&nbsp;<span style={required}>*</span>
+              Question&nbsp;<span style={required}>*&nbsp;</span>
               {questionError && !question && (
-                <span style={errorStyle}>&nbsp;{`${questionError}`}</span>
+                <span className="error-message">{`${questionError}`}</span>
               )}
             </label>
             <textarea
@@ -379,9 +364,9 @@ const EditCube = () => {
           </div>
           <div className="form-group columns-2">
             <label htmlFor="inputAnswer">
-              Answer&nbsp;<span style={required}>*</span>
+              Answer&nbsp;<span style={required}>*&nbsp;</span>
               {answerError && !answer && (
-                <span style={errorStyle}>&nbsp;{`${answerError}`}</span>
+                <span className="error-message">{`${answerError}`}</span>
               )}
             </label>
             <textarea
@@ -483,7 +468,7 @@ const EditCube = () => {
                   <label htmlFor="inputAlias">
                     Link 1 Text&nbsp;&nbsp;
                     <span
-                      className="info-icon"
+                      className="mobile-hidden info-icon"
                       title="Use a descriptive phrase that provides context for the material you are linking to.">
                       <InfoIcon size={16} />
                     </span>
@@ -542,7 +527,6 @@ const EditCube = () => {
                         <PlusCircleIcon size={16} />
                         &nbsp;&nbsp;add another link
                       </button>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
                       <button
                         onClick={() => {
                           setLinkTwo(prevState => ({
@@ -563,7 +547,7 @@ const EditCube = () => {
                     <label htmlFor="inputAlias">
                       Link 2 Text&nbsp;&nbsp;
                       <span
-                        className="info-icon"
+                        className="mobile-hidden info-icon"
                         title="Use a descriptive phrase that provides context for the material you are linking to.">
                         <InfoIcon size={16} />
                       </span>
@@ -633,7 +617,7 @@ const EditCube = () => {
                     <label htmlFor="inputAlias">
                       Link 3 Text&nbsp;&nbsp;
                       <span
-                        className="info-icon"
+                        className="mobile-hidden info-icon"
                         title="Use a descriptive phrase that provides context for the material you are linking to.">
                         <InfoIcon size={16} />
                       </span>
@@ -665,7 +649,7 @@ const EditCube = () => {
               </div>
             )}
           </div>
-          <div className="form-group columns-2">
+          <div className="form-group columns-2 visual-aid-group">
             <div htmlFor="inputVisual">Visual Aid</div>
             <input
               ref={visualAidInputRef}
@@ -679,10 +663,10 @@ const EditCube = () => {
               {visual_aid ? "Upload New" : "Upload"}
             </label>
             {new_visual_aid && visualAidError && (
-              <div style={errorStyle}>{`${visualAidError}`}</div>
+              <div className="error-message">{`${visualAidError}`}</div>
             )}
             {new_visual_aid ? (
-              <>
+              <div className="new-visual-aid-group">
                 {new_visual_aid.name.length > 15 ? (
                   <span className="visual-aid-file-name">
                     {new_visual_aid.name.slice(0, 6)}&hellip;
@@ -701,7 +685,7 @@ const EditCube = () => {
                   aria-label="Delete Visual Aid">
                   <XCircleFillIcon size={16} />
                 </button>
-              </>
+              </div>
             ) : visual_aid ? (
               <div className="visual-aid-preview-container">
                 <img
@@ -719,7 +703,6 @@ const EditCube = () => {
                 </button>
               </div>
             ) : null}
-            {/* TODO - compress visual aid size */}
           </div>
         </div>
         <div className="form-buttons form-row">

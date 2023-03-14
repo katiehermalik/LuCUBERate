@@ -36,6 +36,7 @@ const LoginModal = ({
     password: "",
     userError: "",
     matchError: "",
+    googleMatchError: "",
   });
 
   const closeModal = e => {
@@ -45,6 +46,7 @@ const LoginModal = ({
       password: "",
       userError: "",
       matchError: "",
+      googleMatchError: "",
     });
     setShowLoginModal(false);
     e.target.name === "SignUp" && setShowSignUpModal(true);
@@ -62,11 +64,13 @@ const LoginModal = ({
     setIsLoadingButton(true);
     userInput.isLoggingIn = true;
     const userInfo = await AuthAPI.login(userInput);
-    const { userData, isAuth, userError, matchError } = userInfo;
+    const { userData, isAuth, userError, matchError, googleMatchError } =
+      userInfo;
     setUserInput(prevState => ({
       ...prevState,
       userError: userError ? userError : "",
       matchError: matchError ? matchError : "",
+      googleMatchError: googleMatchError ? googleMatchError : "",
     }));
     if (!userError && !matchError && isAuth) {
       sessionStorage.setItem(
@@ -84,6 +88,7 @@ const LoginModal = ({
         password: "",
         userError: "",
         matchError: "",
+        googleMatchError: "",
       });
       setIsLoadingButton(false);
       if (userData.showGuideModal) {
@@ -106,11 +111,6 @@ const LoginModal = ({
     } else {
       setCapsLock(false);
     }
-  };
-
-  const errorStyle = {
-    color: "red",
-    fontSize: "12px",
   };
 
   return (
@@ -138,6 +138,7 @@ const LoginModal = ({
               </div>
               <div className="oauth-container">
                 <a
+                  onClick={() => sessionStorage.clear()}
                   className="oauth-btn google-btn"
                   alt="Sign in with Google"
                   href={googleLoginUrl}>
@@ -164,12 +165,12 @@ const LoginModal = ({
                       name="email"
                       id="login-email"
                       className="form-control"
-                      value={userInput.email}
+                      value={userInput.email.toLowerCase()}
                       onChange={handleChange}
                       required
                     />
                     {userInput.userError && (
-                      <p style={errorStyle}>{userInput.userError}</p>
+                      <p className="error-message">{userInput.userError}</p>
                     )}
                   </div>
                   <div className="form-group">
@@ -215,7 +216,21 @@ const LoginModal = ({
                       )}
                     </div>
                     {userInput.matchError && (
-                      <p style={errorStyle}>{userInput.matchError}</p>
+                      <p className="error-message">{userInput.matchError}</p>
+                    )}
+                    {userInput.googleMatchError && (
+                      <>
+                        <p className="error-message">
+                          {userInput.googleMatchError}{" "}
+                          <a
+                            style={{ fontSize: "12px", color: "#282c34" }}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href="mailto:support@lucuberate.com">
+                            <b>support@lucuberate.com</b>
+                          </a>
+                        </p>
+                      </>
                     )}
                   </div>
                   <div className="btn-container">
