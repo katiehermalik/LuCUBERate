@@ -222,8 +222,13 @@ ul.face-content {
 }
 
 .Visual .face-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
   overflow: hidden;
   padding: 0;
+  width: 100%;
 }
 
 .blur {
@@ -239,8 +244,9 @@ ul.face-content {
 
 .visual-aid {
   cursor: pointer;
-  max-height: 30vmin;
-  max-width: 40vmin;
+  -o-object-fit: contain;
+  object-fit: contain;
+  width: inherit;
 }
 
 /* ----------------------------------- Cube Face Radio Btns */
