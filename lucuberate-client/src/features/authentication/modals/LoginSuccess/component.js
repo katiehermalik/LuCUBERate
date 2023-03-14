@@ -35,7 +35,7 @@ const LoginSuccess = () => {
         setShowGuide(true);
         setShowSidePanel(false);
         if (userData.newUser) {
-          navigate(`/dashboard/cube/${userData.categories[2].cubes[0]}`);
+          navigate(`/dashboard/cube/${userData.categories[1].cubes[0]}`);
         } else if (userData.cubes.length !== 0) {
           navigate(`/dashboard/cube/${userData.categories[0].cubes[0]}`);
         } else {
