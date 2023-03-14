@@ -213,7 +213,7 @@ const SignUpModal = ({
                       name="email"
                       id="signup-email"
                       className="form-control"
-                      value={newUserInfo.email}
+                      value={newUserInfo.email.toLowerCase()}
                       onChange={handleChange}
                       required
                     />

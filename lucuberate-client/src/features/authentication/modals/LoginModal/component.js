@@ -165,7 +165,7 @@ const LoginModal = ({
                       name="email"
                       id="login-email"
                       className="form-control"
-                      value={userInput.email}
+                      value={userInput.email.toLowerCase()}
                       onChange={handleChange}
                       required
                     />

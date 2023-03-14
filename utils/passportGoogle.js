@@ -55,7 +55,7 @@ passport.use(
           try {
             const user = new db.User({
               username: profile.displayName,
-              email: profile.emails[0].value,
+              email: profile.emails[0].value.toLowerCase(),
               password: hash,
               googleId: profile.id,
             });
