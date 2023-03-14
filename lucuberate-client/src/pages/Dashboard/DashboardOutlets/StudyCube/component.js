@@ -164,42 +164,44 @@ const StudyCube = ({ cubeIsLoading }) => {
                         {(cube.link_1.url ||
                           cube.link_2.url ||
                           cube.link_3.url) && (
-                          <ul className="face-content">
-                            {cube.link_1.url && (
-                              <li>
-                                <a
-                                  rel="noreferrer"
-                                  target="_blank"
-                                  href={cube.link_1.url}>
-                                  {cube.link_1.alias}
-                                </a>
-                                <br />
-                                <br />
-                              </li>
-                            )}
-                            {cube.link_2.url && (
-                              <li>
-                                <a
-                                  rel="noreferrer"
-                                  target="_blank"
-                                  href={cube.link_2.url}>
-                                  {cube.link_2.alias}
-                                </a>
-                                <br />
-                                <br />
-                              </li>
-                            )}
-                            {cube.link_3.url && (
-                              <li>
-                                <a
-                                  rel="noreferrer"
-                                  target="_blank"
-                                  href={cube.link_3.url}>
-                                  {cube.link_3.alias}
-                                </a>
-                              </li>
-                            )}
-                          </ul>
+                          <div className="face-content">
+                            <ul>
+                              {cube.link_1.url && (
+                                <li>
+                                  <a
+                                    rel="noreferrer"
+                                    target="_blank"
+                                    href={cube.link_1.url}>
+                                    {cube.link_1.alias}
+                                  </a>
+                                  <br />
+                                  <br />
+                                </li>
+                              )}
+                              {cube.link_2.url && (
+                                <li>
+                                  <a
+                                    rel="noreferrer"
+                                    target="_blank"
+                                    href={cube.link_2.url}>
+                                    {cube.link_2.alias}
+                                  </a>
+                                  <br />
+                                  <br />
+                                </li>
+                              )}
+                              {cube.link_3.url && (
+                                <li>
+                                  <a
+                                    rel="noreferrer"
+                                    target="_blank"
+                                    href={cube.link_3.url}>
+                                    {cube.link_3.alias}
+                                  </a>
+                                </li>
+                              )}
+                            </ul>
+                          </div>
                         )}
                       </div>
                     </div>
