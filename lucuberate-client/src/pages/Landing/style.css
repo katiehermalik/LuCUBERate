@@ -465,7 +465,8 @@
   }
 
   .section-content h3:not(.bounce h3) {
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold;
     margin-bottom: 20px;
     max-width: 300px;
   }
@@ -483,7 +484,7 @@
   }
 
   .learn-more .section-content {
-    max-width: 200px;
+    max-width: 240px;
   }
 
   .learn-more h3 {
@@ -502,7 +503,7 @@
   }
 
   .brand-name {
-    font-size: 32px;
+    font-size: 36px;
   }
 
   .tagline {
@@ -561,6 +562,10 @@
 }
 
 @media screen and (max-width: 280px) {
+  .brand-name {
+    font-size: 32px;
+  }
+
   .tagline {
     font-size: 16px;
     line-height: 24px;
@@ -572,11 +577,14 @@
   }
 
   .fun-fact {
-    margin: 0;
     padding: 10px;
   }
 
   .cube-scene .fun-fact {
     width: 220px;
+  }
+
+  .section-content h3:not(.bounce h3) {
+    font-weight: normal;
   }
 }
