@@ -63,9 +63,7 @@ passport.use(
             const completedUser = await addNewUserCategories(newUser);
             done(null, completedUser);
           } catch (err) {
-            if (err.code === 11000) {
-              done(null, false);
-            }
+            done(null, false);
           }
         });
       } else {
