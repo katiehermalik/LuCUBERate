@@ -26,6 +26,7 @@
   --secondary-btn-color: #bdbfc0;
   --secondary-btn-color-hover: var(--form-input-background-color);
   --stars-bg-img: url("./images/stars.png");
+  --stars-cube-bg-img: url("./images/reduced_motion_cube.png");
   --success-color: #5c993a;
   --text-color-dark: var(--primary-bg-color);
   --text-color-light: #f1f4f9;
@@ -1179,5 +1180,21 @@ input[type="radio"]:checked + label {
     opacity: 1 !important;
     -webkit-filter: none !important;
     filter: none !important;
+  }
+  .cube-scene {
+    background: var(--stars-cube-bg-img) !important;
+    background-position: 50% 60px !important;
+    background-repeat: no-repeat !important;
+    background-size: auto 100% !important;
+  }
+  .landing-canvas {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.7),
+      rgba(255, 0, 0, 0)
+    );
+  }
+  .landing-canvas div {
+    display: none;
   }
 }
