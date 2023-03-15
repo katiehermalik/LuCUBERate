@@ -42,13 +42,13 @@
       "question": "What is the Heisenberg Uncertainty Principle?",
       "answer": "A principle created by German physicist Werner Heisenberg in 1927 that states position and momentum of an electron cannot be determined simultaneously with absolute accuracy.",
       "hint": "Everything in the universe behaves like both a particle and a wave at the same time.",
-      "visual_aid": "seedData_uncertainty.gif",
+      "visual_aid": "seedData_heisenUncertain.jpeg",
       "link_1": {
         "url": "https://www.youtube.com/watch?v=TQKELOE9eY4",
         "alias": "TED-Ed video on this principle"
       },
       "link_2": {
-        "url": "https://chem.libretexts.org/Courses/Pacific_Union_College/Quantum_Chemistry/01%3A_The_Dawn_of_the_Quantum_Theory/1.09%3A_The_Heisenberg_Uncertainty_Principle",
+        "url": "https://www.zmescience.com/science/physics/heisenberg-uncertainty-principle-095235/",
         "alias": "Source of the Visual Aid"
       },
       "link_3": { "url": "", "alias": "" },
