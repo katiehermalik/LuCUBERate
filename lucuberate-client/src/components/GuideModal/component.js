@@ -144,9 +144,8 @@ const GuideModal = () => {
         {tourStep === 3 && (
           <>
             <p>
-              If you'd rather not dive into Quantum Physics right now &#40;or
-              any of these subjects&#41;, just delete the category and all the
-              cubes will go with it!
+              If you'd rather not dive into these subjects right now, just
+              delete the category and all the cubes will go with it!
             </p>
             <p>
               {`Click on the '${
