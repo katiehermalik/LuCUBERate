@@ -34,11 +34,9 @@ const GuideModal = () => {
         if (!mediaQuery.matches) {
           prevState === 1 && setShowSidePanel(true);
         }
-        if (prevState === 2 && !newUser) {
-          return (prevState += 2);
-        } else {
-          return (prevState += 1);
-        }
+        return prevState === 2 && !newUser
+          ? (prevState += 2)
+          : (prevState += 1);
       });
     if (tourStep === 4 && guideDecision.current?.checked) {
       const updatedUser = await UserAPI.update({
