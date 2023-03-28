@@ -1,5 +1,6 @@
 .cube-select-group > ul {
   overflow: hidden;
+  scroll-padding-top: 54px;
 }
 .cube-select-group > ul:hover {
   overflow: auto;
