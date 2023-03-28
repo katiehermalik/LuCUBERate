@@ -11,7 +11,7 @@ function Dashboard() {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 720px)");
-    if (mediaQuery.matches && showGuide === false) {
+    if (mediaQuery.matches && !showGuide) {
       const closeUserMenu = e => {
         if (
           pagesRef.current &&

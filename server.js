@@ -9,7 +9,9 @@ const MongoStore = require("connect-mongo");
 const path = require("path");
 require("dotenv").config();
 const { origin } = require("./config/multi-environment");
+
 const PORT = process.env.PORT || 4000;
+const ONE_YEAR = 31556926000;
 const app = express();
 
 // -------------------------------------- Redirect to secure https
@@ -70,7 +72,9 @@ app.use("/api/v1/oauth", routes.oauth);
 // -------------------------- Serve static assets (production vs development)
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("lucuberate-client/build"));
+  app.use(express.static("lucuberate-client/build"), {
+    maxage: ONE_YEAR,
+  });
   app.get("*", (req, res) => {
     res.sendFile(
       path.resolve(__dirname, "lucuberate-client", "build", "index.html")
@@ -79,7 +83,10 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(
     express.static(
-      path.join(__dirname, "lucuberate-client", "src", "assets", "images")
+      path.join(__dirname, "lucuberate-client", "src", "assets", "images"),
+      {
+        maxage: ONE_YEAR,
+      }
     )
   );
 }

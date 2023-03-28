@@ -9,7 +9,7 @@ import {
 const PlaceholderCube = ({
   placeholderRendered,
   setPlaceholderRendered,
-  currentCubeCategory,
+  currCubeCat,
   currentPath,
 }) => {
   const { currentCategory } = useContext(CategoryContext);
@@ -24,7 +24,7 @@ const PlaceholderCube = ({
     if (currentCategory) {
       if (
         currentPath[0] === "new" ||
-        (currentPath[0] === "edit" && currentCubeCategory !== currentCategory)
+        (currentPath[0] === "edit" && currCubeCat !== currentCategory)
       ) {
         setPlaceholderRendered(true);
         setCurrentCategoryData(
@@ -42,7 +42,7 @@ const PlaceholderCube = ({
     categories,
     currentCubeId,
     currentPath,
-    currentCubeCategory,
+    currCubeCat,
   ]);
 
   return (
