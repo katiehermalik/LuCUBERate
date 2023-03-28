@@ -87,7 +87,7 @@ const ContextProvider = ({ children }) => {
     setUserInfoIsUpdating(false);
     setDeleteModalInfo(prevState => {
       if (
-        prevState.showDeleteModal === true &&
+        prevState.showDeleteModal &&
         (prevState.type === "cube" || prevState.type === "category")
       ) {
         navigate("/dashboard/instructions");
