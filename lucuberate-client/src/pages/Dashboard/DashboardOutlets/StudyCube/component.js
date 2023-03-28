@@ -24,7 +24,7 @@ const StudyCube = ({ cubeIsLoading }) => {
     document.title = "Lucuberate | Study Cube";
     showGuide && !completedGuide && setShowGuide(true);
     setSide("Question");
-    if (sideRefs.current.length !== 0) {
+    if (sideRefs.current.length) {
       sideRefs.current.forEach((ref, i) => {
         if (i === 0) ref.checked = true;
         else ref.checked = false;

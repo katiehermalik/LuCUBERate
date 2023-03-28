@@ -94,7 +94,7 @@ const LoginModal = ({
       if (userData.showGuideModal) {
         setShowGuide(true);
         setShowSidePanel(false);
-        if (userData.cubes.length !== 0) {
+        if (userData.cubes.length) {
           navigate(`/dashboard/cube/${userData.categories[0].cubes[0]}`);
         } else {
           navigate("/dashboard/instructions");

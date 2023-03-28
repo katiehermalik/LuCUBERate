@@ -36,7 +36,7 @@ const LoginSuccess = () => {
         setShowSidePanel(false);
         if (userData.newUser) {
           navigate(`/dashboard/cube/${userData.categories[1].cubes[0]}`);
-        } else if (userData.cubes.length !== 0) {
+        } else if (userData.cubes.length) {
           navigate(`/dashboard/cube/${userData.categories[0].cubes[0]}`);
         } else {
           navigate("/dashboard/instructions");
