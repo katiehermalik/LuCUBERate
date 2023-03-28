@@ -61,7 +61,7 @@ const EditCube = () => {
   const [newCategoryCount, setNewCategoryCount] = useState(0);
   const [categoryIsNew, setCategoryIsNew] = useState(false);
   const [isLoadingButton, setIsLoadingButton] = useState(false);
-  const [currentCubeCategory, setCurrentCubeCategory] = useState({});
+  const [currCubeCat, setCurrCubeCat] = useState({});
 
   const updateCube = async formData => {
     await CubeAPI.update(formData, cubeId);
@@ -113,7 +113,7 @@ const EditCube = () => {
     const currentCubeCatInfo = currentUserInfo?.categories.find(category =>
       category.cubes.includes(currentCubeId)
     );
-    setCurrentCubeCategory(currentCubeCatInfo);
+    setCurrCubeCat(currentCubeCatInfo);
     currentCategory === null ? setCategoryIsNew(true) : setCategoryIsNew(false);
   }, [currentCategory, currentCubeId, currentUserInfo]);
 
@@ -196,8 +196,7 @@ const EditCube = () => {
       if (categoryIsNew) {
         if (newCategory) {
           setIsLoadingButton(true);
-          currentCategory !== currentCubeCategory._id &&
-          currentCubeCategory.cubes.length === 1
+          currentCategory !== currCubeCat._id && currCubeCat.cubes.length === 1
             ? setDeleteModalInfo({
                 showDeleteModal: true,
                 type: "warning",
@@ -205,7 +204,7 @@ const EditCube = () => {
                 newCategory: newCategory || "",
                 categoryIsNew: categoryIsNew || false,
                 currentCategory: currentCategory || "",
-                categoryTitle: currentCubeCategory.title || "",
+                categoryTitle: currCubeCat.title || "",
                 setIsLoadingButton: setIsLoadingButton || null,
                 createNewCategory: createNewCategory || null,
                 collectCubeFormData: collectCubeFormData || null,
@@ -216,8 +215,7 @@ const EditCube = () => {
         }
       } else {
         setIsLoadingButton(true);
-        currentCategory !== currentCubeCategory._id &&
-        currentCubeCategory.cubes.length === 1
+        currentCategory !== currCubeCat._id && currCubeCat.cubes.length === 1
           ? setDeleteModalInfo({
               showDeleteModal: true,
               type: "warning",
@@ -225,7 +223,7 @@ const EditCube = () => {
               newCategory: newCategory || "",
               categoryIsNew: categoryIsNew || false,
               currentCategory: currentCategory || "",
-              categoryTitle: currentCubeCategory.title || "",
+              categoryTitle: currCubeCat.title || "",
               setIsLoadingButton: setIsLoadingButton || null,
               createNewCategory: createNewCategory || null,
               collectCubeFormData: collectCubeFormData || null,
@@ -712,7 +710,7 @@ const EditCube = () => {
               <button
                 type="submit"
                 className="btn form-btn btn-secondary"
-                onClick={() => setCurrentCategory(currentCubeCategory._id)}>
+                onClick={() => setCurrentCategory(currCubeCat._id)}>
                 Cancel
               </button>
             </Link>

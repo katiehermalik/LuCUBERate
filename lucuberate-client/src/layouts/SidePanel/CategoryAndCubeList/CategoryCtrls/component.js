@@ -13,8 +13,8 @@ import "./style.css";
 
 const CategoryCtrls = ({
   setCategoryWasShuffled,
-  currentCubeCategory,
-  currentCategoryRef,
+  currCubeCat,
+  currCatRef,
   cubeRefsLength,
   cubeListLength,
   categoryTitle,
@@ -25,9 +25,9 @@ const CategoryCtrls = ({
   const { currentCubeId } = useContext(CubeContext);
 
   const changeCubeListOpacity = () => {
-    currentCategoryRef.nextElementSibling.style.opacity = "0";
+    currCatRef.nextElementSibling.style.opacity = "0";
     setTimeout(() => {
-      currentCategoryRef.nextElementSibling.style.opacity = "1";
+      currCatRef.nextElementSibling.style.opacity = "1";
     }, 1000);
   };
 
@@ -42,7 +42,7 @@ const CategoryCtrls = ({
               <QuestionsToggle />
               {currentCubeId &&
                 currentPath[0] === "cube" &&
-                currentCubeCategory === currentCategory &&
+                currCubeCat === currentCategory &&
                 cubeRefsLength > 1 && (
                   <CategoryShuffle
                     setCategoryWasShuffled={setCategoryWasShuffled}
